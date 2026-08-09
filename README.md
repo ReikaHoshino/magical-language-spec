@@ -4,11 +4,13 @@
 
 このリポジトリは **魔術言語仕様 v0.1〜v0.12.0**、current `reference/`、machine-readable contracts、reference implementation、versioned conformance suiteを追跡します。
 
+このrepositoryは2026-08-09に、公開用のclean historyへ移行しました。current workはこのpublic repositoryのIssueとPRで追跡します。本文に残るIssue/PR番号のうち、public tracker #1〜#4以外は原則としてpre-public archiveのhistorical identifierです。active release trainは [#1 audit](https://github.com/ReikaHoshino/magical-language-spec/issues/1) → [#2 RC](https://github.com/ReikaHoshino/magical-language-spec/issues/2) → [#3 final](https://github.com/ReikaHoshino/magical-language-spec/issues/3) → [#4 umbrella](https://github.com/ReikaHoshino/magical-language-spec/issues/4) です。
+
 ## 現行版
 
 **v0.12.0 — Conformance Guarantee**
 
-v0.12.0はv0.11 compatibility guaranteeを維持し、Issue #38のcomplete v1.0-required conformance surfaceをversioned stable case ID、reverse rule coverage、machine-readable requirement matrixへ固定するstabilization releaseです。
+v0.12.0はv0.11 compatibility guaranteeを維持し、pre-public archive Issue #38で定義されたcomplete v1.0-required conformance surfaceをversioned stable case ID、reverse rule coverage、machine-readable requirement matrixへ固定するstabilization releaseです。
 
 ```text
 Core-1.0
@@ -17,7 +19,7 @@ Adapter-lat-1.0
 Runtime-1.0
 ```
 
-各classはstable case ID、current normative rule owner、fixture/test evidence、required/deferred breadthを`conformance/manifest.json`で明示します。required compatibility domain/profile inventoryは`conformance/compatibility-coverage.json`、Issue #38の14 required conformance claimは`conformance/v1-required-surface.json`が所有します。
+各classはstable case ID、current normative rule owner、fixture/test evidence、required/deferred breadthを`conformance/manifest.json`で明示します。required compatibility domain/profile inventoryは`conformance/compatibility-coverage.json`、14 required conformance claimは`conformance/v1-required-surface.json`が所有します。
 
 ```text
 implementation test passing
@@ -59,7 +61,7 @@ control-plane COMMIT != all future consequences already occurred
 DEACTIVATE != rollback
 ```
 
-v0.12.0自体はv1.0 RCではありません。Issue #72 / PR #75のhistorical rehearsal evidenceは保持しますが、MagicalProgram/MGLS拡張後のcurrent release判断には再利用しません。root `TODO.md`に従い、全open implementation/roadmap Issueとrenewed no-waiver auditが完了するまでIssue #38のRC判断はSUSPENDEDです。
+v0.12.0自体はv1.0 RCではありません。pre-public archive Issue #72 / PR #75のhistorical rehearsal evidenceは保持しますが、MagicalProgram/MGLS拡張後のcurrent release判断には再利用しません。root `TODO.md`に従い、public Issue #1のrenewed no-waiver auditが完了するまでpublic Issue #2のRC判断はSUSPENDEDです。
 
 ## Reference implementation / conformanceを使う
 
@@ -207,6 +209,7 @@ v0.10 release時点のpackaging guaranteeは**clean checkout + declared dependen
 21. [`reference/terminology.md`](reference/terminology.md) — 術語索引。
 22. [`reference/user-workflow.md`](reference/user-workflow.md) — experimental MGLS / MagicalProgram / bundle user workflow。
 23. [`CHANGELOG.md`](CHANGELOG.md) — release差分。
+24. [`SECURITY.md`](SECURITY.md) — vulnerability reportingとpublic disclosure policy。
 
 > `spec/` はimmutable historical snapshot、`reference/` はcurrent live referenceです。
 
@@ -493,6 +496,7 @@ GitHub Actions:
 
 - `Repository regression`
 - `Conformance package smoke`
+- `MagicalProgram runtime smoke`
 
 package smokeはeditable install後、repository外cwdからinstalled conformance/evaluator entry pointを実行します。
 
@@ -540,3 +544,11 @@ DEACTIVATE != rollback
 ```
 
 詳細は`reference/`、作業計画と次resume pointは [`TODO.md`](TODO.md) を参照してください。
+
+## Security
+
+脆弱性やsensitive security informationはpublic Issueへ投稿せず、GitHubのprivate vulnerability reportingを使用してください。詳細は [`SECURITY.md`](SECURITY.md) を参照してください。
+
+## License
+
+このrepositoryには現時点で明示的なopen-source licenseを付与していません。sourceは閲覧可能ですが、licenseが明示されるまで著作権上の権利は留保されます。利用・複製・再配布の許諾を推定しないでください。

@@ -12,6 +12,8 @@
 - Codex / implementation-worker profile: `docs/executors/codex-worker.md`。
 - 会話・agent memory・local checkoutは正本にしない。
 
+2026-08-09以降のactive workはpublic `ReikaHoshino/magical-language-spec`で追跡する。clean public historyより前のIssue/PR番号はhistorical archive identifierであり、current task stateはroot `TODO.md`とpublic Issue/PRから復元する。
+
 この文書へlatest version、current task、current DONE / READY / BLOCKED setを固定値として複製しない。release stateは`TODO.md` / `CHANGELOG.md` / current GitHub Issue・PR evidenceを読む。
 
 ---

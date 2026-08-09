@@ -2,6 +2,8 @@
 
 ## Unreleased experimental
 
+- public repositoryをclean historyへ移行し、active release trackingをpublic Issue #1〜#4へ再構成。pre-public Issue/PR番号はhistorical identifierとして保持する。
+- public security policy、Dependabot configuration、full-SHA-pinned GitHub Actionsを追加。仕様意味論、version `0.12.0`、stable 4 classes / 65 cases、historical `spec/` snapshotは変更しない。
 - Issue #91 / PR #129: public `SpellInstanceBundle` executionをcomplete current `MagicalProgram-0` pathへcutoverし、専用executorをlegacy oracleへ隔離。
 - Issue #92 / PR #131: bounded human-authored `MGLS-0` source contract、closed EBNF、lowering/source-map/diagnostic ownership、2 positive / 15 negative examplesを追加。
 - Issue #93 / PR #133: strict deterministic MGLS parser/typechecker/compiler、independent target admission、semantic/source-map verification、editable/wheel/sdist compiler smokeを追加。
