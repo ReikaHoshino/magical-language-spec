@@ -335,6 +335,8 @@ Status: public-history/security/documentation reconciliation; **not a semantic c
 ```text
 public repository                  ReikaHoshino/magical-language-spec
 public migration baseline         46f366ddb221a1517c6545784b4614154423e1da
+public hardening merge             de9341aa288159067b2a6cf598d28ff850164815
+current audit baseline             b707ed3fa865f2b4aa190bc4975c37a391eb503b
 released identity                 v0.12.0 unchanged
 stable conformance                4 classes / 65 cases unchanged
 MKI data-plane operations         6 unchanged
@@ -361,7 +363,7 @@ Public-suitability assertions:
 
 Next RESUME POINT:
 
-1. merge this public-hardening reconciliation through the protected public branch;
-2. create a fresh audit branch from the resulting exact public `main`;
+1. use exact public `main` `b707ed3fa865f2b4aa190bc4975c37a391eb503b` as the renewed-audit baseline;
+2. create a fresh audit branch from that exact baseline;
 3. execute public Issue #1 with no waivers and publish an evidence-backed GO or NO-GO;
 4. do not begin public Issue #2 or change any version identity without #1 GO and explicit user confirmation.
