@@ -1,0 +1,206 @@
+name: Conformance package smoke
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  editable-install-smoke:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install reference package in editable mode
+        run: python -m pip install --editable .
+
+      - name: Validate schemas and manifest
+        run: python tests/validate_schemas.py
+
+      - name: Run non-blocked conformance classes
+        run: magical-language-conformance
+
+      - name: Smoke installed MagicalProgram evaluator outside repository cwd
+        shell: bash
+        run: |
+          tmpdir="$(mktemp -d)"
+          cd "$tmpdir"
+          python -m tools.package_program_eval_smoke > package-program-eval-smoke.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          payload = json.loads(Path("package-program-eval-smoke.json").read_text(encoding="utf-8"))
+          if payload.get("status") != "PASS":
+              raise SystemExit("editable installed MagicalProgram evaluator did not pass")
+          PY
+
+      - name: Smoke installed entry points outside repository cwd
+        shell: bash
+        run: |
+          tmpdir="$(mktemp -d)"
+          cp "$GITHUB_WORKSPACE/examples/spell-instances/generic/GENERIC-001.json" "$tmpdir/generic-instance.json"
+          cd "$tmpdir"
+          magical-language-conformance --class Core-1.0
+          magical-language-experimental-arcana > experimental-arcana.json
+          magical-language-artifact check generic-instance.json > artifact-check.json
+          magical-language-artifact run generic-instance.json > artifact-run.json
+          magical-language-evaluator \
+            --source "Calorem ab aqua ad aerem transfer." \
+            --lang lat \
+            --format json \
+            --level report \
+            > evaluator-report.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          payload = json.loads(Path("evaluator-report.json").read_text(encoding="utf-8"))
+          required = {"schema_version", "spec_version", "status", "input", "assessments"}
+          missing = required - set(payload)
+          if missing:
+              raise SystemExit(f"installed evaluator report is missing required fields: {sorted(missing)}")
+          arcana = json.loads(Path("experimental-arcana.json").read_text(encoding="utf-8"))
+          if arcana.get("status") != "PASS":
+              raise SystemExit("installed Experimental-Arcana-0 suite did not pass")
+          artifact_check = json.loads(Path("artifact-check.json").read_text(encoding="utf-8"))
+          artifact_run = json.loads(Path("artifact-run.json").read_text(encoding="utf-8"))
+          if artifact_check.get("status") != "Accepted" or artifact_run.get("status") != "PASS":
+              raise SystemExit("editable installed artifact ingress did not accept and run an external file")
+          PY
+
+  artifact-install-smoke:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        artifact: [wheel, sdist]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up build Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build wheel and sdist
+        run: |
+          python -m pip install build
+          python -m build --wheel --sdist
+
+      - name: Verify generated bundle cleanup
+        shell: bash
+        run: |
+          for path in schemas examples reference conformance grammar data tests planning spec \
+                      README.md CHANGELOG.md TODO.md PROJECT_HANDOFF.md requirements-dev.txt; do
+            if [ -e "magical_language_spec_resources/$path" ]; then
+              echo "build left generated resource copy in source tree: $path" >&2
+              exit 1
+            fi
+          done
+
+      - name: Create isolated install
+        shell: bash
+        run: |
+          python -m venv "$RUNNER_TEMP/reference-venv"
+          if [ "${{ matrix.artifact }}" = "wheel" ]; then
+            artifact=$(find "$GITHUB_WORKSPACE/dist" -maxdepth 1 -name '*.whl' -print -quit)
+          else
+            artifact=$(find "$GITHUB_WORKSPACE/dist" -maxdepth 1 -name '*.tar.gz' -print -quit)
+          fi
+          if [ -z "$artifact" ]; then
+            echo "built artifact not found" >&2
+            exit 1
+          fi
+          "$RUNNER_TEMP/reference-venv/bin/python" -m pip install "$artifact"
+
+      - name: Run installed evaluator runtime and conformance outside checkout
+        shell: bash
+        run: |
+          tmpdir="$(mktemp -d)"
+          cp "$GITHUB_WORKSPACE/examples/spell-instances/generic/GENERIC-001.json" "$tmpdir/generic-instance.json"
+          cd "$tmpdir"
+          export PATH="$RUNNER_TEMP/reference-venv/bin:$PATH"
+
+          magical-language-conformance --class Core-1.0
+          magical-language-conformance --class Runtime-1.0
+          python -m tools.package_spell_smoke > package-spell-smoke.json
+          python -m tools.package_program_eval_smoke > package-program-eval-smoke.json
+          magical-language-experimental-arcana > experimental-arcana.json
+          magical-language-artifact check generic-instance.json > artifact-check.json
+          magical-language-artifact run generic-instance.json > artifact-run.json
+          magical-language-evaluator \
+            --source "Calorem ab aqua ad aerem transfer." \
+            --lang lat \
+            --format json \
+            --level report \
+            > evaluator-report.json
+
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          from src.evaluator import LocalEvaluator
+          from src.resources import ReferenceResourceError, reference_root, resource_path
+          from src.runtime import ReferenceRuntimeEngine, canonical_sandbox_world
+
+          program_smoke = json.loads(Path("package-program-eval-smoke.json").read_text(encoding="utf-8"))
+          if program_smoke.get("status") != "PASS":
+              raise SystemExit("installed MagicalProgram evaluator did not pass")
+          arcana = json.loads(Path("experimental-arcana.json").read_text(encoding="utf-8"))
+          if arcana.get("status") != "PASS":
+              raise SystemExit("installed Experimental-Arcana-0 suite did not pass")
+          artifact_check = json.loads(Path("artifact-check.json").read_text(encoding="utf-8"))
+          artifact_run = json.loads(Path("artifact-run.json").read_text(encoding="utf-8"))
+          if artifact_check.get("status") != "Accepted" or artifact_run.get("status") != "PASS":
+              raise SystemExit("installed artifact ingress did not accept and run an external file")
+
+          resource_root = reference_root()
+          checkout = Path(os.environ["GITHUB_WORKSPACE"]).resolve()
+          if resource_root == checkout or checkout in resource_root.parents:
+              raise SystemExit(f"artifact execution leaked back to checkout resources: {resource_root}")
+          if "magical_language_spec_resources" not in resource_root.parts:
+              raise SystemExit(f"artifact did not resolve package-owned resources: {resource_root}")
+
+          pipeline = json.loads(
+              resource_path("examples/canonical-water-ball/pipeline.json").read_text(encoding="utf-8")
+          )
+          report = LocalEvaluator().evaluate_nsr(pipeline["normalization"]["nsr"])
+          world = canonical_sandbox_world()
+          trace = ReferenceRuntimeEngine().execute_strict(report, world)
+          if trace.get("status") != "Committed":
+              raise SystemExit("installed runtime did not commit the canonical reference plan")
+          if world.revision != "world:992":
+              raise SystemExit(f"installed runtime produced unexpected world revision: {world.revision}")
+
+          target = resource_path("schemas/nsr.schema.json")
+          hidden = target.with_name("nsr.schema.json.issue60-missing")
+          target.rename(hidden)
+          try:
+              try:
+                  resource_path("schemas/nsr.schema.json")
+              except ReferenceResourceError as exc:
+                  if exc.code != "ReferenceResourceMissing":
+                      raise SystemExit(f"unexpected missing-resource diagnostic: {exc.code}")
+              else:
+                  raise SystemExit("missing installed resource did not fail closed")
+          finally:
+              hidden.rename(target)
+          PY

@@ -1,0 +1,96 @@
+name: MagicalProgram runtime smoke
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  editable:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install editable package
+        run: python -m pip install --editable .
+      - name: Run runtime and public cutover smoke outside checkout
+        shell: bash
+        run: |
+          tmpdir="$(mktemp -d)"
+          cd "$tmpdir"
+          python -m tools.package_program_runtime_smoke > runtime-smoke.json
+          python -m tools.package_spell_instance_program_smoke > cutover-smoke.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          runtime = json.loads(Path("runtime-smoke.json").read_text(encoding="utf-8"))
+          cutover = json.loads(Path("cutover-smoke.json").read_text(encoding="utf-8"))
+          if runtime.get("status") != "PASS":
+              raise SystemExit("editable MagicalProgram runtime smoke failed")
+          if cutover.get("status") != "PASS" or cutover.get("case_count") != 12:
+              raise SystemExit("editable public SpellInstance cutover smoke failed")
+          PY
+
+  artifact:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        kind: [wheel, sdist]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build artifacts
+        run: |
+          python -m pip install build
+          python -m build --wheel --sdist
+      - name: Install isolated artifact
+        shell: bash
+        run: |
+          python -m venv "$RUNNER_TEMP/program-runtime-venv"
+          if [ "${{ matrix.kind }}" = "wheel" ]; then
+            artifact=$(find "$GITHUB_WORKSPACE/dist" -maxdepth 1 -name '*.whl' -print -quit)
+          else
+            artifact=$(find "$GITHUB_WORKSPACE/dist" -maxdepth 1 -name '*.tar.gz' -print -quit)
+          fi
+          test -n "$artifact"
+          "$RUNNER_TEMP/program-runtime-venv/bin/python" -m pip install "$artifact"
+      - name: Run installed runtime and public cutover smoke outside checkout
+        shell: bash
+        run: |
+          tmpdir="$(mktemp -d)"
+          cd "$tmpdir"
+          "$RUNNER_TEMP/program-runtime-venv/bin/python" -m tools.package_program_runtime_smoke > runtime-smoke.json
+          "$RUNNER_TEMP/program-runtime-venv/bin/python" -m tools.package_spell_instance_program_smoke > cutover-smoke.json
+          "$RUNNER_TEMP/program-runtime-venv/bin/python" - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from src.resources import reference_root
+
+          runtime = json.loads(Path("runtime-smoke.json").read_text(encoding="utf-8"))
+          cutover = json.loads(Path("cutover-smoke.json").read_text(encoding="utf-8"))
+          if runtime.get("status") != "PASS":
+              raise SystemExit("artifact MagicalProgram runtime smoke failed")
+          if cutover.get("status") != "PASS" or cutover.get("case_count") != 12:
+              raise SystemExit("artifact public SpellInstance cutover smoke failed")
+          root = reference_root().resolve()
+          checkout = Path(os.environ["GITHUB_WORKSPACE"]).resolve()
+          if root == checkout or checkout in root.parents:
+              raise SystemExit(f"runtime smoke leaked to checkout resources: {root}")
+          if "magical_language_spec_resources" not in root.parts:
+              raise SystemExit(f"runtime smoke did not use package-owned resources: {root}")
+          PY
