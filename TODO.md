@@ -13,7 +13,7 @@
 - latest completed pre-public implementation: **archive Issue #94 / PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
 - completed pre-public architecture roadmap: **archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
-- public hardening checkpoints: **PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; PR #8 merge/current audit baseline `b707ed3fa865f2b4aa190bc4975c37a391eb503b`**。
+- public hardening checkpoints: **PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`**。
 - active concrete work: **public Issue #1 — renewed exact-main no-waiver release-readiness audit**。
 - release judgment: **SUSPENDED until the renewed no-waiver audit is complete**。
 - release/version state: **unchanged at `0.12.0`; no RC snapshot/tag/publication/finalization timestamp exists**。
@@ -114,7 +114,7 @@ stable surface                counts/version/historical snapshots unchanged
 
 ```text
 public migration baseline     46f366ddb221a1517c6545784b4614154423e1da
-audit baseline                b707ed3fa865f2b4aa190bc4975c37a391eb503b
+audit baseline                exact public main at public #1 audit start; resolved SHA recorded in #1
 active work                   public Issue #1 renewed exact-main no-waiver release-readiness audit
 first                         enumerate every open Issue and release requirement on current main
 then                          re-read all current normative owners and the 14 archived RC claims represented by public #2
@@ -124,7 +124,7 @@ then                          publish an evidence-backed GO or NO-GO without cha
 release action                forbidden until audit completion and explicit user confirmation
 ```
 
-Create a **fresh audit branch from exact public main `b707ed3fa865f2b4aa190bc4975c37a391eb503b`**。
+Create a **fresh audit branch from exact public main and record that resolved SHA in public Issue #1 before running the audit**。
 
 ## Remaining open Issue inventory
 
