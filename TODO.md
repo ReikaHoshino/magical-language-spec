@@ -7,16 +7,16 @@
 - 作業計画の正本: **この `TODO.md`**。
 - cross-chat / Work / Codex / agent同期点: GitHub。
 - last released version: **v0.12.0**。
-- historical compatibility marker: **Issue #36 — v0.8 Minimal Local Evaluator**。
-- completed stabilization owner: **Issue #40 — v0.10+ Conformance / Stabilization**。
-- all-open-issue sweep baseline: **`7257601cc19d73e394be98ad3b58115073cd8908`**。
-- latest completed implementation: **Issue #94 / PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
-- completed architecture roadmap: **Issue #84 — MagicalProgram / MGLS common user workflow**。
-- active concrete work: **renewed exact-main no-waiver release-readiness audit**。
-- current reconciliation branch: **`reconcile/complete-94-close-84-start-audit-clean`**。
+- pre-public archive compatibility marker: **Issue #36 — v0.8 Minimal Local Evaluator**。
+- pre-public archive stabilization owner: **Issue #40 — v0.10+ Conformance / Stabilization**。
+- pre-public all-open-issue sweep baseline: **`7257601cc19d73e394be98ad3b58115073cd8908`**。
+- latest completed pre-public implementation: **archive Issue #94 / PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
+- completed pre-public architecture roadmap: **archive Issue #84 — MagicalProgram / MGLS common user workflow**。
+- public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
+- active concrete work: **public Issue #1 — renewed exact-main no-waiver release-readiness audit**。
 - release judgment: **SUSPENDED until the renewed no-waiver audit is complete**。
 - release/version state: **unchanged at `0.12.0`; no RC snapshot/tag/publication/finalization timestamp exists**。
-- final outcome order: **renewed no-waiver audit → #38 → #39 → #35**。
+- final outcome order: **public #1 audit → public #2 RC → public #3 final → public #4 umbrella**。
 
 > 会話とrepositoryが食い違う場合はcurrent `reference/`、current `main`、このTODO、relevant Issue/PR evidenceを照合してreconcileする。
 
@@ -24,7 +24,7 @@
 
 # 0. RESUME POINT — 最初に読む
 
-## Historical/current release-train order retained for integration
+## Historical release-train order retained for integration
 
 ```text
 #36 v0.8 Minimal Local Evaluator
@@ -34,11 +34,13 @@
 #39 v1.0.0 final
 ```
 
+The issue numbers in this historical block belong to the pre-public archive. Current public tracking is #1 → #2 → #3 → #4 below。
+
 ## Current checkpoint
 
 ユーザーは2026-08-04に、本来の設計思想・過去要求・current `reference/`・current implementationを再監査し、不足Issueを新設したうえで**全Issueを依存順にautonomousに解決**するよう指示した。
 
-Issue #82 / PR #75 / Issue #72の旧preflight/rehearsal evidenceはhistorical evidenceとして保持するが、MagicalProgram/MGLS実装拡張後のrelease判断には再利用しない。
+Archive Issue #82 / PR #75 / Issue #72の旧preflight/rehearsal evidenceはhistorical evidenceとして保持するが、MagicalProgram/MGLS実装拡張後のrelease判断には再利用しない。
 
 ### Completed correction / migration / source / integration chain
 
@@ -110,34 +112,36 @@ stable surface                counts/version/historical snapshots unchanged
 ### Resume now
 
 ```text
-baseline main                 d5ed0fae5570c8c5ada40533689246d82e2d1d09
-active work                   renewed exact-main no-waiver release-readiness audit
+public migration baseline     46f366ddb221a1517c6545784b4614154423e1da
+audit baseline                exact public main after public-hardening reconciliation lands
+active work                   public Issue #1 renewed exact-main no-waiver release-readiness audit
 first                         enumerate every open Issue and release requirement on current main
-then                          re-read all current normative owners and Issue #38 required claims
+then                          re-read all current normative owners and the 14 archived RC claims represented by public #2
 then                          run repository / stable conformance / editable-wheel-sdist / runtime gates
 then                          verify README / CHANGELOG / schemas / examples / grammar / reference / tests / conformance / TODO consistency
 then                          publish an evidence-backed GO or NO-GO without changing version
 release action                forbidden until audit completion and explicit user confirmation
 ```
 
-Create a **fresh audit branch from current main after this reconciliation lands**。
+Create a **fresh audit branch from exact public main after this public-hardening reconciliation lands**。
 
 ## Remaining open Issue inventory
 
 ```text
-release / umbrella
-  #35  v0.8 → v1.0 umbrella roadmap
-  #38  v1.0 RC
-  #39  v1.0 final release
+public release / umbrella
+  #1  renewed exact-main no-waiver release-readiness audit — ACTIVE
+  #2  v1.0 RC — BLOCKED BY #1
+  #3  v1.0 final release — BLOCKED BY #2
+  #4  v0.8 → v1.0 umbrella roadmap — closes after #3 and post-v1.0 handoff
 ```
 
 ## Dependency-correct execution order
 
 ```text
-renewed no-waiver release audit
-#38 RC path or evidence-backed return to stabilization
-#39 final release after a valid RC
-#35 umbrella closure after v1.0 and post-v1.0 handoff
+public #1 renewed no-waiver release audit
+public #2 RC path or evidence-backed return to stabilization
+public #3 final release after a valid RC
+public #4 umbrella closure after v1.0 and post-v1.0 handoff
 ```
 
 ## Stable boundaries preserved throughout the sweep
@@ -167,7 +171,7 @@ same semantic dispatch != same occurrence identity
 ```text
 required stable classes           4
 required stable cases             65
-Issue #38 requirement claims      14
+pre-public RC requirement claims  14
 MKI data-plane operations          6
 World Kernel interaction classes  5
 ```
@@ -242,11 +246,11 @@ current user instruction
 # 2. Active issue sweep
 
 ```text
-DONE:          #46 #77 #84 #86 #87 #88 #89 #90 #91 #92 #93 #94 #110 #114 #118
-ACTIVE:        renewed exact-main no-waiver release-readiness audit
-SUSPENDED:     #38 RC judgment pending audit and explicit user confirmation
-BLOCKED:       #39 final release requires valid RC
-FINAL UMBRELLA:#35 closes after v1.0 and post-v1.0 handoff
+PRE-PUBLIC DONE: #46 #77 #84 #86 #87 #88 #89 #90 #91 #92 #93 #94 #110 #114 #118
+ACTIVE:          public #1 renewed exact-main no-waiver release-readiness audit
+SUSPENDED:       public #2 RC judgment pending #1 and explicit user confirmation
+BLOCKED:         public #3 final release requires valid RC
+FINAL UMBRELLA:  public #4 closes after v1.0 and post-v1.0 handoff
 ```
 
 ## 2.1 #90 true shadow migration — DONE
@@ -295,10 +299,10 @@ FINAL UMBRELLA:#35 closes after v1.0 and post-v1.0 handoff
 - [x] actual installed command verified outside checkout for editable/wheel/sdist;
 - [x] version `0.12.0`, six MKI operations, five World Kernel classes, historical snapshots unchanged.
 
-## 2.6 renewed no-waiver release-readiness audit — ACTIVE
+## 2.6 public #1 renewed no-waiver release-readiness audit — ACTIVE
 
 - [ ] enumerate all open Issues and verify no implementation/roadmap blocker remains;
-- [ ] re-read Issue #38 and all 14 required-surface claims against exact current main;
+- [ ] re-read all 14 pre-public RC required-surface claims, now tracked by public #2, against exact current main;
 - [ ] re-read every current normative owner touched since the historical #82/#72 rehearsal;
 - [ ] verify four stable classes / 65 cases and experimental inventories remain correctly separated;
 - [ ] run repository regression, stable conformance, package, runtime, security, replay, and diff gates;

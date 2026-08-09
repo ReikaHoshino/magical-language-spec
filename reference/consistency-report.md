@@ -325,3 +325,43 @@ Consistency assertions:
 - experimental evidence remains outside `conformance/manifest.json` and does not satisfy stable Issue #38 claims by itself.
 
 The next release/version action remains gated by root `TODO.md`: complete #94/#84, run a renewed exact-main no-waiver audit, then obtain explicit user confirmation for the specific version task.
+
+---
+
+## Public repository migration and consistency checkpoint — 2026-08-09
+
+Status: public-history/security/documentation reconciliation; **not a semantic change, version update, RC authorization, or release GO**.
+
+```text
+public repository                  ReikaHoshino/magical-language-spec
+public migration baseline         46f366ddb221a1517c6545784b4614154423e1da
+released identity                 v0.12.0 unchanged
+stable conformance                4 classes / 65 cases unchanged
+MKI data-plane operations         6 unchanged
+World Kernel interaction classes  5 unchanged
+historical spec snapshots         immutable
+active audit                      public Issue #1
+RC tracker                        public Issue #2 / blocked by #1
+final tracker                     public Issue #3 / blocked by #2
+umbrella tracker                  public Issue #4
+release judgment                  SUSPENDED pending public #1
+```
+
+Public-suitability assertions:
+
+- the public repository uses a clean history with privacy-preserving commit metadata;
+- public `main` is protected by exact required regression, editable-install, wheel, sdist, and runtime smoke checks;
+- workflow tokens are read-only and third-party Actions are pinned to full commit SHAs;
+- secret scanning, push protection, Dependabot security updates, and private vulnerability reporting are enabled;
+- `SECURITY.md` routes sensitive reports away from public Issues;
+- the repository makes no open-source license grant; source visibility must not be confused with permission to reuse;
+- pre-public Issue/PR numbers remain historical evidence, while public Issues #1–#4 own current release tracking;
+- `TODO.md` remains the authoritative RESUME POINT and records exact public-main audit ownership;
+- no current `reference/`, schema, fixture, implementation semantics, package version, or historical `spec/` snapshot changed in this reconciliation.
+
+Next RESUME POINT:
+
+1. merge this public-hardening reconciliation through the protected public branch;
+2. create a fresh audit branch from the resulting exact public `main`;
+3. execute public Issue #1 with no waivers and publish an evidence-backed GO or NO-GO;
+4. do not begin public Issue #2 or change any version identity without #1 GO and explicit user confirmation.
