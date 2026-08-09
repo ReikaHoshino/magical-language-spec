@@ -1,0 +1,115 @@
+{
+  "artifact_kind": "MagicalProgram",
+  "artifact_version": "0",
+  "contract": {
+    "contract_id": "magical-program",
+    "revision": "0"
+  },
+  "stability": "experimental",
+  "program_id": "program:structured-contract:001",
+  "provenance": {
+    "relation": "direct",
+    "input_stage": "program"
+  },
+  "compatibility": {
+    "registry_id": "registry:reference-experimental",
+    "registry_revision": "1",
+    "profile_id": "profile:reference-experimental",
+    "profile_revision": "1"
+  },
+  "budget": {
+    "energy_j": 0,
+    "events": 0,
+    "microsteps": 1,
+    "concurrency": 1
+  },
+  "values": [
+    {
+      "value_id": "model",
+      "kind": "record",
+      "type_id": "EvidenceFusionModel",
+      "fields": {
+        "confidence_is_truth": {
+          "kind": "literal",
+          "value": false
+        },
+        "model_id": {
+          "kind": "literal",
+          "value": "evidence.snapshot-fusion"
+        },
+        "revision": {
+          "kind": "literal",
+          "value": "1"
+        }
+      }
+    },
+    {
+      "value_id": "ranking",
+      "kind": "sequence",
+      "element_type": "record:HypothesisScore",
+      "items": [
+        {
+          "kind": "record",
+          "type_id": "HypothesisScore",
+          "fields": {
+            "hypothesis_id": {
+              "kind": "literal",
+              "value": "hypothesis:A"
+            },
+            "score": {
+              "kind": "literal",
+              "value": 0.82
+            }
+          }
+        },
+        {
+          "kind": "record",
+          "type_id": "HypothesisScore",
+          "fields": {
+            "hypothesis_id": {
+              "kind": "literal",
+              "value": "hypothesis:B"
+            },
+            "score": {
+              "kind": "literal",
+              "value": 0.61
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "node_id": "consume_structured_values",
+      "order": 0,
+      "instruction": "effect.invoke",
+      "inputs": ["model", "ranking"],
+      "produces": ["result"],
+      "contract": {
+        "contract_id": "test.structured-consumer",
+        "revision": "1"
+      },
+      "obligations": {
+        "capabilities": [],
+        "leases": [],
+        "identities": [],
+        "evidence": [],
+        "accounting": [],
+        "resources": {
+          "energy_j": 0,
+          "matter_kg": 0,
+          "events": 0
+        }
+      }
+    }
+  ],
+  "edges": [],
+  "outputs": [
+    {
+      "name": "result",
+      "binding": "result",
+      "kind": "effect_result"
+    }
+  ]
+}

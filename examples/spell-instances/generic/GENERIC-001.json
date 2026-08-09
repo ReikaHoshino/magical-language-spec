@@ -1,0 +1,208 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "GENERIC-001",
+  "suite_id": "Independent-Example-0",
+  "scenario_kind": "bounded-transition",
+  "support_level": "implemented",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "RegisteredSpellCommand",
+      "action": "bounded-transition",
+      "roles": [
+        {
+          "role": "Patient",
+          "value": {
+            "kind": "Reference",
+            "semantic_kind": "FixtureSubject",
+            "value": "subject:GENERIC-001"
+          }
+        }
+      ],
+      "provenance": {
+        "adapter_id": null,
+        "adapter_revision": null,
+        "source_language_tags": [],
+        "provider": "SpellInstanceBundle",
+        "source_hash": null,
+        "evidence_ids": [
+          "GENERIC-001"
+        ]
+      }
+    }
+  },
+  "semantic_contract": {
+    "contract_id": "example.generic-transition",
+    "revision": "1"
+  },
+  "runtime_contract": {
+    "contract_id": "runtime.generic-transition",
+    "revision": "1"
+  },
+  "registry_extensions": {},
+  "profiles": {
+    "runtime": {
+      "artifact_id": "runtime-profile:GENERIC-001",
+      "revision": "1"
+    },
+    "sandbox": {
+      "artifact_id": "sandbox-profile:GENERIC-001",
+      "revision": "1",
+      "limits": {
+        "max_energy_j": 50,
+        "max_events_per_commit": 16,
+        "max_microsteps_per_tick": 32,
+        "max_concurrency": 1
+      }
+    }
+  },
+  "world_index": {
+    "world_index_revision": "wi:GENERIC-001:1",
+    "source_world_revision": "world:GENERIC-001:1",
+    "records": [
+      {
+        "entity_id": "entity:GENERIC-001:source",
+        "state_revision": "state-revision:GENERIC-001:source:1"
+      },
+      {
+        "entity_id": "entity:GENERIC-001:target",
+        "state_revision": "state-revision:GENERIC-001:target:1"
+      }
+    ]
+  },
+  "initial_world": {
+    "revision": "world:GENERIC-001:1",
+    "entities": {
+      "entity:GENERIC-001:source": {
+        "entity_id": "entity:GENERIC-001:source",
+        "state_revision": "state-revision:GENERIC-001:source:1"
+      },
+      "entity:GENERIC-001:target": {
+        "entity_id": "entity:GENERIC-001:target",
+        "state_revision": "state-revision:GENERIC-001:target:1",
+        "transition_state": "stable"
+      }
+    },
+    "capabilities": {
+      "capability:GENERIC-001": {
+        "active": true
+      }
+    },
+    "leases": {
+      "lease:GENERIC-001": {
+        "active": true
+      }
+    },
+    "ledgers": {
+      "ledger:GENERIC-001": {
+        "active": true,
+        "available_energy_j": 100,
+        "consumed_energy_j": 0
+      }
+    },
+    "history": [],
+    "controllers": {},
+    "runtime_state": {},
+    "process_state": {
+      "process_id": "process:GENERIC-001",
+      "status": "Idle",
+      "prepared_plan_id": null
+    }
+  },
+  "execution": {
+    "operations": [
+      "RESOLVE",
+      "TRANSFER",
+      "RECONFIGURE"
+    ],
+    "parameters": {
+      "source_entity_id": "entity:GENERIC-001:source",
+      "target_entity_id": "entity:GENERIC-001:target",
+      "ledger_id": "ledger:GENERIC-001",
+      "energy_j": 25,
+      "result_state": "transitioned",
+      "result_world_revision": "world:GENERIC-001:2",
+      "event_id": "event:GENERIC-001:transition"
+    },
+    "required_evidence": {
+      "resolution": [
+        "state-revision:GENERIC-001:target:1"
+      ],
+      "capabilities": [
+        "capability:GENERIC-001"
+      ],
+      "leases": [
+        "lease:GENERIC-001"
+      ],
+      "accounting": [
+        "ledger:GENERIC-001"
+      ]
+    },
+    "energy_budget_j": 25,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Feasible",
+    "runtime_status": "Committed",
+    "diagnostic_codes": [],
+    "final_invariants": {
+      "Sigma": {
+        "revision": "world:GENERIC-001:2"
+      }
+    },
+    "replay_status": "Match",
+    "expected_event_ids": ["event:GENERIC-001:transition"]
+  },
+  "variants": [],
+  "provenance": {
+    "definition_sources": [
+      "reference/spell-instance-bundles.md",
+      "reference/success-arcana.md"
+    ],
+    "generator": "repository-fixture",
+    "notes": [
+      "Experimental optional conformance only."
+    ]
+  },
+  "compatibility": {
+    "required_domains": [
+      "SpellInstanceBundle",
+      "SemanticContract",
+      "RuntimeContract"
+    ],
+    "decisions": [
+      {
+        "decision_id": "decision:GENERIC-001:SpellInstanceBundle",
+        "profile": {
+          "domain": "SpellInstanceBundle"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:GENERIC-001:SemanticContract",
+        "profile": {
+          "domain": "SemanticContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:GENERIC-001:RuntimeContract",
+        "profile": {
+          "domain": "RuntimeContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      }
+    ]
+  }
+}

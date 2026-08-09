@@ -1,0 +1,154 @@
+{
+  "profile": "CanonicalSemanticProjectionV1 / SemanticFingerprintV1",
+  "base_nsr": {
+    "schema_version": "0.7.3",
+    "kind": "TransferCommand",
+    "action": "transfer",
+    "roles": [
+      {
+        "role": "Patient",
+        "value": {
+          "kind": "SemanticKind",
+          "semantic_kind": "Energy",
+          "mode": "Thermal",
+          "evidence_ids": ["lat:t1", "lat:frame-patient"]
+        }
+      },
+      {
+        "role": "Source",
+        "value": {
+          "kind": "SelectorProposal",
+          "selector": {"kind": "Symbolic", "symbol": "water"},
+          "evidence_ids": ["lat:t2", "lat:t3"]
+        }
+      },
+      {
+        "role": "Goal",
+        "value": {
+          "kind": "SelectorProposal",
+          "selector": {"kind": "Symbolic", "symbol": "air"},
+          "evidence_ids": ["lat:t4", "lat:t5"]
+        }
+      },
+      {
+        "role": "Quantity",
+        "value": {
+          "kind": "Unknown",
+          "reason": "MissingSurfaceArgument",
+          "evidence_ids": []
+        }
+      }
+    ],
+    "unknowns": [
+      {
+        "field": "Quantity",
+        "reason": "MissingSurfaceArgument",
+        "required_for": ["TypedMIR elaboration"]
+      }
+    ],
+    "provenance": {
+      "adapter_id": "lat",
+      "adapter_revision": "reference-v0.7.3",
+      "source_language_tags": ["lat"],
+      "provider": "LexiconDriven",
+      "evidence_ids": ["lat:t1", "lat:t2", "lat:t3"]
+    },
+    "ambiguity": {
+      "policy": "StrictReject",
+      "candidate_id": "lat-candidate",
+      "decision_evidence_ids": ["lat:frame-patient"]
+    },
+    "semantic_fingerprint": null
+  },
+  "equivalent_adapter_nsr": {
+    "schema_version": "0.7.3",
+    "kind": "TransferCommand",
+    "action": "transfer",
+    "roles": [
+      {
+        "role": "Quantity",
+        "value": {
+          "reason": "MissingSurfaceArgument",
+          "kind": "Unknown",
+          "evidence_ids": ["jpn:ellipsis"]
+        }
+      },
+      {
+        "role": "Goal",
+        "value": {
+          "selector": {"symbol": "air", "kind": "Symbolic"},
+          "kind": "SelectorProposal",
+          "evidence_ids": ["jpn:particle-e"]
+        }
+      },
+      {
+        "role": "Source",
+        "value": {
+          "selector": {"symbol": "water", "kind": "Symbolic"},
+          "kind": "SelectorProposal",
+          "evidence_ids": ["jpn:particle-kara"]
+        }
+      },
+      {
+        "role": "Patient",
+        "value": {
+          "mode": "Thermal",
+          "kind": "SemanticKind",
+          "semantic_kind": "Energy",
+          "evidence_ids": ["jpn:object"]
+        }
+      }
+    ],
+    "unknowns": [
+      {"field": "Quantity", "reason": "MissingSurfaceArgument"}
+    ],
+    "provenance": {
+      "adapter_id": "jpn",
+      "adapter_revision": "fixture-only",
+      "source_language_tags": ["ja"],
+      "provider": "RuleBased",
+      "evidence_ids": ["jpn:particle-kara", "jpn:particle-e"]
+    },
+    "ambiguity": {
+      "policy": "ContextualDeterministic",
+      "candidate_id": "jpn-candidate",
+      "alternative_candidate_ids": ["jpn-other"]
+    }
+  },
+  "expected_projection": {
+    "kind": "TransferCommand",
+    "action": "transfer",
+    "roles": [
+      {
+        "role": "Goal",
+        "value": {
+          "kind": "SelectorProposal",
+          "selector": {"kind": "Symbolic", "symbol": "air"}
+        }
+      },
+      {
+        "role": "Patient",
+        "value": {
+          "kind": "SemanticKind",
+          "semantic_kind": "Energy",
+          "mode": "Thermal"
+        }
+      },
+      {
+        "role": "Quantity",
+        "value": {
+          "kind": "Unknown",
+          "reason": "MissingSurfaceArgument"
+        }
+      },
+      {
+        "role": "Source",
+        "value": {
+          "kind": "SelectorProposal",
+          "selector": {"kind": "Symbolic", "symbol": "water"}
+        }
+      }
+    ]
+  },
+  "expected_fingerprint": "sf:v1:sha256:ee37e2e102ed939afd04b6142faa5c63c0cb49b0dc86987b2ffa5656c259df48"
+}

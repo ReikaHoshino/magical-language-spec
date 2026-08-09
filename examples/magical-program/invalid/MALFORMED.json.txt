@@ -1,0 +1,1 @@
+{"artifact_kind":"MagicalProgram","artifact_version":"0","nodes":[

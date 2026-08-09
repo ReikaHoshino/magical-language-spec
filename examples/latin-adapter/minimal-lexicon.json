@@ -1,0 +1,192 @@
+{
+  "metadata": {
+    "schema_version": "1",
+    "artifact_id": "lat-lexicon:reference-minimal",
+    "revision": "1",
+    "spec_version": "0.7.2",
+    "content_hash": {
+      "scope": "artifact-content",
+      "status": "unresolved",
+      "reason": "Generic artifact canonical bytes and digest algorithm are not selected pre-v0.8."
+    },
+    "provenance": {
+      "source_kind": "reference",
+      "source_id": "reference/latin-frontend.md",
+      "source_revision": "v0.7.2",
+      "evidence": [
+        "reference/language-adapters.md#4-lexicon-layers",
+        "data/latin-examples.csv#LAT-001"
+      ]
+    },
+    "compatibility": {
+      "domain": "LanguageAdapter<lat>.DomainLexicon",
+      "contract_revision": "1",
+      "declarations": {
+        "adapter_id": "lat",
+        "lexicon_revision": "1"
+      },
+      "notes": [
+        "Lexicon compatibility algorithm is unresolved in the current reference."
+      ]
+    }
+  },
+  "adapter_id": "lat",
+  "language": "lat",
+  "lexicon_revision": "1",
+  "entries": [
+    {
+      "lexeme_id": "lat:calor",
+      "language": "lat",
+      "lemma": "calor",
+      "surface_forms": ["calor", "calorem"],
+      "part_of_speech": "noun",
+      "morphology": {
+        "candidates": [
+          {"candidate_id": "lat:calor:nom-sg", "surface": "calor", "features": {"case": "nominative", "number": "singular", "gender": "masculine"}},
+          {"candidate_id": "lat:calor:acc-sg", "surface": "calorem", "features": {"case": "accusative", "number": "singular", "gender": "masculine"}}
+        ]
+      },
+      "semantic_candidates": [
+        {"candidate_id": "lat:calor:thermal-energy-expression", "proposal": "ThermalEnergyExpression", "note": "Lexical proposal; not a standalone conserved Heat kind."}
+      ],
+      "register": {"labels": ["technical Latin"], "status": "canonical"},
+      "provenance": [{"source_id": "reference/latin-frontend.md", "locator": "§2 Lexicon strategy"}]
+    },
+    {
+      "lexeme_id": "lat:aqua",
+      "language": "lat",
+      "lemma": "aqua",
+      "surface_forms": ["aqua", "aquam", "aquae"],
+      "part_of_speech": "noun",
+      "morphology": {
+        "candidates": [
+          {"candidate_id": "lat:aqua:nom-sg", "surface": "aqua", "features": {"case": "nominative", "number": "singular", "gender": "feminine"}},
+          {"candidate_id": "lat:aqua:abl-sg", "surface": "aqua", "features": {"case": "ablative", "number": "singular", "gender": "feminine"}},
+          {"candidate_id": "lat:aqua:acc-sg", "surface": "aquam", "features": {"case": "accusative", "number": "singular", "gender": "feminine"}},
+          {"candidate_id": "lat:aqua:gen-sg", "surface": "aquae", "features": {"case": "genitive", "number": "singular", "gender": "feminine"}},
+          {"candidate_id": "lat:aqua:dat-sg", "surface": "aquae", "features": {"case": "dative", "number": "singular", "gender": "feminine"}},
+          {"candidate_id": "lat:aqua:nom-pl", "surface": "aquae", "features": {"case": "nominative", "number": "plural", "gender": "feminine"}}
+        ],
+        "note": "aquae remains ambiguity-sensitive; the lexicon does not silently select one analysis."
+      },
+      "semantic_candidates": [{"candidate_id": "lat:aqua:water", "proposal": "SymbolicSelectorCandidate", "qualifiers": {"symbol": "water"}}],
+      "provenance": [{"source_id": "data/latin-examples.csv", "locator": "LAT-001, LAT-004, LAT-017, LAT-021"}]
+    },
+    {
+      "lexeme_id": "lat:aer",
+      "language": "lat",
+      "lemma": "aer",
+      "surface_forms": ["aer", "aerem"],
+      "part_of_speech": "noun",
+      "morphology": {"candidates": [
+        {"candidate_id": "lat:aer:nom-sg", "surface": "aer", "features": {"case": "nominative", "number": "singular", "gender": "masculine"}},
+        {"candidate_id": "lat:aer:acc-sg", "surface": "aerem", "features": {"case": "accusative", "number": "singular", "gender": "masculine"}}
+      ]},
+      "semantic_candidates": [{"candidate_id": "lat:aer:air", "proposal": "SymbolicSelectorCandidate", "qualifiers": {"symbol": "air"}}],
+      "provenance": [{"source_id": "data/latin-examples.csv", "locator": "LAT-001"}]
+    },
+    {
+      "lexeme_id": "lat:transfero",
+      "language": "lat",
+      "lemma": "transfero",
+      "surface_forms": ["transfero", "transferre", "transfer"],
+      "part_of_speech": "verb",
+      "morphology": {"candidates": [
+        {"candidate_id": "lat:transfero:present-1sg", "surface": "transfero", "features": {"person": "first", "number": "singular", "tense": "present", "mood": "indicative", "voice": "active"}, "principal_part": "transfero"},
+        {"candidate_id": "lat:transfero:present-infinitive", "surface": "transferre", "features": {"tense": "present", "mood": "infinitive", "voice": "active"}, "principal_part": "transferre"},
+        {"candidate_id": "lat:transfero:present-imperative-2sg", "surface": "transfer", "features": {"person": "second", "number": "singular", "tense": "present", "mood": "imperative", "voice": "active"}}
+      ]},
+      "semantic_candidates": [{"candidate_id": "lat:transfero:transfer-command", "proposal": "TransferCommand"}],
+      "argument_frame": {
+        "frame_id": "lat:transfero:frame:1",
+        "slots": [
+          {"role": "Patient", "morphosyntax": {"case": "accusative"}},
+          {"role": "Source", "morphosyntax": {"case": "ablative", "prepositions": ["a", "ab"]}},
+          {"role": "Goal", "morphosyntax": {"case": "accusative", "prepositions": ["ad"]}},
+          {"role": "Path", "morphosyntax": {"case": "accusative", "prepositions": ["per"]}}
+        ],
+        "note": "Roles are frame proposals combined with morphology, prepositions, and context; morphology alone is not semantic authority."
+      },
+      "provenance": [{"source_id": "reference/latin-frontend.md", "locator": "§2 Lexicon strategy"}]
+    },
+    {
+      "lexeme_id": "lat:canalis",
+      "language": "lat",
+      "lemma": "canalis",
+      "surface_forms": ["canalis", "canalem"],
+      "part_of_speech": "noun",
+      "morphology": {"candidates": [{"candidate_id": "lat:canalis:acc-sg", "surface": "canalem", "features": {"case": "accusative", "number": "singular", "gender": "masculine"}}]},
+      "semantic_candidates": [{"candidate_id": "lat:canalis:channel", "proposal": "ChannelExpression"}],
+      "register": {"labels": ["technical Latin"], "status": "canonical"},
+      "provenance": [{"source_id": "data/latin-examples.csv", "locator": "LAT-002, LAT-035"}]
+    },
+    {
+      "lexeme_id": "lat:energia",
+      "language": "lat",
+      "lemma": "energia",
+      "surface_forms": ["energia", "energiae"],
+      "part_of_speech": "noun",
+      "morphology": {"candidates": [
+        {"candidate_id": "lat:energia:nom-sg", "surface": "energia", "features": {"case": "nominative", "number": "singular", "gender": "feminine"}},
+        {"candidate_id": "lat:energia:gen-sg", "surface": "energiae", "features": {"case": "genitive", "number": "singular", "gender": "feminine"}}
+      ]},
+      "semantic_candidates": [{"candidate_id": "lat:energia:energy", "proposal": "EnergyExpression"}],
+      "register": {"labels": ["Neo-Latin technical"], "status": "canonical"},
+      "provenance": [{"source_id": "data/latin-examples.csv", "locator": "LAT-002"}]
+    },
+    {
+      "lexeme_id": "lat:quantitas-motus",
+      "language": "lat",
+      "lemma": "quantitas motus",
+      "surface_forms": ["quantitas motus", "quantitatem motus", "quantitatis motus"],
+      "part_of_speech": "multiword-expression",
+      "morphology": {"candidates": [{"candidate_id": "lat:quantitas-motus:acc-sg-head", "surface": "quantitatem motus", "features": {"case": "accusative", "number": "singular", "gender": "feminine"}}]},
+      "semantic_candidates": [{"candidate_id": "lat:quantitas-motus:momentum", "proposal": "MomentumExpression"}],
+      "register": {"labels": ["17th-century-flavoured technical Latin"], "status": "canonical"},
+      "provenance": [{"source_id": "data/latin-examples.csv", "locator": "LAT-003, LAT-030"}]
+    },
+    {
+      "lexeme_id": "lat:lapis",
+      "language": "lat",
+      "lemma": "lapis",
+      "surface_forms": ["lapis", "lapidem", "lapidis"],
+      "part_of_speech": "noun",
+      "morphology": {"candidates": [
+        {"candidate_id": "lat:lapis:nom-sg", "surface": "lapis", "features": {"case": "nominative", "number": "singular", "gender": "masculine"}},
+        {"candidate_id": "lat:lapis:acc-sg", "surface": "lapidem", "features": {"case": "accusative", "number": "singular", "gender": "masculine"}},
+        {"candidate_id": "lat:lapis:gen-sg", "surface": "lapidis", "features": {"case": "genitive", "number": "singular", "gender": "masculine"}}
+      ]},
+      "semantic_candidates": [{"candidate_id": "lat:lapis:stone", "proposal": "SymbolicSelectorCandidate", "qualifiers": {"symbol": "stone"}}],
+      "provenance": [{"source_id": "data/latin-examples.csv", "locator": "LAT-009, LAT-010"}]
+    },
+    {
+      "lexeme_id": "lat:globus",
+      "language": "lat",
+      "lemma": "globus",
+      "surface_forms": ["globus", "globum", "globi"],
+      "part_of_speech": "noun",
+      "morphology": {"candidates": [
+        {"candidate_id": "lat:globus:nom-sg", "surface": "globus", "features": {"case": "nominative", "number": "singular", "gender": "masculine"}},
+        {"candidate_id": "lat:globus:acc-sg", "surface": "globum", "features": {"case": "accusative", "number": "singular", "gender": "masculine"}},
+        {"candidate_id": "lat:globus:gen-sg", "surface": "globi", "features": {"case": "genitive", "number": "singular", "gender": "masculine"}}
+      ]},
+      "semantic_candidates": [{"candidate_id": "lat:globus:sphere", "proposal": "SymbolicSelectorCandidate", "qualifiers": {"symbol": "sphere"}}],
+      "provenance": [{"source_id": "data/latin-examples.csv", "locator": "LAT-005, LAT-006"}]
+    },
+    {
+      "lexeme_id": "lat:nexus",
+      "language": "lat",
+      "lemma": "nexus",
+      "surface_forms": ["nexus", "nexum"],
+      "part_of_speech": "noun",
+      "morphology": {"candidates": [
+        {"candidate_id": "lat:nexus:nom-sg", "surface": "nexus", "features": {"case": "nominative", "number": "singular", "gender": "masculine"}},
+        {"candidate_id": "lat:nexus:gen-sg", "surface": "nexus", "features": {"case": "genitive", "number": "singular", "gender": "masculine"}},
+        {"candidate_id": "lat:nexus:acc-sg", "surface": "nexum", "features": {"case": "accusative", "number": "singular", "gender": "masculine"}}
+      ], "note": "nexus is formally ambiguous in isolation; frame and context must resolve it."},
+      "semantic_candidates": [{"candidate_id": "lat:nexus:connection", "proposal": "ConnectionExpression"}],
+      "register": {"labels": ["Neo-Latin technical"], "status": "canonical"},
+      "provenance": [{"source_id": "data/latin-examples.csv", "locator": "LAT-012, LAT-016"}]
+    }
+  ]
+}

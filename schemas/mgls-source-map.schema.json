@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/mgls-source-map.schema.json",
+  "title": "MglsSourceMap-0",
+  "type": "object",
+  "required": [
+    "artifact_kind",
+    "artifact_version",
+    "contract",
+    "source",
+    "target",
+    "compiler",
+    "entries"
+  ],
+  "properties": {
+    "artifact_kind": {"const": "MglsSourceMap"},
+    "artifact_version": {"const": "0"},
+    "contract": {
+      "type": "object",
+      "required": ["contract_id", "revision"],
+      "properties": {
+        "contract_id": {"const": "mgls-source-map"},
+        "revision": {"const": "0"}
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["contract_id", "revision", "source_id", "offset_unit", "normalization"],
+      "properties": {
+        "contract_id": {"const": "mgls-source"},
+        "revision": {"const": "0"},
+        "source_id": {"$ref": "#/$defs/identity"},
+        "offset_unit": {"const": "unicode-scalar"},
+        "normalization": {"const": "SourceTextNormalizerV1"}
+      },
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "required": ["artifact_kind", "artifact_version", "program_id"],
+      "properties": {
+        "artifact_kind": {"const": "MagicalProgram"},
+        "artifact_version": {"const": "0"},
+        "program_id": {"$ref": "#/$defs/identity"}
+      },
+      "additionalProperties": false
+    },
+    "compiler": {
+      "type": "object",
+      "required": ["compiler_id", "compiler_revision"],
+      "properties": {
+        "compiler_id": {"$ref": "#/$defs/identity"},
+        "compiler_revision": {"$ref": "#/$defs/identity"}
+      },
+      "additionalProperties": false
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "$defs": {
+    "identity": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "binding": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z_][A-Za-z0-9._:-]*$"
+    },
+    "span": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"type": "integer", "minimum": 0},
+        "end": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "targetRef": {
+      "type": "object",
+      "required": ["section", "id"],
+      "properties": {
+        "section": {
+          "enum": ["root", "provenance", "compatibility", "budget", "value", "node", "edge", "output"]
+        },
+        "id": {"$ref": "#/$defs/identity"},
+        "field": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "binding": {"$ref": "#/$defs/binding"}
+      },
+      "additionalProperties": false
+    },
+    "entry": {
+      "type": "object",
+      "required": ["entry_id", "source_span", "relation", "target"],
+      "properties": {
+        "entry_id": {"$ref": "#/$defs/identity"},
+        "source_span": {"$ref": "#/$defs/span"},
+        "relation": {"enum": ["exact", "derived", "synthesized"]},
+        "target": {"$ref": "#/$defs/targetRef"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "properties": {
+        "entries": {
+          "items": {
+            "properties": {
+              "source_span": {
+                "allOf": [
+                  {
+                    "if": {"required": ["start", "end"]},
+                    "then": {}
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,324 @@
+{
+  "document_kind": "ConformanceRuleCoverage",
+  "schema_version": "1",
+  "suite_version": "0.12.0",
+  "rules": [
+    {
+      "rule_id": "CONF-RULE-CORE-OWNERSHIP",
+      "class_id": "Core-1.0",
+      "document": "reference/scope-and-ownership.md",
+      "heading": "## Key invariants",
+      "status": "covered",
+      "case_ids": ["CORE-OWNERSHIP-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-MKI",
+      "class_id": "Core-1.0",
+      "document": "reference/scope-and-ownership.md",
+      "heading": "## Key invariants",
+      "status": "covered",
+      "case_ids": ["WB-TEST-006", "CORE-PLANNING-GENERATION-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-COMPATIBILITY",
+      "class_id": "Core-1.0",
+      "document": "reference/compatibility.md",
+      "heading": "## 2. Result model",
+      "status": "covered",
+      "case_ids": ["CORE-COMPAT-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-FINGERPRINT",
+      "class_id": "Core-1.0",
+      "document": "reference/scope-and-ownership.md",
+      "heading": "## Key invariants",
+      "status": "covered",
+      "case_ids": ["CORE-FINGERPRINT-001", "WB-TEST-003"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-PLANNING",
+      "class_id": "Core-1.0",
+      "document": "reference/scope-and-ownership.md",
+      "heading": "## Key invariants",
+      "status": "covered",
+      "case_ids": [
+        "CORE-PLANNING-001",
+        "CORE-PLANNING-BINDING-001",
+        "CORE-PLANNING-GENERATION-001",
+        "WB-TEST-005",
+        "WB-TEST-007",
+        "WB-TEST-010"
+      ]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-RESOLUTION-DOMAINS",
+      "class_id": "Core-1.0",
+      "document": "reference/canonical-water-ball.md",
+      "heading": "## 4. Resolution, authority, and conservation",
+      "status": "covered",
+      "case_ids": ["WB-TEST-008", "WB-TEST-009"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-PRODUCTION-WORLDINDEX",
+      "class_id": "Core-1.0",
+      "document": "reference/world-index.md",
+      "heading": "## Purpose",
+      "status": "deferred",
+      "rationale": "Core-1.0 standardizes the WorldIndex contract, not a production storage/query algorithm. Production engine breadth remains outside the v0.12 conformance promise."
+    },
+    {
+      "rule_id": "CONF-RULE-EVALUATOR-INGRESS",
+      "class_id": "Evaluator-1.0",
+      "document": "reference/evaluator-implementation.md",
+      "heading": "## Public v0.8 ingress",
+      "status": "covered",
+      "case_ids": ["EVAL-INGRESS-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-EVALUATOR-TYPE-DIMENSION",
+      "class_id": "Evaluator-1.0",
+      "document": "reference/evaluator-implementation.md",
+      "heading": "## Public v0.8 ingress",
+      "status": "covered",
+      "case_ids": ["EVAL-TYPE-001", "EVAL-DIM-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-EVALUATOR-RESOLUTION",
+      "class_id": "Evaluator-1.0",
+      "document": "reference/evaluator-implementation.md",
+      "heading": "## Read-only evidence boundaries",
+      "status": "covered",
+      "case_ids": ["EVAL-RESOLUTION-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-EVALUATOR-OBLIGATIONS",
+      "class_id": "Evaluator-1.0",
+      "document": "reference/evaluator-implementation.md",
+      "heading": "## Estimation and obligations",
+      "status": "covered",
+      "case_ids": ["EVAL-AUTH-001", "EVAL-CONSERV-001", "EVAL-PLAN-SELECTION-001", "EVAL-UNKNOWN-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-EVALUATOR-SERIALIZATION",
+      "class_id": "Evaluator-1.0",
+      "document": "reference/evaluator-implementation.md",
+      "heading": "## CLI",
+      "status": "covered",
+      "case_ids": ["EVAL-SERIALIZATION-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-ADAPTER-LAT-LAYERING",
+      "class_id": "Adapter-lat-1.0",
+      "document": "reference/language-adapters.md",
+      "heading": "## 3. Layering",
+      "status": "covered",
+      "case_ids": ["ADAPTER-LAT-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-ADAPTER-LAT-AMBIGUITY",
+      "class_id": "Adapter-lat-1.0",
+      "document": "reference/language-adapters.md",
+      "heading": "## Key invariants",
+      "status": "covered",
+      "case_ids": ["ADAPTER-LAT-AMBIG-001", "ADAPTER-LAT-CONTEXTUAL-001", "ADAPTER-LAT-LEGACY-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-ADAPTER-LAT-DISPATCH",
+      "class_id": "Adapter-lat-1.0",
+      "document": "reference/language-adapters.md",
+      "heading": "## 2. Adapter contract",
+      "status": "covered",
+      "case_ids": ["ADAPTER-LAT-DISPATCH-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-ADAPTER-LAT-HISTORICAL-BREADTH",
+      "class_id": "Adapter-lat-1.0",
+      "document": "reference/language-adapters.md",
+      "heading": "## Purpose",
+      "status": "deferred",
+      "rationale": "Full historical/register Latin profiles are explicitly outside the Adapter-lat-1.0 required corpus."
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-PREPARE",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## PREPARE",
+      "status": "covered",
+      "case_ids": ["RUNTIME-PREPARE-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-REVALIDATION",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## Revalidate / COMMIT",
+      "status": "covered",
+      "case_ids": ["RUNTIME-AUTH-001", "RUNTIME-LEASE-001", "RUNTIME-CONSERV-001", "RUNTIME-RESOURCE-001", "RUNTIME-COMMIT-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-IDENTITY",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## Conservation / identity",
+      "status": "covered",
+      "case_ids": ["RUNTIME-IDENTITY-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-SCHEDULER-TIME",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## Scheduler and time",
+      "status": "covered",
+      "case_ids": ["RUNTIME-SCHEDULER-001", "RUNTIME-KERNEL-TIME-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-STOP",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## Emergency stop",
+      "status": "covered",
+      "case_ids": ["RUNTIME-STOP-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-REPLAY",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## Replay",
+      "status": "covered",
+      "case_ids": ["RUNTIME-REPLAY-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-SERIALIZATION",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## Machine-readable trace",
+      "status": "covered",
+      "case_ids": ["RUNTIME-SERIALIZATION-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-KERNEL-BOUNDARY",
+      "class_id": "Runtime-1.0",
+      "document": "reference/kernel-execution.md",
+      "heading": "## 13. Runtime-1.0 conformance obligations",
+      "status": "covered",
+      "case_ids": [
+        "RUNTIME-KERNEL-ABI-001",
+        "RUNTIME-KERNEL-CLASS-001",
+        "RUNTIME-ACTIVE-EFFECT-001",
+        "RUNTIME-KERNEL-LIFECYCLE-001",
+        "RUNTIME-KERNEL-ATOMIC-001",
+        "RUNTIME-KERNEL-SEMANTICS-001",
+        "RUNTIME-KERNEL-TIME-001",
+        "RUNTIME-MKI-EXEC-001"
+      ]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-PUBLIC-ECIR",
+      "class_id": "Runtime-1.0",
+      "document": "reference/kernel-execution.md",
+      "heading": "## 15. Non-goals",
+      "status": "deferred",
+      "rationale": "Runtime-1.0 deliberately does not standardize a public ECIR serialization or implementation storage layout."
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-DISTRIBUTED-BREADTH",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## Purpose",
+      "status": "deferred",
+      "rationale": "Production distributed execution and persistence are outside the v0.12 reference runtime conformance surface."
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-COMPAT-COVERAGE",
+      "class_id": "Core-1.0",
+      "document": "reference/compatibility.md",
+      "heading": "## 4. Domain rules",
+      "status": "covered",
+      "case_ids": ["CORE-COMPAT-COVERAGE-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-COMPAT-ARTIFACT-COVERAGE",
+      "class_id": "Core-1.0",
+      "document": "reference/compatibility.md",
+      "heading": "## 3. Domain decision matrix",
+      "status": "covered",
+      "case_ids": ["CORE-COMPAT-COVERAGE-002"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-COMPAT-EVOLUTION",
+      "class_id": "Core-1.0",
+      "document": "reference/versioning-and-migration.md",
+      "heading": "## 2. Release-number contract",
+      "status": "covered",
+      "case_ids": ["CORE-COMPAT-EVOLUTION-001", "CORE-COMPAT-EVOLUTION-002"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-COMPAT-DEPRECATION",
+      "class_id": "Core-1.0",
+      "document": "reference/versioning-and-migration.md",
+      "heading": "## 3. Deprecation lifecycle",
+      "status": "covered",
+      "case_ids": ["CORE-COMPAT-DEPRECATION-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-COMPAT-MIGRATION-SELECTION",
+      "class_id": "Core-1.0",
+      "document": "reference/versioning-and-migration.md",
+      "heading": "## 4. Explicit migration contract",
+      "status": "covered",
+      "case_ids": ["CORE-COMPAT-MIGRATION-MISSING-001", "CORE-COMPAT-MIGRATION-AMBIGUOUS-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-COMPAT-MIGRATION-EXECUTION",
+      "class_id": "Core-1.0",
+      "document": "reference/versioning-and-migration.md",
+      "heading": "## 5. Migration execution boundary",
+      "status": "covered",
+      "case_ids": [
+        "CORE-COMPAT-MIGRATION-001",
+        "CORE-COMPAT-MIGRATION-INVALID-001",
+        "CORE-COMPAT-MIGRATION-INCOMPATIBLE-001",
+        "CORE-COMPAT-MIGRATION-PROFILE-001"
+      ]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-COMPAT-MIGRATION-AUTHORITY",
+      "class_id": "Core-1.0",
+      "document": "reference/versioning-and-migration.md",
+      "heading": "## 6. Compatibility/admission boundary",
+      "status": "covered",
+      "case_ids": ["CORE-COMPAT-MIGRATION-AUTHORITY-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-CORE-CANONICAL-TRACEABILITY",
+      "class_id": "Core-1.0",
+      "document": "reference/canonical-water-ball.md",
+      "heading": "## 9. Traceability",
+      "status": "covered",
+      "case_ids": ["WB-TEST-001", "WB-TEST-002", "WB-TEST-004", "WB-TEST-011"]
+    },
+    {
+      "rule_id": "CONF-RULE-EVALUATOR-CANONICAL",
+      "class_id": "Evaluator-1.0",
+      "document": "reference/evaluator-implementation.md",
+      "heading": "## Canonical conformance",
+      "status": "covered",
+      "case_ids": ["EVAL-WATER-BALL-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-ADAPTER-LAT-NORMALIZATION",
+      "class_id": "Adapter-lat-1.0",
+      "document": "reference/source-text-normalization.md",
+      "heading": "## 9. Conformance",
+      "status": "covered",
+      "case_ids": ["ADAPTER-LAT-NORMALIZATION-001"]
+    },
+    {
+      "rule_id": "CONF-RULE-RUNTIME-BINDING",
+      "class_id": "Runtime-1.0",
+      "document": "reference/runtime-implementation.md",
+      "heading": "## Planning binding and reactive behavior",
+      "status": "covered",
+      "case_ids": ["RUNTIME-BINDING-001"]
+    }
+  ]
+}

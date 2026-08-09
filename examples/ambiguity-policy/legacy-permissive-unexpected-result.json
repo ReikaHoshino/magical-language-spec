@@ -1,0 +1,118 @@
+{
+  "schema_version": "1",
+  "decision_id": "ambiguity:legacy-stone:1",
+  "policy": "LegacyPermissive",
+  "decision_status": "Selected",
+  "profile": {
+    "profile_id": "ambiguity-profile:legacy-source-order-example",
+    "profile_revision": "3",
+    "ordering_revision": "2",
+    "ranking_rules": [
+      {
+        "rule_id": "legacy:input-position",
+        "input": "LegacyInputPosition",
+        "comparator": "IntegerAscending",
+        "missing_value": "Unreproducible",
+        "evidence_required": false,
+        "description": "Historical example profile explicitly preserves source candidate order."
+      }
+    ],
+    "final_tie_break": [
+      "SemanticFingerprintAscending",
+      "CandidateIdAscending"
+    ]
+  },
+  "context_snapshot": {
+    "snapshot_id": "context:legacy-casting:9",
+    "snapshot_revision": "2",
+    "fact_ids": [],
+    "evidence_ids": ["evidence:legacy-profile:3"]
+  },
+  "candidate_set": {
+    "candidate_set_id": "candidate-set:legacy-stone",
+    "candidate_set_revision": "1",
+    "input_candidate_ids": [
+      "candidate:stone-near-fire",
+      "candidate:stone-of-fire"
+    ],
+    "canonical_candidate_ids": [
+      "candidate:stone-near-fire",
+      "candidate:stone-of-fire"
+    ],
+    "candidates": [
+      {
+        "candidate_id": "candidate:stone-near-fire",
+        "semantic_fingerprint": "sf:v1:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "normalization_valid": true,
+        "semantic_critical": true,
+        "evidence_ids": ["evidence:surface:genitive-relation"],
+        "assumption_ids": ["assumption:legacy-first-candidate"]
+      },
+      {
+        "candidate_id": "candidate:stone-of-fire",
+        "semantic_fingerprint": "sf:v1:sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "normalization_valid": true,
+        "semantic_critical": true,
+        "evidence_ids": ["evidence:surface:genitive-relation"],
+        "assumption_ids": []
+      }
+    ]
+  },
+  "ranking_evaluations": [
+    {
+      "candidate_id": "candidate:stone-near-fire",
+      "eligible": true,
+      "rank_terms": [
+        {
+          "rule_id": "legacy:input-position",
+          "value": 0,
+          "evidence_ids": []
+        }
+      ],
+      "rejection_reason_ids": []
+    },
+    {
+      "candidate_id": "candidate:stone-of-fire",
+      "eligible": true,
+      "rank_terms": [
+        {
+          "rule_id": "legacy:input-position",
+          "value": 1,
+          "evidence_ids": []
+        }
+      ],
+      "rejection_reason_ids": []
+    }
+  ],
+  "selected_candidate_id": "candidate:stone-near-fire",
+  "rejected_candidate_ids": ["candidate:stone-of-fire"],
+  "unresolved_assumption_ids": ["assumption:legacy-first-candidate"],
+  "mandatory_downstream_checks": [
+    "type",
+    "authority",
+    "conservation",
+    "identity"
+  ],
+  "diagnostics": [
+    {
+      "code": "UnexpectedResult",
+      "severity": "warning",
+      "evidence_ids": [
+        "evidence:legacy-profile:3",
+        "evidence:operator-intent-after-observation"
+      ]
+    }
+  ],
+  "replay": {
+    "replay_status": "Reproduced",
+    "recorded_profile_revision": "3",
+    "recorded_ordering_revision": "2",
+    "recorded_context_snapshot_id": "context:legacy-casting:9",
+    "recorded_context_snapshot_revision": "2",
+    "recorded_candidate_set_id": "candidate-set:legacy-stone",
+    "recorded_candidate_set_revision": "1",
+    "recorded_selected_candidate_id": "candidate:stone-near-fire",
+    "recorded_selected_semantic_fingerprint": "sf:v1:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "diagnostic_code": null
+  }
+}

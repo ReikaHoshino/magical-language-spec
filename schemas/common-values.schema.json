@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/common-values.schema.json",
+  "title": "Common machine-readable values",
+  "description": "Portable identifier, version, revision, quantity, duration, and scoped hash-record shapes. These representations do not decide source normalization, physical law, compatibility, or a generic artifact digest algorithm.",
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "description": "An exact JSON string in an owning identifier namespace. Consumers must not add normalization, case folding, source-language interpretation, or cross-namespace equivalence."
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "An opaque version identity token. Numeric ordering must not be inferred."
+    },
+    "revision": {
+      "type": "string",
+      "minLength": 1,
+      "description": "An opaque revision identity token. Portable producers emit strings; numeric ordering must not be inferred."
+    },
+    "siDimension": {
+      "type": "object",
+      "required": ["kg", "m", "s", "A", "K", "mol", "cd"],
+      "properties": {
+        "kg": {"type": "integer"},
+        "m": {"type": "integer"},
+        "s": {"type": "integer"},
+        "A": {"type": "integer"},
+        "K": {"type": "integer"},
+        "mol": {"type": "integer"},
+        "cd": {"type": "integer"}
+      },
+      "additionalProperties": false
+    },
+    "quantity": {
+      "type": "object",
+      "required": ["semantic_type", "dimension", "value", "unit"],
+      "properties": {
+        "semantic_type": {"$ref": "#/$defs/identifier"},
+        "dimension": {"$ref": "#/$defs/siDimension"},
+        "value": {"type": "number"},
+        "unit": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "duration": {
+      "type": "object",
+      "required": ["semantic_type", "dimension", "value", "unit"],
+      "properties": {
+        "semantic_type": {"const": "Time"},
+        "dimension": {
+          "const": {"kg": 0, "m": 0, "s": 1, "A": 0, "K": 0, "mol": 0, "cd": 0}
+        },
+        "value": {"type": "number"},
+        "unit": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "unresolvedHashRecord": {
+      "type": "object",
+      "required": ["scope", "status", "reason"],
+      "properties": {
+        "scope": {"$ref": "#/$defs/identifier"},
+        "status": {"const": "unresolved"},
+        "reason": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "digestHashRecord": {
+      "type": "object",
+      "required": [
+        "scope",
+        "status",
+        "canonicalization_profile",
+        "algorithm",
+        "value"
+      ],
+      "properties": {
+        "scope": {"$ref": "#/$defs/identifier"},
+        "status": {"const": "digest"},
+        "canonicalization_profile": {"$ref": "#/$defs/identifier"},
+        "algorithm": {"$ref": "#/$defs/identifier"},
+        "value": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "hashRecord": {
+      "oneOf": [
+        {"$ref": "#/$defs/unresolvedHashRecord"},
+        {"$ref": "#/$defs/digestHashRecord"}
+      ]
+    },
+    "artifactContentHash": {
+      "oneOf": [
+        {
+          "allOf": [
+            {"$ref": "#/$defs/unresolvedHashRecord"},
+            {"properties": {"scope": {"const": "artifact-content"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/digestHashRecord"},
+            {"properties": {"scope": {"const": "artifact-content"}}}
+          ]
+        }
+      ]
+    },
+    "registryContractSetHash": {
+      "oneOf": [
+        {
+          "allOf": [
+            {"$ref": "#/$defs/unresolvedHashRecord"},
+            {"properties": {"scope": {"const": "registry-contract-set"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/digestHashRecord"},
+            {"properties": {"scope": {"const": "registry-contract-set"}}}
+          ]
+        }
+      ]
+    },
+    "sourceEvidenceHash": {
+      "oneOf": [
+        {
+          "allOf": [
+            {"$ref": "#/$defs/unresolvedHashRecord"},
+            {"properties": {"scope": {"const": "source-evidence"}}}
+          ]
+        },
+        {
+          "allOf": [
+            {"$ref": "#/$defs/digestHashRecord"},
+            {"properties": {"scope": {"const": "source-evidence"}}}
+          ]
+        }
+      ]
+    }
+  }
+}

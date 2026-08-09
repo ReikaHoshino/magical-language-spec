@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/spell-instance-manifest.schema.json",
+  "type": "object",
+  "required": ["suite", "lifecycle", "stable_required_claim", "bundle_files"],
+  "properties": {
+    "suite": {"const": "SpellInstanceBundle-Experimental-0"},
+    "lifecycle": {"const": "experimental"},
+    "stable_required_claim": {"const": false},
+    "bundle_files": {"type": "array", "minItems": 12, "maxItems": 12, "uniqueItems": true, "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,112 @@
+{
+  "suite_id": "MGLS-0-Negative-Contract",
+  "revision": "0",
+  "base_source": "examples/mgls/independent-transition.mgls",
+  "cases": [
+    {
+      "case_id": "MGLS-NEG-001",
+      "mutation": "replace the first declaration with: mgls \"1\";",
+      "stage": "INGRESS",
+      "expected_diagnostic": "SpecVersionIncompatible",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-002",
+      "mutation": "insert after the header: import \"network:model\";",
+      "stage": "PARSE",
+      "expected_diagnostic": "UnsupportedSemanticExtension",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-003",
+      "mutation": "declare desired_state twice in the value namespace",
+      "stage": "STATIC",
+      "expected_diagnostic": "DuplicateBinding",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-004",
+      "mutation": "replace target_ref in invoke_transition inputs with missing_ref",
+      "stage": "STATIC",
+      "expected_diagnostic": "UnresolvedName",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-005",
+      "mutation": "replace generic.transition@1 with unknown.transition@1",
+      "stage": "CONTRACT",
+      "expected_diagnostic": "RegistryMismatch",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-006",
+      "mutation": "change desired_state declaration to: let desired_state: bool = \"transitioned\";",
+      "stage": "TYPECHECK",
+      "expected_diagnostic": "TypeError",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-007",
+      "mutation": "declare an Energy quantity with dimension Length",
+      "stage": "TYPECHECK",
+      "expected_diagnostic": "DimensionError",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-008",
+      "mutation": "remove capability.transition from invoke_transition requires",
+      "stage": "EFFECTCHECK",
+      "expected_diagnostic": "StaticAuthorityError",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-009",
+      "mutation": "remove accounting.transition from invoke_transition requires",
+      "stage": "EFFECTCHECK",
+      "expected_diagnostic": "ConservationProofFailure",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-010",
+      "mutation": "make resolve_target explicitly after invoke_transition",
+      "stage": "GRAPH",
+      "expected_diagnostic": "CausalityCycleError",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-011",
+      "mutation": "declare output kind reference from transition_result",
+      "stage": "OUTPUT",
+      "expected_diagnostic": "EffectMismatch",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-012",
+      "mutation": "replace budget energy with NaN",
+      "stage": "LEX",
+      "expected_diagnostic": "ParseError",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-013",
+      "mutation": "generate 257 node declarations",
+      "stage": "LIMIT",
+      "expected_diagnostic": "InputLimitExceeded",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-014",
+      "mutation": "compiler emits an effect.invoke for a source calculate node",
+      "stage": "LOWERING",
+      "expected_diagnostic": "SourceSemanticDrift",
+      "must_not_emit_program": true
+    },
+    {
+      "case_id": "MGLS-NEG-015",
+      "mutation": "compiler omits a required source-map entry for invoke_transition",
+      "stage": "SOURCE_MAP",
+      "expected_diagnostic": "NormalizationFailed",
+      "must_not_emit_program": true
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/spell-instance-bundle.schema.json",
+  "title": "Experimental SpellInstanceBundle v0",
+  "allOf": [{"$ref": "artifact-envelope.schema.json"}],
+  "type": "object",
+  "required": [
+    "artifact_kind", "artifact_version", "instance_id", "suite_id", "scenario_kind",
+    "support_level", "ingress", "semantic_contract", "registry_extensions", "profiles",
+    "world_index", "initial_world", "execution", "expected_outcome", "provenance", "compatibility"
+  ],
+  "properties": {
+    "artifact_kind": {"const": "SpellInstanceBundle"},
+    "artifact_version": {"const": "0"},
+    "instance_id": {"type": "string", "minLength": 1},
+    "suite_id": {"type": "string", "minLength": 1},
+    "scenario_kind": {"type": "string", "minLength": 1},
+    "support_level": {"enum": ["implemented", "recognized-unsupported"]},
+    "ingress": {
+      "type": "object",
+      "required": ["stage", "payload"],
+      "properties": {
+        "stage": {"const": "NSR"},
+        "payload": {"$ref": "nsr.schema.json"}
+      },
+      "additionalProperties": false
+    },
+    "semantic_contract": {"$ref": "#/$defs/contractIdentity"},
+    "runtime_contract": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/contractIdentity"}]},
+    "registry_extensions": {
+      "type": "object",
+      "maxProperties": 8,
+      "properties": {
+        "controller_models": {"$ref": "#/$defs/registryRecords"},
+        "structure_schemas": {"$ref": "#/$defs/registryRecords"},
+        "reaction_rules": {"$ref": "#/$defs/registryRecords"},
+        "conservation_ledgers": {"$ref": "#/$defs/registryRecords"},
+        "evidence_fusion_models": {"$ref": "#/$defs/registryRecords"},
+        "explosion_models": {"$ref": "#/$defs/registryRecords"},
+        "planning_models": {"$ref": "#/$defs/registryRecords"}
+      },
+      "additionalProperties": false
+    },
+    "profiles": {
+      "type": "object",
+      "required": ["runtime", "sandbox"],
+      "properties": {
+        "runtime": {"$ref": "#/$defs/profile"},
+        "sandbox": {
+          "allOf": [{"$ref": "#/$defs/profile"}],
+          "type": "object",
+          "required": ["artifact_id", "revision", "limits"],
+          "properties": {
+            "artifact_id": {"type": "string"},
+            "revision": {"type": "string"},
+            "limits": {
+              "type": "object",
+              "required": ["max_energy_j", "max_events_per_commit", "max_microsteps_per_tick", "max_concurrency"],
+              "properties": {
+                "max_energy_j": {"type": "number", "minimum": 0},
+                "max_events_per_commit": {"type": "integer", "minimum": 0},
+                "max_microsteps_per_tick": {"type": "integer", "minimum": 0},
+                "max_concurrency": {"type": "integer", "minimum": 0}
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "world_index": {
+      "type": "object",
+      "required": ["world_index_revision", "source_world_revision", "records"],
+      "properties": {
+        "world_index_revision": {"type": "string"},
+        "source_world_revision": {"type": "string"},
+        "records": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": false
+    },
+    "initial_world": {
+      "type": "object",
+      "required": ["revision", "entities", "capabilities", "leases", "ledgers", "history"],
+      "properties": {
+        "revision": {"type": "string"},
+        "entities": {"type": "object", "additionalProperties": {"type": "object"}},
+        "capabilities": {"type": "object", "additionalProperties": {"type": "object"}},
+        "leases": {"type": "object", "additionalProperties": {"type": "object"}},
+        "ledgers": {"type": "object", "additionalProperties": {"type": "object"}},
+        "history": {"type": "array", "items": {"type": "object"}},
+        "controllers": {"type": "object", "additionalProperties": {"type": "object"}},
+        "runtime_state": {"type": "object"},
+        "process_state": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "execution": {
+      "type": "object",
+      "required": ["operations", "parameters", "required_evidence", "energy_budget_j"],
+      "properties": {
+        "operations": {
+          "type": "array", "minItems": 1,
+          "items": {"enum": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]}
+        },
+        "parameters": {"type": "object"},
+        "required_evidence": {
+          "type": "object",
+          "required": ["resolution", "capabilities", "leases", "accounting"],
+          "properties": {
+            "resolution": {"type": "array", "items": {"type": "string"}},
+            "capabilities": {"type": "array", "items": {"type": "string"}},
+            "leases": {"type": "array", "items": {"type": "string"}},
+            "accounting": {"type": "array", "items": {"type": "string"}}
+          },
+          "additionalProperties": false
+        },
+        "energy_budget_j": {"type": "number", "minimum": 0},
+        "assumptions": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": false
+    },
+    "expected_outcome": {
+      "type": "object",
+      "required": ["evaluation_status"],
+      "properties": {
+        "evaluation_status": {"enum": ["Feasible", "ConditionallyFeasible", "Infeasible", "Indeterminate"]},
+        "runtime_status": {"enum": ["Committed", "Aborted", null]},
+        "diagnostic_codes": {"type": "array", "items": {"type": "string"}},
+        "final_invariants": {"type": "object"},
+        "replay_status": {"enum": ["Match", "DeterministicAbort", null]},
+        "expected_event_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "expected_result_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties": {"evaluation_status": {"enum": ["Infeasible", "Indeterminate"]}}, "required": ["evaluation_status"]},
+          "then": {
+            "required": ["diagnostic_codes"],
+            "properties": {
+              "runtime_status": {"type": "null"},
+              "replay_status": {"type": "null"},
+              "diagnostic_codes": {"minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"runtime_status": {"const": "Aborted"}}, "required": ["runtime_status"]},
+          "then": {
+            "required": ["diagnostic_codes", "final_invariants", "replay_status"],
+            "properties": {
+              "diagnostic_codes": {"minItems": 1},
+              "final_invariants": {"type": "object", "required": ["Sigma", "H"], "minProperties": 2},
+              "replay_status": {"const": "DeterministicAbort"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"runtime_status": {"const": "Committed"}}, "required": ["runtime_status"]},
+          "then": {
+            "required": ["diagnostic_codes", "final_invariants", "replay_status"],
+            "properties": {
+              "diagnostic_codes": {"maxItems": 0},
+              "final_invariants": {"type": "object", "minProperties": 1},
+              "replay_status": {"const": "Match"}
+            },
+            "oneOf": [
+              {"required": ["expected_event_ids"], "not": {"required": ["expected_result_hash"]}},
+              {"required": ["expected_result_hash"], "not": {"required": ["expected_event_ids"]}}
+            ]
+          }
+        }
+      ]
+    },
+    "variants": {"type": "array", "items": {"type": "object"}},
+    "provenance": {"$ref": "artifact-envelope.schema.json#/properties/provenance"},
+    "compatibility": {
+      "type": "object",
+      "required": ["required_domains", "decisions"],
+      "properties": {
+        "required_domains": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "decisions": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "contractIdentity": {
+      "type": "object",
+      "required": ["contract_id", "revision"],
+      "properties": {
+        "contract_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "object",
+      "required": ["artifact_id", "revision"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      }
+    },
+    "registryRecords": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"type": "object", "minProperties": 1}
+    }
+  }
+}

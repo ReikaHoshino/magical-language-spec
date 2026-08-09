@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/source-text-normalization.schema.json",
+  "title": "Source Text Normalization V1 Result",
+  "description": "Representation-layer preprocessing result for LanguageAdapter source input. This contract does not normalize NSR identifiers or define SemanticFingerprint/content-hash semantics.",
+  "oneOf": [
+    {"$ref": "#/$defs/accepted"},
+    {"$ref": "#/$defs/rejected"}
+  ],
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "span": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"type": "integer", "minimum": 0},
+        "end": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "adapter": {
+      "type": "object",
+      "required": ["adapter_id", "external_language_tags", "script_hints"],
+      "properties": {
+        "adapter_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*$"
+        },
+        "external_language_tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*$"
+          },
+          "uniqueItems": true
+        },
+        "script_hints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]{4}$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "transformation": {
+      "type": "object",
+      "required": ["kind", "source_span", "output_span"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "Utf8BomRemoved",
+            "LineEndingCanonicalized",
+            "CanonicalComposition"
+          ]
+        },
+        "source_span": {"$ref": "#/$defs/span"},
+        "output_span": {"$ref": "#/$defs/span"}
+      },
+      "additionalProperties": false
+    },
+    "sourceMapEntry": {
+      "type": "object",
+      "required": ["output_span", "source_span", "exact"],
+      "properties": {
+        "output_span": {"$ref": "#/$defs/span"},
+        "source_span": {"$ref": "#/$defs/span"},
+        "exact": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "accepted": {
+      "type": "object",
+      "required": [
+        "contract_version",
+        "status",
+        "adapter",
+        "input",
+        "output",
+        "transformations",
+        "source_map"
+      ],
+      "properties": {
+        "contract_version": {"const": "source-text-normalization-v1"},
+        "status": {"const": "Accepted"},
+        "adapter": {"$ref": "#/$defs/adapter"},
+        "input": {
+          "type": "object",
+          "required": [
+            "boundary",
+            "encoding",
+            "original_text",
+            "utf8_bom_removed"
+          ],
+          "properties": {
+            "boundary": {"enum": ["utf8-bytes", "unicode-text"]},
+            "encoding": {"const": "UTF-8"},
+            "original_text": {"type": "string"},
+            "utf8_bom_removed": {"type": "boolean"}
+          },
+          "additionalProperties": false
+        },
+        "output": {
+          "type": "object",
+          "required": ["normalization_form", "normalized_text"],
+          "properties": {
+            "normalization_form": {"const": "NFC"},
+            "normalized_text": {"type": "string"}
+          },
+          "additionalProperties": false
+        },
+        "transformations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/transformation"}
+        },
+        "source_map": {
+          "type": "object",
+          "required": ["offset_unit", "entries"],
+          "properties": {
+            "offset_unit": {"const": "unicode-scalar-value"},
+            "entries": {
+              "type": "array",
+              "items": {"$ref": "#/$defs/sourceMapEntry"},
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "rejected": {
+      "type": "object",
+      "required": [
+        "contract_version",
+        "status",
+        "adapter_id",
+        "boundary",
+        "diagnostic"
+      ],
+      "properties": {
+        "contract_version": {"const": "source-text-normalization-v1"},
+        "status": {"const": "Rejected"},
+        "adapter_id": {"type": "string"},
+        "boundary": {"enum": ["utf8-bytes", "unicode-text"]},
+        "diagnostic": {
+          "type": "object",
+          "required": ["code", "message"],
+          "properties": {
+            "code": {
+              "enum": [
+                "InvalidUTF8",
+                "InvalidUnicodeScalar",
+                "UnsupportedSourceCharacter",
+                "InvalidAdapterID",
+                "InvalidExternalLanguageTag",
+                "InvalidScriptTag"
+              ]
+            },
+            "message": {"$ref": "#/$defs/nonEmptyString"},
+            "source_offset": {"type": "integer", "minimum": 0}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

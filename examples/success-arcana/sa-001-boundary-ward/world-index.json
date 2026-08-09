@@ -1,0 +1,10 @@
+{
+  "metadata": {"schema_version": "1", "artifact_id": "world-index:arcana-sa001", "revision": "wi:sa001:1", "spec_version": "0.12.0", "content_hash": {"scope": "artifact-content", "status": "unresolved", "reason": "Generic artifact canonical bytes and digest algorithm remain unresolved."}, "provenance": {"source_kind": "experimental-fixture", "source_id": "SUCCESS-ARCANA-001", "source_revision": "1", "created_at": "2026-01-01T00:00:00Z"}, "compatibility": {"domain": "WorldIndex", "contract_revision": "1", "declarations": {"experimental": true}}},
+  "index_schema_revision": "1", "world_index_revision": "wi:sa001:1", "source_world_revision": "world:sa001:1",
+  "snapshot": {"world_index_revision": "wi:sa001:1", "source_world_revision": "world:sa001:1", "captured_at": "2026-01-01T00:00:00Z", "index_schema_revision": "1"},
+  "records": [
+    {"entity_id": "entity:sa001:anchor", "type_tags": ["Anchor"], "symbolic_names": ["anchor:sevenfold-sanctuary"], "spatial_summary": {"region": "region:sevenfold-sanctuary"}, "relation_keys": [], "visibility_metadata": {"discoverability_class": "fixture", "redaction_policy": "none"}, "record_revision": "record:sa001:anchor:1", "source_world_revision": "world:sa001:1"},
+    {"entity_id": "entity:sa001:intruder", "type_tags": ["Matter"], "symbolic_names": ["intruder"], "spatial_summary": {"region": "region:sevenfold-sanctuary"}, "relation_keys": ["crossing:sa001:1"], "visibility_metadata": {"discoverability_class": "fixture", "redaction_policy": "none"}, "record_revision": "record:sa001:intruder:1", "source_world_revision": "world:sa001:1"}
+  ],
+  "indexes": {"identity": {"entity:sa001:anchor": 0, "entity:sa001:intruder": 1}, "symbolic": {"anchor:sevenfold-sanctuary": ["entity:sa001:anchor"], "intruder": ["entity:sa001:intruder"]}, "spatial": {"region:sevenfold-sanctuary": ["entity:sa001:anchor", "entity:sa001:intruder"]}, "relation": {"crossing:sa001:1": ["entity:sa001:intruder"]}, "visibility": {"fixture": ["entity:sa001:anchor", "entity:sa001:intruder"]}}
+}

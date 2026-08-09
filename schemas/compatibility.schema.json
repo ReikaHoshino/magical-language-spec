@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/compatibility.schema.json",
+  "title": "Compatibility decision envelope",
+  "description": "A common evidence/result envelope for domain-owned compatibility decisions. This schema does not define one cross-domain compatibility algorithm.",
+  "$defs": {
+    "domain": {
+      "$ref": "common-values.schema.json#/$defs/identifier",
+      "description": "A domain-owned compatibility namespace. Initial profiles cover SpecVersion, Schema, SemanticRegistry, RuntimeProfile, LanguageAdapter, SemanticFingerprint, and WorldIndex; extensions remain possible."
+    },
+    "profileReference": {
+      "type": "object",
+      "required": [
+        "profile_id",
+        "profile_revision",
+        "domain",
+        "owner",
+        "rule_source"
+      ],
+      "properties": {
+        "profile_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "profile_revision": {
+          "$ref": "common-values.schema.json#/$defs/revision"
+        },
+        "domain": {"$ref": "#/$defs/domain"},
+        "owner": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "rule_source": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "subject": {
+      "type": "object",
+      "required": ["kind", "declarations"],
+      "properties": {
+        "kind": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "artifact_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "revision": {
+          "$ref": "common-values.schema.json#/$defs/revision"
+        },
+        "schema_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "schema_version": {
+          "$ref": "common-values.schema.json#/$defs/version"
+        },
+        "spec_version": {
+          "$ref": "common-values.schema.json#/$defs/version"
+        },
+        "declarations": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "requirement": {
+      "type": "object",
+      "required": ["requirement_id", "declarations"],
+      "properties": {
+        "requirement_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "declarations": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["kind", "source", "decisive"],
+      "properties": {
+        "kind": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "field_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {},
+        "decisive": {"type": "boolean"},
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": ["status", "reason_code", "diagnostic"],
+      "properties": {
+        "status": {
+          "enum": ["Compatible", "Incompatible", "Undetermined"]
+        },
+        "reason_code": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "diagnostic": {
+          "type": ["string", "null"],
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {"enum": ["Incompatible", "Undetermined"]}
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "diagnostic": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      ]
+    },
+    "decision": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "decision_id",
+        "profile",
+        "producer",
+        "consumer_requirement",
+        "evidence",
+        "result"
+      ],
+      "properties": {
+        "schema_version": {"const": "1"},
+        "decision_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "profile": {"$ref": "#/$defs/profileReference"},
+        "producer": {"$ref": "#/$defs/subject"},
+        "consumer_requirement": {"$ref": "#/$defs/requirement"},
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/evidence"}
+        },
+        "result": {"$ref": "#/$defs/result"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "required": ["schema_version", "decisions"],
+  "properties": {
+    "schema_version": {"const": "1"},
+    "decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/decision"}
+    }
+  },
+  "additionalProperties": false
+}

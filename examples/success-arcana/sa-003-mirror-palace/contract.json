@@ -1,0 +1,16 @@
+{
+  "document_kind":"ExperimentalArcanaFixtureContract","schema_version":"1","fixture_id":"SUCCESS-ARCANA-003","experimental_class":"Experimental-Arcana-0",
+  "action":"evidence_fusion","handler_id":"handler:experimental-arcana:evidence-fusion@1","plan_id":"arcana:plan:evidence-fusion",
+  "runtime_profile":{"artifact_id":"runtime-profile:arcana-sa003","revision":"1"},
+  "sandbox_profile":{"artifact_id":"sandbox-profile:arcana-sa003","revision":"1","max_energy_j":50,"fixture_only":true,"max_events_per_commit":4,"max_microsteps_per_tick":16},
+  "operations":["RESOLVE","OBSERVE"],
+  "lowering":[
+    {"mki_operation":"RESOLVE","kernel_interactions":["QUERY"],"atomic_group":"group:sa003:historical-query"},
+    {"mki_operation":"OBSERVE","kernel_interactions":["SAMPLE"],"atomic_group":"group:sa003:current-trace"}
+  ],
+  "energy_budget_j":40,
+  "required_evidence":{"resolution":["state-revision:subject@world:sa003:7","history-revision:sa003:4","evidence-revision:sa003:9"],"capabilities":["capability:sa003:discovery","capability:sa003:observation","capability:sa003:privacy"],"leases":["lease:sa003:evidence-snapshot"],"accounting":["ledger:sa003:observation-energy"]},
+  "typed_parameters":{"subject_id":"entity:sa003:subject","world_revision":"world:sa003:7","history_revision":"history-revision:sa003:4","evidence_revision":"evidence-revision:sa003:9","observation_interval":{"start":"2025-12-31T23:00:00Z","end":"2026-01-01T00:00:00Z"},"permitted_evidence_sources":["history-store:sa003","observer:sa003:trace"],"freshness_policy":"ExactRevision","query_budget":7,"deterministic_ordering":"source-id,event-time,measurement-id","evidence_fusion_model":{"model_id":"evidence-fusion:sa003","revision":"1"},"minimum_evidence_count":3,"confidence_threshold":0.75,"winner_hypothesis_id":"hypothesis:sa003:A","winner_confidence":0.82,"display_requested":false,"display_energy_j":0},
+  "success_invariants":["FrozenEvidenceContextRecorded","DeterministicHypothesisRanking","ConfidenceNotAuthorityOrTruth","WinnerRevalidatedBeforeCommit","ArtifactSeparateFromPhysicalDisplay","NoFuturePredictionOrRewind","DeterministicReplay"],
+  "definition_sources":["reference/evidence-inference.md","reference/success-arcana.md","reference/world-index.md"]
+}

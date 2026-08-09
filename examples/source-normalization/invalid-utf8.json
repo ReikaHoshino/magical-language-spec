@@ -1,0 +1,11 @@
+{
+  "contract_version": "source-text-normalization-v1",
+  "status": "Rejected",
+  "adapter_id": "jpn",
+  "boundary": "utf8-bytes",
+  "diagnostic": {
+    "code": "InvalidUTF8",
+    "message": "byte input is not well-formed UTF-8",
+    "source_offset": 0
+  }
+}

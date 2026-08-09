@@ -1,0 +1,14 @@
+{
+  "suite": {"class_id": "Experimental-Arcana-0", "revision": "0", "lifecycle": "experimental", "owner": "reference/success-arcana.md", "stable_required_claim": false},
+  "required_surface_unchanged": {"manifest": "conformance/manifest.json", "class_ids": ["Core-1.0", "Evaluator-1.0", "Adapter-lat-1.0", "Runtime-1.0"], "case_count": 65},
+  "cases": [
+    {"case_id": "SUCCESS-ARCANA-001", "bundle_file": "examples/spell-instances/success-arcana/SA-001.json", "rule_ids": ["ARCANA-RULE-DYNAMIC-CAPABILITY", "ARCANA-RULE-CONTROLLER-ACTUATION", "ARCANA-RULE-ACTIVE-EFFECT-REPLAY"], "support_level": "implemented", "replay_required": true},
+    {"case_id": "SUCCESS-ARCANA-002", "bundle_file": "examples/spell-instances/success-arcana/SA-002.json", "rule_ids": ["ARCANA-RULE-TREATMENT-DECOMPOSITION", "ARCANA-RULE-ONE-WAY-CORRESPONDENCE", "ARCANA-RULE-IDENTITY-ACCOUNTING"], "support_level": "implemented", "replay_required": true},
+    {"case_id": "SUCCESS-ARCANA-003", "bundle_file": "examples/spell-instances/success-arcana/SA-003.json", "rule_ids": ["ARCANA-RULE-FROZEN-EVIDENCE", "ARCANA-RULE-CONFIDENCE-BOUNDARY", "ARCANA-RULE-ARTIFACT-RENDERING"], "support_level": "implemented", "replay_required": true},
+    {"case_id": "SUCCESS-ARCANA-004", "bundle_file": "examples/spell-instances/success-arcana/SA-004.json", "rule_ids": ["ARCANA-RULE-BOUNDED-EXPLOSION"], "support_level": "implemented", "replay_required": true},
+    {"case_id": "SUCCESS-ARCANA-005", "bundle_file": "examples/spell-instances/success-arcana/SA-005.json", "rule_ids": ["ARCANA-RULE-RECOGNIZED-UNSUPPORTED"], "support_level": "recognized-unsupported", "replay_required": false},
+    {"case_id": "SUCCESS-ARCANA-006", "bundle_file": "examples/spell-instances/success-arcana/SA-006.json", "rule_ids": ["ARCANA-RULE-RECOGNIZED-UNSUPPORTED"], "support_level": "recognized-unsupported", "replay_required": false},
+    {"case_id": "SUCCESS-ARCANA-007", "bundle_file": "examples/spell-instances/success-arcana/SA-007.json", "rule_ids": ["ARCANA-RULE-RECOGNIZED-UNSUPPORTED"], "support_level": "recognized-unsupported", "replay_required": false},
+    {"case_id": "SUCCESS-ARCANA-008", "bundle_file": "examples/spell-instances/success-arcana/SA-008.json", "rule_ids": ["ARCANA-RULE-RECOGNIZED-UNSUPPORTED"], "support_level": "recognized-unsupported", "replay_required": false}
+  ]
+}

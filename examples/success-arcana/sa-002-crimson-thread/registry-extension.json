@@ -1,0 +1,30 @@
+{
+  "document_kind": "ExperimentalArcanaRegistryExtension",
+  "schema_version": "1",
+  "fixture_id": "SUCCESS-ARCANA-002",
+  "namespaces": {
+    "semantic_kinds": [
+      {"id":"arcana:kind:Matter","revision":"1","contract":{"category":["QuantityKind","TransferKind"],"traits":["Observable","Transferable","Conserved"],"conservation_profile":["ledger:sa002:matter-energy-momentum"],"allowed_modes":["Fluid","DonorTissue"],"endpoint_requirements":{},"observer_properties":["Composition"]}},
+      {"id":"arcana:kind:Momentum","revision":"1","contract":{"category":["QuantityKind"],"dimension":{"kg":1,"m":1,"s":-1,"A":0,"K":0,"mol":0,"cd":0},"traits":["Observable","Conserved"],"conservation_profile":["ledger:sa002:matter-energy-momentum"],"allowed_modes":["Mechanical"],"endpoint_requirements":{},"observer_properties":[]}},
+      {"id":"arcana:kind:Energy","revision":"1","contract":{"category":["QuantityKind","TransferKind"],"dimension":{"kg":1,"m":2,"s":-2,"A":0,"K":0,"mol":0,"cd":0},"traits":["Observable","Transferable","Conserved"],"conservation_profile":["ledger:sa002:matter-energy-momentum"],"allowed_modes":["Thermal","Chemical","Mechanical"],"endpoint_requirements":{},"observer_properties":[]}},
+      {"id":"arcana:kind:TreatmentDecomposition","revision":"1","contract":{"category":["DescriptorKind"],"traits":["EvidenceBearing","NonConserved"],"allowed_modes":["TreatmentPlanning"],"endpoint_requirements":{},"observer_properties":["Uncertainty"]}},
+      {"id":"arcana:kind:DamageDescriptor","revision":"1","contract":{"category":["DescriptorKind"],"traits":["ProvenanceBearing","NonConserved"],"allowed_modes":["ProxyManifest"],"endpoint_requirements":{},"observer_properties":[]}}
+    ],
+    "structure_schemas": [
+      {"id":"structure:TissueArchitecture","revision":"1","contract":{"data_contract":{"identity_policy":"IdentityPolicy<Organism>","reversible_deviation_required":true},"compatible_transfer_capabilities":["MedicalMatterTransfer"],"compatible_reconfigure_domains":["StructuralRepair","BiochemicalRepair"]}}
+    ],
+    "reaction_rules": [
+      {"id":"reaction-rule:sa002:structural-biochemical-repair","revision":"1","contract":{"stoichiometry":{"donor-matter":"-1","admitted-tissue-repair":"1"},"domain":"MedicalRepair","required_state":{"reversible":true,"identity_policy":"IdentityPolicy<Organism>"},"products":["admitted-tissue-repair"],"accounting_profile":["ledger:sa002:matter-energy-momentum"],"authority_requirements":{"capability":"MedicalTreatment","consent_lease":true},"pathway_ids":["pathway:sa002:staged-treatment"]}}
+    ],
+    "observer_models": [
+      {"id":"observer:sa002:reversible-injury","revision":"1","contract":{"input_type":"PatientInjuryState","output_type":"TreatmentDecomposition","domain":{"small_scale_sandbox_treatment":true},"response":{"fields":["excess_thermal_energy","removable_fluid","chemical_state_deviation","reversible_structural_deviation","irreversible_information_loss","uncertainty"]},"normalization":{"preserve_measurement_evidence":true}}}
+    ],
+    "controller_models": [],
+    "conservation_ledgers": [
+      {"id":"ledger:sa002:matter-energy-momentum","revision":"1","contract":{"semantic_type":"Matter","balance_rule":{"patient_sink_donor_proxy":"explicitly_accounted"},"applicable_domains":["MedicalRepair"]}},
+      {"id":"ledger:sa002:energy","revision":"1","contract":{"semantic_type":"Energy","balance_rule":{"sink_and_treatment_reservoir":"explicitly_accounted"},"applicable_domains":["MedicalRepair"]}},
+      {"id":"ledger:sa002:momentum","revision":"1","contract":{"semantic_type":"Momentum","balance_rule":{"fixture_net":"zero"},"applicable_domains":["MedicalRepair"]}}
+    ]
+  },
+  "authority_is_not_registry_metadata": true
+}

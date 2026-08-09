@@ -1,0 +1,93 @@
+{
+  "document_kind": "V1RequiredSurfaceMatrix",
+  "schema_version": "1",
+  "suite_version": "0.12.0",
+  "target": "v1.0.0-rc.N",
+  "source_issue": 38,
+  "requirements": [
+    {
+      "requirement_id": "V1-CONF-001",
+      "description": "canonical normalization and SemanticFingerprint",
+      "class_ids": ["Core-1.0", "Adapter-lat-1.0"],
+      "case_ids": ["ADAPTER-LAT-NORMALIZATION-001", "CORE-FINGERPRINT-001", "WB-TEST-003"]
+    },
+    {
+      "requirement_id": "V1-CONF-002",
+      "description": "ambiguity and permissive deterministic selection trace",
+      "class_ids": ["Adapter-lat-1.0"],
+      "case_ids": ["ADAPTER-LAT-AMBIG-001", "ADAPTER-LAT-CONTEXTUAL-001", "ADAPTER-LAT-LEGACY-001"]
+    },
+    {
+      "requirement_id": "V1-CONF-003",
+      "description": "type and dimension errors",
+      "class_ids": ["Evaluator-1.0"],
+      "case_ids": ["EVAL-TYPE-001", "EVAL-DIM-001"]
+    },
+    {
+      "requirement_id": "V1-CONF-004",
+      "description": "resolution and identity failures",
+      "class_ids": ["Core-1.0", "Evaluator-1.0", "Runtime-1.0"],
+      "case_ids": ["EVAL-RESOLUTION-001", "RUNTIME-IDENTITY-001", "WB-TEST-008"]
+    },
+    {
+      "requirement_id": "V1-CONF-005",
+      "description": "authority and Lease failures",
+      "class_ids": ["Evaluator-1.0", "Runtime-1.0"],
+      "case_ids": ["EVAL-AUTH-001", "RUNTIME-AUTH-001", "RUNTIME-LEASE-001"]
+    },
+    {
+      "requirement_id": "V1-CONF-006",
+      "description": "conservation and resource failures",
+      "class_ids": ["Core-1.0", "Evaluator-1.0", "Runtime-1.0"],
+      "case_ids": ["EVAL-CONSERV-001", "EVAL-UNKNOWN-001", "RUNTIME-CONSERV-001", "RUNTIME-RESOURCE-001", "WB-TEST-009"]
+    },
+    {
+      "requirement_id": "V1-CONF-007",
+      "description": "Unknown, Estimate, PlanningAssumption, and binding behavior",
+      "class_ids": ["Core-1.0", "Evaluator-1.0"],
+      "case_ids": ["CORE-PLANNING-001", "CORE-PLANNING-BINDING-001", "EVAL-UNKNOWN-001", "WB-TEST-005"]
+    },
+    {
+      "requirement_id": "V1-CONF-008",
+      "description": "generation lowering and minimum-Energy feasible selection",
+      "class_ids": ["Core-1.0", "Evaluator-1.0"],
+      "case_ids": ["CORE-PLANNING-GENERATION-001", "EVAL-PLAN-SELECTION-001", "WB-TEST-006", "WB-TEST-007"]
+    },
+    {
+      "requirement_id": "V1-CONF-009",
+      "description": "PREPARE and COMMIT revalidation",
+      "class_ids": ["Runtime-1.0"],
+      "case_ids": ["RUNTIME-PREPARE-001", "RUNTIME-COMMIT-001", "RUNTIME-AUTH-001", "RUNTIME-LEASE-001", "RUNTIME-CONSERV-001"]
+    },
+    {
+      "requirement_id": "V1-CONF-010",
+      "description": "all six MKI primitives in supported scenarios",
+      "class_ids": ["Core-1.0", "Runtime-1.0"],
+      "case_ids": ["RUNTIME-KERNEL-ABI-001", "RUNTIME-MKI-EXEC-001", "WB-TEST-006"]
+    },
+    {
+      "requirement_id": "V1-CONF-011",
+      "description": "scheduler and timing behavior",
+      "class_ids": ["Runtime-1.0"],
+      "case_ids": ["RUNTIME-SCHEDULER-001", "RUNTIME-KERNEL-TIME-001"]
+    },
+    {
+      "requirement_id": "V1-CONF-012",
+      "description": "deterministic replay and incompatibility diagnostics",
+      "class_ids": ["Core-1.0", "Runtime-1.0"],
+      "case_ids": ["CORE-COMPAT-001", "CORE-COMPAT-MIGRATION-INCOMPATIBLE-001", "RUNTIME-REPLAY-001"]
+    },
+    {
+      "requirement_id": "V1-CONF-013",
+      "description": "canonical water-ball evaluation and execution",
+      "class_ids": ["Core-1.0", "Evaluator-1.0", "Runtime-1.0"],
+      "case_ids": ["WB-TEST-001", "WB-TEST-002", "WB-TEST-003", "WB-TEST-004", "WB-TEST-005", "WB-TEST-006", "WB-TEST-007", "WB-TEST-008", "WB-TEST-009", "WB-TEST-010", "WB-TEST-011", "EVAL-WATER-BALL-001", "RUNTIME-COMMIT-001"]
+    },
+    {
+      "requirement_id": "V1-CONF-014",
+      "description": "bound planner prediction versus explicit Dynamic reactive behavior",
+      "class_ids": ["Core-1.0", "Runtime-1.0"],
+      "case_ids": ["CORE-PLANNING-BINDING-001", "RUNTIME-BINDING-001", "WB-TEST-010"]
+    }
+  ]
+}

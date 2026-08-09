@@ -1,0 +1,9 @@
+{"document_kind":"ExperimentalArcanaNegativeNeighbors","schema_version":"1","fixture_id":"SUCCESS-ARCANA-002","cases":[
+  {"case_id":"SA002-NEG-AMBIGUOUS","mutation":"ambiguous_correspondence","expected_code":"ResolutionFailure","no_partial_initial_commit":true},
+  {"case_id":"SA002-NEG-AUTHORITY","mutation":"revoke_medical_capability","expected_code":"AuthorityError","no_partial_initial_commit":true},
+  {"case_id":"SA002-NEG-CONSENT","mutation":"remove_patient_consent","expected_code":"AuthorityError","no_partial_initial_commit":true},
+  {"case_id":"SA002-NEG-SINK","mutation":"insufficient_sink_capacity","expected_code":"ResourceInsufficient","no_partial_initial_commit":true},
+  {"case_id":"SA002-NEG-DONOR","mutation":"insufficient_donor_matter","expected_code":"ResourceInsufficient","no_partial_initial_commit":true},
+  {"case_id":"SA002-NEG-IDENTITY","mutation":"identity_critical_information_loss","expected_code":"IdentityPreservationFailure","no_partial_initial_commit":true},
+  {"case_id":"SA002-NEG-REVERSE","mutation":"reverse_proxy_relation_attempt","expected_code":"ReverseCorrespondenceForbidden","no_partial_initial_commit":true}
+]}

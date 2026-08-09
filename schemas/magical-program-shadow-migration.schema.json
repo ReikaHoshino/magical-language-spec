@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/magical-program-shadow-migration.schema.json",
+  "title": "MagicalProgramShadowMigration-0",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "stability",
+    "source_root",
+    "selection_policy",
+    "normalizations",
+    "inventory"
+  ],
+  "properties": {
+    "manifest_version": {"const": "0"},
+    "stability": {"const": "experimental"},
+    "source_root": {"const": "examples/spell-instances"},
+    "selection_policy": {
+      "type": "object",
+      "required": ["dispatch_keys", "forbidden_keys", "legacy_executor_role"],
+      "properties": {
+        "dispatch_keys": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "semantic_contract"},
+            {"const": "runtime_contract"}
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "forbidden_keys": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "path"},
+            {"const": "filename"},
+            {"const": "suite_id"},
+            {"const": "instance_id"},
+            {"const": "display_name"}
+          ],
+          "items": false,
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "legacy_executor_role": {"const": "external-frozen-oracle-only"}
+      },
+      "additionalProperties": false
+    },
+    "normalizations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["normalization_id", "legacy", "generic", "normalized"],
+        "properties": {
+          "normalization_id": {"type": "string", "minLength": 1},
+          "legacy": {"type": "string", "minLength": 1},
+          "generic": {"type": "string", "minLength": 1},
+          "normalized": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "inventory": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "migration_id",
+          "order",
+          "path",
+          "semantic_contract",
+          "runtime_contract",
+          "classification",
+          "phase"
+        ],
+        "properties": {
+          "migration_id": {"type": "string", "minLength": 1},
+          "order": {"type": "integer", "minimum": 1},
+          "path": {"type": "string", "pattern": "^examples/spell-instances/.+\\.json$"},
+          "semantic_contract": {"$ref": "#/$defs/contract"},
+          "runtime_contract": {
+            "oneOf": [{"type": "null"}, {"$ref": "#/$defs/contract"}]
+          },
+          "classification": {
+            "enum": ["implemented", "recognized-unsupported", "adversarial"]
+          },
+          "phase": {"enum": ["foundation", "success-arcana", "debug-hell"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "contract": {
+      "type": "object",
+      "required": ["contract_id", "revision"],
+      "properties": {
+        "contract_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,7 @@
+# SUCCESS-ARCANA-003 — ムネモシュネーの鏡宮
+
+同じ`FrozenEvidenceContext`上のcommitted HistoricalMeasurementとcurrent physical trace Measurementを収集し、pure `EvidenceFusionModel`で候補historyを決定的にrankするexperimental fixture。
+
+History readはQUERY、current trace acquisitionはOBSERVE→SAMPLE、fusion/rankingはpure computationである。confidenceはcandidate selection scoreでありIdentity/Capability/Truthのproofではない。winnerはCOMMIT直前にauthoritative identity/state/observation authorityを再検証する。
+
+既定successは非物理的`ObservationArtifact`だけを生成し、WorldState revisionを変えない。physical displayはDisplayModel、radiative Energy、Capability/accountingを要求する独立optional effectで、このfixtureでは実行しない。

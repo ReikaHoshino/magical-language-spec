@@ -1,0 +1,192 @@
+(* Magical Intermediate Representation — provisional v0.6.2 grammar *)
+(* Static typing, effects, lifetimes, authority, registry contracts, kinetics, and operational semantics are specified separately. *)
+(* Scope, name resolution, and the grammar-to-semantic crosswalk are specified in reference/mir-name-resolution.md. *)
+
+program             = { declaration } ;
+
+declaration         = spell-decl | proc-decl | fn-decl ;
+spell-decl          = "spell", identifier, [ type-params ], parameters,
+                       [ effect-decl ], block ;
+proc-decl           = "proc", identifier, [ type-params ], parameters,
+                       [ return-type ], effect-decl, block ;
+fn-decl             = "fn", identifier, [ type-params ], parameters,
+                       [ return-type ], block ;
+
+type-params         = "<", type-param, { ",", type-param }, ">" ;
+type-param          = identifier, [ ":", identifier ] ;
+parameters          = "(", [ parameter, { ",", parameter } ], ")" ;
+parameter           = identifier, ":", type ;
+return-type         = "->", type ;
+effect-decl         = "!", "{", [ effect, { ",", effect } ], "}" ;
+effect              = identifier, [ "<", type-arg-list, ">" ] ;
+
+block               = "{", { statement }, "}" ;
+statement           = let-statement
+                    | transfer-statement
+                    | reconfigure-statement
+                    | constrain-statement
+                    | prepare-statement
+                    | if-statement
+                    | match-statement
+                    | repeat-statement
+                    | for-statement
+                    | bounded-while
+                    | await-statement
+                    | await-all-statement
+                    | sleep-statement
+                    | after-statement
+                    | event-handler
+                    | synchronize-statement
+                    | control-statement
+                    | return-statement
+                    | expression-statement ;
+
+let-statement       = "let", identifier, [ ":", type ], "=", expression, ";" ;
+expression-statement= expression, ";" ;
+
+(* Precedence, weakest to strongest: or, and, equality, relation, +-, */, unary, ^, postfix. *)
+(* ^ is right-associative. + - * / are left-associative. *)
+expression           = or-expression ;
+or-expression        = and-expression, { "or", and-expression } ;
+and-expression       = equality-expression, { "and", equality-expression } ;
+equality-expression  = relational-expression,
+                        { ( "==" | "!=" ), relational-expression } ;
+relational-expression= additive-expression,
+                        [ ( "<" | "<=" | ">" | ">=" ), additive-expression ] ;
+additive-expression  = multiplicative-expression,
+                        { ( "+" | "-" ), multiplicative-expression } ;
+multiplicative-expression
+                     = unary-expression,
+                       { ( "*" | "/" ), unary-expression } ;
+unary-expression     = ( "-" | "not" ), unary-expression
+                     | power-expression ;
+power-expression     = postfix-expression, [ "^", unary-expression ] ;
+postfix-expression   = primary-expression,
+                       { member-suffix | call-suffix } ;
+member-suffix        = ".", identifier ;
+call-suffix          = "(", [ expression-list ], ")" ;
+
+primary-expression   = literal
+                     | identifier
+                     | resolve-expr
+                     | select-expr
+                     | observe-expr
+                     | channel-expr
+                     | transfer-expr
+                     | acquire-expr
+                     | await-expr
+                     | "(", expression, ")" ;
+
+resolve-expr         = "resolve", [ "<", type, ">" ], selector ;
+select-expr          = "select", "<", type, ">", "(", selector,
+                       ",", "limit", "=", integer,
+                       [ ",", "order", "=", expression ], ")" ;
+
+observe-expr         = "observe", postfix-expression,
+                       [ "@", quantity ] ;
+channel-expr         = "channel", "<", transfer-kind, ">",
+                       "(", expression, "->", expression,
+                       [ ",", "strength", "=", expression ], ")" ;
+
+transfer-expr        = "transfer", expression, ",", expression,
+                       { ",", transfer-option } ;
+transfer-option      = "mode", "=", identifier
+                     | "invariant", "=", "[", identifier-list, "]" ;
+transfer-statement   = transfer-expr, ";" ;
+
+acquire-expr         = "acquire", expression, ".", identifier,
+                       "for", access-mode ;
+
+await-expr           = "await", expression, [ "timeout", quantity ] ;
+await-statement      = await-expr, ";" ;
+await-all-statement  = "await", "all", "[", expression-list, "]",
+                       [ "timeout", quantity ], ";" ;
+
+reconfigure-statement
+                     = "reconfigure", expression, "{",
+                       reconfigure-clause, { reconfigure-clause }, "}" ;
+
+reconfigure-clause   = "state", "=", expression, ";"
+                     | "reaction", "=", selector, ";"
+                     | "extent", "=", quantity, ";"
+                     | "structure", "=", expression, ";"
+                     | "pathway", "=", selector, ";"
+                     | "kinetic_model", "=", selector, ";"
+                     | "equilibrium_model", "=", selector, ";"
+                     | "catalyst", "=", expression, ";"
+                     | "deadline", "=", quantity, ";"
+                     | "identity", "=", identifier, ";"
+                     | "invariant", "=", "[", identifier-list, "]", ";" ;
+
+constrain-statement  = "constrain", expression, "{",
+                       "require", expression, ";",
+                       [ "tolerance", "=", quantity, ";" ],
+                       [ "max_power", "=", quantity, ";" ],
+                       [ "budget", "=", quantity, ";" ],
+                       [ "using", "=", "[", expression-list, "]", ";" ],
+                       "}" ;
+
+prepare-statement    = "prepare", block ;
+if-statement         = "if", expression, block, [ "else", block ] ;
+match-statement      = "match", expression, "{", match-arm, { match-arm }, "}" ;
+match-arm            = pattern, "=>", block ;
+pattern              = identifier | literal ;
+
+repeat-statement     = "repeat", integer, block ;
+for-statement        = "for", identifier, "in", range-expression, block ;
+range-expression     = expression, "..", expression ;
+bounded-while        = "while", expression, "limit", integer, block ;
+
+sleep-statement      = "sleep", quantity, ";" ;
+after-statement      = "after", quantity, block ;
+event-handler        = ( "once", "on" | "on", "each" ), expression,
+                       [ "as", identifier ], block ;
+synchronize-statement
+                     = "synchronize", "[", expression-list, "]",
+                       "within", quantity, ";" ;
+
+control-statement    = release-statement
+                     | commit-statement
+                     | abort-statement
+                     | revoke-statement
+                     | delegate-statement ;
+release-statement    = "release", expression, ";" ;
+commit-statement     = "commit", ";" ;
+abort-statement      = "abort", ";" ;
+revoke-statement     = "revoke", expression, ";" ;
+delegate-statement   = "delegate", expression, "to", expression, ";" ;
+return-statement     = "return", [ expression ], ";" ;
+
+selector             = symbolic-selector | selector-call ;
+symbolic-selector    = "@", identifier ;
+selector-call        = identifier, "(", [ selector-arguments ], ")" ;
+selector-arguments   = selector-argument, { ",", selector-argument } ;
+selector-argument    = [ identifier, "=" ], expression ;
+
+expression-list      = expression, { ",", expression } ;
+identifier-list      = identifier, { ",", identifier } ;
+
+literal              = quantity | number | boolean | string | vector-literal ;
+vector-literal       = "[", [ expression-list ], "]" ;
+boolean              = "true" | "false" ;
+
+quantity             = number, unit-expression ;
+unit-expression      = unit-term, { unit-term } ;
+unit-term            = base-unit, [ "^", signed-integer ] ;
+base-unit            = "kg" | "m" | "s" | "A" | "K" | "mol" | "cd" ;
+
+transfer-kind        = identifier ;
+access-mode          = "read" | "write" ;
+
+type                 = identifier, [ "<", type-arg-list, ">" ] ;
+type-arg-list        = type-arg, { ",", type-arg } ;
+type-arg             = type | signed-integer ;
+
+identifier           = letter, { letter | digit | "_" } ;
+integer              = digit, { digit } ;
+signed-integer       = [ "+" | "-" ], integer ;
+number               = integer, [ ".", digit, { digit } ] ;
+string               = '"', { string-character }, '"' ;
+letter               = "A"…"Z" | "a"…"z" | "_" ;
+digit                = "0"…"9" ;
+string-character     = ? any character except unescaped double quote ? ;

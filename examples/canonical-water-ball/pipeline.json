@@ -1,0 +1,287 @@
+{
+  "document_kind": "CanonicalPipeline",
+  "schema_version": "1",
+  "case_id": "WB-CANON-001",
+  "stages": [
+    {"stage": "NaturalLanguageSource", "representation_id": "wb:source:1", "owner": "LanguageAdapter", "status": "Exact"},
+    {"stage": "SourceNormalization", "representation_id": "wb:normalized-source:1", "owner": "LanguageAdapter", "status": "Exact"},
+    {"stage": "NormalizationCandidateSet", "representation_id": "wb:candidates:1", "owner": "LanguageAdapter", "status": "Exact"},
+    {"stage": "NSR", "representation_id": "wb:nsr:1", "owner": "Specification", "status": "Exact"},
+    {"stage": "SemanticAST", "representation_id": "wb:semantic-ast:1", "owner": "Specification", "status": "Exact"},
+    {"stage": "TypedMIR", "representation_id": "wb:typed-mir:1", "owner": "LocalEvaluator", "status": "Exact"},
+    {"stage": "ResolutionAndRegistryInputs", "representation_id": "wb:resolution-inputs:1", "owner": "World", "status": "WorldDefined"},
+    {"stage": "KernelPlan", "representation_id": "wb:kernel-plan:1", "owner": "LocalEvaluator", "status": "Prepared"},
+    {"stage": "FeasibilityAndPrepare", "representation_id": "wb:feasibility:1", "owner": "LocalEvaluator", "status": "Estimated"},
+    {"stage": "RuntimeScheduleAndCommit", "representation_id": "wb:commit:1", "owner": "Runtime", "status": "Committed"},
+    {"stage": "WorldStateAndHistory", "representation_id": "wb:world-effect:1", "owner": "World", "status": "Committed"}
+  ],
+  "source": {
+    "adapter_id": "eng",
+    "adapter_revision": "canonical-fixture-v1",
+    "external_language_tags": ["en"],
+    "original_text": "Generate a 50 kg water ball of radius 0.01 m three metres ahead from rest and accelerate it horizontally at 50 m/s^2.",
+    "normalized_text": "Generate a 50 kg water ball of radius 0.01 m three metres ahead from rest and accelerate it horizontally at 50 m/s^2.",
+    "normalization_profile": {
+      "artifact_id": "source-normalization:common-v1",
+      "revision": "1"
+    },
+    "terminal_was_omitted": true
+  },
+  "normalization": {
+    "policy": "StrictReject",
+    "selected_candidate_id": "wb:candidate:1",
+    "alternative_candidate_ids": [],
+    "nsr": {
+      "schema_version": "0.7.3",
+      "kind": "GenerationCommand",
+      "action": "generate",
+      "roles": [
+        {
+          "role": "Patient",
+          "value": {
+            "kind": "SemanticKind",
+            "semantic_kind": "MatterPayload",
+            "value": {
+              "material": "water",
+              "mass": {"semantic_type": "Mass", "dimension": {"kg": 1, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 50, "unit": "kg"},
+              "radius": {"semantic_type": "Length", "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 0.01, "unit": "m"}
+            }
+          }
+        },
+        {
+          "role": "Goal",
+          "value": {
+            "kind": "Literal",
+            "semantic_kind": "RelativeLocation",
+            "value": {"distance": {"semantic_type": "Length", "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 3, "unit": "m"}}
+          }
+        },
+        {
+          "role": "Quantity",
+          "value": {
+            "kind": "Literal",
+            "semantic_kind": "Acceleration",
+            "value": {"semantic_type": "Acceleration", "dimension": {"kg": 0, "m": 1, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 50, "unit": "m/s^2"}
+          }
+        },
+        {
+          "role": "ConstraintSubject",
+          "value": {
+            "kind": "Literal",
+            "semantic_kind": "Trajectory",
+            "value": "horizontal-forward"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "Literal",
+          "semantic_kind": "InitialVelocity",
+          "value": {"semantic_type": "Velocity", "dimension": {"kg": 0, "m": 1, "s": -1, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 0, "unit": "m/s"}
+        },
+        {"kind": "Unknown", "semantic_kind": "MotionTerminal", "reason": "MissingArgument"}
+      ],
+      "unknowns": [
+        {"field": "motion.terminal", "reason": "MissingArgument", "required_for": ["planning"]}
+      ],
+      "provenance": {
+        "adapter_id": "eng",
+        "adapter_revision": "canonical-fixture-v1",
+        "source_language_tags": ["en"],
+        "provider": "CanonicalConformanceFixture",
+        "source_hash": null,
+        "evidence_ids": ["wb:source:1"]
+      },
+      "ambiguity": {
+        "policy": "StrictReject",
+        "candidate_id": "wb:candidate:1",
+        "alternative_candidate_ids": [],
+        "decision_evidence_ids": ["wb:source:1"]
+      },
+      "semantic_fingerprint": "sf:v1:sha256:7efefffa6d016378f994d149d21f08330d7821c349d07396d2c41e8b34140f75"
+    }
+  },
+  "semantic_ast": {
+    "node_kind": "GenerationGoal",
+    "action": "generate",
+    "desired_state": {"material": "water", "shape": "sphere"},
+    "constraints": {
+      "mass": {"semantic_type": "Mass", "value": 50, "unit": "kg"},
+      "radius": {"semantic_type": "Length", "value": 0.01, "unit": "m"},
+      "distance": {"semantic_type": "Length", "value": 3, "unit": "m"},
+      "initial_velocity": {"semantic_type": "Velocity", "value": 0, "unit": "m/s"},
+      "acceleration": {"semantic_type": "Acceleration", "value": 50, "unit": "m/s^2"},
+      "trajectory": "horizontal-forward"
+    },
+    "unknowns": [{"field_path": "motion.terminal", "reason": "MissingArgument"}]
+  },
+  "typed_mir": {
+    "declaration_kind": "spell",
+    "name": "CanonicalWaterBall",
+    "goal_kind": "DesiredWorldState",
+    "typed_constraints": {
+      "material": "water",
+      "mass": {"semantic_type": "Mass", "dimension": {"kg": 1, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 50, "unit": "kg"},
+      "radius": {"semantic_type": "Length", "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 0.01, "unit": "m"},
+      "distance": {"semantic_type": "Length", "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 3, "unit": "m"},
+      "initial_velocity": {"semantic_type": "Velocity", "dimension": {"kg": 0, "m": 1, "s": -1, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 0, "unit": "m/s"},
+      "acceleration": {"semantic_type": "Acceleration", "dimension": {"kg": 0, "m": 1, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 50, "unit": "m/s^2"},
+      "trajectory": "horizontal-forward"
+    },
+    "effects": ["Resolve", "Read", "Channel<Matter>", "Transfer<Matter>", "Reconfigure", "Constrain", "Commit"],
+    "terminal": {
+      "source_value": {"kind": "Unknown", "reason": "MissingArgument"},
+      "criticality": "EstimateAllowed"
+    }
+  },
+  "resolution_inputs": {
+    "semantic_registry": {"artifact_id": "semantic-registry:reference-fixture", "revision": "1"},
+    "world_index": {"artifact_id": "world-index:reference-fixture", "revision": "index:4201"},
+    "world_index_revision": "index:4201",
+    "source_world_revision": "world:991",
+    "required_registry_contracts": ["semantic-kind:MatterPayload", "species:water", "ledger:matter-energy"],
+    "authority_evidence": "capability:source-water",
+    "lease_evidence": "lease:source-water",
+    "conservation_evidence": "ledger:matter-energy"
+  },
+  "planning": {
+    "inference_fixture": "examples/planning-inference/pathological-water-ball-bound.json",
+    "dynamic_fixture": "examples/planning-inference/pathological-water-ball-dynamic.json",
+    "estimator_profile": {"artifact_id": "estimator-profile:synthetic-reference", "revision": "1"},
+    "candidate_plans": [
+      {
+        "plan_id": "wb:plan:transfer-reconfigure",
+        "source_fidelity": "Pass",
+        "mandatory_obligations": [
+          {"kind": "Type", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["proof:water-payload-type"]},
+          {"kind": "Identity", "status": "Verified", "basis": "AuthoritativeEvidence", "evidence_ids": ["resolver:source-water"]},
+          {"kind": "Conservation", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["ledger:matter-energy"]},
+          {"kind": "Authority", "status": "Verified", "basis": "AuthoritativeEvidence", "evidence_ids": ["capability:source-water"]},
+          {"kind": "Lease", "status": "Reserved", "basis": "Reservation", "evidence_ids": ["lease:source-water"]}
+        ],
+        "feasibility": "ConditionallyFeasible",
+        "estimated_total_energy": {
+          "kind": "Exact",
+          "value": {"semantic_type": "Energy", "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 200, "unit": "J"},
+          "uncertainty": "None inside the deterministic synthetic profile.",
+          "evidence_ids": ["estimator-profile:synthetic-reference@1"]
+        },
+        "operations": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]
+      },
+      {
+        "plan_id": "wb:plan:assemble-alternative",
+        "source_fidelity": "Pass",
+        "mandatory_obligations": [
+          {"kind": "Type", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["proof:water-payload-type"]},
+          {"kind": "Identity", "status": "Verified", "basis": "AuthoritativeEvidence", "evidence_ids": ["resolver:assembly-feedstock"]},
+          {"kind": "Conservation", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["ledger:matter-energy"]},
+          {"kind": "Authority", "status": "Verified", "basis": "AuthoritativeEvidence", "evidence_ids": ["capability:assembly-feedstock"]},
+          {"kind": "Lease", "status": "Reserved", "basis": "Reservation", "evidence_ids": ["lease:assembly-feedstock"]}
+        ],
+        "feasibility": "ConditionallyFeasible",
+        "estimated_total_energy": {
+          "kind": "Exact",
+          "value": {"semantic_type": "Energy", "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 260, "unit": "J"},
+          "uncertainty": "Synthetic higher-cost alternative.",
+          "evidence_ids": ["estimator-profile:synthetic-reference@1"]
+        },
+        "operations": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]
+      }
+    ],
+    "selected_plan_id": "wb:plan:transfer-reconfigure",
+    "selection_order": ["SourceSemanticFidelity", "MandatoryObligations", "Feasibility", "OptimizationObjective"],
+    "terminal_assumption": {
+      "source_value": {"kind": "Unknown", "reason": "MissingArgument"},
+      "estimate": {
+        "kind": "Exact",
+        "value": {"semantic_type": "Length", "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0}, "value": 50, "unit": "m"},
+        "uncertainty": "Synthetic fixture horizon; not source semantics or a universal default.",
+        "evidence_ids": ["evidence:debug-profile-horizon"]
+      },
+      "planning_assumption_id": "assumption:terminal:50m-debug",
+      "binding": {"mode": "PrepareBound", "binding_point": "PREPARE"}
+    }
+  },
+  "kernel_plan": {
+    "source_plan_id": "wb:plan:transfer-reconfigure",
+    "operations": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"],
+    "resolution_evidence_ids": ["resolver:source-water", "state-revision:source-water@world:991"],
+    "capability_ids": ["capability:source-water"],
+    "lease_ids": ["lease:source-water"],
+    "accounting_evidence_ids": ["ledger:matter-energy"],
+    "runtime_profile": {"artifact_id": "runtime-profile:reference-fixture", "revision": "1"},
+    "revalidation_required": true
+  },
+  "feasibility_report": {
+    "schema_version": "1",
+    "spec_version": "0.7.3",
+    "status": "ConditionallyFeasible",
+    "input": {"kind": "NSR", "adapter_id": "eng", "external_language_tags": ["en"], "hash": null, "frontend_revision": "canonical-fixture-v1"},
+    "provenance": {
+      "adapter_id": "eng",
+      "adapter_revision": "canonical-fixture-v1",
+      "normalizer_provider": "CanonicalConformanceFixture",
+      "ambiguity_policy": "StrictReject",
+      "semantic_fingerprint": "sf:v1:sha256:7efefffa6d016378f994d149d21f08330d7821c349d07396d2c41e8b34140f75",
+      "registry_hash": null,
+      "world_index_revision": "index:4201",
+      "source_world_revision": "world:991",
+      "runtime_profile": "runtime-profile:reference-fixture@1",
+      "created_at": null
+    },
+    "energy": {
+      "total": {"kind": "Exact", "value": 200, "unit": "J", "dimension": "Energy", "assumption_ids": [], "evidence_ids": ["estimator-profile:synthetic-reference@1"]},
+      "components": {
+        "physical_work": {"kind": "Exact", "value": 100, "unit": "J"},
+        "reaction_or_thermodynamic": {"kind": "Exact", "value": 20, "unit": "J"},
+        "channel_open": {"kind": "Exact", "value": 10, "unit": "J"},
+        "channel_maintenance": {"kind": "Exact", "value": 30, "unit": "J"},
+        "control": {"kind": "Exact", "value": 15, "unit": "J"},
+        "observation_information": {"kind": "Exact", "value": 5, "unit": "J"},
+        "synchronization": {"kind": "Exact", "value": 7, "unit": "J"},
+        "losses": {"kind": "Exact", "value": 8, "unit": "J"},
+        "reserved_margin": {"kind": "Exact", "value": 5, "unit": "J"}
+      },
+      "display_unit": "J",
+      "accounting_boundary": "SyntheticFixtureOnly"
+    },
+    "assessments": [
+      {"dimension": "source_fidelity", "status": "Pass", "summary": "All explicit pathological constraints are preserved.", "diagnostic_ids": [], "evidence_ids": ["wb:source:1"]},
+      {"dimension": "authority", "status": "Pass", "summary": "Capability and Lease evidence are authoritative, not inferred.", "diagnostic_ids": [], "evidence_ids": ["capability:source-water", "lease:source-water"]},
+      {"dimension": "planning_inference", "status": "Conditional", "summary": "The omitted terminal uses a bounded PlanningAssumption.", "diagnostic_ids": [], "evidence_ids": ["assumption:terminal:50m-debug"]}
+    ],
+    "diagnostics": [],
+    "assumptions": [
+      {"id": "assumption:terminal:50m-debug", "statement": "Use a 50 m fixture horizon without rewriting the source Unknown.", "definition_source": "Profile", "impact": "PrepareBound terminal"}
+    ],
+    "evidence": [
+      {"id": "estimator-profile:synthetic-reference@1", "source_kind": "Profile", "source_id": "estimator-profile:synthetic-reference", "revision": "1", "path": "examples/estimator-profiles/synthetic-reference-v1.json"}
+    ]
+  },
+  "runtime": {
+    "runtime_profile": {"artifact_id": "runtime-profile:reference-fixture", "revision": "1"},
+    "physical_time_is_runtime_tick": false,
+    "prepare_status": "Prepared",
+    "revalidation": {
+      "stage": "Revalidate",
+      "status": "Pass",
+      "evidence_ids": ["state-revision:source-water@world:991", "capability:source-water", "lease:source-water", "ledger:matter-energy"]
+    },
+    "commit": {
+      "stage": "COMMIT",
+      "status": "Committed",
+      "effective_at": "2026-01-01T00:00:00Z",
+      "committed_at": "2026-01-01T00:00:00.005Z",
+      "tick_stamp": {"epoch": "epoch:fixture:1", "tick": "tick:fixture:25", "phase": "Commit", "ordinal": 0}
+    },
+    "world_effect": {
+      "source_world_revision": "world:991",
+      "result_world_revision": "world:992",
+      "history_event_id": "event:wb-canon-001",
+      "effect_kind": "MatterTransferAndReconfiguration",
+      "entity_identity_policy": "NewEntityFromAccountedMatter"
+    }
+  },
+  "failure_catalog": "examples/canonical-water-ball/failure-cases.json",
+  "traceability_matrix": "examples/canonical-water-ball/traceability.json"
+}

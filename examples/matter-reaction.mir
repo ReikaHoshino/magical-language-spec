@@ -1,0 +1,57 @@
+// v0.6.1 Matter / Reaction example
+// `@demo_reaction` is a registry-backed ReactionRule.
+
+spell TransformSample(
+    target : Ref<Region>
+)
+! {
+    Read,
+    Write<Composition>,
+    Write<BondStructure>
+}
+{
+    // Observation returns an estimate, not kernel Composition itself.
+    let observed : Measurement<CompositionEstimate> =
+        observe target.composition;
+
+    prepare {
+        let composition_lease =
+            acquire target.Composition for write;
+
+        let structure_lease =
+            acquire target.BondStructure for write;
+    }
+
+    commit;
+
+    // The compiler/runtime resolves @demo_reaction through the
+    // ReactionRule registry, checks reactant inventory, stoichiometry,
+    // accounting profile, authority, and structure obligations.
+    reconfigure target {
+        reaction = @demo_reaction;
+        extent = 1 mol;
+        identity = preserve;
+    }
+}
+
+// Conceptual matter transfer. `make_payload(...)` is a high-level library
+// constructor whose result must have type MatterPayload.
+proc MoveSample(
+    source : Ref<Region>,
+    sink   : Ref<Region>,
+    payload : MatterPayload
+)
+! {
+    Channel<Matter>,
+    Transfer<Matter>
+}
+{
+    let ch : Channel<Matter> =
+        channel<Matter>(source -> sink, strength = 0.5);
+
+    let tx : TransferHandle<Matter> =
+        transfer ch, payload,
+            invariant = [ChemicalSpecies];
+
+    await tx timeout 1 s;
+}

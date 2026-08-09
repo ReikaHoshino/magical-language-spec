@@ -1,0 +1,11 @@
+{
+  "schema_version":"1","kind":"ExperimentalArcanaCommand","action":"evidence_fusion",
+  "roles":[
+    {"role":"Source","value":{"kind":"Reference","semantic_kind":"FrozenEvidenceContext","value":"evidence-context:sa003@1"}},
+    {"role":"Instrument","value":{"kind":"Reference","semantic_kind":"EvidenceFusionModel","value":"evidence-fusion:sa003@1"}},
+    {"role":"Goal","value":{"kind":"SemanticKind","semantic_kind":"ObservationArtifact","mode":"NonPhysical"}},
+    {"role":"Patient","value":{"kind":"SelectorProposal","semantic_kind":"HistoricalSubject","selector":{"symbol":"subject:sa003"}}}
+  ],
+  "constraints":[{"kind":"Literal","semantic_kind":"ConfidenceThreshold","value":0.75}],
+  "provenance":{"adapter_id":null,"adapter_revision":null,"source_language_tags":[],"provider":"ExperimentalFixture","source_hash":null,"evidence_ids":["SUCCESS-ARCANA-003","evidence-context:sa003@1","evidence-fusion:sa003@1"]}
+}

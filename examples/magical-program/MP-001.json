@@ -1,0 +1,114 @@
+{
+  "artifact_kind": "MagicalProgram",
+  "artifact_version": "0",
+  "contract": {
+    "contract_id": "magical-program",
+    "revision": "0"
+  },
+  "stability": "experimental",
+  "program_id": "program:bounded-transition:001",
+  "provenance": {
+    "relation": "direct",
+    "input_stage": "program"
+  },
+  "compatibility": {
+    "registry_id": "registry:reference-experimental",
+    "registry_revision": "1",
+    "profile_id": "profile:reference-experimental",
+    "profile_revision": "1"
+  },
+  "budget": {
+    "energy_j": 10,
+    "events": 1,
+    "microsteps": 8,
+    "concurrency": 1
+  },
+  "values": [
+    {
+      "value_id": "target_selector",
+      "kind": "selector",
+      "selector": {
+        "entity_type": "test-target",
+        "scope": "local"
+      }
+    },
+    {
+      "value_id": "desired_state",
+      "kind": "literal",
+      "value": "transitioned"
+    }
+  ],
+  "nodes": [
+    {
+      "node_id": "resolve_target",
+      "order": 0,
+      "instruction": "ref.resolve",
+      "inputs": ["target_selector"],
+      "produces": ["target_ref"]
+    },
+    {
+      "node_id": "invoke_transition",
+      "order": 1,
+      "instruction": "effect.invoke",
+      "inputs": ["target_ref", "desired_state"],
+      "produces": ["transition_result"],
+      "contract": {
+        "contract_id": "generic.transition",
+        "revision": "1"
+      },
+      "obligations": {
+        "capabilities": [
+          {
+            "requirement_id": "capability.transition",
+            "target_binding": "target_ref",
+            "effect": "Reconfigure"
+          }
+        ],
+        "leases": [
+          {
+            "requirement_id": "lease.transition",
+            "target_binding": "target_ref",
+            "mode": "Write"
+          }
+        ],
+        "identities": [
+          {
+            "requirement_id": "identity.target",
+            "target_binding": "target_ref"
+          }
+        ],
+        "evidence": [],
+        "accounting": [
+          {
+            "requirement_id": "accounting.transition",
+            "target_binding": "target_ref",
+            "kind": "EnergyMatter"
+          }
+        ],
+        "resources": {
+          "energy_j": 10,
+          "matter_kg": 0,
+          "events": 1
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "resolve_target",
+      "to": "invoke_transition"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "binding": "transition_result",
+      "kind": "effect_result"
+    },
+    {
+      "name": "event",
+      "binding": "transition_result",
+      "kind": "event"
+    }
+  ]
+}

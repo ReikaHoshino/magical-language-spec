@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedRuntimeTrace","schema_version":"1","fixture_id":"SUCCESS-ARCANA-003","expected":{"status":"Committed","result_world_revision":"world:sa003:7","history_event_ids":["event:sa003:observation-artifact"],"artifact_id":"artifact:sa003:observation","winner_hypothesis_id":"hypothesis:sa003:A","physical_display_effect":false}}

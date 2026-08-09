@@ -1,0 +1,33 @@
+spell CoolWater(
+    water : Ref<Region>,
+    sink  : Ref<Region>
+)
+! {
+    Read,
+    Channel<Energy>,
+    Transfer<Energy>
+}
+{
+    let T = observe water.temperature @ 0.1 K;
+
+    match T < 280 K {
+        True => {
+            return;
+        }
+
+        Indeterminate => {
+            abort;
+        }
+
+        False => {
+            let ch : Channel<Energy> =
+                channel<Energy>(water -> sink, strength = 0.5);
+
+            let tx = transfer ch,
+                1000 kg m^2 s^-2,
+                mode = Thermal;
+
+            await tx timeout 0.5 s;
+        }
+    }
+}

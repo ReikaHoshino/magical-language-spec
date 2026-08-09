@@ -1,0 +1,19 @@
+{
+  "suite": "SpellInstanceBundle-Experimental-0",
+  "lifecycle": "experimental",
+  "stable_required_claim": false,
+  "bundle_files": [
+    "examples/spell-instances/debug-hell/DEBUG-HELL-001.json",
+    "examples/spell-instances/debug-hell/DEBUG-HELL-002.json",
+    "examples/spell-instances/debug-hell/DEBUG-HELL-003.json",
+    "examples/spell-instances/generic/GENERIC-001.json",
+    "examples/spell-instances/success-arcana/SA-001.json",
+    "examples/spell-instances/success-arcana/SA-002.json",
+    "examples/spell-instances/success-arcana/SA-003.json",
+    "examples/spell-instances/success-arcana/SA-004.json",
+    "examples/spell-instances/success-arcana/SA-005.json",
+    "examples/spell-instances/success-arcana/SA-006.json",
+    "examples/spell-instances/success-arcana/SA-007.json",
+    "examples/spell-instances/success-arcana/SA-008.json"
+  ]
+}

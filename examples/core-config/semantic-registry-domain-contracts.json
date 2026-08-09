@@ -1,0 +1,334 @@
+{
+  "metadata": {
+    "schema_version": "1",
+    "artifact_id": "registry:domain-contract-fixture",
+    "revision": "1",
+    "spec_version": "0.7.2",
+    "content_hash": {
+      "scope": "artifact-content",
+      "status": "unresolved",
+      "reason": "Generic artifact canonical bytes and digest algorithm are not selected pre-v0.8."
+    },
+    "provenance": {
+      "source_kind": "reference",
+      "source_id": "reference/registry.md",
+      "source_revision": "v0.6.2",
+      "evidence": [
+        "reference/registry.md#logical-namespaces",
+        "reference/observer-models.md#observermodel"
+      ]
+    },
+    "compatibility": {
+      "domain": "SemanticRegistry",
+      "contract_revision": "1",
+      "declarations": {
+        "provided_contracts": [
+          "semantic-kind:fixture:Energy@1",
+          "species:fixture:H2O@1",
+          "reaction-rule:fixture:water-formation@1"
+        ]
+      },
+      "notes": [
+        "Synthetic domain-contract fixture; values are not universal world constants.",
+        "A differing registry_hash is not by itself incompatibility."
+      ]
+    }
+  },
+  "registry_hash": {
+    "scope": "registry-contract-set",
+    "status": "unresolved",
+    "reason": "Registry contract-set canonical bytes and digest algorithm are not selected pre-v0.8."
+  },
+  "namespaces": {
+    "semantic_kinds": [
+      {
+        "id": "fixture:Energy",
+        "revision": "1",
+        "contract": {
+          "category": ["QuantityKind", "TransferKind"],
+          "dimension": {
+            "kg": 1,
+            "m": 2,
+            "s": -2,
+            "A": 0,
+            "K": 0,
+            "mol": 0,
+            "cd": 0
+          },
+          "payload_type": "Quantity<Energy>",
+          "traits": ["Observable", "Transferable", "Conserved", "ScalarPayload"],
+          "conservation_profile": ["fixture:ledger:Energy"],
+          "allowed_modes": ["Thermal", "Radiative", "Mechanical"],
+          "endpoint_requirements": {},
+          "observer_properties": []
+        }
+      }
+    ],
+    "species": [
+      {
+        "id": "fixture:species:H2O",
+        "revision": "1",
+        "contract": {
+          "nuclide_composition": {
+            "fixture:nuclide:H-1": 2,
+            "fixture:nuclide:O-16": 1
+          },
+          "net_charge": 0,
+          "topology": {
+            "definition_source": "fixture:structure:MolecularTopology"
+          },
+          "aliases": ["H2O"]
+        }
+      }
+    ],
+    "structure_schemas": [
+      {
+        "id": "fixture:structure:MolecularTopology",
+        "revision": "1",
+        "contract": {
+          "data_contract": {
+            "definition_source": "reference/matter.md#structuredescriptor"
+          },
+          "compatible_transfer_capabilities": [
+            "PreserveStructure<MolecularTopology>"
+          ],
+          "compatible_reconfigure_domains": ["Chemical"]
+        }
+      }
+    ],
+    "reaction_rules": [
+      {
+        "id": "fixture:reaction:water-formation",
+        "revision": "1",
+        "contract": {
+          "stoichiometry": {
+            "fixture:species:H2": "-2",
+            "fixture:species:O2": "-1",
+            "fixture:species:H2O": "2"
+          },
+          "domain": "Chemical",
+          "required_state": {
+            "definition_source": "fixture:contract:water-formation-state"
+          },
+          "products": ["fixture:species:H2O"],
+          "accounting_profile": [
+            "fixture:ledger:Energy",
+            "fixture:ledger:ElementInventory"
+          ],
+          "authority_requirements": {
+            "definition_source": "fixture:contract:water-formation-authority"
+          },
+          "default_kinetic_models": ["fixture:kinetic:water-formation"],
+          "default_equilibrium_model": "fixture:equilibrium:water-formation",
+          "pathway_ids": ["fixture:pathway:water-formation"]
+        }
+      }
+    ],
+    "kinetic_models": [
+      {
+        "id": "fixture:kinetic:water-formation",
+        "revision": "1",
+        "contract": {
+          "reaction_rule_id": "fixture:reaction:water-formation",
+          "rate_basis": "ExtentRate",
+          "rate_law": {
+            "input_contract": {
+              "definition_source": "fixture:contract:kinetic-input"
+            },
+            "parameter_set": {
+              "definition_source": "fixture:parameters:water-formation"
+            },
+            "valid_domain": {
+              "definition_source": "fixture:domain:water-formation-kinetics"
+            },
+            "evaluate": {
+              "definition_source": "implementation-defined"
+            }
+          },
+          "rate_constant_model": {
+            "model": "ArrheniusModel",
+            "definition_source": "fixture:parameters:water-formation"
+          },
+          "input_contract": {
+            "definition_source": "fixture:contract:kinetic-input"
+          },
+          "valid_domain": {
+            "definition_source": "fixture:domain:water-formation-kinetics"
+          },
+          "uncertainty_model": {
+            "definition_source": "fixture:uncertainty:water-formation"
+          }
+        }
+      }
+    ],
+    "reaction_pathways": [
+      {
+        "id": "fixture:pathway:water-formation",
+        "revision": "1",
+        "contract": {
+          "overall_rule_id": "fixture:reaction:water-formation",
+          "steps": [
+            {
+              "id": "fixture:step:water-formation-1",
+              "stoichiometry": {
+                "fixture:species:H2": "-2",
+                "fixture:species:O2": "-1",
+                "fixture:species:H2O": "2"
+              },
+              "reversible": true,
+              "kinetic_model_id": "fixture:kinetic:water-formation",
+              "intermediates": [],
+              "accounting_profile": ["fixture:ledger:Energy"],
+              "revision": "1"
+            }
+          ],
+          "kinetic_model_id": "fixture:kinetic:water-formation",
+          "catalyst_requirements": {
+            "definition_source": "fixture:contract:catalyst-requirements"
+          },
+          "valid_domain": {
+            "definition_source": "fixture:domain:water-formation-pathway"
+          },
+          "accounting_profile": [
+            "fixture:ledger:Energy",
+            "fixture:ledger:ElementInventory"
+          ]
+        }
+      }
+    ],
+    "catalyst_models": [
+      {
+        "id": "fixture:catalyst:water-formation",
+        "revision": "1",
+        "contract": {
+          "requirement_contract": {
+            "definition_source": "fixture:contract:catalyst-resource"
+          },
+          "affected_pathways": ["fixture:pathway:water-formation"],
+          "kinetic_modifiers": {
+            "definition_source": "fixture:model:catalyst-kinetics"
+          },
+          "state_model": {
+            "definition_source": "reference/registry.md#catalyststate"
+          },
+          "recovery_condition": {
+            "definition_source": "fixture:contract:catalyst-recovery"
+          },
+          "valid_domain": {
+            "definition_source": "fixture:domain:catalyst"
+          }
+        }
+      }
+    ],
+    "inhibitor_models": [
+      {
+        "id": "fixture:inhibitor:explicit-extension",
+        "revision": "1",
+        "contract": {
+          "extension": {
+            "status": "unspecified",
+            "definition_source": "reference/registry.md#inhibitor-registry"
+          }
+        }
+      }
+    ],
+    "equilibrium_models": [
+      {
+        "id": "fixture:equilibrium:water-formation",
+        "revision": "1",
+        "contract": {
+          "reaction_rule_id": "fixture:reaction:water-formation",
+          "activity_model_id": "fixture:activity:ideal-gas",
+          "standard_state": {
+            "definition_source": "fixture:standard-state:water-formation"
+          },
+          "evaluate_K": {
+            "definition_source": "implementation-defined"
+          },
+          "valid_domain": {
+            "definition_source": "fixture:domain:water-formation-equilibrium"
+          },
+          "tolerance_policy": {
+            "definition_source": "fixture:policy:equilibrium-tolerance"
+          }
+        }
+      }
+    ],
+    "activity_models": [
+      {
+        "id": "fixture:activity:ideal-gas",
+        "revision": "1",
+        "contract": {
+          "species_domain": [
+            "fixture:species:H2",
+            "fixture:species:O2",
+            "fixture:species:H2O"
+          ],
+          "phase_contract": {
+            "definition_source": "fixture:phase:gas"
+          },
+          "standard_state": {
+            "definition_source": "fixture:standard-state:ideal-gas"
+          },
+          "evaluate_activity": {
+            "definition_source": "implementation-defined"
+          },
+          "valid_domain": {
+            "definition_source": "fixture:domain:ideal-gas-activity"
+          }
+        }
+      }
+    ],
+    "observer_models": [
+      {
+        "id": "fixture:observer:human-photopic",
+        "revision": "1",
+        "contract": {
+          "input_type": "RadiantFlux",
+          "output_type": "LuminousFlux",
+          "domain": {
+            "definition_source": "fixture:domain:human-photopic"
+          },
+          "response": {
+            "definition_source": "fixture:response:human-photopic"
+          },
+          "normalization": {
+            "definition_source": "fixture:normalization:human-photopic"
+          }
+        }
+      }
+    ],
+    "controller_models": [
+      {
+        "id": "fixture:controller:bounded-reference",
+        "revision": "1",
+        "contract": {
+          "model_kind": "BoundaryReflectionController",
+          "observation_input_contract": {"types": ["Position", "Velocity", "ContactNormal"]},
+          "controller_error_model": {"kind": "BoundedFixture"},
+          "permitted_actuator_effects": ["MomentumImpulse", "AnchorReaction"],
+          "valid_domain": {"definition_source": "reference/success-arcana.md"},
+          "resource_accounting_profile": {"ledgers": ["Energy", "Momentum"]},
+          "timing_contract": {"definition_source": "Profile"},
+          "saturation_overload": {"policy": "FailClosed"},
+          "termination": {"policy": "ExplicitDeactivate"},
+          "required_capability_lease": {"revalidate_each_actuation": true},
+          "provenance": {"definition_source": "reference/success-arcana.md"}
+        }
+      }
+    ],
+    "conservation_ledgers": [
+      {
+        "id": "fixture:ledger:Energy",
+        "revision": "1",
+        "contract": {
+          "semantic_type": "Energy",
+          "balance_rule": {
+            "definition_source": "reference/quantities.md#conservation"
+          },
+          "applicable_domains": ["Physical", "Chemical"]
+        }
+      }
+    ]
+  }
+}

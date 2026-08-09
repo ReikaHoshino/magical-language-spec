@@ -1,0 +1,27 @@
+{
+  "document_kind": "ExperimentalArcanaRegistryExtension",
+  "schema_version": "1",
+  "fixture_id": "SUCCESS-ARCANA-001",
+  "namespaces": {
+    "semantic_kinds": [
+      {"id":"arcana:kind:Matter","revision":"1","contract":{"category":["QuantityKind","TransferKind"],"traits":["Observable","Transferable","Conserved"],"conservation_profile":["ledger:sa001:momentum-energy"],"allowed_modes":["Bulk"],"endpoint_requirements":{},"observer_properties":[]}},
+      {"id":"arcana:kind:Momentum","revision":"1","contract":{"category":["QuantityKind"],"dimension":{"kg":1,"m":1,"s":-1,"A":0,"K":0,"mol":0,"cd":0},"traits":["Observable","Conserved","VectorPayload"],"conservation_profile":["ledger:sa001:momentum-energy"],"allowed_modes":["Mechanical"],"endpoint_requirements":{},"observer_properties":["ContactNormal"]}},
+      {"id":"arcana:kind:Energy","revision":"1","contract":{"category":["QuantityKind","TransferKind"],"dimension":{"kg":1,"m":2,"s":-2,"A":0,"K":0,"mol":0,"cd":0},"traits":["Observable","Transferable","Conserved"],"conservation_profile":["ledger:sa001:momentum-energy"],"allowed_modes":["Mechanical","Thermal"],"endpoint_requirements":{},"observer_properties":[]}},
+      {"id":"arcana:kind:Region","revision":"1","contract":{"category":["SpatialKind"],"traits":["Resolvable"],"allowed_modes":["BoundedRegion"],"endpoint_requirements":{},"observer_properties":["Boundary"]}},
+      {"id":"arcana:kind:Anchor","revision":"1","contract":{"category":["EntityKind"],"traits":["Resolvable"],"allowed_modes":["ReactionAnchor"],"endpoint_requirements":{},"observer_properties":["Momentum"]}}
+    ],
+    "structure_schemas": [],
+    "reaction_rules": [],
+    "observer_models": [
+      {"id":"observer:sa001:boundary-contact","revision":"1","contract":{"input_type":"BoundaryContactState","output_type":"ContactMeasurement","domain":{"region":"region:sa001:protected","resolution_m":0.001},"response":{"measure":["Position","Velocity","ContactNormal"]},"normalization":{"ordering":"event-time-then-entity-id"}}}
+    ],
+    "controller_models": [
+      {"id":"controller-model:boundary-reflection","revision":"1","contract":{"model_kind":"BoundaryReflectionController","observation_input_contract":{"types":["Position","Velocity","ContactNormal"]},"controller_error_model":{"kind":"BoundedLatencyAndJitter"},"permitted_actuator_effects":["MomentumImpulse","AnchorReaction"],"valid_domain":{"mass_kg_max":20,"incident_momentum_kg_m_s_max":50},"resource_accounting_profile":{"ledgers":["Momentum","Energy"]},"timing_contract":{"sample_period_ms":10,"max_latency_ms":5,"max_jitter_ms":1},"saturation_overload":{"policy":"EmitOverloadAndDeactivate"},"termination":{"policy":"ExplicitDeactivateOrOverload"},"required_capability_lease":{"revalidate_each_actuation":true},"provenance":{"definition_source":"reference/success-arcana.md"}}}
+    ],
+    "conservation_ledgers": [
+      {"id":"ledger:sa001:momentum-energy","revision":"1","contract":{"semantic_type":"Momentum","balance_rule":{"target_plus_anchor_reaction":"conserved"},"applicable_domains":["BoundaryReflection"]}},
+      {"id":"ledger:sa001:dissipation","revision":"1","contract":{"semantic_type":"Energy","balance_rule":{"incident":"reflected-plus-dissipated"},"applicable_domains":["BoundaryReflection"]}}
+    ]
+  },
+  "authority_is_not_registry_metadata": true
+}

@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedFeasibilityReport","schema_version":"1","fixture_id":"SUCCESS-ARCANA-003","expected":{"status":"Feasible","source_plan_id":"arcana:plan:evidence-fusion","operations":["RESOLVE","OBSERVE"],"energy_j":40,"winner_hypothesis_id":"hypothesis:sa003:A","confidence_is_truth":false}}

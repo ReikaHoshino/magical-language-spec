@@ -1,0 +1,97 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "DEBUG-HELL-003",
+  "suite_id": "Debug-Hell-0",
+  "scenario_kind": "reactive-hydra-ward",
+  "support_level": "implemented",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "ReactiveControllerCommand",
+      "action": "install-reactive-hydra-ward",
+      "roles": [{"role": "Goal", "value": {"kind": "Reference", "semantic_kind": "Region", "value": "region:debug003:doorway"}}],
+      "constraints": [
+        {"kind": "Literal", "semantic_kind": "MicrostepBudget", "value": 3},
+        {"kind": "Literal", "semantic_kind": "SameTickExternalEventCount", "value": 3}
+      ],
+      "provenance": {"adapter_id": null, "adapter_revision": null, "source_language_tags": [], "provider": "SpellInstanceBundle", "source_hash": null, "evidence_ids": ["issue:46", "controller:debug003:hydra"]}
+    }
+  },
+  "semantic_contract": {"contract_id": "debug.reactive-budget", "revision": "1"},
+  "runtime_contract": {"contract_id": "runtime.reactive-hydra", "revision": "1"},
+  "registry_extensions": {"controller_models": [{"model_id": "controller:debug003:hydra", "revision": "1", "self_triggering": true, "transaction_scope": "all-microsteps", "termination": "budget-or-emergency-stop"}]},
+  "profiles": {
+    "runtime": {"artifact_id": "runtime-profile:debug003", "revision": "1"},
+    "sandbox": {"artifact_id": "sandbox-profile:debug003", "revision": "1", "limits": {"max_energy_j": 10, "max_events_per_commit": 16, "max_microsteps_per_tick": 3, "max_concurrency": 1}}
+  },
+  "world_index": {
+    "world_index_revision": "wi:debug003:1",
+    "source_world_revision": "world:debug003:1",
+    "records": [
+      {"entity_id": "entity:debug003:a", "state_revision": "state-revision:debug003:a:1"},
+      {"entity_id": "entity:debug003:b", "state_revision": "state-revision:debug003:b:1"},
+      {"entity_id": "entity:debug003:c", "state_revision": "state-revision:debug003:c:1"}
+    ]
+  },
+  "initial_world": {
+    "revision": "world:debug003:1",
+    "entities": {
+      "entity:debug003:a": {"entity_id": "entity:debug003:a", "state_revision": "state-revision:debug003:a:1", "region_id": "region:debug003:doorway"},
+      "entity:debug003:b": {"entity_id": "entity:debug003:b", "state_revision": "state-revision:debug003:b:1", "region_id": "region:debug003:doorway"},
+      "entity:debug003:c": {"entity_id": "entity:debug003:c", "state_revision": "state-revision:debug003:c:1", "region_id": "region:debug003:doorway"}
+    },
+    "capabilities": {"capability:debug003:ward": {"active": true, "region_id": "region:debug003:doorway", "operation": "Constrain"}},
+    "leases": {"lease:debug003:ward": {"active": true, "region_id": "region:debug003:doorway"}},
+    "ledgers": {"ledger:debug003:ward": {"active": true, "resource_units": 3}},
+    "history": [],
+    "controllers": {"controller:debug003:hydra": {"active": true, "model_revision": "1", "provisional_transition_count": 0}},
+    "runtime_state": {},
+    "process_state": {"process_id": "process:debug003", "status": "Idle", "prepared_plan_id": null}
+  },
+  "execution": {
+    "operations": ["RESOLVE", "OBSERVE", "CONSTRAIN"],
+    "parameters": {
+      "controller_id": "controller:debug003:hydra",
+      "reactive_microstep_budget": 3,
+      "external_events": [
+        {"event_id": "event:debug003:external:c", "target_entity_id": "entity:debug003:c"},
+        {"event_id": "event:debug003:external:a", "target_entity_id": "entity:debug003:a"},
+        {"event_id": "event:debug003:external:b", "target_entity_id": "entity:debug003:b"}
+      ],
+      "generated_event_prefix": "event:debug003:hydra",
+      "tick_id": "tick:debug003:42",
+      "emergency_stop_on_exhaustion": true
+    },
+    "required_evidence": {
+      "resolution": ["state-revision:debug003:a:1", "state-revision:debug003:b:1", "state-revision:debug003:c:1"],
+      "capabilities": ["capability:debug003:ward"],
+      "leases": ["lease:debug003:ward"],
+      "accounting": ["ledger:debug003:ward"]
+    },
+    "energy_budget_j": 1,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Feasible",
+    "runtime_status": "Aborted",
+    "diagnostic_codes": ["MicrostepBudgetExceeded"],
+    "final_invariants": {"Sigma": {"revision": "world:debug003:1"}, "H": []},
+    "replay_status": "DeterministicAbort"
+  },
+  "variants": [{"variant_id": "emergency-stop", "meaning": "Budget exhaustion requests the profile-owned emergency-stop path without committing provisional effects."}],
+  "provenance": {
+    "definition_sources": ["reference/spell-instance-bundles.md", "reference/debug-hell.md#debug-hell-003", "https://github.com/ReikaHoshino/magical-language-spec/issues/46"],
+    "generator": "repository-fixture",
+    "notes": ["Three microsteps execute deterministically before budget failure; their provisional effects roll back."]
+  },
+  "compatibility": {
+    "required_domains": ["SpellInstanceBundle", "SemanticContract", "RuntimeContract"],
+    "decisions": [
+      {"decision_id": "decision:debug003:bundle", "profile": {"domain": "SpellInstanceBundle"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}},
+      {"decision_id": "decision:debug003:semantic", "profile": {"domain": "SemanticContract"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}},
+      {"decision_id": "decision:debug003:runtime", "profile": {"domain": "RuntimeContract"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}}
+    ]
+  }
+}

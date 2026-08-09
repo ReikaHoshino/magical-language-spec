@@ -1,0 +1,97 @@
+{
+  "schema_version": "1",
+  "decision_id": "ambiguity:strict-stone:1",
+  "policy": "StrictReject",
+  "decision_status": "Rejected",
+  "profile": {
+    "profile_id": "ambiguity-profile:strict",
+    "profile_revision": "1",
+    "ordering_revision": "1",
+    "ranking_rules": [],
+    "final_tie_break": [
+      "SemanticFingerprintAscending",
+      "CandidateIdAscending"
+    ]
+  },
+  "context_snapshot": {
+    "snapshot_id": "context:none",
+    "snapshot_revision": "1",
+    "fact_ids": [],
+    "evidence_ids": ["evidence:surface:genitive-relation"]
+  },
+  "candidate_set": {
+    "candidate_set_id": "candidate-set:stone-reference",
+    "candidate_set_revision": "1",
+    "input_candidate_ids": [
+      "candidate:stone-of-fire",
+      "candidate:stone-near-fire"
+    ],
+    "canonical_candidate_ids": [
+      "candidate:stone-near-fire",
+      "candidate:stone-of-fire"
+    ],
+    "candidates": [
+      {
+        "candidate_id": "candidate:stone-of-fire",
+        "semantic_fingerprint": "sf:v1:sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "normalization_valid": true,
+        "semantic_critical": true,
+        "evidence_ids": ["evidence:surface:genitive-relation"],
+        "assumption_ids": []
+      },
+      {
+        "candidate_id": "candidate:stone-near-fire",
+        "semantic_fingerprint": "sf:v1:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "normalization_valid": true,
+        "semantic_critical": true,
+        "evidence_ids": ["evidence:surface:genitive-relation"],
+        "assumption_ids": []
+      }
+    ]
+  },
+  "ranking_evaluations": [
+    {
+      "candidate_id": "candidate:stone-of-fire",
+      "eligible": true,
+      "rank_terms": [],
+      "rejection_reason_ids": ["reason:strict-ambiguity"]
+    },
+    {
+      "candidate_id": "candidate:stone-near-fire",
+      "eligible": true,
+      "rank_terms": [],
+      "rejection_reason_ids": ["reason:strict-ambiguity"]
+    }
+  ],
+  "selected_candidate_id": null,
+  "rejected_candidate_ids": [
+    "candidate:stone-of-fire",
+    "candidate:stone-near-fire"
+  ],
+  "unresolved_assumption_ids": [],
+  "mandatory_downstream_checks": [
+    "type",
+    "authority",
+    "conservation",
+    "identity"
+  ],
+  "diagnostics": [
+    {
+      "code": "AmbiguousNormalization",
+      "severity": "fatal",
+      "evidence_ids": ["evidence:surface:genitive-relation"]
+    }
+  ],
+  "replay": {
+    "replay_status": "NotAttempted",
+    "recorded_profile_revision": "1",
+    "recorded_ordering_revision": "1",
+    "recorded_context_snapshot_id": "context:none",
+    "recorded_context_snapshot_revision": "1",
+    "recorded_candidate_set_id": "candidate-set:stone-reference",
+    "recorded_candidate_set_revision": "1",
+    "recorded_selected_candidate_id": null,
+    "recorded_selected_semantic_fingerprint": null,
+    "diagnostic_code": null
+  }
+}

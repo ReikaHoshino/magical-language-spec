@@ -1,0 +1,436 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/magical-program.schema.json",
+  "title": "MagicalProgram-0",
+  "type": "object",
+  "required": [
+    "artifact_kind",
+    "artifact_version",
+    "contract",
+    "stability",
+    "program_id",
+    "provenance",
+    "compatibility",
+    "budget",
+    "values",
+    "nodes",
+    "edges",
+    "outputs"
+  ],
+  "properties": {
+    "artifact_kind": {"const": "MagicalProgram"},
+    "artifact_version": {"const": "0"},
+    "contract": {
+      "type": "object",
+      "required": ["contract_id", "revision"],
+      "properties": {
+        "contract_id": {"const": "magical-program"},
+        "revision": {"const": "0"}
+      },
+      "additionalProperties": false
+    },
+    "stability": {"const": "experimental"},
+    "program_id": {"$ref": "#/$defs/identifier"},
+    "provenance": {"$ref": "#/$defs/provenance"},
+    "compatibility": {"$ref": "#/$defs/compatibility"},
+    "budget": {"$ref": "#/$defs/budget"},
+    "values": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/value"}
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/node"}
+    },
+    "edges": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/edge"}
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/programOutput"}
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "binding": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z_][A-Za-z0-9._:-]*$"
+    },
+    "contractRef": {
+      "type": "object",
+      "required": ["contract_id", "revision"],
+      "properties": {
+        "contract_id": {"$ref": "#/$defs/identifier"},
+        "revision": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "sourceRecord": {
+      "type": "object",
+      "required": ["artifact_kind", "artifact_version", "artifact_id", "stage"],
+      "properties": {
+        "artifact_kind": {"$ref": "#/$defs/identifier"},
+        "artifact_version": {"$ref": "#/$defs/identifier"},
+        "artifact_id": {"$ref": "#/$defs/identifier"},
+        "stage": {"enum": ["source", "nsr", "bundle", "program"]}
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["relation", "input_stage"],
+          "properties": {
+            "relation": {"const": "direct"},
+            "input_stage": {"const": "program"}
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["relation", "input_stage", "source"],
+          "properties": {
+            "relation": {"const": "lowered"},
+            "input_stage": {"const": "program"},
+            "source": {"$ref": "#/$defs/sourceRecord"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "compatibility": {
+      "type": "object",
+      "required": [
+        "registry_id",
+        "registry_revision",
+        "profile_id",
+        "profile_revision"
+      ],
+      "properties": {
+        "registry_id": {"$ref": "#/$defs/identifier"},
+        "registry_revision": {"$ref": "#/$defs/identifier"},
+        "profile_id": {"$ref": "#/$defs/identifier"},
+        "profile_revision": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "budget": {
+      "type": "object",
+      "required": ["energy_j", "events", "microsteps", "concurrency"],
+      "properties": {
+        "energy_j": {"type": "number", "minimum": 0},
+        "events": {"type": "integer", "minimum": 0},
+        "microsteps": {"type": "integer", "minimum": 0},
+        "concurrency": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "anonymousLiteral": {
+      "type": "object",
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {"const": "literal"},
+        "value": {"type": ["string", "number", "integer", "boolean", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "anonymousQuantity": {
+      "type": "object",
+      "required": ["kind", "semantic_type", "dimension", "unit", "value"],
+      "properties": {
+        "kind": {"const": "quantity"},
+        "semantic_type": {"$ref": "#/$defs/identifier"},
+        "dimension": {"$ref": "#/$defs/identifier"},
+        "unit": {"$ref": "#/$defs/identifier"},
+        "value": {"type": "number"}
+      },
+      "additionalProperties": false
+    },
+    "anonymousRecord": {
+      "type": "object",
+      "required": ["kind", "type_id", "fields"],
+      "properties": {
+        "kind": {"const": "record"},
+        "type_id": {"$ref": "#/$defs/identifier"},
+        "fields": {
+          "type": "object",
+          "propertyNames": {"$ref": "#/$defs/binding"},
+          "additionalProperties": {"$ref": "#/$defs/structuredValue"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "anonymousSequence": {
+      "type": "object",
+      "required": ["kind", "element_type", "items"],
+      "properties": {
+        "kind": {"const": "sequence"},
+        "element_type": {"$ref": "#/$defs/identifier"},
+        "items": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/structuredValue"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "structuredValue": {
+      "oneOf": [
+        {"$ref": "#/$defs/anonymousLiteral"},
+        {"$ref": "#/$defs/anonymousQuantity"},
+        {"$ref": "#/$defs/anonymousRecord"},
+        {"$ref": "#/$defs/anonymousSequence"}
+      ]
+    },
+    "literalValue": {
+      "type": "object",
+      "required": ["value_id", "kind", "value"],
+      "properties": {
+        "value_id": {"$ref": "#/$defs/binding"},
+        "kind": {"const": "literal"},
+        "value": {"type": ["string", "number", "integer", "boolean", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "quantityValue": {
+      "type": "object",
+      "required": ["value_id", "kind", "semantic_type", "dimension", "unit", "value"],
+      "properties": {
+        "value_id": {"$ref": "#/$defs/binding"},
+        "kind": {"const": "quantity"},
+        "semantic_type": {"$ref": "#/$defs/identifier"},
+        "dimension": {"$ref": "#/$defs/identifier"},
+        "unit": {"$ref": "#/$defs/identifier"},
+        "value": {"type": "number"}
+      },
+      "additionalProperties": false
+    },
+    "recordValue": {
+      "type": "object",
+      "required": ["value_id", "kind", "type_id", "fields"],
+      "properties": {
+        "value_id": {"$ref": "#/$defs/binding"},
+        "kind": {"const": "record"},
+        "type_id": {"$ref": "#/$defs/identifier"},
+        "fields": {
+          "type": "object",
+          "propertyNames": {"$ref": "#/$defs/binding"},
+          "additionalProperties": {"$ref": "#/$defs/structuredValue"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "sequenceValue": {
+      "type": "object",
+      "required": ["value_id", "kind", "element_type", "items"],
+      "properties": {
+        "value_id": {"$ref": "#/$defs/binding"},
+        "kind": {"const": "sequence"},
+        "element_type": {"$ref": "#/$defs/identifier"},
+        "items": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/structuredValue"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "selectorValue": {
+      "type": "object",
+      "required": ["value_id", "kind", "selector"],
+      "properties": {
+        "value_id": {"$ref": "#/$defs/binding"},
+        "kind": {"const": "selector"},
+        "selector": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 16,
+          "additionalProperties": {"type": ["string", "number", "integer", "boolean"]}
+        }
+      },
+      "additionalProperties": false
+    },
+    "handleHintValue": {
+      "type": "object",
+      "required": ["value_id", "kind", "handle_id", "revision"],
+      "properties": {
+        "value_id": {"$ref": "#/$defs/binding"},
+        "kind": {"enum": ["reference_hint", "evidence_hint"]},
+        "handle_id": {"$ref": "#/$defs/identifier"},
+        "revision": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "value": {
+      "oneOf": [
+        {"$ref": "#/$defs/literalValue"},
+        {"$ref": "#/$defs/quantityValue"},
+        {"$ref": "#/$defs/recordValue"},
+        {"$ref": "#/$defs/sequenceValue"},
+        {"$ref": "#/$defs/selectorValue"},
+        {"$ref": "#/$defs/handleHintValue"}
+      ]
+    },
+    "resources": {
+      "type": "object",
+      "required": ["energy_j", "matter_kg", "events"],
+      "properties": {
+        "energy_j": {"type": "number", "minimum": 0},
+        "matter_kg": {"type": "number", "minimum": 0},
+        "events": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "capabilityRequirement": {
+      "type": "object",
+      "required": ["requirement_id", "target_binding", "effect"],
+      "properties": {
+        "requirement_id": {"$ref": "#/$defs/identifier"},
+        "target_binding": {"$ref": "#/$defs/binding"},
+        "effect": {"$ref": "#/$defs/identifier"},
+        "scope": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "leaseRequirement": {
+      "type": "object",
+      "required": ["requirement_id", "target_binding", "mode"],
+      "properties": {
+        "requirement_id": {"$ref": "#/$defs/identifier"},
+        "target_binding": {"$ref": "#/$defs/binding"},
+        "mode": {"$ref": "#/$defs/identifier"},
+        "scope": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "identityRequirement": {
+      "type": "object",
+      "required": ["requirement_id", "target_binding"],
+      "properties": {
+        "requirement_id": {"$ref": "#/$defs/identifier"},
+        "target_binding": {"$ref": "#/$defs/binding"}
+      },
+      "additionalProperties": false
+    },
+    "evidenceRequirement": {
+      "type": "object",
+      "required": ["requirement_id", "target_binding", "kind"],
+      "properties": {
+        "requirement_id": {"$ref": "#/$defs/identifier"},
+        "target_binding": {"$ref": "#/$defs/binding"},
+        "kind": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "accountingRequirement": {
+      "type": "object",
+      "required": ["requirement_id", "kind"],
+      "properties": {
+        "requirement_id": {"$ref": "#/$defs/identifier"},
+        "kind": {"$ref": "#/$defs/identifier"},
+        "target_binding": {"$ref": "#/$defs/binding"}
+      },
+      "additionalProperties": false
+    },
+    "obligations": {
+      "type": "object",
+      "required": ["capabilities", "leases", "identities", "evidence", "accounting", "resources"],
+      "properties": {
+        "capabilities": {"type": "array", "items": {"$ref": "#/$defs/capabilityRequirement"}},
+        "leases": {"type": "array", "items": {"$ref": "#/$defs/leaseRequirement"}},
+        "identities": {"type": "array", "items": {"$ref": "#/$defs/identityRequirement"}},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/evidenceRequirement"}},
+        "accounting": {"type": "array", "items": {"$ref": "#/$defs/accountingRequirement"}},
+        "resources": {"$ref": "#/$defs/resources"}
+      },
+      "additionalProperties": false
+    },
+    "node": {
+      "type": "object",
+      "required": ["node_id", "order", "instruction", "inputs", "produces"],
+      "properties": {
+        "node_id": {"$ref": "#/$defs/identifier"},
+        "order": {"type": "integer", "minimum": 0},
+        "instruction": {"enum": ["ref.resolve", "evidence.observe", "pure.calculate", "pure.compare", "pure.rank", "assert.require", "effect.invoke"]},
+        "inputs": {"type": "array", "items": {"$ref": "#/$defs/binding"}, "uniqueItems": true},
+        "produces": {"type": "array", "items": {"$ref": "#/$defs/binding"}, "uniqueItems": true},
+        "contract": {"$ref": "#/$defs/contractRef"},
+        "obligations": {"$ref": "#/$defs/obligations"},
+        "operator": {"enum": ["add", "subtract", "multiply", "divide", "minimum", "maximum", "equal", "not_equal", "less", "less_equal", "greater", "greater_equal"]},
+        "direction": {"enum": ["ascending", "descending"]},
+        "diagnostic_code": {"$ref": "#/$defs/identifier"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"instruction": {"const": "ref.resolve"}}, "required": ["instruction"]},
+          "then": {
+            "properties": {"inputs": {"minItems": 1, "maxItems": 1}, "produces": {"minItems": 1, "maxItems": 1}},
+            "not": {"anyOf": [{"required": ["contract"]}, {"required": ["obligations"]}, {"required": ["operator"]}, {"required": ["direction"]}, {"required": ["diagnostic_code"]}]}
+          }
+        },
+        {
+          "if": {"properties": {"instruction": {"enum": ["evidence.observe", "effect.invoke"]}}, "required": ["instruction"]},
+          "then": {
+            "required": ["contract", "obligations"],
+            "properties": {"produces": {"minItems": 1, "maxItems": 1}},
+            "not": {"anyOf": [{"required": ["operator"]}, {"required": ["direction"]}, {"required": ["diagnostic_code"]}]}
+          }
+        },
+        {
+          "if": {"properties": {"instruction": {"enum": ["pure.calculate", "pure.compare"]}}, "required": ["instruction"]},
+          "then": {
+            "required": ["operator"],
+            "properties": {"produces": {"minItems": 1, "maxItems": 1}},
+            "not": {"anyOf": [{"required": ["contract"]}, {"required": ["obligations"]}, {"required": ["direction"]}, {"required": ["diagnostic_code"]}]}
+          }
+        },
+        {
+          "if": {"properties": {"instruction": {"const": "pure.rank"}}, "required": ["instruction"]},
+          "then": {
+            "required": ["direction"],
+            "properties": {"produces": {"minItems": 1, "maxItems": 1}},
+            "not": {"anyOf": [{"required": ["contract"]}, {"required": ["obligations"]}, {"required": ["operator"]}, {"required": ["diagnostic_code"]}]}
+          }
+        },
+        {
+          "if": {"properties": {"instruction": {"const": "assert.require"}}, "required": ["instruction"]},
+          "then": {
+            "required": ["diagnostic_code"],
+            "properties": {"inputs": {"minItems": 1, "maxItems": 1}, "produces": {"maxItems": 0}},
+            "not": {"anyOf": [{"required": ["contract"]}, {"required": ["obligations"]}, {"required": ["operator"]}, {"required": ["direction"]}]}
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "edge": {
+      "type": "object",
+      "required": ["from", "to"],
+      "properties": {
+        "from": {"$ref": "#/$defs/identifier"},
+        "to": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "programOutput": {
+      "type": "object",
+      "required": ["name", "binding", "kind"],
+      "properties": {
+        "name": {"$ref": "#/$defs/identifier"},
+        "binding": {"$ref": "#/$defs/binding"},
+        "kind": {"enum": ["value", "reference", "evidence", "effect_result", "event", "artifact"]}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

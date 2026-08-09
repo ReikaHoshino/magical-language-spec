@@ -1,0 +1,14 @@
+{
+  "document_kind": "ExperimentalArcanaInitialWorld", "schema_version": "1", "fixture_id": "SUCCESS-ARCANA-001",
+  "world_revision": "world:sa001:1", "world_index_revision": "wi:sa001:1",
+  "entities": {
+    "entity:sa001:anchor": {"entity_id": "entity:sa001:anchor", "state_revision": "state-revision:anchor@world:sa001:1", "kind": "Anchor", "normal_momentum_kg_m_s": 0},
+    "entity:sa001:intruder": {"entity_id": "entity:sa001:intruder", "state_revision": "state-revision:intruder@world:sa001:1", "kind": "MatterEntity", "mass_kg": 10, "normal_momentum_kg_m_s": 20, "crossing": true, "authorized": false}
+  },
+  "capabilities": {"capability:sa001:boundary-actuation": {"active": true, "dynamic_scope": "region:sevenfold-sanctuary", "effect": "Constrain"}},
+  "leases": {"lease:sa001:controller": {"active": true, "entity_id": "entity:sa001:anchor", "mode": "Actuate"}},
+  "ledgers": {"ledger:sa001:momentum-energy": {"active": true, "target_momentum_kg_m_s": 20, "anchor_momentum_kg_m_s": 0, "dissipated_energy_j": 0}},
+  "history": [], "controllers": {},
+  "runtime_state": {"runtime_profile": {"artifact_id": "runtime-profile:arcana-sa001", "revision": "1"}, "channels": {}, "reservations": {}, "active_processes": {}},
+  "process_state": {"process_id": "process:sa001", "status": "Idle", "prepared_plan_id": null}
+}

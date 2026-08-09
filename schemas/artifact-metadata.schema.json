@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/artifact-metadata.schema.json",
+  "title": "Core Configuration Artifact Metadata",
+  "description": "Shared identity and versioning envelope. Compatibility declarations are domain data; this schema does not decide compatibility.",
+  "type": "object",
+  "required": ["schema_version", "artifact_id", "revision", "spec_version", "content_hash", "provenance", "compatibility"],
+  "properties": {
+    "schema_version": {"$ref": "common-values.schema.json#/$defs/version"},
+    "artifact_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+    "revision": {"$ref": "#/$defs/revision"},
+    "spec_version": {"$ref": "common-values.schema.json#/$defs/version"},
+    "content_hash": {"$ref": "#/$defs/contentHash"},
+    "provenance": {"$ref": "#/$defs/provenance"},
+    "compatibility": {"$ref": "#/$defs/compatibilityMetadata"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "revision": {"$ref": "common-values.schema.json#/$defs/revision"},
+    "contentHash": {"$ref": "common-values.schema.json#/$defs/artifactContentHash"},
+    "provenance": {
+      "type": "object",
+      "required": ["source_kind", "source_id"],
+      "properties": {
+        "source_kind": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "source_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "source_revision": {"$ref": "#/$defs/revision"},
+        "created_at": {"type": "string", "format": "date-time"},
+        "created_by": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "evidence": {"type": "array", "items": {"$ref": "common-values.schema.json#/$defs/identifier"}, "uniqueItems": true}
+      },
+      "additionalProperties": true
+    },
+    "compatibilityMetadata": {
+      "type": "object",
+      "required": ["domain", "contract_revision", "declarations"],
+      "properties": {
+        "domain": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "contract_revision": {"$ref": "#/$defs/revision"},
+        "profile": {
+          "$ref": "compatibility.schema.json#/$defs/profileReference",
+          "description": "Optional machine-readable owner/rule reference for a domain compatibility declaration. The declaration is not itself a compatibility result."
+        },
+        "declarations": {"type": "object"},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}

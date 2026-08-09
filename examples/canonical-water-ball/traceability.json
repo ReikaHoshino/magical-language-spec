@@ -1,0 +1,18 @@
+{
+  "document_kind": "TraceabilityMatrix",
+  "schema_version": "1",
+  "matrix_id": "WB-TRACE-001",
+  "entries": [
+    {"rule_id": "WB-RULE-001", "owner": "reference/source-text-normalization.md", "test_ids": ["WB-TEST-001", "WB-FAIL-001"], "fixture_paths": ["examples/canonical-water-ball/pipeline.json", "examples/source-normalization/invalid-utf8.json"]},
+    {"rule_id": "WB-RULE-002", "owner": "reference/language-adapters.md", "test_ids": ["WB-TEST-002", "WB-FAIL-002"], "fixture_paths": ["examples/canonical-water-ball/pipeline.json", "examples/ambiguity-policy/strict-reject.json"]},
+    {"rule_id": "WB-RULE-003", "owner": "reference/architecture.md", "test_ids": ["WB-TEST-003"], "fixture_paths": ["examples/canonical-water-ball/pipeline.json"]},
+    {"rule_id": "WB-RULE-004", "owner": "reference/types.md", "test_ids": ["WB-TEST-004", "WB-FAIL-003", "WB-FAIL-004"], "fixture_paths": ["examples/canonical-water-ball/pipeline.json", "examples/canonical-water-ball/failure-cases.json"]},
+    {"rule_id": "WB-RULE-005", "owner": "reference/planning-inference.md", "test_ids": ["WB-TEST-005", "WB-FAIL-009", "WB-FAIL-010"], "fixture_paths": ["examples/planning-inference/pathological-water-ball-bound.json", "examples/canonical-water-ball/failure-cases.json"]},
+    {"rule_id": "WB-RULE-006", "owner": "reference/mki.md", "test_ids": ["WB-TEST-006"], "fixture_paths": ["examples/canonical-water-ball/pipeline.json"]},
+    {"rule_id": "WB-RULE-007", "owner": "reference/estimator-models.md", "test_ids": ["WB-TEST-007", "WB-FAIL-008", "WB-FAIL-011"], "fixture_paths": ["examples/estimator-profiles/synthetic-reference-v1.json", "examples/canonical-water-ball/pipeline.json"]},
+    {"rule_id": "WB-RULE-008", "owner": "reference/world-index.md", "test_ids": ["WB-TEST-008", "WB-FAIL-005"], "fixture_paths": ["examples/core-config/world-index.json", "examples/canonical-water-ball/pipeline.json"]},
+    {"rule_id": "WB-RULE-009", "owner": "reference/security-sandbox.md", "test_ids": ["WB-TEST-009", "WB-FAIL-006", "WB-FAIL-007", "WB-FAIL-013"], "fixture_paths": ["examples/canonical-water-ball/pipeline.json", "examples/canonical-water-ball/failure-cases.json"]},
+    {"rule_id": "WB-RULE-010", "owner": "reference/runtime-time.md", "test_ids": ["WB-TEST-010", "WB-FAIL-012", "WB-FAIL-013"], "fixture_paths": ["examples/planning-inference/pathological-water-ball-dynamic.json", "examples/canonical-water-ball/pipeline.json"]},
+    {"rule_id": "WB-RULE-011", "owner": "reference/compatibility.md", "test_ids": ["WB-TEST-011"], "fixture_paths": ["examples/compatibility/decision-cases.json", "examples/canonical-water-ball/pipeline.json"]}
+  ]
+}

@@ -1,0 +1,43 @@
+// v0.6 examples
+
+spell SelectIncoming(
+    defense_region : Ref<Region>,
+    caster         : Ref<Agent>
+)
+! { Read }
+{
+    let incoming : Selection<Object> =
+        select<Object>(
+            within(defense_region),
+            limit = 32,
+            order = nearest_first(caster)
+        );
+
+    // incoming is a snapshot, not a live set.
+    return;
+}
+
+spell TransferWater(
+    source : Ref<Region>,
+    sink   : Ref<Region>
+)
+! {
+    Read,
+    Channel<Matter>,
+    Transfer<Matter>
+}
+{
+    // Standard-library helper; MatterPayload construction is not an MKI primitive.
+    let payload : MatterPayload =
+        make_matter_payload(source, 1 mol);
+
+    let ch : Channel<Matter> =
+        channel<Matter>(source -> sink, strength = 0.5);
+
+    let tx : TransferHandle<Matter> =
+        transfer ch,
+            payload,
+            invariant = [ChemicalSpecies];
+
+    await tx timeout 1 s;
+}

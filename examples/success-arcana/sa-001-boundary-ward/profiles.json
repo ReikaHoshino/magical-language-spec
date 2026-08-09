@@ -1,0 +1,9 @@
+{
+  "document_kind": "ExperimentalArcanaProfileBundle",
+  "schema_version": "1",
+  "fixture_id": "SUCCESS-ARCANA-001",
+  "estimator_profile": {"artifact_id": "estimator-profile:arcana-sa001", "revision": "1", "energy_components_j": {"control": 7.2}, "evidence_ids": ["model-evidence:sa001:impulse"]},
+  "sandbox_profile": {"artifact_id": "sandbox-profile:arcana-sa001", "revision": "1", "max_energy_j": 10, "max_events_per_commit": 4, "max_microsteps_per_tick": 16},
+  "runtime_profile": {"artifact_id": "runtime-profile:arcana-sa001", "revision": "1"},
+  "values_are_universal_world_constants": false
+}

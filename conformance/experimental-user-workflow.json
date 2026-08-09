@@ -1,0 +1,81 @@
+{
+  "artifact_kind": "ExperimentalConformanceInventory",
+  "artifact_version": "0",
+  "inventory_id": "magical-language-user-workflow-0",
+  "stability": "experimental",
+  "spec_version": "0.12.0",
+  "normative_reference": "reference/user-workflow.md",
+  "excluded_from_stable_manifest": true,
+  "stable_manifest_expectation": {
+    "class_count": 4,
+    "required_case_count": 65
+  },
+  "cases": [
+    {
+      "case_id": "UX-E2E-001",
+      "title": "MGLS source and emitted program share the generic runtime",
+      "rules": ["UX-PIPE-001", "UX-PIPE-002", "UX-REPLAY-001"],
+      "test": "tests.test_user_workflow.UserWorkflowTests.test_source_and_emitted_program_share_one_runtime_path"
+    },
+    {
+      "case_id": "UX-E2E-002",
+      "title": "Repository bundle uses common commands and generic replay path",
+      "rules": ["UX-PIPE-003", "UX-REPLAY-001"],
+      "test": "tests.test_user_workflow.UserWorkflowTests.test_repository_bundle_uses_the_same_commands_and_replays"
+    },
+    {
+      "case_id": "UX-E2E-003",
+      "title": "Filename and logical identity do not select contracts",
+      "rules": ["UX-ROUTE-002", "UX-ROUTE-005"],
+      "test": "tests.test_user_workflow.UserWorkflowTests.test_filename_and_identity_renaming_do_not_select_behavior"
+    },
+    {
+      "case_id": "UX-E2E-004",
+      "title": "Filename stage hints and decoded kinds agree",
+      "rules": ["UX-ROUTE-001", "UX-ROUTE-003", "UX-ROUTE-004"],
+      "test": "tests.test_user_workflow.UserWorkflowTests.test_stage_suffix_and_decoded_kind_must_agree"
+    },
+    {
+      "case_id": "UX-E2E-005",
+      "title": "Input is read once into an immutable snapshot",
+      "rules": ["UX-INGRESS-001"],
+      "test": "tests.test_user_workflow.UserWorkflowTests.test_single_read_snapshot_is_immutable"
+    },
+    {
+      "case_id": "UX-E2E-006",
+      "title": "Forbidden source and unknown contracts fail before partial output",
+      "rules": ["UX-INGRESS-003", "UX-PIPE-004", "UX-SEC-002"],
+      "test": "tests.test_user_workflow.UserWorkflowTests.test_unknown_contract_and_forbidden_source_fail_without_partial_program"
+    },
+    {
+      "case_id": "UX-E2E-007",
+      "title": "Authority resource and sandbox failures are deterministic",
+      "rules": ["UX-INGRESS-002", "UX-SEC-001", "UX-SEC-002"],
+      "test": "tests.test_user_workflow.UserWorkflowTests.test_authority_resource_and_sandbox_failures_are_deterministic"
+    },
+    {
+      "case_id": "UX-E2E-008",
+      "title": "CLI emits deterministic artifacts and runs the emitted program",
+      "rules": ["UX-CMD-002", "UX-OUTPUT-001", "UX-EMIT-001", "UX-EMIT-002"],
+      "test": "tests.test_user_cli.UserCliTests.test_compile_emits_program_and_source_map_then_runs_program"
+    },
+    {
+      "case_id": "UX-E2E-009",
+      "title": "CLI exit codes diagnostics and no-traceback boundary are fixed",
+      "rules": ["UX-OUTPUT-002", "UX-OUTPUT-003", "UX-EXIT-001", "UX-SEC-003"],
+      "test": "tests.test_user_cli.UserCliTests.test_rejection_and_abort_exit_codes_are_stable_json_without_traceback"
+    },
+    {
+      "case_id": "UX-E2E-010",
+      "title": "Existing stable entry points remain published",
+      "rules": ["UX-CMD-001", "UX-COMPAT-001", "UX-COMPAT-002"],
+      "test": "tests.test_user_cli.UserCliTests.test_existing_stable_entry_points_remain_published"
+    },
+    {
+      "case_id": "UX-E2E-011",
+      "title": "Installed editable wheel and sdist commands have parity",
+      "rules": ["UX-PKG-001"],
+      "test": "tools.package_program_eval_smoke.main"
+    }
+  ]
+}

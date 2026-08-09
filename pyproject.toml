@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "backend"
+backend-path = ["_custom_build"]
+
+[project]
+name = "magical-language-spec-reference"
+version = "0.12.0"
+description = "Reference evaluator, sandbox runtime, and conformance tooling for magical-language-spec"
+requires-python = ">=3.12"
+dependencies = [
+  "jsonschema[format]>=4.18,<5",
+]
+
+[project.scripts]
+magical-language = "src.user_cli:main"
+magical-language-evaluator = "src.evaluator.cli:main"
+magical-language-conformance = "src.conformance_cli:main"
+magical-language-experimental-arcana = "tools.run_success_arcana:main"
+magical-language-artifact = "src.artifacts.cli:main"
+magical-language-spell-instances = "tools.run_spell_instances:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+  "src",
+  "src.*",
+  "tools",
+  "tools.*",
+  "magical_language_spec_resources",
+]
+namespaces = false
+
+[tool.setuptools.package-data]
+magical_language_spec_resources = ["*", "**/*"]

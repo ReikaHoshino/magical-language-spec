@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/success-arcana.schema.json",
+  "title": "Experimental-Arcana-0 fixture documents",
+  "description": "Experimental success-path fixtures. This schema is not a stable ECIR or a v1.0 required conformance contract.",
+  "oneOf": [
+    {"$ref": "#/$defs/fixtureContract"},
+    {"$ref": "#/$defs/registryExtension"},
+    {"$ref": "#/$defs/profileBundle"},
+    {"$ref": "#/$defs/initialWorld"},
+    {"$ref": "#/$defs/expectation"},
+    {"$ref": "#/$defs/negativeNeighbors"}
+  ],
+  "$defs": {
+    "id": {"type": "string", "minLength": 1},
+    "idArray": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "artifactRef": {
+      "type": "object",
+      "required": ["artifact_id", "revision"],
+      "properties": {"artifact_id": {"$ref": "#/$defs/id"}, "revision": {"$ref": "#/$defs/id"}},
+      "additionalProperties": false
+    },
+    "quantity": {
+      "type": "object",
+      "required": ["semantic_type", "value", "unit"],
+      "properties": {
+        "semantic_type": {"$ref": "#/$defs/id"},
+        "value": {"type": "number"},
+        "unit": {"$ref": "#/$defs/id"}
+      },
+      "additionalProperties": false
+    },
+    "dynamicCapabilityScope": {
+      "type": "object",
+      "required": ["anchor_id", "region_id", "target_predicate", "maximum_target_scope", "maximum_event_scope", "effect_class", "validity_interval", "per_actuation_revalidation", "no_authority_amplification"],
+      "properties": {
+        "anchor_id": {"$ref": "#/$defs/id"},
+        "region_id": {"$ref": "#/$defs/id"},
+        "target_predicate": {"type": "object"},
+        "maximum_target_scope": {"type": "object"},
+        "maximum_event_scope": {"type": "object"},
+        "effect_class": {"enum": ["Observe", "Transfer", "Reconfigure", "Constrain"]},
+        "validity_interval": {"type": "object", "required": ["not_before", "not_after"]},
+        "per_actuation_revalidation": {"const": true},
+        "no_authority_amplification": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "loweringRecord": {
+      "type": "object",
+      "required": ["mki_operation", "kernel_interactions"],
+      "properties": {
+        "mki_operation": {"enum": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]},
+        "kernel_interactions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"enum": ["QUERY", "SAMPLE", "TRANSITION", "ACTIVATE", "DEACTIVATE"]}
+        },
+        "atomic_group": {"$ref": "#/$defs/id"}
+      },
+      "additionalProperties": false
+    },
+    "fixtureContract": {
+      "type": "object",
+      "required": ["document_kind", "schema_version", "fixture_id", "experimental_class", "action", "handler_id", "plan_id", "runtime_profile", "sandbox_profile", "operations", "lowering", "energy_budget_j", "required_evidence", "typed_parameters", "success_invariants", "definition_sources"],
+      "properties": {
+        "document_kind": {"const": "ExperimentalArcanaFixtureContract"},
+        "schema_version": {"const": "1"},
+        "fixture_id": {"enum": ["SUCCESS-ARCANA-001", "SUCCESS-ARCANA-002", "SUCCESS-ARCANA-003"]},
+        "experimental_class": {"const": "Experimental-Arcana-0"},
+        "action": {"enum": ["boundary_reflection", "staged_treatment", "evidence_fusion"]},
+        "handler_id": {"$ref": "#/$defs/id"},
+        "plan_id": {"$ref": "#/$defs/id"},
+        "runtime_profile": {"$ref": "#/$defs/artifactRef"},
+        "sandbox_profile": {
+          "type": "object",
+          "required": ["artifact_id", "revision", "max_energy_j", "fixture_only"],
+          "properties": {
+            "artifact_id": {"$ref": "#/$defs/id"}, "revision": {"$ref": "#/$defs/id"},
+            "max_energy_j": {"type": "number", "minimum": 0}, "fixture_only": {"const": true},
+            "max_events_per_commit": {"type": "integer", "minimum": 1},
+            "max_microsteps_per_tick": {"type": "integer", "minimum": 1}
+          },
+          "additionalProperties": false
+        },
+        "operations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]}},
+        "lowering": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/loweringRecord"}},
+        "energy_budget_j": {"type": "number", "minimum": 0},
+        "required_evidence": {
+          "type": "object",
+          "required": ["resolution", "capabilities", "leases", "accounting"],
+          "properties": {
+            "resolution": {"$ref": "#/$defs/idArray"}, "capabilities": {"$ref": "#/$defs/idArray"},
+            "leases": {"$ref": "#/$defs/idArray"}, "accounting": {"$ref": "#/$defs/idArray"}
+          },
+          "additionalProperties": false
+        },
+        "typed_parameters": {"type": "object"},
+        "dynamic_capability_scope": {"$ref": "#/$defs/dynamicCapabilityScope"},
+        "success_invariants": {"$ref": "#/$defs/idArray"},
+        "definition_sources": {"$ref": "#/$defs/idArray"}
+      },
+      "additionalProperties": false
+    },
+    "registryExtension": {
+      "type": "object",
+      "required": ["document_kind", "schema_version", "fixture_id", "namespaces", "authority_is_not_registry_metadata"],
+      "properties": {
+        "document_kind": {"const": "ExperimentalArcanaRegistryExtension"},
+        "schema_version": {"const": "1"},
+        "fixture_id": {"$ref": "#/$defs/id"},
+        "namespaces": {
+          "type": "object",
+          "required": ["semantic_kinds", "structure_schemas", "reaction_rules", "observer_models", "controller_models", "conservation_ledgers"],
+          "properties": {
+            "semantic_kinds": {"type": "array", "items": {"$ref": "semantic-registry.schema.json#/$defs/SemanticEntry"}},
+            "structure_schemas": {"type": "array", "items": {"$ref": "semantic-registry.schema.json#/$defs/StructureSchemaEntry"}},
+            "reaction_rules": {"type": "array", "items": {"$ref": "semantic-registry.schema.json#/$defs/ReactionRuleEntry"}},
+            "observer_models": {"type": "array", "items": {"$ref": "semantic-registry.schema.json#/$defs/ObserverModelEntry"}},
+            "controller_models": {"type": "array", "items": {"$ref": "semantic-registry.schema.json#/$defs/ControllerModelEntry"}},
+            "conservation_ledgers": {"type": "array", "items": {"$ref": "semantic-registry.schema.json#/$defs/ConservationLedgerEntry"}}
+          },
+          "additionalProperties": false
+        },
+        "authority_is_not_registry_metadata": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "profileBundle": {
+      "type": "object",
+      "required": ["document_kind", "schema_version", "fixture_id", "estimator_profile", "sandbox_profile", "runtime_profile", "values_are_universal_world_constants"],
+      "properties": {
+        "document_kind": {"const": "ExperimentalArcanaProfileBundle"},
+        "schema_version": {"const": "1"}, "fixture_id": {"$ref": "#/$defs/id"},
+        "estimator_profile": {"type": "object", "required": ["artifact_id", "revision", "energy_components_j", "evidence_ids"]},
+        "sandbox_profile": {"type": "object", "required": ["artifact_id", "revision", "max_energy_j", "max_events_per_commit", "max_microsteps_per_tick"]},
+        "runtime_profile": {"$ref": "#/$defs/artifactRef"},
+        "values_are_universal_world_constants": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "initialWorld": {
+      "type": "object",
+      "required": ["document_kind", "schema_version", "fixture_id", "world_revision", "world_index_revision", "entities", "capabilities", "leases", "ledgers", "history", "runtime_state"],
+      "properties": {
+        "document_kind": {"const": "ExperimentalArcanaInitialWorld"},
+        "schema_version": {"const": "1"}, "fixture_id": {"$ref": "#/$defs/id"},
+        "world_revision": {"$ref": "#/$defs/id"}, "world_index_revision": {"$ref": "#/$defs/id"},
+        "entities": {"type": "object"}, "capabilities": {"type": "object"}, "leases": {"type": "object"},
+        "ledgers": {"type": "object"}, "history": {"type": "array"}, "controllers": {"type": "object"},
+        "runtime_state": {"type": "object"}, "process_state": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "expectation": {
+      "type": "object",
+      "required": ["document_kind", "schema_version", "fixture_id", "expected"],
+      "properties": {
+        "document_kind": {"enum": ["ExpectedFeasibilityReport", "ExpectedPreparedPlan", "ExpectedRuntimeTrace", "ExpectedFinalInvariants", "ReplayExpectation"]},
+        "schema_version": {"const": "1"}, "fixture_id": {"$ref": "#/$defs/id"}, "expected": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "negativeNeighbors": {
+      "type": "object",
+      "required": ["document_kind", "schema_version", "fixture_id", "cases"],
+      "properties": {
+        "document_kind": {"const": "ExperimentalArcanaNegativeNeighbors"},
+        "schema_version": {"const": "1"}, "fixture_id": {"$ref": "#/$defs/id"},
+        "cases": {
+          "type": "array", "minItems": 4,
+          "items": {
+            "type": "object", "required": ["case_id", "mutation", "expected_code", "no_partial_initial_commit"],
+            "properties": {
+              "case_id": {"$ref": "#/$defs/id"}, "mutation": {"$ref": "#/$defs/id"},
+              "expected_code": {"$ref": "#/$defs/id"}, "no_partial_initial_commit": {"const": true}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

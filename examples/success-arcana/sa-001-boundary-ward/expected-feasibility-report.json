@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedFeasibilityReport","schema_version":"1","fixture_id":"SUCCESS-ARCANA-001","expected":{"status":"Feasible","source_plan_id":"arcana:plan:boundary-reflection","operations":["RESOLVE","OBSERVE","CONSTRAIN"],"energy_j":7.2,"mandatory_dimensions":["Type","Identity","Authority","Lease","Conservation","Timing"]}}

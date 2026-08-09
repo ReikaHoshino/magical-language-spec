@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/compatibility-coverage.schema.json",
+  "title": "Required reference-path compatibility coverage",
+  "description": "Versioned inventory of compatibility domains/profiles required by the supported v1 reference path. It does not define the domain algorithms.",
+  "$defs": {
+    "domainProfile": {
+      "type": "object",
+      "required": ["domain", "profile_id", "profile_revision", "owner", "rule_source"],
+      "properties": {
+        "domain": {
+          "enum": [
+            "SpecVersion",
+            "Schema",
+            "SemanticRegistry",
+            "RuntimeProfile",
+            "LanguageAdapter",
+            "SemanticFingerprint",
+            "WorldIndex"
+          ]
+        },
+        "profile_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "profile_revision": {"$ref": "common-values.schema.json#/$defs/revision"},
+        "owner": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "rule_source": {"type": "string", "pattern": "^reference/[A-Za-z0-9._/-]+\\.md#[A-Za-z0-9._/-]+$"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "required": [
+    "document_kind",
+    "schema_version",
+    "release_target",
+    "required_domains",
+    "artifacts"
+  ],
+  "properties": {
+    "document_kind": {"const": "CompatibilityCoverageInventory"},
+    "schema_version": {"const": "1"},
+    "release_target": {"const": "v0.12.0"},
+    "required_domains": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/domainProfile"}
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "object",
+        "required": ["artifact_kind", "required_when", "domains"],
+        "properties": {
+          "artifact_kind": {"$ref": "common-values.schema.json#/$defs/identifier"},
+          "required_when": {"type": "string", "minLength": 1},
+          "domains": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "SpecVersion",
+                "Schema",
+                "SemanticRegistry",
+                "RuntimeProfile",
+                "LanguageAdapter",
+                "SemanticFingerprint",
+                "WorldIndex"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

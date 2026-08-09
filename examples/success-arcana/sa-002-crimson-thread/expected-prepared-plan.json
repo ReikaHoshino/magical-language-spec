@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedPreparedPlan","schema_version":"1","fixture_id":"SUCCESS-ARCANA-002","expected":{"status":"Prepared","plan_id":"arcana:plan:staged-treatment","reservation_amount_j":620,"revalidation_required":true,"world_revision":"world:sa002:1"}}

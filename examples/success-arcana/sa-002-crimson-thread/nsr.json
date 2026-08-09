@@ -1,0 +1,11 @@
+{
+  "schema_version":"1","kind":"ExperimentalArcanaCommand","action":"staged_treatment",
+  "roles":[
+    {"role":"Patient","value":{"kind":"SelectorProposal","semantic_kind":"Organism","selector":{"correspondence_token":"token:sa002:red-thread"},"evidence_ids":["evidence:sa002:correspondence"]}},
+    {"role":"Instrument","value":{"kind":"SelectorProposal","semantic_kind":"TreatmentProxy","selector":{"symbol":"proxy:sa002"}}},
+    {"role":"Source","value":{"kind":"SelectorProposal","semantic_kind":"DonorMatter","selector":{"symbol":"donor:sa002"}}},
+    {"role":"Goal","value":{"kind":"Reference","semantic_kind":"TreatmentDecomposition","value":"treatment:sa002:small-laceration@1"}}
+  ],
+  "conditions":[{"kind":"Literal","semantic_kind":"IdentityPolicy","value":"IdentityPolicy<Organism>"}],
+  "provenance":{"adapter_id":null,"adapter_revision":null,"source_language_tags":[],"provider":"ExperimentalFixture","source_hash":null,"evidence_ids":["SUCCESS-ARCANA-002","evidence:sa002:correspondence"]}
+}

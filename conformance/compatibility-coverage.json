@@ -1,0 +1,25 @@
+{
+  "document_kind": "CompatibilityCoverageInventory",
+  "schema_version": "1",
+  "release_target": "v0.12.0",
+  "required_domains": [
+    {"domain": "SpecVersion", "profile_id": "compat-profile:spec-version:pre-v0.8", "profile_revision": "1", "owner": "LocalEvaluatorReleaseProfile", "rule_source": "reference/compatibility.md#41-spec-version"},
+    {"domain": "Schema", "profile_id": "compat-profile:schema:core-config", "profile_revision": "1", "owner": "CoreConfigurationLoader", "rule_source": "reference/compatibility.md#42-schema"},
+    {"domain": "SemanticRegistry", "profile_id": "compat-profile:semantic-registry:required-contracts", "profile_revision": "1", "owner": "SemanticRegistryLoader", "rule_source": "reference/registry.md#17-compatibility"},
+    {"domain": "RuntimeProfile", "profile_id": "compat-profile:runtime:prepared-plan", "profile_revision": "1", "owner": "RuntimeAdmissionProfile", "rule_source": "reference/compatibility.md#44-runtimeprofile"},
+    {"domain": "LanguageAdapter", "profile_id": "compat-profile:language-adapter:lat", "profile_revision": "1", "owner": "LanguageAdapterCompatibilityProfile", "rule_source": "reference/language-adapters.md#21-compatibility-ownership"},
+    {"domain": "SemanticFingerprint", "profile_id": "compat-profile:semantic-fingerprint:comparison", "profile_revision": "1", "owner": "SemanticComparisonProfile", "rule_source": "reference/compatibility.md#46-semanticfingerprint"},
+    {"domain": "WorldIndex", "profile_id": "compat-profile:world-index:query", "profile_revision": "1", "owner": "WorldIndexQueryProfile", "rule_source": "reference/compatibility.md#47-worldindex"}
+  ],
+  "artifacts": [
+    {"artifact_kind": "NSR", "required_when": "public structured evaluator ingress", "domains": ["SpecVersion", "Schema", "SemanticFingerprint"]},
+    {"artifact_kind": "SemanticRegistry", "required_when": "semantic elaboration loads registry contracts", "domains": ["SpecVersion", "Schema", "SemanticRegistry"]},
+    {"artifact_kind": "WorldIndex", "required_when": "resolution reads indexed world evidence", "domains": ["SpecVersion", "Schema", "WorldIndex"]},
+    {"artifact_kind": "RuntimeProfile", "required_when": "planning or execution consumes runtime policy", "domains": ["SpecVersion", "Schema", "RuntimeProfile"]},
+    {"artifact_kind": "LanguageAdapterLat", "required_when": "public Latin source ingress is selected", "domains": ["LanguageAdapter", "Schema"]},
+    {"artifact_kind": "SemanticFingerprintV1", "required_when": "semantic identity comparison or provenance is required", "domains": ["SemanticFingerprint"]},
+    {"artifact_kind": "FeasibilityReport", "required_when": "evaluator output is consumed", "domains": ["SpecVersion", "Schema", "SemanticRegistry", "WorldIndex", "RuntimeProfile", "SemanticFingerprint"]},
+    {"artifact_kind": "RuntimeExecutionTrace", "required_when": "sandbox runtime output is consumed", "domains": ["SpecVersion", "Schema", "RuntimeProfile", "WorldIndex", "SemanticFingerprint"]},
+    {"artifact_kind": "ConformanceManifest", "required_when": "a conformance claim is evaluated", "domains": ["SpecVersion", "Schema"]}
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/runtime-profile.schema.json",
+  "title": "RuntimeProfile Artifact",
+  "type": "object",
+  "required": ["metadata", "scheduler", "integrators", "replay", "temporal_tolerance"],
+  "properties": {
+    "metadata": {"$ref": "artifact-metadata.schema.json"},
+    "scheduler": {"$ref": "#/$defs/schedulerComponent"},
+    "integrators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/integratorComponent"}
+    },
+    "replay": {"$ref": "#/$defs/replayComponent"},
+    "temporal_tolerance": {"$ref": "#/$defs/temporalToleranceComponent"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "componentIdentity": {
+      "type": "object",
+      "required": ["id", "revision", "compatibility"],
+      "properties": {
+        "id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"},
+        "compatibility": {
+          "$ref": "artifact-metadata.schema.json#/$defs/compatibilityMetadata"
+        }
+      }
+    },
+    "schedulerComponent": {
+      "allOf": [
+        {"$ref": "#/$defs/componentIdentity"},
+        {
+          "type": "object",
+          "required": ["contract"],
+          "properties": {
+            "contract": {"$ref": "#/$defs/schedulingPolicy"}
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "integratorComponent": {
+      "allOf": [
+        {"$ref": "#/$defs/componentIdentity"},
+        {
+          "type": "object",
+          "required": ["contract"],
+          "properties": {
+            "contract": {"$ref": "#/$defs/integratorContract"}
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "replayComponent": {
+      "allOf": [
+        {"$ref": "#/$defs/componentIdentity"},
+        {
+          "type": "object",
+          "required": ["contract"],
+          "properties": {
+            "contract": {"$ref": "#/$defs/replayProfile"}
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "temporalToleranceComponent": {
+      "allOf": [
+        {"$ref": "#/$defs/componentIdentity"},
+        {
+          "type": "object",
+          "required": ["contract"],
+          "properties": {
+            "contract": {"$ref": "#/$defs/temporalTolerance"}
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "schedulingPolicy": {
+      "oneOf": [
+        {"$ref": "#/$defs/fixedStepPolicy"},
+        {"$ref": "#/$defs/adaptiveStepPolicy"},
+        {"$ref": "#/$defs/eventDrivenPolicy"},
+        {"$ref": "#/$defs/hybridPolicy"}
+      ]
+    },
+    "fixedStepPolicy": {
+      "type": "object",
+      "required": ["kind", "dt"],
+      "properties": {
+        "kind": {"const": "FixedStep"},
+        "dt": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "microstep_budget": {},
+        "controller_timing": {"$ref": "#/$defs/controllerTiming"}
+      },
+      "additionalProperties": false
+    },
+    "adaptiveStepPolicy": {
+      "type": "object",
+      "required": ["kind", "min_dt", "max_dt", "error_policy"],
+      "properties": {
+        "kind": {"const": "AdaptiveStep"},
+        "min_dt": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "max_dt": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "error_policy": {},
+        "microstep_budget": {},
+        "controller_timing": {"$ref": "#/$defs/controllerTiming"}
+      },
+      "additionalProperties": false
+    },
+    "eventDrivenPolicy": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {"const": "EventDriven"},
+        "microstep_budget": {},
+        "controller_timing": {"$ref": "#/$defs/controllerTiming"}
+      },
+      "additionalProperties": false
+    },
+    "hybridPolicy": {
+      "type": "object",
+      "required": ["kind", "baseline_policy", "split_on_events"],
+      "properties": {
+        "kind": {"const": "Hybrid"},
+        "baseline_policy": {"$ref": "#/$defs/schedulingPolicy"},
+        "split_on_events": {"type": "boolean"},
+        "microstep_budget": {},
+        "controller_timing": {"$ref": "#/$defs/controllerTiming"}
+      },
+      "additionalProperties": false
+    },
+    "controllerTiming": {
+      "type": "object",
+      "required": ["sample_period", "max_jitter", "actuation_latency_bound"],
+      "properties": {
+        "sample_period": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "max_jitter": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "actuation_latency_bound": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "required_phase_relation": {}
+      },
+      "additionalProperties": false
+    },
+    "integratorContract": {
+      "type": "object",
+      "required": [
+        "supported_processes",
+        "deterministic_profile",
+        "local_error_policy"
+      ],
+      "properties": {
+        "supported_processes": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "deterministic_profile": {},
+        "local_error_policy": {},
+        "global_error_policy": {}
+      },
+      "additionalProperties": false
+    },
+    "replayProfile": {
+      "type": "object",
+      "required": ["mode"],
+      "properties": {
+        "mode": {
+          "enum": [
+            "StrictDeterministic",
+            "DeterministicWithinTolerance",
+            "DiagnosticBestEffort"
+          ]
+        },
+        "deterministic_order_policy": {}
+      },
+      "additionalProperties": false
+    },
+    "temporalTolerance": {
+      "type": "object",
+      "properties": {
+        "event_time_error": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "dispatch_latency_bound": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "synchronization_error": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "controller_jitter": {"$ref": "common-values.schema.json#/$defs/duration"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

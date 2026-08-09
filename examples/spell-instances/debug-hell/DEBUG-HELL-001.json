@@ -1,0 +1,87 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "DEBUG-HELL-001",
+  "suite_id": "Debug-Hell-0",
+  "scenario_kind": "pathological-water-ball-planning",
+  "support_level": "implemented",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "GenerationCommand",
+      "action": "generate-water-sphere",
+      "roles": [
+        {"role": "Patient", "value": {"kind": "SemanticKind", "semantic_kind": "Species<Water>", "value": "water"}},
+        {"role": "Goal", "value": {"kind": "Unknown", "semantic_kind": "Terminal", "reason": "OmittedBySource"}}
+      ],
+      "constraints": [
+        {"kind": "Literal", "semantic_kind": "MassKg", "value": 1000000000, "unit": "kg"},
+        {"kind": "Literal", "semantic_kind": "RadiusM", "value": 0.1, "unit": "m"},
+        {"kind": "Literal", "semantic_kind": "AccelerationMPerS2", "value": 100, "unit": "m/s^2"},
+        {"kind": "Literal", "semantic_kind": "DurationS", "value": 10, "unit": "s"},
+        {"kind": "Literal", "semantic_kind": "PreserveSphere", "value": true}
+      ],
+      "provenance": {
+        "adapter_id": null,
+        "adapter_revision": null,
+        "source_language_tags": [],
+        "provider": "SpellInstanceBundle",
+        "source_hash": null,
+        "evidence_ids": ["issue:46", "model:debug-water-domain@1"]
+      }
+    }
+  },
+  "semantic_contract": {"contract_id": "debug.pathological-planning", "revision": "1"},
+  "runtime_contract": null,
+  "registry_extensions": {
+    "planning_models": [{"model_id": "model:debug-water-domain", "revision": "1", "maximum_density_kg_m3": 2000, "may_rewrite_explicit_constraints": false}]
+  },
+  "profiles": {
+    "runtime": {"artifact_id": "runtime-profile:debug001", "revision": "1"},
+    "sandbox": {"artifact_id": "sandbox-profile:debug001", "revision": "1", "limits": {"max_energy_j": 1000000000, "max_events_per_commit": 16, "max_microsteps_per_tick": 32, "max_concurrency": 1}}
+  },
+  "world_index": {
+    "world_index_revision": "wi:debug001:1",
+    "source_world_revision": "world:debug001:1",
+    "records": [{"entity_id": "entity:debug001:source", "state_revision": "state-revision:debug001:source:1"}]
+  },
+  "initial_world": {
+    "revision": "world:debug001:1",
+    "entities": {"entity:debug001:source": {"entity_id": "entity:debug001:source", "state_revision": "state-revision:debug001:source:1", "kind": "MatterSource", "material": "water"}},
+    "capabilities": {},
+    "leases": {},
+    "ledgers": {},
+    "history": [],
+    "controllers": {},
+    "runtime_state": {},
+    "process_state": {"process_id": "process:debug001", "status": "Idle", "prepared_plan_id": null}
+  },
+  "execution": {
+    "operations": ["RESOLVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"],
+    "parameters": {},
+    "required_evidence": {"resolution": ["state-revision:debug001:source:1"], "capabilities": [], "leases": [], "accounting": []},
+    "energy_budget_j": 0,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Infeasible",
+    "runtime_status": null,
+    "diagnostic_codes": ["PlanningAssumptionCannotSatisfyAuthority"],
+    "final_invariants": {},
+    "replay_status": null
+  },
+  "variants": [],
+  "provenance": {
+    "definition_sources": ["reference/spell-instance-bundles.md", "reference/debug-hell.md#debug-hell-001", "https://github.com/ReikaHoshino/magical-language-spec/issues/46"],
+    "generator": "repository-fixture",
+    "notes": ["Explicit source constraints are intentionally pathological and must not be repaired."]
+  },
+  "compatibility": {
+    "required_domains": ["SpellInstanceBundle", "SemanticContract"],
+    "decisions": [
+      {"decision_id": "decision:debug001:bundle", "profile": {"domain": "SpellInstanceBundle"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}},
+      {"decision_id": "decision:debug001:semantic", "profile": {"domain": "SemanticContract"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}}
+    ]
+  }
+}

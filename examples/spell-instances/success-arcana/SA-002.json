@@ -1,0 +1,304 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "SUCCESS-ARCANA-002",
+  "suite_id": "Experimental-Arcana-0",
+  "scenario_kind": "staged-treatment",
+  "support_level": "implemented",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "RegisteredSpellCommand",
+      "action": "staged-treatment",
+      "roles": [
+        {
+          "role": "Patient",
+          "value": {
+            "kind": "Reference",
+            "semantic_kind": "FixtureSubject",
+            "value": "subject:SUCCESS-ARCANA-002"
+          }
+        }
+      ],
+      "provenance": {
+        "adapter_id": null,
+        "adapter_revision": null,
+        "source_language_tags": [],
+        "provider": "SpellInstanceBundle",
+        "source_hash": null,
+        "evidence_ids": [
+          "SUCCESS-ARCANA-002"
+        ]
+      }
+    }
+  },
+  "semantic_contract": {
+    "contract_id": "treatment.staged-repair",
+    "revision": "1"
+  },
+  "runtime_contract": {
+    "contract_id": "runtime.staged-treatment",
+    "revision": "1"
+  },
+  "registry_extensions": {
+    "structure_schemas": [
+      {
+        "id": "TissueArchitecture",
+        "revision": "1"
+      }
+    ],
+    "reaction_rules": [
+      {
+        "id": "treatment.staged-repair",
+        "revision": "1"
+      }
+    ],
+    "conservation_ledgers": [
+      {
+        "id": "ledger:sa002",
+        "revision": "1"
+      }
+    ]
+  },
+  "profiles": {
+    "runtime": {
+      "artifact_id": "runtime-profile:SUCCESS-ARCANA-002",
+      "revision": "1"
+    },
+    "sandbox": {
+      "artifact_id": "sandbox-profile:SUCCESS-ARCANA-002",
+      "revision": "1",
+      "limits": {
+        "max_energy_j": 1240,
+        "max_events_per_commit": 16,
+        "max_microsteps_per_tick": 32,
+        "max_concurrency": 1
+      }
+    }
+  },
+  "world_index": {
+    "world_index_revision": "wi:SUCCESS-ARCANA-002:1",
+    "source_world_revision": "world:sa002:1",
+    "records": [
+      {
+        "entity_id": "entity:sa002:patient",
+        "state_revision": "state-revision:patient@world:sa002:1"
+      },
+      {
+        "entity_id": "entity:sa002:proxy",
+        "state_revision": "state-revision:proxy@world:sa002:1"
+      },
+      {
+        "entity_id": "entity:sa002:sink",
+        "state_revision": "state-revision:sink@world:sa002:1"
+      },
+      {
+        "entity_id": "entity:sa002:donor",
+        "state_revision": "state-revision:donor@world:sa002:1"
+      },
+      {
+        "entity_id": "entity:sa002:reservoir",
+        "state_revision": "state-revision:reservoir@world:sa002:1"
+      }
+    ]
+  },
+  "initial_world": {
+    "revision": "world:sa002:1",
+    "entities": {
+      "entity:sa002:patient": {
+        "entity_id": "entity:sa002:patient",
+        "state_revision": "state-revision:patient@world:sa002:1",
+        "kind": "Organism",
+        "identity_id": "identity:sa002:patient",
+        "injury": {
+          "excess_thermal_energy_j": 120,
+          "removable_fluid_kg": 0.02,
+          "chemical_deviation": "reversible-minor",
+          "structural_deviation": "laceration:5mm"
+        },
+        "tissue_repaired": false
+      },
+      "entity:sa002:proxy": {
+        "entity_id": "entity:sa002:proxy",
+        "state_revision": "state-revision:proxy@world:sa002:1",
+        "kind": "TreatmentProxy"
+      },
+      "entity:sa002:sink": {
+        "entity_id": "entity:sa002:sink",
+        "state_revision": "state-revision:sink@world:sa002:1",
+        "energy_capacity_j": 200,
+        "matter_capacity_kg": 0.05,
+        "absorbed_energy_j": 0,
+        "absorbed_matter_kg": 0
+      },
+      "entity:sa002:donor": {
+        "entity_id": "entity:sa002:donor",
+        "state_revision": "state-revision:donor@world:sa002:1",
+        "available_matter_kg": 0.01
+      },
+      "entity:sa002:reservoir": {
+        "entity_id": "entity:sa002:reservoir",
+        "state_revision": "state-revision:reservoir@world:sa002:1",
+        "available_energy_j": 500
+      }
+    },
+    "capabilities": {
+      "capability:sa002:medical": {
+        "active": true
+      },
+      "capability:sa002:proxy": {
+        "active": true
+      }
+    },
+    "leases": {
+      "lease:sa002:patient": {
+        "active": true,
+        "consent": true
+      },
+      "lease:sa002:resources": {
+        "active": true
+      }
+    },
+    "ledgers": {
+      "ledger:sa002": {
+        "active": true
+      }
+    },
+    "history": [
+      {
+        "event_id": "event:prior",
+        "effect_kind": "PriorCommittedTreatment",
+        "rollback": false
+      }
+    ],
+    "controllers": {},
+    "runtime_state": {},
+    "process_state": {
+      "process_id": "process:sa002",
+      "status": "Idle",
+      "prepared_plan_id": null
+    }
+  },
+  "execution": {
+    "operations": [
+      "RESOLVE",
+      "OBSERVE",
+      "CHANNEL",
+      "TRANSFER",
+      "RECONFIGURE"
+    ],
+    "parameters": {
+      "patient_id": "entity:sa002:patient",
+      "proxy_id": "entity:sa002:proxy",
+      "sink_id": "entity:sa002:sink",
+      "donor_id": "entity:sa002:donor",
+      "energy_reservoir_id": "entity:sa002:reservoir",
+      "patient_lease_id": "lease:sa002:patient",
+      "ledger_id": "ledger:sa002",
+      "correspondence_token_id": "token:sa002:red-thread",
+      "correspondence_unique": true,
+      "reverse_proxy_effect": false,
+      "identity_policy": "IdentityPolicy<Organism>",
+      "irreversible_information_loss": false,
+      "excess_thermal_energy_j": 120,
+      "removable_fluid_kg": 0.02,
+      "donor_matter_kg": 0.005,
+      "repair_energy_j": 450,
+      "manifest_energy_j": 50,
+      "event_ids": [
+        "event:sa002:stabilize",
+        "event:sa002:repair",
+        "event:sa002:manifest"
+      ],
+      "result_world_revision": "world:sa002:4"
+    },
+    "required_evidence": {
+      "resolution": [
+        "state-revision:patient@world:sa002:1"
+      ],
+      "capabilities": [
+        "capability:sa002:medical",
+        "capability:sa002:proxy"
+      ],
+      "leases": [
+        "lease:sa002:patient",
+        "lease:sa002:resources"
+      ],
+      "accounting": [
+        "ledger:sa002"
+      ]
+    },
+    "energy_budget_j": 620,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Feasible",
+    "runtime_status": "Committed",
+    "diagnostic_codes": [],
+    "final_invariants": {
+      "Sigma": {
+        "revision": "world:sa002:4"
+      }
+    },
+    "replay_status": "Match",
+    "expected_event_ids": ["event:sa002:stabilize", "event:sa002:repair", "event:sa002:manifest"]
+  },
+  "variants": [
+    {"variant_id": "ambiguous-correspondence", "mutations": [{"pointer": "/execution/parameters/correspondence_unique", "value": false}], "expected_diagnostic": "ResolutionFailure"},
+    {"variant_id": "medical-authority-missing", "mutations": [{"pointer": "/initial_world/capabilities/capability:sa002:medical/active", "value": false}], "expected_diagnostic": "AuthorityError"},
+    {"variant_id": "sink-capacity-insufficient", "mutations": [{"pointer": "/initial_world/entities/entity:sa002:sink/energy_capacity_j", "value": 0}], "expected_diagnostic": "ResourceInsufficient"},
+    {"variant_id": "donor-matter-insufficient", "mutations": [{"pointer": "/initial_world/entities/entity:sa002:donor/available_matter_kg", "value": 0}], "expected_diagnostic": "ResourceInsufficient"},
+    {"variant_id": "identity-critical-loss", "mutations": [{"pointer": "/execution/parameters/irreversible_information_loss", "value": true}], "expected_diagnostic": "IdentityPreservationFailure"},
+    {"variant_id": "reverse-proxy-attempt", "mutations": [{"pointer": "/execution/parameters/reverse_proxy_effect", "value": true}], "expected_diagnostic": "ReverseCorrespondenceForbidden"}
+  ],
+  "provenance": {
+    "definition_sources": [
+      "reference/spell-instance-bundles.md",
+      "reference/success-arcana.md"
+    ],
+    "generator": "repository-fixture",
+    "notes": [
+      "Experimental optional conformance only."
+    ]
+  },
+  "compatibility": {
+    "required_domains": [
+      "SpellInstanceBundle",
+      "SemanticContract",
+      "RuntimeContract"
+    ],
+    "decisions": [
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-002:SpellInstanceBundle",
+        "profile": {
+          "domain": "SpellInstanceBundle"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-002:SemanticContract",
+        "profile": {
+          "domain": "SemanticContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-002:RuntimeContract",
+        "profile": {
+          "domain": "RuntimeContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      }
+    ]
+  }
+}

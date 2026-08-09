@@ -1,0 +1,64 @@
+{
+  "fixture_id": "lat-normalization:LAT-001",
+  "adapter": {"adapter_id": "lat", "adapter_revision": "reference-v0.7.3", "lexicon_revision": "1"},
+  "source": {"text": "Calorem ab aqua ad aerem transfer.", "language": "lat"},
+  "tokens": [
+    {"token_id": "t1", "surface": "Calorem", "span": {"start": 0, "end": 7}, "lexeme_id": "lat:calor", "morphology_candidate_ids": ["lat:calor:acc-sg"]},
+    {"token_id": "t2", "surface": "ab", "span": {"start": 8, "end": 10}, "lexical_kind": "preposition"},
+    {"token_id": "t3", "surface": "aqua", "span": {"start": 11, "end": 15}, "lexeme_id": "lat:aqua", "morphology_candidate_ids": ["lat:aqua:abl-sg"], "selection_evidence": ["t2", "frame-source"]},
+    {"token_id": "t4", "surface": "ad", "span": {"start": 16, "end": 18}, "lexical_kind": "preposition"},
+    {"token_id": "t5", "surface": "aerem", "span": {"start": 19, "end": 24}, "lexeme_id": "lat:aer", "morphology_candidate_ids": ["lat:aer:acc-sg"]},
+    {"token_id": "t6", "surface": "transfer", "span": {"start": 25, "end": 33}, "lexeme_id": "lat:transfero", "morphology_candidate_ids": ["lat:transfero:present-imperative-2sg"]},
+    {"token_id": "t7", "surface": ".", "span": {"start": 33, "end": 34}, "lexical_kind": "punctuation"}
+  ],
+  "evidence": [
+    {"evidence_id": "frame-patient", "kind": "verb-frame", "lexeme_id": "lat:transfero", "frame_id": "lat:transfero:frame:1", "slot": "Patient"},
+    {"evidence_id": "frame-source", "kind": "verb-frame", "lexeme_id": "lat:transfero", "frame_id": "lat:transfero:frame:1", "slot": "Source"},
+    {"evidence_id": "frame-goal", "kind": "verb-frame", "lexeme_id": "lat:transfero", "frame_id": "lat:transfero:frame:1", "slot": "Goal"}
+  ],
+  "role_proposals": [
+    {"role": "Patient", "token_ids": ["t1"], "evidence_ids": ["t1", "frame-patient"], "status": "proposal"},
+    {"role": "Source", "token_ids": ["t2", "t3"], "evidence_ids": ["t2", "t3", "frame-source"], "status": "proposal"},
+    {"role": "Goal", "token_ids": ["t4", "t5"], "evidence_ids": ["t4", "t5", "frame-goal"], "status": "proposal"},
+    {"role": "Action", "token_ids": ["t6"], "evidence_ids": ["t6"], "status": "proposal"}
+  ],
+  "normalization_candidate_set": {
+    "policy": "StrictReject",
+    "selected_candidate_id": "lat-001-candidate-1",
+    "candidates": [
+      {
+        "candidate_id": "lat-001-candidate-1",
+        "unresolved_fields": ["Quantity"],
+        "provider": "LexiconDriven",
+        "evidence_ids": ["t1", "t2", "t3", "t4", "t5", "t6", "frame-patient", "frame-source", "frame-goal"],
+        "nsr": {
+          "schema_version": "0.7.3",
+          "kind": "TransferCommand",
+          "action": "transfer",
+          "roles": [
+            {"role": "Patient", "value": {"kind": "SemanticKind", "semantic_kind": "Energy", "mode": "Thermal", "evidence_ids": ["t1", "frame-patient"]}},
+            {"role": "Source", "value": {"kind": "SelectorProposal", "selector": {"kind": "Symbolic", "symbol": "water"}, "evidence_ids": ["t2", "t3", "frame-source"]}},
+            {"role": "Goal", "value": {"kind": "SelectorProposal", "selector": {"kind": "Symbolic", "symbol": "air"}, "evidence_ids": ["t4", "t5", "frame-goal"]}},
+            {"role": "Quantity", "value": {"kind": "Unknown", "reason": "MissingSurfaceArgument", "evidence_ids": []}}
+          ],
+          "unknowns": [{"field": "Quantity", "reason": "MissingSurfaceArgument", "required_for": ["TypedMIR elaboration"]}],
+          "provenance": {
+            "adapter_id": "lat",
+            "adapter_revision": "reference-v0.7.3",
+            "source_language_tags": ["lat"],
+            "provider": "LexiconDriven",
+            "source_hash": null,
+            "evidence_ids": ["t1", "t2", "t3", "t4", "t5", "t6", "frame-patient", "frame-source", "frame-goal"]
+          },
+          "ambiguity": {
+            "policy": "StrictReject",
+            "candidate_id": "lat-001-candidate-1",
+            "alternative_candidate_ids": [],
+            "decision_evidence_ids": ["frame-patient", "frame-source", "frame-goal"]
+          },
+          "semantic_fingerprint": "sf:v1:sha256:ee37e2e102ed939afd04b6142faa5c63c0cb49b0dc86987b2ffa5656c259df48"
+        }
+      }
+    ]
+  }
+}

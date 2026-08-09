@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/latin-lexicon.schema.json",
+  "title": "LanguageAdapter<lat> Domain Lexicon",
+  "description": "Lexical and adapter evidence only. Entries are not entity resolution, semantic authority, capabilities, TypedMIR, or execution data.",
+  "type": "object",
+  "required": ["metadata", "adapter_id", "language", "lexicon_revision", "entries"],
+  "properties": {
+    "metadata": {"$ref": "artifact-metadata.schema.json"},
+    "adapter_id": {"const": "lat"},
+    "language": {"const": "lat"},
+    "lexicon_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"},
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/lexemeEntry"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": {"type": "string", "minLength": 1},
+    "latinCase": {"enum": ["nominative", "accusative", "genitive", "dative", "ablative", "vocative"]},
+    "lexicalQualifierValue": {
+      "oneOf": [
+        {"type": ["string", "number", "boolean", "null"]},
+        {
+          "type": "array",
+          "items": {"$ref": "#/$defs/lexicalQualifierValue"}
+        },
+        {
+          "type": "object",
+          "propertyNames": {
+            "not": {"enum": ["entity_id", "entity_ids", "capability", "capabilities", "lease", "authority"]}
+          },
+          "additionalProperties": {"$ref": "#/$defs/lexicalQualifierValue"}
+        }
+      ]
+    },
+    "sourceReference": {
+      "type": "object",
+      "required": ["source_id"],
+      "properties": {
+        "source_id": {"$ref": "#/$defs/nonEmptyString"},
+        "source_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"},
+        "locator": {"$ref": "#/$defs/nonEmptyString"},
+        "note": {"$ref": "#/$defs/nonEmptyString"}
+      },
+      "additionalProperties": false
+    },
+    "morphologyFeatures": {
+      "type": "object",
+      "properties": {
+        "case": {"$ref": "#/$defs/latinCase"},
+        "number": {"enum": ["singular", "plural"]},
+        "gender": {"enum": ["masculine", "feminine", "neuter"]},
+        "person": {"enum": ["first", "second", "third"]},
+        "tense": {"$ref": "#/$defs/nonEmptyString"},
+        "mood": {"enum": ["imperative", "indicative", "subjunctive", "infinitive"]},
+        "voice": {"enum": ["active", "passive", "deponent"]},
+        "degree": {"enum": ["positive", "comparative", "superlative"]}
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "morphologyCandidate": {
+      "type": "object",
+      "required": ["candidate_id", "surface", "features"],
+      "properties": {
+        "candidate_id": {"$ref": "#/$defs/nonEmptyString"},
+        "surface": {"$ref": "#/$defs/nonEmptyString"},
+        "features": {"$ref": "#/$defs/morphologyFeatures"},
+        "principal_part": {"$ref": "#/$defs/nonEmptyString"},
+        "evidence": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/sourceReference"},
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "semanticCandidate": {
+      "type": "object",
+      "required": ["candidate_id", "proposal"],
+      "properties": {
+        "candidate_id": {"$ref": "#/$defs/nonEmptyString"},
+        "proposal": {"$ref": "#/$defs/nonEmptyString"},
+        "qualifiers": {
+          "type": "object",
+          "propertyNames": {
+            "not": {"enum": ["entity_id", "entity_ids", "capability", "capabilities", "lease", "authority"]}
+          },
+          "additionalProperties": {"$ref": "#/$defs/lexicalQualifierValue"}
+        },
+        "note": {"$ref": "#/$defs/nonEmptyString"}
+      },
+      "additionalProperties": false
+    },
+    "argumentSlot": {
+      "type": "object",
+      "required": ["role", "morphosyntax"],
+      "properties": {
+        "role": {"$ref": "semantic-roles.schema.json#/$defs/semanticRole"},
+        "morphosyntax": {
+          "type": "object",
+          "required": ["case"],
+          "properties": {
+            "case": {"$ref": "#/$defs/latinCase"},
+            "prepositions": {
+              "type": "array",
+              "items": {"$ref": "#/$defs/nonEmptyString"},
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties": {"role": {"enum": ["Source", "Goal", "Path"]}}, "required": ["role"]},
+          "then": {"properties": {"morphosyntax": {"required": ["prepositions"]}}}
+        }
+      ]
+    },
+    "argumentFrame": {
+      "type": "object",
+      "required": ["frame_id", "slots"],
+      "properties": {
+        "frame_id": {"$ref": "#/$defs/nonEmptyString"},
+        "slots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/argumentSlot"}
+        },
+        "note": {"$ref": "#/$defs/nonEmptyString"}
+      },
+      "additionalProperties": false
+    },
+    "registerMetadata": {
+      "type": "object",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/nonEmptyString"},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {"enum": ["canonical", "provisional", "deprecated"]},
+        "note": {"$ref": "#/$defs/nonEmptyString"}
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "lexemeEntry": {
+      "type": "object",
+      "required": ["lexeme_id", "language", "lemma", "semantic_candidates", "provenance"],
+      "properties": {
+        "lexeme_id": {"$ref": "#/$defs/nonEmptyString"},
+        "language": {"const": "lat"},
+        "lemma": {"$ref": "#/$defs/nonEmptyString"},
+        "surface_forms": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/nonEmptyString"},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "part_of_speech": {"$ref": "#/$defs/nonEmptyString"},
+        "morphology": {
+          "type": "object",
+          "required": ["candidates"],
+          "properties": {
+            "candidates": {
+              "type": "array",
+              "items": {"$ref": "#/$defs/morphologyCandidate"},
+              "minItems": 1
+            },
+            "note": {"$ref": "#/$defs/nonEmptyString"}
+          },
+          "additionalProperties": false
+        },
+        "semantic_candidates": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/semanticCandidate"},
+          "minItems": 1
+        },
+        "argument_frame": {"$ref": "#/$defs/argumentFrame"},
+        "register": {"$ref": "#/$defs/registerMetadata"},
+        "provenance": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/sourceReference"},
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

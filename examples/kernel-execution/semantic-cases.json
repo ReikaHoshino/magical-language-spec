@@ -1,0 +1,82 @@
+{
+  "schema_version": "1",
+  "cases": [
+    {
+      "id": "KERNEL-TRANSFER-NONZERO-001",
+      "kind": "non_zero_transfer",
+      "mki_operation": "TRANSFER",
+      "initial_commit": {
+        "atomic_group": [
+          "TRANSITION:source_debit",
+          "ACTIVATE:transit"
+        ]
+      },
+      "continuing_semantics": {
+        "authoritative_active_effect": "Transit",
+        "arrival_time_owner": "admitted_transport_model",
+        "scheduler_tick_must_not_redefine_arrival": true
+      },
+      "settlement_commit": {
+        "atomic_group": [
+          "TRANSITION:destination_credit",
+          "DEACTIVATE:transit_settlement"
+        ]
+      },
+      "mandatory_invariants": [
+        "source_plus_transit_plus_destination_conserved",
+        "no_partial_source_debit_without_transit_activation",
+        "emergency_stop_does_not_delete_in_flight_payload"
+      ]
+    },
+    {
+      "id": "KERNEL-RECONFIGURE-CONTINUOUS-001",
+      "kind": "continuous_reconfigure",
+      "mki_operation": "RECONFIGURE",
+      "initial_commit": {
+        "atomic_group": [
+          "ACTIVATE:dynamics_process"
+        ]
+      },
+      "continuing_semantics": {
+        "authoritative_active_effect": "DynamicsProcess",
+        "model_owner": "admitted_registry_world_profile_contract",
+        "numerical_substep_is_semantic_primitive": false
+      },
+      "mandatory_invariants": [
+        "integrator_approximation_not_physical_law",
+        "arbitrary_dynamics_injection_forbidden",
+        "due_discrete_events_use_guarded_scheduler_commit"
+      ]
+    },
+    {
+      "id": "KERNEL-CONSTRAIN-BOUNDED-001",
+      "kind": "disturbance_sensitive_constrain",
+      "mki_operation": "CONSTRAIN",
+      "initial_commit": {
+        "atomic_group": [
+          "ACTIVATE:controller"
+        ]
+      },
+      "continuing_semantics": {
+        "authoritative_active_effect": "Controller",
+        "future_actuation_requires_revalidation": true,
+        "registration_grants_unlimited_authority": false
+      },
+      "required_actuation_bounds": [
+        "target_or_subject_set",
+        "observation_model_or_properties",
+        "allowed_effect_classes",
+        "allowed_model_identities",
+        "required_capability_and_lease",
+        "resource_or_energy_ceiling",
+        "timing_bounds",
+        "termination_conditions"
+      ],
+      "mandatory_invariants": [
+        "constraint_is_not_world_law",
+        "future_actuation_can_fail",
+        "gravity_counteraction_does_not_disable_gravity"
+      ]
+    }
+  ]
+}

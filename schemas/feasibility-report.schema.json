@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/feasibility-report.schema.json",
+  "title": "Magical Language Feasibility Report v0.7.3",
+  "type": "object",
+  "required": ["schema_version", "spec_version", "status", "input", "assessments"],
+  "properties": {
+    "schema_version": {"$ref": "common-values.schema.json#/$defs/version"},
+    "spec_version": {"$ref": "common-values.schema.json#/$defs/version"},
+    "status": {"enum": ["Feasible", "ConditionallyFeasible", "Infeasible", "Indeterminate"]},
+    "input": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "NaturalLanguageSource", "LatinSource", "HighLevelSource", "NSR",
+            "SemanticAST", "TypedMIR", "NormalizedIR", "StructuredInput"
+          ]
+        },
+        "adapter_id": {"type": ["string", "null"]},
+        "external_language_tags": {"type": "array", "items": {"type": "string"}},
+        "hash": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/sourceEvidenceHash"}
+          ]
+        },
+        "frontend_revision": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/revision"}
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "adapter_id": {"type": ["string", "null"]},
+        "adapter_revision": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/revision"}
+          ]
+        },
+        "normalizer_provider": {"type": ["string", "null"]},
+        "ambiguity_policy": {
+          "enum": ["StrictReject", "InteractiveResolve", "ContextualDeterministic", "LegacyPermissive", null]
+        },
+        "semantic_fingerprint": {
+          "description": "SemanticFingerprintV1; distinct from artifact content_hash.",
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "#/$defs/semanticFingerprintV1"}
+          ]
+        },
+        "registry_hash": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/registryContractSetHash"}
+          ]
+        },
+        "world_index_revision": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/revision"}
+          ]
+        },
+        "source_world_revision": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/revision"}
+          ]
+        },
+        "runtime_profile": {"type": ["string", "null"]},
+        "created_at": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "interpretations": {
+      "type": "object",
+      "properties": {
+        "surface": {},
+        "normalization_candidates": {"type": "array", "items": {}},
+        "normalization_decision": {},
+        "nsr": {"$ref": "nsr.schema.json"},
+        "semantic_ast": {},
+        "typed_mir": {},
+        "kernel_plan": {}
+      },
+      "additionalProperties": false
+    },
+    "cross_language": {
+      "type": "object",
+      "properties": {
+        "source_adapter": {"type": ["string", "null"]},
+        "target_adapter": {"type": ["string", "null"]},
+        "renderer_revision": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/revision"}
+          ]
+        },
+        "fingerprint_before": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "#/$defs/semanticFingerprintV1"}
+          ]
+        },
+        "fingerprint_after": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "#/$defs/semanticFingerprintV1"}
+          ]
+        },
+        "round_trip_status": {"enum": ["Pass", "Fail", "Unknown", "NotApplicable", null]}
+      },
+      "additionalProperties": true
+    },
+    "energy": {"$ref": "#/$defs/energyEstimate"},
+    "resources": {"type": "array", "items": {"$ref": "#/$defs/resourceEstimate"}},
+    "assessments": {"type": "array", "items": {"$ref": "#/$defs/assessment"}},
+    "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/diagnostic"}},
+    "assumptions": {"type": "array", "items": {"$ref": "#/$defs/assumption"}},
+    "evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}}
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "semanticFingerprintV1": {
+      "type": "string",
+      "pattern": "^sf:v1:sha256:[0-9a-f]{64}$"
+    },
+    "estimate": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {"enum": ["Exact", "Range", "LowerBound", "UpperBound", "Distribution", "Unknown"]},
+        "value": {},
+        "min": {},
+        "max": {},
+        "summary": {},
+        "reason": {"type": ["string", "null"]},
+        "unit": {"type": ["string", "null"]},
+        "dimension": {"type": ["string", "null"]},
+        "uncertainty": {},
+        "assumption_ids": {"type": "array", "items": {"type": "string"}},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "energyEstimate": {
+      "type": "object",
+      "properties": {
+        "total": {"$ref": "#/$defs/estimate"},
+        "components": {
+          "type": "object",
+          "properties": {
+            "physical_work": {"$ref": "#/$defs/estimate"},
+            "reaction_or_thermodynamic": {"$ref": "#/$defs/estimate"},
+            "channel_open": {"$ref": "#/$defs/estimate"},
+            "channel_maintenance": {"$ref": "#/$defs/estimate"},
+            "control": {"$ref": "#/$defs/estimate"},
+            "observation_information": {"$ref": "#/$defs/estimate"},
+            "synchronization": {"$ref": "#/$defs/estimate"},
+            "losses": {"$ref": "#/$defs/estimate"},
+            "reserved_margin": {"$ref": "#/$defs/estimate"}
+          },
+          "additionalProperties": true
+        },
+        "display_unit": {"type": ["string", "null"]},
+        "accounting_boundary": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "resourceEstimate": {
+      "type": "object",
+      "required": ["kind", "estimate"],
+      "properties": {
+        "kind": {"type": "string"},
+        "estimate": {"$ref": "#/$defs/estimate"}
+      },
+      "additionalProperties": true
+    },
+    "assessment": {
+      "type": "object",
+      "required": ["dimension", "status"],
+      "properties": {
+        "dimension": {"type": "string"},
+        "status": {"enum": ["Pass", "Conditional", "Fail", "Unknown", "NotApplicable"]},
+        "summary": {"type": ["string", "null"]},
+        "diagnostic_ids": {"type": "array", "items": {"type": "string"}},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "diagnostic": {
+      "type": "object",
+      "required": ["id", "stage", "code", "severity"],
+      "properties": {
+        "id": {"type": "string"},
+        "stage": {"type": "string"},
+        "code": {"type": "string"},
+        "severity": {"enum": ["info", "warning", "conditional", "fatal", "unknown"]},
+        "message": {"type": ["string", "null"]},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "assumption": {
+      "type": "object",
+      "required": ["id", "statement"],
+      "properties": {
+        "id": {"type": "string"},
+        "statement": {"type": "string"},
+        "definition_source": {"type": ["string", "null"]},
+        "impact": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["id", "source_kind"],
+      "properties": {
+        "id": {"type": "string"},
+        "source_kind": {"type": "string"},
+        "source_id": {"type": ["string", "null"]},
+        "revision": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/revision"}
+          ]
+        },
+        "path": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    }
+  }
+}

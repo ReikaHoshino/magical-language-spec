@@ -1,0 +1,7 @@
+{
+  "metadata":{"schema_version":"1","artifact_id":"world-index:fixture","revision":"wi-42","spec_version":"0.7.2","content_hash":{"scope":"artifact-content","status":"unresolved","reason":"Generic artifact canonical bytes and digest algorithm are not selected pre-v0.8."},"provenance":{"source_kind":"world-index-updater","source_id":"fixture-updater","source_revision":"1","created_at":"2026-07-28T00:00:00Z"},"compatibility":{"domain":"WorldIndex","contract_revision":"1","declarations":{"index_schema_revision":"1"}}},
+  "index_schema_revision":"1","world_index_revision":"wi-42","source_world_revision":"world-9001",
+  "snapshot":{"world_index_revision":"wi-42","source_world_revision":"world-9001","captured_at":"2026-07-28T00:00:00Z","index_schema_revision":"1"},
+  "records":[{"entity_id":"entity:A12","type_tags":["Matter"],"symbolic_names":["lapis"],"spatial_summary":{"region":"atrium"},"relation_keys":[],"visibility_metadata":{"discoverability_class":"public","redaction_policy":"none"},"record_revision":"record-3","source_world_revision":"world-9001"}],
+  "indexes":{"identity":{"entity:A12":0},"symbolic":{"lapis":["entity:A12"]},"spatial":{"atrium":["entity:A12"]},"relation":{},"visibility":{"public":["entity:A12"]}}
+}

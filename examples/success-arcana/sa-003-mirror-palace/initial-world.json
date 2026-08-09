@@ -1,0 +1,9 @@
+{
+  "document_kind":"ExperimentalArcanaInitialWorld","schema_version":"1","fixture_id":"SUCCESS-ARCANA-003","world_revision":"world:sa003:7","world_index_revision":"wi:sa003:1",
+  "entities":{"entity:sa003:subject":{"entity_id":"entity:sa003:subject","state_revision":"state-revision:subject@world:sa003:7","kind":"HistoricalSubject","current_trace":"trace:sa003:blue-residue"}},
+  "capabilities":{"capability:sa003:discovery":{"active":true,"operation":"Discover"},"capability:sa003:observation":{"active":true,"operation":"Observe"},"capability:sa003:privacy":{"active":true,"operation":"ReadRestrictedEvidence"}},
+  "leases":{"lease:sa003:evidence-snapshot":{"active":true,"entity_id":"entity:sa003:subject","mode":"ReadSnapshot"}},
+  "ledgers":{"ledger:sa003:observation-energy":{"active":true,"available_energy_j":50,"consumed_energy_j":0}},
+  "history":[{"event_id":"measurement:sa003:h1","effect_kind":"HistoricalMeasurement","history_revision":"history-revision:sa003:4","evidence_revision":"evidence-revision:sa003:9","subject_id":"entity:sa003:subject","value":"trace:blue-residue","source_id":"source:archive-A"},{"event_id":"measurement:sa003:h2","effect_kind":"HistoricalMeasurement","history_revision":"history-revision:sa003:4","evidence_revision":"evidence-revision:sa003:9","subject_id":"entity:sa003:subject","value":"event:entry-A","source_id":"source:archive-B"}],
+  "controllers":{},"runtime_state":{"runtime_profile":{"artifact_id":"runtime-profile:arcana-sa003","revision":"1"},"history_revision":"history-revision:sa003:4","evidence_revision":"evidence-revision:sa003:9","evidence_store":{"retention":"fixture","freshness":"ExactRevision","redaction":"history-privacy","artifacts":{}},"channels":{},"reservations":{},"active_processes":{}},"process_state":{"process_id":"process:sa003","status":"Idle","prepared_plan_id":null}
+}

@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedPreparedPlan","schema_version":"1","fixture_id":"SUCCESS-ARCANA-003","expected":{"status":"Prepared","plan_id":"arcana:plan:evidence-fusion","reservation_amount_j":40,"revalidation_required":true,"world_revision":"world:sa003:7"}}

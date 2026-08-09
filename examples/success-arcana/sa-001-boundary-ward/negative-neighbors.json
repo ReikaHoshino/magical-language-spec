@@ -1,0 +1,9 @@
+{
+  "document_kind":"ExperimentalArcanaNegativeNeighbors","schema_version":"1","fixture_id":"SUCCESS-ARCANA-001",
+  "cases":[
+    {"case_id":"SA001-NEG-REVOKED","mutation":"revoke_capability","expected_code":"AuthorityError","no_partial_initial_commit":true},
+    {"case_id":"SA001-NEG-ANCHOR","mutation":"disable_accounting","expected_code":"ConservationProofFailure","no_partial_initial_commit":true},
+    {"case_id":"SA001-NEG-DOMAIN","mutation":"exceed_mass_domain","expected_code":"ControllerDomainExceeded","no_partial_initial_commit":true},
+    {"case_id":"SA001-NEG-TIMING","mutation":"exceed_timing_bound","expected_code":"ControllerTimingViolation","no_partial_initial_commit":true}
+  ]
+}

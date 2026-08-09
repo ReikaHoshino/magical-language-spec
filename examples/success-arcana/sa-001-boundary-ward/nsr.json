@@ -1,0 +1,13 @@
+{
+  "schema_version": "1",
+  "kind": "ExperimentalArcanaCommand",
+  "action": "boundary_reflection",
+  "roles": [
+    {"role": "Actor", "value": {"kind": "Reference", "semantic_kind": "ControllerModel", "value": "controller-model:boundary-reflection@1"}},
+    {"role": "Location", "value": {"kind": "SelectorProposal", "semantic_kind": "Region", "selector": {"symbol": "region:sevenfold-sanctuary"}}},
+    {"role": "Instrument", "value": {"kind": "SelectorProposal", "semantic_kind": "Anchor", "selector": {"symbol": "anchor:sevenfold-sanctuary"}}},
+    {"role": "Patient", "value": {"kind": "SelectorProposal", "semantic_kind": "DynamicTargetScope", "selector": {"predicate": "crossing && !authorized"}}}
+  ],
+  "conditions": [{"kind": "Literal", "semantic_kind": "AdmissionPolicy", "value": "deny-unlisted"}],
+  "provenance": {"adapter_id": null, "adapter_revision": null, "source_language_tags": [], "provider": "ExperimentalFixture", "source_hash": null, "evidence_ids": ["SUCCESS-ARCANA-001", "controller-model:boundary-reflection@1"]}
+}

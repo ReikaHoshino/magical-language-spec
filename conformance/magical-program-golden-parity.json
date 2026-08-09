@@ -1,0 +1,149 @@
+{
+  "manifest_version": "0",
+  "suite_id": "MagicalProgram-Golden-Parity-0",
+  "stability": "experimental",
+  "ownership_policy": {
+    "expected_truth_owner": "conformance/magical-program-golden-parity.json",
+    "executable_input_is_not_oracle": true,
+    "identity_fields": [
+      "/execution/history_event_ids",
+      "/final_world/Omega/evidence_store/artifacts/artifact:sa003:observation/artifact_id",
+      "/final_world/Omega/evidence_store/artifacts/artifact:sa003:observation/winner_hypothesis_id"
+    ],
+    "subset_fields": [
+      "/final_world/Sigma",
+      "/final_world/Omega/evidence_store/artifacts/artifact:sa003:observation"
+    ]
+  },
+  "templates": {
+    "positive-runtime": [
+      {"path": "/check/status", "mode": "exact", "expected": "Accepted", "owner": "artifact admission"},
+      {"path": "/evaluation/status", "mode": "exact", "expected": "Evaluated", "owner": "semantic evaluation"},
+      {"path": "/evaluation/report/status", "mode": "exact", "expected": "Feasible", "owner": "semantic evaluation"},
+      {"path": "/execution/status", "mode": "exact", "expected": "Committed", "owner": "runtime"},
+      {"path": "/replay/status", "mode": "exact", "expected": "Match", "owner": "replay"}
+    ],
+    "runtime-abort": [
+      {"path": "/check/status", "mode": "exact", "expected": "Accepted", "owner": "artifact admission"},
+      {"path": "/evaluation/status", "mode": "exact", "expected": "Evaluated", "owner": "semantic evaluation"},
+      {"path": "/evaluation/report/status", "mode": "exact", "expected": "Feasible", "owner": "semantic evaluation"},
+      {"path": "/execution/status", "mode": "exact", "expected": "Aborted", "owner": "runtime"},
+      {"path": "/execution/world_revision_unchanged", "mode": "exact", "expected": true, "owner": "abort atomicity"},
+      {"path": "/execution/history_unchanged", "mode": "exact", "expected": true, "owner": "abort atomicity"},
+      {"path": "/replay/status", "mode": "exact", "expected": "DeterministicAbort", "owner": "replay"}
+    ],
+    "evaluation-infeasible": [
+      {"path": "/check/status", "mode": "exact", "expected": "Accepted", "owner": "artifact admission"},
+      {"path": "/evaluation/status", "mode": "exact", "expected": "Evaluated", "owner": "semantic evaluation"},
+      {"path": "/evaluation/report/status", "mode": "exact", "expected": "Infeasible", "owner": "semantic evaluation"}
+    ]
+  },
+  "cases": [
+    {
+      "expectation_id": "GOLDEN-GENERIC-001",
+      "input": "examples/spell-instances/generic/GENERIC-001.json",
+      "checks": [
+        {"path": "/final_world/Sigma/revision", "mode": "exact", "expected": "world:GENERIC-001:2", "owner": "generic transition contract"},
+        {"path": "/execution/history_event_ids", "mode": "contains", "expected": ["event:GENERIC-001:transition"], "owner": "generic transition contract"}
+      ],
+      "variants": []
+    },
+    {
+      "expectation_id": "GOLDEN-SA-001",
+      "input": "examples/spell-instances/success-arcana/SA-001.json",
+      "checks": [
+        {"path": "/final_world/Sigma/revision", "mode": "exact", "expected": "world:sa001:2", "owner": "BoundaryReflectionController"},
+        {"path": "/execution/history_event_ids", "mode": "contains", "expected": ["event:sa001:reflection"], "owner": "BoundaryReflectionController"}
+      ],
+      "variants": [
+        {"variant_id": "revoked-boundary-capability", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/capabilities/capability:sa001:boundary-actuation/active", "value": false}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "AuthorityError", "owner": "BoundaryReflectionController"}]},
+        {"variant_id": "insufficient-accounting", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/ledgers/ledger:sa001:momentum-energy/active", "value": false}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ConservationProofFailure", "owner": "BoundaryReflectionController"}]},
+        {"variant_id": "target-outside-domain", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/entities/entity:sa001:intruder/mass_kg", "value": 25}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ControllerDomainExceeded", "owner": "BoundaryReflectionController"}]},
+        {"variant_id": "timing-bound-violation", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/event_latency_ms", "value": 9}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ControllerTimingViolation", "owner": "BoundaryReflectionController"}]}
+      ]
+    },
+    {
+      "expectation_id": "GOLDEN-SA-002",
+      "input": "examples/spell-instances/success-arcana/SA-002.json",
+      "checks": [
+        {"path": "/final_world/Sigma/revision", "mode": "exact", "expected": "world:sa002:4", "owner": "TreatmentDecomposition"},
+        {"path": "/execution/history_event_ids", "mode": "contains", "expected": ["event:sa002:stabilize", "event:sa002:repair", "event:sa002:manifest"], "owner": "TreatmentDecomposition"}
+      ],
+      "variants": [
+        {"variant_id": "ambiguous-correspondence", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/correspondence_unique", "value": false}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ResolutionFailure", "owner": "TreatmentDecomposition"}]},
+        {"variant_id": "medical-authority-missing", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/capabilities/capability:sa002:medical/active", "value": false}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "AuthorityError", "owner": "TreatmentDecomposition"}]},
+        {"variant_id": "sink-capacity-insufficient", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/entities/entity:sa002:sink/energy_capacity_j", "value": 0}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ResourceInsufficient", "owner": "TreatmentDecomposition"}]},
+        {"variant_id": "donor-matter-insufficient", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/entities/entity:sa002:donor/available_matter_kg", "value": 0}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ResourceInsufficient", "owner": "TreatmentDecomposition"}]},
+        {"variant_id": "identity-critical-loss", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/irreversible_information_loss", "value": true}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "IdentityPreservationFailure", "owner": "TreatmentDecomposition"}]},
+        {"variant_id": "reverse-proxy-attempt", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/reverse_proxy_effect", "value": true}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ReverseCorrespondenceForbidden", "owner": "TreatmentDecomposition"}]}
+      ]
+    },
+    {
+      "expectation_id": "GOLDEN-SA-003",
+      "input": "examples/spell-instances/success-arcana/SA-003.json",
+      "checks": [
+        {"path": "/final_world/Sigma/revision", "mode": "exact", "expected": "world:sa003:7", "owner": "FrozenEvidenceContext"},
+        {"path": "/execution/history_event_ids", "mode": "contains", "expected": ["event:sa003:artifact"], "owner": "ObservationArtifact"},
+        {"path": "/final_world/Omega/evidence_store/artifacts/artifact:sa003:observation/artifact_id", "mode": "exact", "expected": "artifact:sa003:observation", "owner": "ObservationArtifact"},
+        {"path": "/final_world/Omega/evidence_store/artifacts/artifact:sa003:observation/winner_hypothesis_id", "mode": "exact", "expected": "hypothesis:A", "owner": "EvidenceFusionModel"},
+        {"path": "/final_world/Omega/evidence_store/artifacts/artifact:sa003:observation", "mode": "subset", "expected": {"model": {"model_id": "evidence.snapshot-fusion", "revision": "1"}, "confidence_is_truth": false, "physical_display_effect": false}, "owner": "ObservationArtifact"}
+      ],
+      "variants": [
+        {"variant_id": "stale-evidence-revision", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/runtime_state/evidence_revision", "value": "evidence:stale"}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "EvidenceRevisionStale", "owner": "FrozenEvidenceContext"}]},
+        {"variant_id": "unresolved-identity", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/conflicting_identity", "value": true}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ResolutionFailure", "owner": "FrozenEvidenceContext"}]},
+        {"variant_id": "privacy-authority-missing", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/capabilities/capability:sa003:privacy/active", "value": false}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "AuthorityError", "owner": "ObservationArtifact"}]},
+        {"variant_id": "confidence-below-threshold", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/winner_confidence", "value": 0.2}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "EvidenceThresholdNotMet", "owner": "EvidenceFusionModel"}]},
+        {"variant_id": "model-revision-mismatch", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/evidence_fusion_model/revision", "value": "2"}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "EvidenceModelMismatch", "owner": "EvidenceFusionModel"}]},
+        {"variant_id": "physical-display-energy-insufficient", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/display_requested", "value": true}, {"pointer": "/execution/parameters/display_energy_j", "value": 100}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "DisplayEnergyInsufficient", "owner": "ObservationArtifact"}]}
+      ]
+    },
+    {
+      "expectation_id": "GOLDEN-SA-004",
+      "input": "examples/spell-instances/success-arcana/SA-004.json",
+      "checks": [
+        {"path": "/final_world/Sigma/revision", "mode": "exact", "expected": "world:sa004:2", "owner": "BoundedExplosion"},
+        {"path": "/execution/history_event_ids", "mode": "contains", "expected": ["event:sa004:blast-activated", "event:sa004:blast-terminated"], "owner": "BoundedExplosion"},
+        {"path": "/final_world/Sigma/entities/entity:sa004:near/blast_effect", "mode": "subset", "expected": {"duration_s": 0.25}, "owner": "BoundedExplosion"},
+        {"path": "/final_world/Sigma/entities/entity:sa004:outside/blast_effect", "mode": "absent", "owner": "BoundedExplosion"}
+      ],
+      "variants": [
+        {"variant_id": "insufficient-energy", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/ledgers/ledger:sa004:blast/available_energy_j", "value": 100}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ConservationProofFailure", "owner": "BoundedExplosion"}]},
+        {"variant_id": "radius-exceeds-domain", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/radius_m", "value": 12}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ExplosionDomainExceeded", "owner": "BoundedExplosion"}]},
+        {"variant_id": "too-many-entities", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/maximum_affected_entities", "value": 1}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ExplosionTargetLimitExceeded", "owner": "BoundedExplosion"}]},
+        {"variant_id": "stale-world-revision", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/revision", "value": "world:sa004:stale"}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "StaleReference", "owner": "BoundedExplosion"}]},
+        {"variant_id": "revoked-capability", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/capabilities/capability:sa004:blast/active", "value": false}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "AuthorityError", "owner": "BoundedExplosion"}]},
+        {"variant_id": "expired-lease", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/leases/lease:sa004:blast/active", "value": false}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "AuthorityError", "owner": "BoundedExplosion"}]},
+        {"variant_id": "missing-accounting-sink", "template": "runtime-abort", "mutations": [{"pointer": "/initial_world/ledgers/ledger:sa004:blast/active", "value": false}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ConservationProofFailure", "owner": "BoundedExplosion"}]},
+        {"variant_id": "pressure-bound", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/peak_pressure_pa", "value": 300000}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ExplosionPressureExceeded", "owner": "BoundedExplosion"}]},
+        {"variant_id": "thermal-bound", "template": "runtime-abort", "mutations": [{"pointer": "/execution/parameters/maximum_thermal_energy_j", "value": 1000}], "checks": [{"path": "/execution/abort/code", "mode": "exact", "expected": "ExplosionThermalExceeded", "owner": "BoundedExplosion"}]}
+      ]
+    },
+    {
+      "expectation_id": "GOLDEN-DEBUG-HELL-001",
+      "input": "examples/spell-instances/debug-hell/DEBUG-HELL-001.json",
+      "template": "evaluation-infeasible",
+      "checks": [
+        {"path": "/evaluation/report/diagnostics/0/code", "mode": "exact", "expected": "PlanningAssumptionCannotSatisfyAuthority", "owner": "DEBUG-HELL-001"}
+      ],
+      "variants": []
+    },
+    {
+      "expectation_id": "GOLDEN-DEBUG-HELL-002",
+      "input": "examples/spell-instances/debug-hell/DEBUG-HELL-002.json",
+      "template": "runtime-abort",
+      "checks": [
+        {"path": "/execution/abort/code", "mode": "exact", "expected": "StaleReference", "owner": "DEBUG-HELL-002"}
+      ],
+      "variants": []
+    },
+    {
+      "expectation_id": "GOLDEN-DEBUG-HELL-003",
+      "input": "examples/spell-instances/debug-hell/DEBUG-HELL-003.json",
+      "template": "runtime-abort",
+      "checks": [
+        {"path": "/execution/abort/code", "mode": "exact", "expected": "MicrostepBudgetExceeded", "owner": "DEBUG-HELL-003"}
+      ],
+      "variants": []
+    }
+  ]
+}

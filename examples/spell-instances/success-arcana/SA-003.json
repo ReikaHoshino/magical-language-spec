@@ -1,0 +1,261 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "SUCCESS-ARCANA-003",
+  "suite_id": "Experimental-Arcana-0",
+  "scenario_kind": "evidence-fusion",
+  "support_level": "implemented",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "RegisteredSpellCommand",
+      "action": "evidence-fusion",
+      "roles": [
+        {
+          "role": "Patient",
+          "value": {
+            "kind": "Reference",
+            "semantic_kind": "FixtureSubject",
+            "value": "subject:SUCCESS-ARCANA-003"
+          }
+        }
+      ],
+      "provenance": {
+        "adapter_id": null,
+        "adapter_revision": null,
+        "source_language_tags": [],
+        "provider": "SpellInstanceBundle",
+        "source_hash": null,
+        "evidence_ids": [
+          "SUCCESS-ARCANA-003"
+        ]
+      }
+    }
+  },
+  "semantic_contract": {
+    "contract_id": "evidence.snapshot-fusion",
+    "revision": "1"
+  },
+  "runtime_contract": {
+    "contract_id": "runtime.evidence-artifact",
+    "revision": "1"
+  },
+  "registry_extensions": {
+    "evidence_fusion_models": [
+      {
+        "model_id": "evidence.snapshot-fusion",
+        "revision": "1",
+        "confidence_is_truth": false
+      }
+    ]
+  },
+  "profiles": {
+    "runtime": {
+      "artifact_id": "runtime-profile:SUCCESS-ARCANA-003",
+      "revision": "1"
+    },
+    "sandbox": {
+      "artifact_id": "sandbox-profile:SUCCESS-ARCANA-003",
+      "revision": "1",
+      "limits": {
+        "max_energy_j": 80,
+        "max_events_per_commit": 16,
+        "max_microsteps_per_tick": 32,
+        "max_concurrency": 1
+      }
+    }
+  },
+  "world_index": {
+    "world_index_revision": "wi:SUCCESS-ARCANA-003:1",
+    "source_world_revision": "world:sa003:7",
+    "records": [
+      {
+        "entity_id": "entity:sa003:subject",
+        "state_revision": "state-revision:subject@world:sa003:7"
+      }
+    ]
+  },
+  "initial_world": {
+    "revision": "world:sa003:7",
+    "entities": {
+      "entity:sa003:subject": {
+        "entity_id": "entity:sa003:subject",
+        "state_revision": "state-revision:subject@world:sa003:7",
+        "kind": "HistoricalSubject",
+        "current_trace": "trace:blue"
+      }
+    },
+    "capabilities": {
+      "capability:sa003:discovery": {
+        "active": true
+      },
+      "capability:sa003:observation": {
+        "active": true
+      },
+      "capability:sa003:privacy": {
+        "active": true
+      }
+    },
+    "leases": {
+      "lease:sa003:snapshot": {
+        "active": true
+      }
+    },
+    "ledgers": {
+      "ledger:sa003": {
+        "active": true,
+        "available_energy_j": 50,
+        "consumed_energy_j": 0
+      }
+    },
+    "history": [
+      {
+        "event_id": "m:h1",
+        "effect_kind": "HistoricalMeasurement",
+        "source_id": "archive:A"
+      },
+      {
+        "event_id": "m:h2",
+        "effect_kind": "HistoricalMeasurement",
+        "source_id": "archive:B"
+      }
+    ],
+    "controllers": {},
+    "runtime_state": {
+      "history_revision": "history:sa003:4",
+      "evidence_revision": "evidence:sa003:9",
+      "evidence_store": {
+        "artifacts": {}
+      }
+    },
+    "process_state": {
+      "process_id": "process:sa003",
+      "status": "Idle",
+      "prepared_plan_id": null
+    }
+  },
+  "execution": {
+    "operations": [
+      "RESOLVE",
+      "OBSERVE"
+    ],
+    "parameters": {
+      "subject_id": "entity:sa003:subject",
+      "ledger_id": "ledger:sa003",
+      "history_revision": "history:sa003:4",
+      "evidence_revision": "evidence:sa003:9",
+      "winner_confidence": 0.82,
+      "confidence_threshold": 0.75,
+      "minimum_evidence_count": 3,
+      "current_measurement_id": "m:current",
+      "observer_id": "observer:trace",
+      "ranking": [
+        {
+          "hypothesis_id": "hypothesis:A",
+          "score": 0.82
+        },
+        {
+          "hypothesis_id": "hypothesis:B",
+          "score": 0.61
+        }
+      ],
+      "evidence_fusion_model": {
+        "model_id": "evidence.snapshot-fusion",
+        "revision": "1"
+      },
+      "artifact_id": "artifact:sa003:observation",
+      "display_requested": false,
+      "display_energy_j": 0,
+      "observation_energy_j": 40,
+      "event_id": "event:sa003:artifact"
+    },
+    "required_evidence": {
+      "resolution": [
+        "state-revision:subject@world:sa003:7"
+      ],
+      "capabilities": [
+        "capability:sa003:discovery",
+        "capability:sa003:observation",
+        "capability:sa003:privacy"
+      ],
+      "leases": [
+        "lease:sa003:snapshot"
+      ],
+      "accounting": [
+        "ledger:sa003"
+      ]
+    },
+    "energy_budget_j": 40,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Feasible",
+    "runtime_status": "Committed",
+    "diagnostic_codes": [],
+    "final_invariants": {
+      "Sigma": {
+        "revision": "world:sa003:7"
+      }
+    },
+    "replay_status": "Match",
+    "expected_event_ids": ["event:sa003:artifact"]
+  },
+  "variants": [
+    {"variant_id": "stale-evidence-revision", "mutations": [{"pointer": "/initial_world/runtime_state/evidence_revision", "value": "evidence:stale"}], "expected_diagnostic": "EvidenceRevisionStale"},
+    {"variant_id": "unresolved-identity", "mutations": [{"pointer": "/execution/parameters/conflicting_identity", "value": true}], "expected_diagnostic": "ResolutionFailure"},
+    {"variant_id": "privacy-authority-missing", "mutations": [{"pointer": "/initial_world/capabilities/capability:sa003:privacy/active", "value": false}], "expected_diagnostic": "AuthorityError"},
+    {"variant_id": "confidence-below-threshold", "mutations": [{"pointer": "/execution/parameters/winner_confidence", "value": 0.2}], "expected_diagnostic": "EvidenceThresholdNotMet"},
+    {"variant_id": "model-revision-mismatch", "mutations": [{"pointer": "/execution/parameters/evidence_fusion_model/revision", "value": "2"}], "expected_diagnostic": "EvidenceModelMismatch"},
+    {"variant_id": "physical-display-energy-insufficient", "mutations": [{"pointer": "/execution/parameters/display_requested", "value": true}, {"pointer": "/execution/parameters/display_energy_j", "value": 100}], "expected_diagnostic": "DisplayEnergyInsufficient"}
+  ],
+  "provenance": {
+    "definition_sources": [
+      "reference/spell-instance-bundles.md",
+      "reference/success-arcana.md"
+    ],
+    "generator": "repository-fixture",
+    "notes": [
+      "Experimental optional conformance only."
+    ]
+  },
+  "compatibility": {
+    "required_domains": [
+      "SpellInstanceBundle",
+      "SemanticContract",
+      "RuntimeContract"
+    ],
+    "decisions": [
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-003:SpellInstanceBundle",
+        "profile": {
+          "domain": "SpellInstanceBundle"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-003:SemanticContract",
+        "profile": {
+          "domain": "SemanticContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-003:RuntimeContract",
+        "profile": {
+          "domain": "RuntimeContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      }
+    ]
+  }
+}

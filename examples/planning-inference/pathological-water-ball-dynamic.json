@@ -1,0 +1,160 @@
+{
+  "schema_version": "1",
+  "case_id": "fixture:pathological-water-ball:dynamic-collision-avoidance",
+  "source_semantics": {
+    "source_id": "fixture:pathological-water-ball:dynamic-source",
+    "constraints": [
+      {
+        "field_path": "goal.action",
+        "source_value": {"kind": "Explicit", "value": "generate"}
+      },
+      {
+        "field_path": "goal.radius",
+        "source_value": {"kind": "Explicit", "value": {"value": 0.01, "unit": "m"}}
+      },
+      {
+        "field_path": "goal.mass",
+        "source_value": {"kind": "Explicit", "value": {"value": 50, "unit": "kg"}}
+      },
+      {
+        "field_path": "motion.acceleration",
+        "source_value": {"kind": "Explicit", "value": {"value": 50, "unit": "m/s^2"}}
+      },
+      {
+        "field_path": "motion.terminal",
+        "source_value": {"kind": "Unknown", "reason": "MissingArgument"}
+      },
+      {
+        "field_path": "motion.collision_avoidance",
+        "source_value": {"kind": "Explicit", "value": "dynamic"}
+      }
+    ]
+  },
+  "inference_records": [
+    {
+      "record_id": "inference:terminal:dynamic-profile",
+      "target": {"field_path": "motion.terminal", "value_role": "MotionTerminal"},
+      "unknown": {"reason": "MissingArgument", "classification": "WorldDependent"},
+      "criticality": "EstimateAllowed",
+      "estimate": {"kind": "Range", "min": 1, "max": 50, "unit": "m", "evidence_ids": ["world-index:trajectory-candidates"]},
+      "estimator": {
+        "class": "WorldProjection",
+        "id": "estimator:trajectory-projection",
+        "revision": "1",
+        "trust": "ProfileDefined"
+      },
+      "evidence_ids": ["world-index:trajectory-candidates"],
+      "assumption_ids": ["assumption:terminal:dynamic"],
+      "world_context": {
+        "world_index_revision": "index:4201",
+        "source_world_revision": "world:991"
+      },
+      "selected_planning_value": {"value": 50, "unit": "m"},
+      "selection": {"rule": "BoundedWorldProjection", "objective": "DynamicCollisionAvoidanceHorizon"},
+      "binding": {"mode": "Dynamic", "reactive_control_id": "control:dynamic-collision-avoidance"},
+      "validity": {
+        "max_distance": {
+          "semantic_type": "Length",
+          "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 50,
+          "unit": "m"
+        }
+      },
+      "diagnostics": []
+    }
+  ],
+  "planning_assumptions": [
+    {
+      "assumption_id": "assumption:terminal:dynamic",
+      "semantic_status": "PlanningAssumption",
+      "inference_record_id": "inference:terminal:dynamic-profile",
+      "selected_value": {"value": 50, "unit": "m"},
+      "binding": {"mode": "Dynamic", "reactive_control_id": "control:dynamic-collision-avoidance"},
+      "validity": {
+        "max_distance": {
+          "semantic_type": "Length",
+          "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 50,
+          "unit": "m"
+        }
+      }
+    }
+  ],
+  "generation_goal": {
+    "kind": "DesiredWorldState",
+    "surface_action": "generate",
+    "source_semantics_id": "fixture:pathological-water-ball:dynamic-source",
+    "preserved_constraint_paths": [
+      "goal.action",
+      "goal.radius",
+      "goal.mass",
+      "motion.acceleration",
+      "motion.collision_avoidance"
+    ],
+    "desired_state": {"material": "water", "mass_kg": 50, "radius_m": 0.01}
+  },
+  "candidate_plans": [
+    {
+      "plan_id": "plan:dynamic-controlled-water-ball",
+      "source_semantics_id": "fixture:pathological-water-ball:dynamic-source",
+      "source_fidelity": "Pass",
+      "mandatory_obligations": [
+        {"kind": "Type", "status": "Verified", "basis": "DeterministicProof"},
+        {"kind": "Identity", "status": "Verified", "basis": "AuthoritativeEvidence"},
+        {"kind": "Conservation", "status": "Verified", "basis": "DeterministicProof"},
+        {"kind": "Authority", "status": "Verified", "basis": "AuthoritativeEvidence"},
+        {"kind": "Lease", "status": "Reserved", "basis": "Reservation"}
+      ],
+      "feasibility": "ConditionallyFeasible",
+      "operations": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"],
+      "energy": {
+        "total": {"kind": "Unknown", "reason": "ModelDependent"},
+        "components": {
+          "control": {"kind": "Unknown", "reason": "ModelDependent"},
+          "observation_information": {"kind": "Unknown", "reason": "ModelDependent"}
+        }
+      },
+      "assumption_ids": ["assumption:terminal:dynamic"]
+    }
+  ],
+  "selection": {
+    "selected_plan_id": "plan:dynamic-controlled-water-ball",
+    "ordering": ["SourceSemanticFidelity", "MandatoryObligations", "Feasibility", "OptimizationObjective"],
+    "objective": "MinimumEstimatedTotalEnergy"
+  },
+  "terminal_policy": {
+    "source_terminal": {"kind": "Unknown", "reason": "MissingArgument"},
+    "precedence": ["ExplicitTerminal", "SemanticTarget", "WorldProjection", "ProfileHorizon"],
+    "selected_source": "WorldProjection",
+    "inference_record_id": "inference:terminal:dynamic-profile",
+    "binding": {"mode": "Dynamic", "reactive_control_id": "control:dynamic-collision-avoidance"},
+    "bounds": {
+      "max_distance": {
+        "semantic_type": "Length",
+        "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "value": 50,
+        "unit": "m"
+      }
+    }
+  },
+  "planner_predictions": [
+    {
+      "prediction_id": "prediction:dynamic-trajectory",
+      "kind": "Trajectory",
+      "binding": {"mode": "Dynamic", "reactive_control_id": "control:dynamic-collision-avoidance"},
+      "runtime_safety_guarantee": false,
+      "late_world_change_behavior": "DynamicReactiveControl"
+    }
+  ],
+  "reactive_controls": [
+    {
+      "control_id": "control:dynamic-collision-avoidance",
+      "semantics": "ExplicitDynamic",
+      "operation": "CONSTRAIN",
+      "purpose": "The source explicitly requests dynamic collision avoidance."
+    }
+  ],
+  "diagnostics": [
+    "Dynamic behavior is explicit and does not arise from silent mutation of a bound assumption."
+  ]
+}

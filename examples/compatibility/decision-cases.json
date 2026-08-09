@@ -1,0 +1,336 @@
+{
+  "schema_version": "1",
+  "decisions": [
+    {
+      "schema_version": "1",
+      "decision_id": "compat:spec-version:accepted",
+      "profile": {
+        "profile_id": "compat-profile:spec-version:pre-v0.8",
+        "profile_revision": "1",
+        "domain": "SpecVersion",
+        "owner": "LocalEvaluatorReleaseProfile",
+        "rule_source": "reference/compatibility.md#41-spec-version"
+      },
+      "producer": {
+        "kind": "ConfigurationArtifact",
+        "artifact_id": "artifact:compatibility-example",
+        "revision": "1",
+        "spec_version": "0.7.3",
+        "declarations": {}
+      },
+      "consumer_requirement": {
+        "requirement_id": "local-evaluator:accepted-spec-versions",
+        "declarations": {"accepted_exact_versions": ["0.7.3"]}
+      },
+      "evidence": [
+        {
+          "kind": "ExactVersionMembership",
+          "source": "artifact metadata and release profile",
+          "field_path": "$.metadata.spec_version",
+          "value": "0.7.3",
+          "decisive": true
+        }
+      ],
+      "result": {
+        "status": "Compatible",
+        "reason_code": "AcceptedExactSpecVersion",
+        "diagnostic": null
+      }
+    },
+    {
+      "schema_version": "1",
+      "decision_id": "compat:schema:unsupported",
+      "profile": {
+        "profile_id": "compat-profile:schema:core-config",
+        "profile_revision": "1",
+        "domain": "Schema",
+        "owner": "CoreConfigurationLoader",
+        "rule_source": "reference/compatibility.md#42-schema"
+      },
+      "producer": {
+        "kind": "WorldIndexArtifact",
+        "artifact_id": "world-index:unsupported-schema-example",
+        "revision": "wi-42",
+        "schema_id": "schemas/world-index.schema.json",
+        "schema_version": "2",
+        "declarations": {}
+      },
+      "consumer_requirement": {
+        "requirement_id": "world-index-loader:schema-support",
+        "declarations": {
+          "schema_id": "schemas/world-index.schema.json",
+          "accepted_exact_versions": ["1"]
+        }
+      },
+      "evidence": [
+        {
+          "kind": "SchemaVersionMembership",
+          "source": "artifact metadata and loader profile",
+          "field_path": "$.metadata.schema_version",
+          "value": "2",
+          "decisive": true
+        }
+      ],
+      "result": {
+        "status": "Incompatible",
+        "reason_code": "UnsupportedSchemaVersion",
+        "diagnostic": "SchemaVersionIncompatible"
+      }
+    },
+    {
+      "schema_version": "1",
+      "decision_id": "compat:registry:required-contracts",
+      "profile": {
+        "profile_id": "compat-profile:semantic-registry:required-contracts",
+        "profile_revision": "1",
+        "domain": "SemanticRegistry",
+        "owner": "SemanticRegistryLoader",
+        "rule_source": "reference/registry.md#17-compatibility"
+      },
+      "producer": {
+        "kind": "SemanticRegistryArtifact",
+        "artifact_id": "registry:runtime-expanded",
+        "revision": "2",
+        "declarations": {
+          "provided_contracts": [
+            "semantic-kind:Energy@1",
+            "ledger:Energy@1",
+            "semantic-kind:Matter@1"
+          ],
+          "registry_hash": {
+            "scope": "registry-contract-set",
+            "status": "unresolved",
+            "reason": "No canonical registry contract-set digest profile selected."
+          }
+        }
+      },
+      "consumer_requirement": {
+        "requirement_id": "compiled-spell:thermal-transfer",
+        "declarations": {
+          "required_contracts": [
+            "semantic-kind:Energy@1",
+            "ledger:Energy@1"
+          ]
+        }
+      },
+      "evidence": [
+        {
+          "kind": "RequiredContractSubset",
+          "source": "compiled spell requirement and runtime registry declarations",
+          "field_path": "$.declarations.provided_contracts",
+          "value": true,
+          "decisive": true
+        },
+        {
+          "kind": "RegistryHashRecord",
+          "source": "runtime registry metadata",
+          "field_path": "$.declarations.registry_hash",
+          "value": "unresolved",
+          "decisive": false,
+          "note": "Registry hash mismatch or absence is not by itself incompatibility."
+        }
+      ],
+      "result": {
+        "status": "Compatible",
+        "reason_code": "RequiredRegistryContractsSatisfied",
+        "diagnostic": null
+      }
+    },
+    {
+      "schema_version": "1",
+      "decision_id": "compat:runtime:missing-tolerance-evidence",
+      "profile": {
+        "profile_id": "compat-profile:runtime:prepared-plan",
+        "profile_revision": "1",
+        "domain": "RuntimeProfile",
+        "owner": "RuntimeProfileLoader",
+        "rule_source": "reference/runtime-time.md#26-runtimeprofile-serialization"
+      },
+      "producer": {
+        "kind": "RuntimeProfileArtifact",
+        "artifact_id": "runtime-profile:missing-tolerance-example",
+        "revision": "1",
+        "declarations": {
+          "scheduler": "scheduler:hybrid@1",
+          "integrators": ["integrator:reference@1"],
+          "replay": "replay:strict@1"
+        }
+      },
+      "consumer_requirement": {
+        "requirement_id": "prepared-plan:runtime-contract",
+        "declarations": {
+          "required_temporal_tolerance": "tolerance:strict-transfer@1"
+        }
+      },
+      "evidence": [
+        {
+          "kind": "RequiredComponentDeclaration",
+          "source": "runtime profile compatibility metadata",
+          "field_path": "$.declarations.temporal_tolerance",
+          "decisive": true,
+          "note": "Required component evidence is absent."
+        }
+      ],
+      "result": {
+        "status": "Undetermined",
+        "reason_code": "RequiredRuntimeEvidenceMissing",
+        "diagnostic": "CompatibilityUndetermined"
+      }
+    },
+    {
+      "schema_version": "1",
+      "decision_id": "compat:adapter:lexicon-revision-unresolved",
+      "profile": {
+        "profile_id": "compat-profile:language-adapter:lat",
+        "profile_revision": "1",
+        "domain": "LanguageAdapter",
+        "owner": "LanguageAdapterCompatibilityProfile",
+        "rule_source": "reference/compatibility.md#language-adapter-compatibility"
+      },
+      "producer": {
+        "kind": "LanguageAdapter",
+        "artifact_id": "adapter:lat",
+        "revision": "adapter-rev-1",
+        "declarations": {
+          "adapter_id": "lat",
+          "external_language_tags": ["la"],
+          "source_text_profile_revision": "SourceTextNormalizerV1",
+          "lexicon_revision": "1",
+          "grammar_revision": "grammar-rev-1",
+          "normalizer_revision": "normalizer-rev-1",
+          "capabilities": ["Morphology", "SemanticRoles"]
+        }
+      },
+      "consumer_requirement": {
+        "requirement_id": "normalization-job:lat",
+        "declarations": {
+          "adapter_id": "lat",
+          "required_lexicon_relation": "lexicon-profile:canonical-lat"
+        }
+      },
+      "evidence": [
+        {
+          "kind": "AdapterIdentity",
+          "source": "adapter declaration",
+          "field_path": "$.declarations.adapter_id",
+          "value": "lat",
+          "decisive": true
+        },
+        {
+          "kind": "ExternalLanguageTag",
+          "source": "adapter metadata",
+          "field_path": "$.declarations.external_language_tags[0]",
+          "value": "la",
+          "decisive": false,
+          "note": "External tag cannot substitute for project adapter identity."
+        },
+        {
+          "kind": "LexiconRevisionRelation",
+          "source": "LanguageAdapter compatibility profile",
+          "field_path": "$.declarations.lexicon_revision",
+          "value": "1",
+          "decisive": true,
+          "note": "The named profile does not yet declare the required revision relation."
+        }
+      ],
+      "result": {
+        "status": "Undetermined",
+        "reason_code": "LexiconRevisionRelationNotDeclared",
+        "diagnostic": "AdapterCompatibilityUndetermined"
+      }
+    },
+    {
+      "schema_version": "1",
+      "decision_id": "compat:fingerprint:profile-mismatch",
+      "profile": {
+        "profile_id": "compat-profile:semantic-fingerprint:comparison",
+        "profile_revision": "1",
+        "domain": "SemanticFingerprint",
+        "owner": "SemanticFingerprintComparator",
+        "rule_source": "reference/compatibility.md#46-semanticfingerprint"
+      },
+      "producer": {
+        "kind": "SemanticFingerprint",
+        "declarations": {
+          "representation": "sf:v2:example:abcdef"
+        }
+      },
+      "consumer_requirement": {
+        "requirement_id": "cross-language-drift:v1",
+        "declarations": {
+          "supported_profiles": ["sf:v1:sha256"]
+        }
+      },
+      "evidence": [
+        {
+          "kind": "FingerprintProfile",
+          "source": "fingerprint representation prefix",
+          "field_path": "$.declarations.representation",
+          "value": "sf:v2:example",
+          "decisive": true
+        }
+      ],
+      "result": {
+        "status": "Undetermined",
+        "reason_code": "UnsupportedFingerprintComparisonProfile",
+        "diagnostic": "SemanticFingerprintProfileMismatch"
+      }
+    },
+    {
+      "schema_version": "1",
+      "decision_id": "compat:world-index:schema-mismatch",
+      "profile": {
+        "profile_id": "compat-profile:world-index:query",
+        "profile_revision": "1",
+        "domain": "WorldIndex",
+        "owner": "WorldIndexQueryConsumer",
+        "rule_source": "reference/compatibility.md#47-worldindex"
+      },
+      "producer": {
+        "kind": "WorldIndexArtifact",
+        "artifact_id": "world-index:compatibility-negative",
+        "revision": "wi-42",
+        "declarations": {
+          "index_schema_revision": "2",
+          "world_index_revision": "wi-42",
+          "source_world_revision": "world-9001"
+        }
+      },
+      "consumer_requirement": {
+        "requirement_id": "resolver-query:index-profile",
+        "declarations": {
+          "accepted_index_schema_revisions": ["1"],
+          "required_source_world_revision": "world-9001"
+        }
+      },
+      "evidence": [
+        {
+          "kind": "IndexSchemaRevision",
+          "source": "WorldIndex artifact",
+          "field_path": "$.declarations.index_schema_revision",
+          "value": "2",
+          "decisive": true
+        },
+        {
+          "kind": "WorldIndexRevision",
+          "source": "WorldIndex artifact",
+          "field_path": "$.declarations.world_index_revision",
+          "value": "wi-42",
+          "decisive": false
+        },
+        {
+          "kind": "SourceWorldRevision",
+          "source": "WorldIndex artifact",
+          "field_path": "$.declarations.source_world_revision",
+          "value": "world-9001",
+          "decisive": true
+        }
+      ],
+      "result": {
+        "status": "Incompatible",
+        "reason_code": "UnsupportedIndexSchemaRevision",
+        "diagnostic": "IndexSchemaMismatch"
+      }
+    }
+  ]
+}

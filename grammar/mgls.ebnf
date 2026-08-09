@@ -1,0 +1,190 @@
+(* Magical Language Source — MGLS-0 concrete grammar                    *)
+(* This grammar is experimental and lowers only to MagicalProgram-0.     *)
+(* Static namespace, type, contract, obligation, and limit rules are     *)
+(* normative in reference/mgls-source-language.md.                       *)
+
+source                  = header,
+                          { value-declaration },
+                          { node-declaration },
+                          { output-declaration } ;
+
+header                  = version-declaration,
+                          source-id-declaration,
+                          program-id-declaration,
+                          registry-declaration,
+                          profile-declaration,
+                          budget-declaration ;
+
+version-declaration     = "mgls", string, ";" ;
+source-id-declaration   = "source", string, ";" ;
+program-id-declaration  = "program", string, ";" ;
+registry-declaration    = "registry", string, "revision", string, ";" ;
+profile-declaration     = "profile", string, "revision", string, ";" ;
+
+budget-declaration      = "budget", "{",
+                          "energy", number, ";",
+                          "events", integer, ";",
+                          "microsteps", integer, ";",
+                          "concurrency", integer, ";",
+                          "}" ;
+
+value-declaration       = let-declaration
+                        | selector-declaration
+                        | reference-hint-declaration
+                        | evidence-hint-declaration ;
+
+let-declaration         = "let", binding, ":", value-type,
+                          "=", constant-expression, ";" ;
+selector-declaration    = "selector", binding, "=", selector-object, ";" ;
+reference-hint-declaration
+                        = "reference_hint", binding, "=", string,
+                          "revision", string, ";" ;
+evidence-hint-declaration
+                        = "evidence_hint", binding, "=", string,
+                          "revision", string, ";" ;
+
+value-type              = scalar-type
+                        | quantity-type
+                        | record-type
+                        | sequence-type ;
+scalar-type             = "bool" | "int" | "number" | "string" | "null" ;
+quantity-type           = "quantity", "<", contract-name, ",",
+                          contract-name, ",", contract-name, ">" ;
+record-type             = "record", "<", contract-name, ">" ;
+sequence-type           = "sequence", "<", value-signature, ">" ;
+value-signature         = scalar-type
+                        | quantity-type
+                        | record-type
+                        | sequence-type ;
+
+constant-expression     = scalar-literal
+                        | quantity-constructor
+                        | record-constructor
+                        | sequence-constructor ;
+quantity-constructor    = "quantity", "(", number, ")" ;
+record-constructor      = "record", "<", contract-name, ">", "{",
+                          { field-initializer }, "}" ;
+field-initializer       = binding, ":", value-type,
+                          "=", constant-expression, ";" ;
+sequence-constructor    = "sequence", "<", value-signature, ">", "[",
+                          [ constant-expression,
+                            { ",", constant-expression } ],
+                          [ "," ], "]" ;
+
+selector-object         = "{", selector-entry,
+                          { ",", selector-entry }, [ "," ], "}" ;
+selector-entry          = binding, "=", selector-scalar ;
+selector-scalar         = string | number | boolean ;
+
+node-declaration        = "node", node-name, [ after-clause ], ":",
+                          node-body ;
+after-clause            = "after", node-name,
+                          { ",", node-name } ;
+node-body               = resolve-node
+                        | calculate-node
+                        | compare-node
+                        | rank-node
+                        | require-node
+                        | observe-node
+                        | effect-node ;
+
+resolve-node            = "resolve", binding, "from", binding, ";" ;
+calculate-node          = "calculate", binding, "=", calculate-operator,
+                          "(", binding-list, ")", ";" ;
+compare-node            = "compare", binding, "=", compare-operator,
+                          "(", binding-list, ")", ";" ;
+rank-node               = "rank", binding, "=", rank-direction,
+                          "(", binding, ")", ";" ;
+require-node            = "require", binding, "else", string, ";" ;
+observe-node            = "observe", binding, "=", "invoke", contract-ref,
+                          "(", [ binding-list ], ")", obligation-block, ";" ;
+effect-node             = "effect", binding, "=", "invoke", contract-ref,
+                          "(", [ binding-list ], ")", obligation-block, ";" ;
+
+contract-ref            = string, "revision", string ;
+calculate-operator      = "add" | "subtract" | "multiply" | "divide"
+                        | "minimum" | "maximum" ;
+compare-operator        = "equal" | "not_equal" | "less" | "less_equal"
+                        | "greater" | "greater_equal" ;
+rank-direction          = "ascending" | "descending" ;
+binding-list            = binding, { ",", binding } ;
+
+obligation-block        = "requires", "{",
+                          { obligation-declaration },
+                          resource-declaration,
+                          "}" ;
+obligation-declaration  = capability-requirement
+                        | lease-requirement
+                        | identity-requirement
+                        | evidence-requirement
+                        | accounting-requirement ;
+capability-requirement  = "capability", string, "on", binding,
+                          "effect", string, [ "scope", string ], ";" ;
+lease-requirement       = "lease", string, "on", binding,
+                          "mode", string, [ "scope", string ], ";" ;
+identity-requirement    = "identity", string, "on", binding, ";" ;
+evidence-requirement    = "evidence", string, "on", binding,
+                          "kind", string, ";" ;
+accounting-requirement  = "accounting", string, "kind", string,
+                          [ "on", binding ], ";" ;
+resource-declaration    = "resources", "{",
+                          "energy", number, ";",
+                          "matter", number, ";",
+                          "events", integer, ";",
+                          "}" ;
+
+output-declaration      = "output", string, output-kind,
+                          "from", binding, ";" ;
+output-kind             = "value" | "reference" | "evidence"
+                        | "effect_result" | "event" | "artifact" ;
+
+binding                 = identifier ;
+node-name               = identifier ;
+contract-name           = identifier ;
+
+scalar-literal          = string | number | boolean | null ;
+boolean                 = "true" | "false" ;
+null                    = "null" ;
+
+identifier              = identifier-start, { identifier-continue } ;
+identifier-start        = letter | "_" ;
+identifier-continue     = letter | digit | "_" ;
+letter                  = "A" | "B" | "C" | "D" | "E" | "F" | "G"
+                        | "H" | "I" | "J" | "K" | "L" | "M" | "N"
+                        | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+                        | "V" | "W" | "X" | "Y" | "Z"
+                        | "a" | "b" | "c" | "d" | "e" | "f" | "g"
+                        | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+                        | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+                        | "v" | "w" | "x" | "y" | "z" ;
+digit                   = "0" | "1" | "2" | "3" | "4"
+                        | "5" | "6" | "7" | "8" | "9" ;
+
+integer                 = [ "-" ], ( "0" | nonzero-digit, { digit } ) ;
+number                  = [ "-" ], integer-part,
+                          [ fraction-part ], [ exponent-part ] ;
+integer-part            = "0" | nonzero-digit, { digit } ;
+nonzero-digit           = "1" | "2" | "3" | "4" | "5"
+                        | "6" | "7" | "8" | "9" ;
+fraction-part           = ".", digit, { digit } ;
+exponent-part           = ( "e" | "E" ), [ "+" | "-" ],
+                          digit, { digit } ;
+
+(* All numeric value tokens use the number production. The declared target  *)
+(* type determines whether an integral lexical value is admitted as int or  *)
+(* number. Integer remains a separate production only for integral budgets. *)
+
+(* A string is a JSON-compatible quoted string decoded to Unicode scalars. *)
+(* Implementations MUST reject unpaired surrogate escapes and non-finite      *)
+(* numbers. Whitespace and comments are lexical separators.                    *)
+string                  = '"', { string-character | escape-sequence }, '"' ;
+escape-sequence         = "\\", ( '"' | "\\" | "/" | "b" | "f"
+                          | "n" | "r" | "t" | unicode-escape ) ;
+unicode-escape          = "u", hex-digit, hex-digit, hex-digit, hex-digit ;
+hex-digit               = digit | "A" | "B" | "C" | "D" | "E" | "F"
+                        | "a" | "b" | "c" | "d" | "e" | "f" ;
+string-character        = ? Unicode scalar except U+0000, U+0022, U+005C ? ;
+
+(* line-comment ends before LF; block-comment is non-nesting. *)
+line-comment            = "//", { ? any scalar except LF ? } ;
+block-comment           = "/*", { ? any scalar not beginning "*/" ? }, "*/" ;

@@ -1,0 +1,127 @@
+{
+  "contract_id": "mgls-source-contract",
+  "revision": "0",
+  "stability": "experimental",
+  "source_contract": {
+    "contract_id": "mgls-source",
+    "revision": "0",
+    "artifact_kind": "MagicalSource",
+    "filename_suffix": ".mgls",
+    "media_type": "text/vnd.magical-language.source; version=0; charset=utf-8"
+  },
+  "target_contract": {
+    "artifact_kind": "MagicalProgram",
+    "artifact_version": "0",
+    "contract_id": "magical-program",
+    "revision": "0"
+  },
+  "grammar": "grammar/mgls.ebnf",
+  "reference": "reference/mgls-source-language.md",
+  "source_map_schema": "schemas/mgls-source-map.schema.json",
+  "header_lowering": [
+    {"source": "mgls", "target": "source contract validation", "required_value": "0"},
+    {"source": "source", "target": "provenance.source.artifact_id"},
+    {"source": "program", "target": "program_id"},
+    {"source": "registry", "target": "compatibility.registry_id"},
+    {"source": "registry revision", "target": "compatibility.registry_revision"},
+    {"source": "profile", "target": "compatibility.profile_id"},
+    {"source": "profile revision", "target": "compatibility.profile_revision"},
+    {"source": "budget.energy", "target": "budget.energy_j"},
+    {"source": "budget.events", "target": "budget.events"},
+    {"source": "budget.microsteps", "target": "budget.microsteps"},
+    {"source": "budget.concurrency", "target": "budget.concurrency"}
+  ],
+  "value_lowering": [
+    {"source": "let bool|int|number|string|null", "target_kind": "literal"},
+    {"source": "let quantity<S,D,U>", "target_kind": "quantity"},
+    {"source": "let record<T>", "target_kind": "record"},
+    {"source": "let sequence<T>", "target_kind": "sequence"},
+    {"source": "selector", "target_kind": "selector"},
+    {"source": "reference_hint", "target_kind": "reference_hint"},
+    {"source": "evidence_hint", "target_kind": "evidence_hint"}
+  ],
+  "node_lowering": [
+    {"source": "resolve", "instruction": "ref.resolve", "arity": {"inputs": 1, "produces": 1}},
+    {"source": "observe", "instruction": "evidence.observe", "requires_contract": true, "requires_obligations": true, "produces": 1},
+    {"source": "calculate", "instruction": "pure.calculate", "operators": ["add", "subtract", "multiply", "divide", "minimum", "maximum"], "produces": 1},
+    {"source": "compare", "instruction": "pure.compare", "operators": ["equal", "not_equal", "less", "less_equal", "greater", "greater_equal"], "produces": 1},
+    {"source": "rank", "instruction": "pure.rank", "directions": ["ascending", "descending"], "inputs": 1, "produces": 1},
+    {"source": "require", "instruction": "assert.require", "inputs": 1, "produces": 0},
+    {"source": "effect", "instruction": "effect.invoke", "requires_contract": true, "requires_obligations": true, "produces": 1}
+  ],
+  "obligation_lowering": [
+    {"source": "capability", "target": "obligations.capabilities"},
+    {"source": "lease", "target": "obligations.leases"},
+    {"source": "identity", "target": "obligations.identities"},
+    {"source": "evidence", "target": "obligations.evidence"},
+    {"source": "accounting", "target": "obligations.accounting"},
+    {"source": "resources.energy", "target": "obligations.resources.energy_j"},
+    {"source": "resources.matter", "target": "obligations.resources.matter_kg"},
+    {"source": "resources.events", "target": "obligations.resources.events"}
+  ],
+  "output_kinds": ["value", "reference", "evidence", "effect_result", "event", "artifact"],
+  "edge_policy": {
+    "data_dependency": "producer node to every later consumer node",
+    "explicit_order": "every after-clause node to the owning node",
+    "deduplicate": true,
+    "sort": ["target order ascending", "source order ascending"],
+    "forward_only": true
+  },
+  "diagnostics": [
+    {"condition": "malformed or missing header", "code": "StructuredInputInvalid"},
+    {"condition": "unsupported source revision", "code": "SpecVersionIncompatible"},
+    {"condition": "invalid lexical token or grammar", "code": "ParseError"},
+    {"condition": "duplicate source name or producer", "code": "DuplicateBinding"},
+    {"condition": "unresolved source name", "code": "UnresolvedName"},
+    {"condition": "unknown or incompatible contract", "code": "RegistryMismatch"},
+    {"condition": "value or exact signature mismatch", "code": "TypeError"},
+    {"condition": "quantity semantic, dimension, or unit mismatch", "code": "DimensionError"},
+    {"condition": "instruction, effect, or output mismatch", "code": "EffectMismatch"},
+    {"condition": "missing static authority requirement", "code": "StaticAuthorityError"},
+    {"condition": "missing accounting or resource declaration", "code": "ConservationProofFailure"},
+    {"condition": "cycle or non-forward edge", "code": "CausalityCycleError"},
+    {"condition": "closed-world forbidden construct", "code": "UnsupportedSemanticExtension"},
+    {"condition": "source or target ceiling exceeded", "code": "InputLimitExceeded"},
+    {"condition": "lowering changes explicit source meaning", "code": "SourceSemanticDrift"},
+    {"condition": "emitted target fails schema or admission", "code": "StructuredInputInvalid"},
+    {"condition": "required source-map mapping unavailable", "code": "NormalizationFailed"}
+  ],
+  "limits": {
+    "source_utf8_bytes": 262144,
+    "tokens": 65536,
+    "identifier_scalars": 128,
+    "quoted_identity_scalars": 160,
+    "values": 512,
+    "nodes": 256,
+    "edges": 1024,
+    "outputs": 128,
+    "structured_depth": 8,
+    "structured_items": 1024,
+    "record_fields": 128,
+    "sequence_items": 512,
+    "budget_events": 128,
+    "budget_microsteps": 4096,
+    "budget_concurrency": 16,
+    "budget_energy_j": 1000000000
+  },
+  "positive_examples": [
+    "examples/mgls/independent-transition.mgls",
+    "examples/mgls/boundary-reflection.mgls"
+  ],
+  "negative_inventory": "examples/mgls/invalid/contract-cases.json",
+  "forbidden_families": [
+    "import/include/module/package/use",
+    "macro/eval/reflection/plugin/native code",
+    "branch/loop/recursion",
+    "async/concurrency syntax",
+    "raw state path mutation",
+    "network/filesystem/environment/shell access"
+  ],
+  "preserved_counts": {
+    "stable_conformance_classes": 4,
+    "stable_conformance_cases": 65,
+    "mki_operations": 6,
+    "world_kernel_interaction_classes": 5,
+    "released_version": "0.12.0"
+  }
+}

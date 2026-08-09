@@ -1,0 +1,28 @@
+{
+  "fixture_id": "lat-normalization:aquae-ambiguity",
+  "source": "aquae",
+  "source_examples": [
+    "data/latin-examples.csv#LAT-004",
+    "data/latin-examples.csv#LAT-021"
+  ],
+  "ambiguity_policy": "StrictReject",
+  "expected": {
+    "morphology_candidate_ids": [
+      "lat:aqua:dat-sg",
+      "lat:aqua:gen-sg",
+      "lat:aqua:nom-pl"
+    ],
+    "decision_status": "Rejected",
+    "selected_candidate_id": null,
+    "diagnostic_codes": [
+      "SemanticRoleAmbiguous",
+      "AmbiguousNormalization",
+      "NormalizationFailed"
+    ]
+  },
+  "invariants": [
+    "Morphology != semantic role by itself",
+    "StrictReject does not guess a semantic-critical interpretation",
+    "Lexical meaning != Entity resolution"
+  ]
+}

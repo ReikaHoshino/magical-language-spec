@@ -1,0 +1,144 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "SUCCESS-ARCANA-004",
+  "suite_id": "Experimental-Arcana-0",
+  "scenario_kind": "bounded-explosion",
+  "support_level": "implemented",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "RegisteredSpellCommand",
+      "action": "bounded-explosion",
+      "roles": [{"role": "Goal", "value": {"kind": "Reference", "semantic_kind": "Region", "value": "region:sa004:test-range"}}],
+      "provenance": {
+        "adapter_id": null,
+        "adapter_revision": null,
+        "source_language_tags": [],
+        "provider": "SpellInstanceBundle",
+        "source_hash": null,
+        "evidence_ids": ["model:explosion-fixture@1", "state-revision:sa004:origin:1"]
+      }
+    }
+  },
+  "semantic_contract": {"contract_id": "dynamics.explosion", "revision": "1"},
+  "runtime_contract": {"contract_id": "runtime.explosion", "revision": "1"},
+  "registry_extensions": {
+    "explosion_models": [{
+      "model_id": "model:explosion-fixture",
+      "revision": "1",
+      "medium": "synthetic-air",
+      "valid_radius_m": 10,
+      "attenuation_policy": "LinearRadialV1",
+      "occlusion_policy": "NoOcclusionFixtureDomain",
+      "provenance": "reference/success-arcana.md#success-arcana-004"
+    }]
+  },
+  "profiles": {
+    "runtime": {"artifact_id": "runtime-profile:sa004", "revision": "1"},
+    "sandbox": {
+      "artifact_id": "sandbox-profile:sa004",
+      "revision": "1",
+      "limits": {"max_energy_j": 10000, "max_events_per_commit": 16, "max_microsteps_per_tick": 32, "max_concurrency": 1}
+    }
+  },
+  "world_index": {
+    "world_index_revision": "wi:sa004:1",
+    "source_world_revision": "world:sa004:1",
+    "records": [
+      {"entity_id": "entity:sa004:origin", "state_revision": "state-revision:sa004:origin:1"},
+      {"entity_id": "entity:sa004:anchor", "state_revision": "state-revision:sa004:anchor:1"},
+      {"entity_id": "entity:sa004:near", "state_revision": "state-revision:sa004:near:1"},
+      {"entity_id": "entity:sa004:far", "state_revision": "state-revision:sa004:far:1"},
+      {"entity_id": "entity:sa004:outside", "state_revision": "state-revision:sa004:outside:1"}
+    ]
+  },
+  "initial_world": {
+    "revision": "world:sa004:1",
+    "entities": {
+      "entity:sa004:origin": {"entity_id": "entity:sa004:origin", "state_revision": "state-revision:sa004:origin:1", "region_id": "region:sa004:test-range", "medium_revision": "medium:synthetic-air:1"},
+      "entity:sa004:anchor": {"entity_id": "entity:sa004:anchor", "state_revision": "state-revision:sa004:anchor:1", "region_id": "region:sa004:test-range", "reaction_impulse_kg_m_s": 0},
+      "entity:sa004:near": {"entity_id": "entity:sa004:near", "state_revision": "state-revision:sa004:near:1", "region_id": "region:sa004:test-range", "blast_subject": true, "distance_from_origin_m": 2, "mass_kg": 4},
+      "entity:sa004:far": {"entity_id": "entity:sa004:far", "state_revision": "state-revision:sa004:far:1", "region_id": "region:sa004:test-range", "blast_subject": true, "distance_from_origin_m": 4, "mass_kg": 8},
+      "entity:sa004:outside": {"entity_id": "entity:sa004:outside", "state_revision": "state-revision:sa004:outside:1", "region_id": "region:sa004:outside", "blast_subject": true, "distance_from_origin_m": 8, "mass_kg": 5}
+    },
+    "capabilities": {
+      "capability:sa004:blast": {"active": true, "region_id": "region:sa004:test-range", "effect_class": "BoundedExplosion", "maximum_radius_m": 10}
+    },
+    "leases": {"lease:sa004:blast": {"active": true, "region_id": "region:sa004:test-range"}},
+    "ledgers": {"ledger:sa004:blast": {"active": true, "available_energy_j": 6000, "released_energy_j": 0}},
+    "history": [],
+    "controllers": {},
+    "runtime_state": {},
+    "process_state": {"process_id": "process:sa004", "status": "Idle", "prepared_plan_id": null}
+  },
+  "execution": {
+    "operations": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"],
+    "parameters": {
+      "origin_entity_id": "entity:sa004:origin",
+      "region_id": "region:sa004:test-range",
+      "medium_model": {"model_id": "model:explosion-fixture", "revision": "1", "medium_revision": "medium:synthetic-air:1", "attenuation_policy": "LinearRadialV1"},
+      "radius_m": 5,
+      "maximum_radius_m": 10,
+      "duration_s": 0.25,
+      "release_energy_j": 5000,
+      "pressure_energy_fraction": 0.7,
+      "thermal_energy_fraction": 0.3,
+      "peak_pressure_pa": 200000,
+      "maximum_peak_pressure_pa": 250000,
+      "maximum_impulse_kg_m_s": 100,
+      "maximum_thermal_energy_j": 2000,
+      "maximum_affected_entities": 4,
+      "occlusion_policy": "NoOcclusionFixtureDomain",
+      "reaction_anchor_id": "entity:sa004:anchor",
+      "ledger_id": "ledger:sa004:blast",
+      "capability_id": "capability:sa004:blast",
+      "lease_id": "lease:sa004:blast",
+      "observation_world_revision": "world:sa004:1",
+      "result_world_revision": "world:sa004:2",
+      "activation_event_id": "event:sa004:blast-activated",
+      "termination_event_id": "event:sa004:blast-terminated"
+    },
+    "required_evidence": {
+      "resolution": ["state-revision:sa004:origin:1", "state-revision:sa004:near:1", "state-revision:sa004:far:1"],
+      "capabilities": ["capability:sa004:blast"],
+      "leases": ["lease:sa004:blast"],
+      "accounting": ["ledger:sa004:blast"]
+    },
+    "energy_budget_j": 5000,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Feasible",
+    "runtime_status": "Committed",
+    "diagnostic_codes": [],
+    "final_invariants": {"Sigma": {"revision": "world:sa004:2"}},
+    "replay_status": "Match",
+    "expected_event_ids": ["event:sa004:blast-activated", "event:sa004:blast-terminated"]
+  },
+  "variants": [
+    {"variant_id": "insufficient-energy", "mutations": [{"pointer": "/initial_world/ledgers/ledger:sa004:blast/available_energy_j", "value": 100}], "expected_diagnostic": "ConservationProofFailure"},
+    {"variant_id": "radius-exceeds-domain", "mutations": [{"pointer": "/execution/parameters/radius_m", "value": 12}], "expected_diagnostic": "ExplosionDomainExceeded"},
+    {"variant_id": "too-many-entities", "mutations": [{"pointer": "/execution/parameters/maximum_affected_entities", "value": 1}], "expected_diagnostic": "ExplosionTargetLimitExceeded"},
+    {"variant_id": "stale-world-revision", "mutations": [{"pointer": "/initial_world/revision", "value": "world:sa004:stale"}], "expected_diagnostic": "StaleReference"},
+    {"variant_id": "revoked-capability", "mutations": [{"pointer": "/initial_world/capabilities/capability:sa004:blast/active", "value": false}], "expected_diagnostic": "AuthorityError"},
+    {"variant_id": "expired-lease", "mutations": [{"pointer": "/initial_world/leases/lease:sa004:blast/active", "value": false}], "expected_diagnostic": "AuthorityError"},
+    {"variant_id": "missing-accounting-sink", "mutations": [{"pointer": "/initial_world/ledgers/ledger:sa004:blast/active", "value": false}], "expected_diagnostic": "ConservationProofFailure"},
+    {"variant_id": "pressure-bound", "mutations": [{"pointer": "/execution/parameters/peak_pressure_pa", "value": 300000}], "expected_diagnostic": "ExplosionPressureExceeded"},
+    {"variant_id": "thermal-bound", "mutations": [{"pointer": "/execution/parameters/maximum_thermal_energy_j", "value": 1000}], "expected_diagnostic": "ExplosionThermalExceeded"}
+  ],
+  "provenance": {
+    "definition_sources": ["reference/spell-instance-bundles.md", "reference/success-arcana.md#success-arcana-004"],
+    "generator": "repository-fixture",
+    "notes": ["Experimental optional conformance only; no stable required-count change."]
+  },
+  "compatibility": {
+    "required_domains": ["SpellInstanceBundle", "SemanticContract", "RuntimeContract"],
+    "decisions": [
+      {"decision_id": "decision:sa004:bundle", "profile": {"domain": "SpellInstanceBundle"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}},
+      {"decision_id": "decision:sa004:semantic", "profile": {"domain": "SemanticContract"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}},
+      {"decision_id": "decision:sa004:runtime", "profile": {"domain": "RuntimeContract"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}}
+    ]
+  }
+}

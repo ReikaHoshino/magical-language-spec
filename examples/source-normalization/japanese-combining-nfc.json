@@ -1,0 +1,36 @@
+{
+  "contract_version": "source-text-normalization-v1",
+  "status": "Accepted",
+  "adapter": {
+    "adapter_id": "jpn",
+    "external_language_tags": ["ja"],
+    "script_hints": ["Jpan"]
+  },
+  "input": {
+    "boundary": "unicode-text",
+    "encoding": "UTF-8",
+    "original_text": "ガ",
+    "utf8_bom_removed": false
+  },
+  "output": {
+    "normalization_form": "NFC",
+    "normalized_text": "ガ"
+  },
+  "transformations": [
+    {
+      "kind": "CanonicalComposition",
+      "source_span": {"start": 0, "end": 2},
+      "output_span": {"start": 0, "end": 1}
+    }
+  ],
+  "source_map": {
+    "offset_unit": "unicode-scalar-value",
+    "entries": [
+      {
+        "output_span": {"start": 0, "end": 1},
+        "source_span": {"start": 0, "end": 2},
+        "exact": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,658 @@
+{
+  "metadata": {
+    "schema_version": "1",
+    "artifact_id": "estimator-profile:synthetic-reference",
+    "revision": "1",
+    "spec_version": "0.7.3",
+    "content_hash": {
+      "scope": "artifact-content",
+      "status": "unresolved",
+      "reason": "Generic artifact canonical bytes and digest algorithm remain unresolved pre-v0.8."
+    },
+    "provenance": {
+      "source_kind": "synthetic-fixture",
+      "source_id": "examples/estimator-profiles/synthetic-reference-v1.json",
+      "source_revision": "1",
+      "evidence": ["reference/estimator-models.md"]
+    },
+    "compatibility": {
+      "domain": "EstimatorProfile",
+      "contract_revision": "1",
+      "profile": {
+        "profile_id": "compatibility:estimator-profile-v1",
+        "profile_revision": "1",
+        "domain": "EstimatorProfile",
+        "owner": "reference/estimator-models.md",
+        "rule_source": "Domain-owned estimator model and output-contract requirements."
+      },
+      "declarations": {
+        "model_contract_revision": "1",
+        "synthetic_fixture": true
+      }
+    }
+  },
+  "profile_kind": "SyntheticReference",
+  "scope": {
+    "use": "SyntheticFixtureOnly",
+    "values_are_universal_world_constants": false,
+    "statement": "All coefficients are deterministic regression data, not default physics, world facts, or deployment recommendations."
+  },
+  "runtime_profile_requirement": {
+    "profile": {
+      "artifact_id": "runtime-profile:reference-fixture",
+      "revision": "1"
+    },
+    "compatibility_profile": {
+      "profile_id": "compatibility:runtime-profile-v1",
+      "profile_revision": "1",
+      "domain": "RuntimeProfile",
+      "owner": "reference/runtime-time.md",
+      "rule_source": "RuntimeProfile domain-owned compatibility contract."
+    },
+    "physical_time_is_runtime_tick": false
+  },
+  "models": [
+    {
+      "model_id": "estimator:synthetic:energy:physical-work",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "physical_work",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:physical-work"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:physical-work",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 100,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:energy:reaction",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "reaction_or_thermodynamic",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:reaction"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:reaction",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 20,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:energy:channel-open",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "channel_open",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:channel-open"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:channel-open",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 10,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:energy:channel-maintenance",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "channel_maintenance",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:channel-maintenance"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:channel-maintenance",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 30,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:energy:control",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "control",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:control"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:control",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 15,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:energy:observation",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "observation_information",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:observation"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:observation",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 5,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:energy:synchronization",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "synchronization",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:synchronization"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:synchronization",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 7,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:energy:losses",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "losses",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:losses"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:losses",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 8,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:energy:margin",
+      "revision": "1",
+      "domain": "Energy",
+      "category": "reserved_margin",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Energy",
+        "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "J"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:margin"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:margin",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-energy-components"]
+          },
+          "value": {
+            "semantic_type": "Energy",
+            "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 5,
+            "unit": "J"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:resource:information-budget",
+      "revision": "1",
+      "domain": "Resource",
+      "category": "resource:information-budget",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-resource-budget"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["observation.request"]},
+      "output_contract": {
+        "semantic_type": "InformationBudget",
+        "dimension": {"kg": 0, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "bit"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:information-budget"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:information-budget",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-resource-budget"]
+          },
+          "value": {
+            "semantic_type": "InformationBudget",
+            "dimension": {"kg": 0, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 4096,
+            "unit": "bit"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:timing:physical-duration",
+      "revision": "1",
+      "domain": "Timing",
+      "category": "physical_duration",
+      "owner": {
+        "definition_source": "Profile",
+        "owner_id": "estimator-profile:synthetic-reference",
+        "revision": "1",
+        "evidence_ids": ["evidence:synthetic-physical-duration"]
+      },
+      "availability": {"status": "Available"},
+      "input_contract": {"required_fields": ["runtime_profile", "fixture.case_id"]},
+      "output_contract": {
+        "semantic_type": "Time",
+        "dimension": {"kg": 0, "m": 0, "s": 1, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "s"
+      },
+      "evaluation_rule": {
+        "kind": "SyntheticFixedCoefficient",
+        "coefficient_id": "coefficient:physical-duration"
+      },
+      "coefficients": [
+        {
+          "coefficient_id": "coefficient:physical-duration",
+          "owner": {
+            "definition_source": "Profile",
+            "owner_id": "estimator-profile:synthetic-reference",
+            "revision": "1",
+            "evidence_ids": ["evidence:synthetic-physical-duration"]
+          },
+          "value": {
+            "semantic_type": "Time",
+            "dimension": {"kg": 0, "m": 0, "s": 1, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 0.25,
+            "unit": "s"
+          },
+          "fixture_only": true
+        }
+      ]
+    },
+    {
+      "model_id": "estimator:synthetic:resource:unavailable-world-model",
+      "revision": "1",
+      "domain": "Resource",
+      "category": "resource:world-dependent",
+      "owner": {
+        "definition_source": "World",
+        "owner_id": "world-model:unavailable-fixture",
+        "revision": "1",
+        "evidence_ids": ["evidence:world-model-unavailable"]
+      },
+      "availability": {
+        "status": "Unavailable",
+        "reason": "The synthetic fixture intentionally provides no authoritative world model.",
+        "unknown_classification": "ModelDependent"
+      },
+      "input_contract": {"required_fields": ["world.model"]},
+      "output_contract": {
+        "semantic_type": "MatterBudget",
+        "dimension": {"kg": 1, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "unit": "kg"
+      }
+    }
+  ],
+  "reference_cases": [
+    {
+      "case_id": "case:synthetic-energy-physical-work",
+      "model": {
+        "model_id": "estimator:synthetic:energy:physical-work",
+        "revision": "1"
+      },
+      "source_before": {
+        "kind": "Explicit",
+        "value": {
+          "semantic_type": "Mass",
+          "dimension": {"kg": 1, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 50,
+          "unit": "kg"
+        }
+      },
+      "source_after": {
+        "kind": "Explicit",
+        "value": {
+          "semantic_type": "Mass",
+          "dimension": {"kg": 1, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 50,
+          "unit": "kg"
+        }
+      },
+      "estimate": {
+        "kind": "Exact",
+        "value": {
+          "semantic_type": "Energy",
+          "dimension": {"kg": 1, "m": 2, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 100,
+          "unit": "J"
+        },
+        "uncertainty": "None inside this deterministic synthetic fixture.",
+        "evidence_ids": ["evidence:synthetic-energy-components"]
+      },
+      "mandatory_obligations": []
+    },
+    {
+      "case_id": "case:synthetic-resource-adoption",
+      "model": {
+        "model_id": "estimator:synthetic:resource:information-budget",
+        "revision": "1"
+      },
+      "source_before": {"kind": "Unknown", "reason": "MissingArgument"},
+      "source_after": {"kind": "Unknown", "reason": "MissingArgument"},
+      "estimate": {
+        "kind": "Exact",
+        "value": {
+          "semantic_type": "InformationBudget",
+          "dimension": {"kg": 0, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 4096,
+          "unit": "bit"
+        },
+        "uncertainty": "None inside this deterministic synthetic fixture.",
+        "evidence_ids": ["evidence:synthetic-resource-budget"]
+      },
+      "adoption": {
+        "inference_record_id": "inference:synthetic-information-budget",
+        "criticality": "EstimateAllowed",
+        "planning_assumption_id": "assumption:synthetic-information-budget",
+        "binding": {"mode": "PrepareBound", "binding_point": "PREPARE"}
+      },
+      "mandatory_obligations": [
+        {"kind": "Type", "status": "Indeterminate"},
+        {"kind": "Identity", "status": "Indeterminate"},
+        {"kind": "Conservation", "status": "Indeterminate"},
+        {"kind": "Authority", "status": "Indeterminate"},
+        {"kind": "Lease", "status": "Indeterminate"}
+      ]
+    },
+    {
+      "case_id": "case:synthetic-physical-duration",
+      "model": {
+        "model_id": "estimator:synthetic:timing:physical-duration",
+        "revision": "1"
+      },
+      "source_before": {"kind": "Unknown", "reason": "ModelDependent"},
+      "source_after": {"kind": "Unknown", "reason": "ModelDependent"},
+      "estimate": {
+        "kind": "Exact",
+        "value": {
+          "semantic_type": "Time",
+          "dimension": {"kg": 0, "m": 0, "s": 1, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 0.25,
+          "unit": "s"
+        },
+        "uncertainty": "None inside this deterministic synthetic fixture.",
+        "evidence_ids": ["evidence:synthetic-physical-duration"]
+      },
+      "adoption": {
+        "inference_record_id": "inference:synthetic-physical-duration",
+        "criticality": "EstimateAllowed",
+        "planning_assumption_id": "assumption:synthetic-physical-duration",
+        "binding": {"mode": "CommitBound", "binding_point": "COMMIT"}
+      },
+      "mandatory_obligations": [],
+      "runtime_context": {
+        "runtime_profile": {
+          "artifact_id": "runtime-profile:reference-fixture",
+          "revision": "1"
+        },
+        "runtime_tick_id": "tick:fixture:25",
+        "physical_time_is_runtime_tick": false
+      }
+    },
+    {
+      "case_id": "case:unavailable-world-model",
+      "model": {
+        "model_id": "estimator:synthetic:resource:unavailable-world-model",
+        "revision": "1"
+      },
+      "source_before": {"kind": "Unknown", "reason": "ModelDependent"},
+      "source_after": {"kind": "Unknown", "reason": "ModelDependent"},
+      "estimate": {
+        "kind": "Unknown",
+        "reason": "Required world model is unavailable.",
+        "classification": "ModelDependent",
+        "evidence_ids": ["evidence:world-model-unavailable"]
+      },
+      "mandatory_obligations": [
+        {"kind": "Identity", "status": "Indeterminate"},
+        {"kind": "Conservation", "status": "Indeterminate"},
+        {"kind": "Authority", "status": "Indeterminate"},
+        {"kind": "Lease", "status": "Indeterminate"}
+      ]
+    }
+  ]
+}

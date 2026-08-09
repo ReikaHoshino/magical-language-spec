@@ -1,0 +1,73 @@
+{
+  "fixture_version": "0",
+  "base": "examples/magical-program/MP-001.json",
+  "cases": [
+    {
+      "case_id": "MP-INVALID-UNKNOWN-VERSION",
+      "operation": "replace",
+      "pointer": "/artifact_version",
+      "value": "1",
+      "expected_diagnostic": "ProgramSchemaViolation"
+    },
+    {
+      "case_id": "MP-INVALID-UNKNOWN-INSTRUCTION",
+      "operation": "replace",
+      "pointer": "/nodes/1/instruction",
+      "value": "state.set",
+      "expected_diagnostic": "ProgramSchemaViolation"
+    },
+    {
+      "case_id": "MP-INVALID-UNKNOWN-CONTRACT",
+      "operation": "replace",
+      "pointer": "/nodes/1/contract/contract_id",
+      "value": "unknown.transition",
+      "expected_diagnostic": "ProgramUnknownContract"
+    },
+    {
+      "case_id": "MP-INVALID-HOST-ENERGY-LIMIT",
+      "operation": "replace",
+      "pointer": "/budget/energy_j",
+      "value": 1000000001,
+      "expected_diagnostic": "ProgramEnergyLimitExceeded"
+    },
+    {
+      "case_id": "MP-INVALID-FABRICATED-DIRECT-SOURCE",
+      "operation": "add",
+      "pointer": "/provenance/source",
+      "value": {
+        "artifact_kind": "SurfaceSource",
+        "artifact_version": "0",
+        "artifact_id": "fabricated:source",
+        "stage": "source"
+      },
+      "expected_diagnostic": "ProgramSchemaViolation"
+    },
+    {
+      "case_id": "MP-INVALID-EFFECT-WITHOUT-OBLIGATIONS",
+      "operation": "remove",
+      "pointer": "/nodes/1/obligations",
+      "expected_diagnostic": "ProgramSchemaViolation"
+    },
+    {
+      "case_id": "MP-INVALID-CONCRETE-CAPABILITY-ID",
+      "operation": "replace",
+      "pointer": "/nodes/1/obligations/capabilities/0",
+      "value": "capability:forged",
+      "expected_diagnostic": "ProgramSchemaViolation"
+    },
+    {
+      "case_id": "MP-INVALID-REQUIREMENT-TARGET-NOT-INPUT",
+      "operation": "replace",
+      "pointer": "/nodes/1/obligations/capabilities/0/target_binding",
+      "value": "target_selector",
+      "expected_diagnostic": "ProgramRequirementTargetNotInput"
+    },
+    {
+      "case_id": "MP-INVALID-ARBITRARY-STATE-PATH",
+      "operation": "add",
+      "pointer": "/nodes/1/state_path",
+      "value": "/Sigma/entities/target/raw",
+      "expected_diagnostic": "ProgramSchemaViolation"
+    }
+  ]
+}

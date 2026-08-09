@@ -1,0 +1,119 @@
+{
+  "artifact_kind": "MagicalProgram",
+  "artifact_version": "0",
+  "contract": {
+    "contract_id": "magical-program",
+    "revision": "0"
+  },
+  "stability": "experimental",
+  "program_id": "program:bounded-observation:001",
+  "provenance": {
+    "relation": "direct",
+    "input_stage": "program"
+  },
+  "compatibility": {
+    "registry_id": "registry:reference-experimental",
+    "registry_revision": "1",
+    "profile_id": "profile:reference-experimental",
+    "profile_revision": "1"
+  },
+  "budget": {
+    "energy_j": 0,
+    "events": 1,
+    "microsteps": 8,
+    "concurrency": 1
+  },
+  "values": [
+    {
+      "value_id": "target_selector",
+      "kind": "selector",
+      "selector": {
+        "entity_type": "test-target",
+        "scope": "local"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "node_id": "resolve_target",
+      "order": 0,
+      "instruction": "ref.resolve",
+      "inputs": ["target_selector"],
+      "produces": ["target_ref"]
+    },
+    {
+      "node_id": "observe_target",
+      "order": 1,
+      "instruction": "evidence.observe",
+      "inputs": ["target_ref"],
+      "produces": ["observation"],
+      "contract": {
+        "contract_id": "generic.observe",
+        "revision": "1"
+      },
+      "obligations": {
+        "capabilities": [
+          {
+            "requirement_id": "capability.observe",
+            "target_binding": "target_ref",
+            "effect": "Observe"
+          }
+        ],
+        "leases": [],
+        "identities": [
+          {
+            "requirement_id": "identity.target",
+            "target_binding": "target_ref"
+          }
+        ],
+        "evidence": [
+          {
+            "requirement_id": "evidence.freshness",
+            "target_binding": "target_ref",
+            "kind": "FreshnessAnchor"
+          }
+        ],
+        "accounting": [
+          {
+            "requirement_id": "accounting.observation",
+            "target_binding": "target_ref",
+            "kind": "EventJournal"
+          }
+        ],
+        "resources": {
+          "energy_j": 0,
+          "matter_kg": 0,
+          "events": 1
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "resolve_target",
+      "to": "observe_target"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "target",
+      "binding": "target_ref",
+      "kind": "reference"
+    },
+    {
+      "name": "observation",
+      "binding": "observation",
+      "kind": "evidence"
+    },
+    {
+      "name": "artifact",
+      "binding": "observation",
+      "kind": "artifact"
+    },
+    {
+      "name": "event",
+      "binding": "observation",
+      "kind": "event"
+    }
+  ]
+}

@@ -1,0 +1,608 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/planning-inference.schema.json",
+  "title": "Unknown inference and planning-assumption contract",
+  "description": "Planning metadata layered after source semantics. It does not rewrite NSR Unknowns, prove mandatory obligations, add an MKI primitive, or provide a runtime safety guarantee.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "case_id",
+    "source_semantics",
+    "inference_records",
+    "planning_assumptions",
+    "generation_goal",
+    "candidate_plans",
+    "selection",
+    "terminal_policy"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common-values.schema.json#/$defs/version"},
+    "case_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+    "source_semantics": {"$ref": "#/$defs/sourceSemantics"},
+    "inference_records": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/inferenceRecord"}
+    },
+    "planning_assumptions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/planningAssumption"}
+    },
+    "generation_goal": {"$ref": "#/$defs/generationGoal"},
+    "candidate_plans": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/candidatePlan"}
+    },
+    "selection": {"$ref": "#/$defs/planSelection"},
+    "terminal_policy": {"$ref": "#/$defs/terminalPolicy"},
+    "planner_predictions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/plannerPrediction"}
+    },
+    "reactive_controls": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/reactiveControl"}
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "unknownClassification": {
+      "oneOf": [
+        {
+          "enum": [
+            "MissingArgument",
+            "ContextDependent",
+            "WorldDependent",
+            "ModelDependent",
+            "FutureDependent",
+            "Underdetermined",
+            "Unavailable"
+          ]
+        },
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]*:[A-Za-z0-9_.-]+$"
+        }
+      ]
+    },
+    "semanticUnknown": {
+      "type": "object",
+      "required": ["kind", "reason"],
+      "properties": {
+        "kind": {"const": "Unknown"},
+        "reason": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "sourceValue": {
+      "oneOf": [
+        {"$ref": "#/$defs/semanticUnknown"},
+        {
+          "type": "object",
+          "required": ["kind", "value"],
+          "properties": {
+            "kind": {"const": "Explicit"},
+            "value": {}
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "sourceConstraint": {
+      "type": "object",
+      "required": ["field_path", "source_value"],
+      "properties": {
+        "field_path": {"type": "string", "minLength": 1},
+        "source_value": {"$ref": "#/$defs/sourceValue"}
+      },
+      "additionalProperties": false
+    },
+    "sourceSemantics": {
+      "type": "object",
+      "required": ["source_id", "constraints"],
+      "properties": {
+        "source_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "semantic_fingerprint": {
+          "type": "string",
+          "pattern": "^sf:v1:sha256:[0-9a-f]{64}$"
+        },
+        "constraints": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/sourceConstraint"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "inferenceCriticality": {
+      "enum": ["MustResolve", "EstimateAllowed", "Optional"]
+    },
+    "estimator": {
+      "type": "object",
+      "required": ["class", "trust"],
+      "properties": {
+        "class": {
+          "enum": [
+            "DeterministicDerivation",
+            "ContextInference",
+            "WorldProjection",
+            "OptimizationInference",
+            "StatisticalPrediction",
+            "ProfileDefault",
+            "AIProposal"
+          ]
+        },
+        "id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "revision": {"$ref": "common-values.schema.json#/$defs/revision"},
+        "trust": {"enum": ["Deterministic", "ProfileDefined", "ProposalOnly", "Untrusted"]}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "class": {
+                "enum": [
+                  "WorldProjection",
+                  "StatisticalPrediction",
+                  "ProfileDefault",
+                  "AIProposal"
+                ]
+              }
+            },
+            "required": ["class"]
+          },
+          "then": {"required": ["id", "revision"]}
+        },
+        {
+          "if": {
+            "properties": {"class": {"const": "AIProposal"}},
+            "required": ["class"]
+          },
+          "then": {"properties": {"trust": {"const": "Untrusted"}}}
+        },
+        {
+          "if": {
+            "properties": {"class": {"const": "StatisticalPrediction"}},
+            "required": ["class"]
+          },
+          "then": {
+            "properties": {"trust": {"enum": ["ProposalOnly", "Untrusted"]}}
+          }
+        }
+      ]
+    },
+    "worldContext": {
+      "type": "object",
+      "required": ["world_index_revision", "source_world_revision"],
+      "properties": {
+        "world_index_revision": {
+          "$ref": "common-values.schema.json#/$defs/revision"
+        },
+        "source_world_revision": {
+          "$ref": "common-values.schema.json#/$defs/revision"
+        }
+      },
+      "additionalProperties": false
+    },
+    "selectionRecord": {
+      "type": "object",
+      "required": ["rule"],
+      "properties": {
+        "rule": {"type": "string", "minLength": 1},
+        "objective": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "binding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["mode", "binding_point"],
+          "properties": {
+            "mode": {"enum": ["PrepareBound", "CommitBound"]},
+            "binding_point": {"enum": ["PREPARE", "COMMIT"]}
+          },
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {"mode": {"const": "PrepareBound"}},
+                "required": ["mode"]
+              },
+              "then": {
+                "properties": {"binding_point": {"const": "PREPARE"}}
+              }
+            },
+            {
+              "if": {
+                "properties": {"mode": {"const": "CommitBound"}},
+                "required": ["mode"]
+              },
+              "then": {
+                "properties": {"binding_point": {"const": "COMMIT"}}
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "required": ["mode", "reactive_control_id"],
+          "properties": {
+            "mode": {"const": "Dynamic"},
+            "reactive_control_id": {
+              "$ref": "common-values.schema.json#/$defs/identifier"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "validity": {
+      "type": "object",
+      "properties": {
+        "max_distance": {"$ref": "common-values.schema.json#/$defs/quantity"},
+        "max_duration": {"$ref": "common-values.schema.json#/$defs/duration"},
+        "max_energy": {"$ref": "common-values.schema.json#/$defs/quantity"},
+        "notes": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {"required": ["max_distance"]},
+        {"required": ["max_duration"]},
+        {"required": ["max_energy"]}
+      ]
+    },
+    "inferenceRecord": {
+      "type": "object",
+      "required": [
+        "record_id",
+        "target",
+        "unknown",
+        "criticality",
+        "estimate",
+        "estimator",
+        "evidence_ids",
+        "assumption_ids",
+        "diagnostics"
+      ],
+      "properties": {
+        "record_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "target": {
+          "type": "object",
+          "required": ["field_path", "value_role"],
+          "properties": {
+            "field_path": {"type": "string", "minLength": 1},
+            "value_role": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        },
+        "unknown": {
+          "type": "object",
+          "required": ["reason", "classification"],
+          "properties": {
+            "reason": {"type": "string", "minLength": 1},
+            "classification": {"$ref": "#/$defs/unknownClassification"}
+          },
+          "additionalProperties": false
+        },
+        "criticality": {"$ref": "#/$defs/inferenceCriticality"},
+        "estimate": {
+          "$ref": "feasibility-report.schema.json#/$defs/estimate"
+        },
+        "estimator": {"$ref": "#/$defs/estimator"},
+        "evidence_ids": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "assumption_ids": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "world_context": {"$ref": "#/$defs/worldContext"},
+        "selected_planning_value": {},
+        "selection": {"$ref": "#/$defs/selectionRecord"},
+        "binding": {"$ref": "#/$defs/binding"},
+        "validity": {"$ref": "#/$defs/validity"},
+        "diagnostics": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {"criticality": {"const": "MustResolve"}},
+            "required": ["criticality"]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {"required": ["selected_planning_value"]},
+                {"required": ["selection"]},
+                {"required": ["binding"]}
+              ]
+            }
+          }
+        },
+        {
+          "if": {"required": ["selected_planning_value"]},
+          "then": {
+            "required": ["selection", "binding", "validity"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "estimator": {
+                "properties": {"class": {"const": "WorldProjection"}},
+                "required": ["class"]
+              }
+            },
+            "required": ["estimator"]
+          },
+          "then": {"required": ["world_context"]}
+        }
+      ]
+    },
+    "planningAssumption": {
+      "type": "object",
+      "required": [
+        "assumption_id",
+        "semantic_status",
+        "inference_record_id",
+        "selected_value",
+        "binding",
+        "validity"
+      ],
+      "properties": {
+        "assumption_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "semantic_status": {"const": "PlanningAssumption"},
+        "inference_record_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "selected_value": {},
+        "binding": {"$ref": "#/$defs/binding"},
+        "validity": {"$ref": "#/$defs/validity"}
+      },
+      "additionalProperties": false
+    },
+    "generationGoal": {
+      "type": "object",
+      "required": [
+        "kind",
+        "surface_action",
+        "source_semantics_id",
+        "preserved_constraint_paths",
+        "desired_state"
+      ],
+      "properties": {
+        "kind": {"const": "DesiredWorldState"},
+        "surface_action": {"const": "generate"},
+        "source_semantics_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "preserved_constraint_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "desired_state": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "mandatoryObligation": {
+      "type": "object",
+      "required": ["kind", "status", "basis"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "Type",
+            "Identity",
+            "Conservation",
+            "Authority",
+            "Lease",
+            "Sandbox"
+          ]
+        },
+        "status": {
+          "enum": ["Verified", "Reserved", "Unsatisfied", "Indeterminate"]
+        },
+        "basis": {
+          "enum": [
+            "AuthoritativeEvidence",
+            "DeterministicProof",
+            "Reservation",
+            "RuntimeGuard"
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidatePlan": {
+      "type": "object",
+      "required": [
+        "plan_id",
+        "source_semantics_id",
+        "source_fidelity",
+        "mandatory_obligations",
+        "feasibility",
+        "operations",
+        "energy"
+      ],
+      "properties": {
+        "plan_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "source_semantics_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "source_fidelity": {"enum": ["Pass", "Fail"]},
+        "mandatory_obligations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/mandatoryObligation"}
+        },
+        "feasibility": {
+          "enum": [
+            "Feasible",
+            "ConditionallyFeasible",
+            "Infeasible",
+            "Indeterminate"
+          ]
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "RESOLVE",
+              "OBSERVE",
+              "CHANNEL",
+              "TRANSFER",
+              "RECONFIGURE",
+              "CONSTRAIN"
+            ]
+          }
+        },
+        "energy": {
+          "$ref": "feasibility-report.schema.json#/$defs/energyEstimate"
+        },
+        "assumption_ids": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "notes": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "planSelection": {
+      "type": "object",
+      "required": ["selected_plan_id", "ordering", "objective"],
+      "properties": {
+        "selected_plan_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "ordering": {
+          "const": [
+            "SourceSemanticFidelity",
+            "MandatoryObligations",
+            "Feasibility",
+            "OptimizationObjective"
+          ]
+        },
+        "objective": {"const": "MinimumEstimatedTotalEnergy"}
+      },
+      "additionalProperties": false
+    },
+    "terminalPolicy": {
+      "type": "object",
+      "required": [
+        "source_terminal",
+        "precedence",
+        "selected_source",
+        "inference_record_id",
+        "binding",
+        "bounds"
+      ],
+      "properties": {
+        "source_terminal": {"$ref": "#/$defs/semanticUnknown"},
+        "precedence": {
+          "const": [
+            "ExplicitTerminal",
+            "SemanticTarget",
+            "WorldProjection",
+            "ProfileHorizon"
+          ]
+        },
+        "selected_source": {
+          "enum": [
+            "SemanticTarget",
+            "WorldProjection",
+            "ProfileHorizon"
+          ]
+        },
+        "inference_record_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "binding": {"$ref": "#/$defs/binding"},
+        "bounds": {"$ref": "#/$defs/validity"}
+      },
+      "additionalProperties": false
+    },
+    "plannerPrediction": {
+      "type": "object",
+      "required": [
+        "prediction_id",
+        "kind",
+        "binding",
+        "runtime_safety_guarantee",
+        "late_world_change_behavior"
+      ],
+      "properties": {
+        "prediction_id": {
+          "$ref": "common-values.schema.json#/$defs/identifier"
+        },
+        "kind": {"type": "string", "minLength": 1},
+        "binding": {"$ref": "#/$defs/binding"},
+        "runtime_safety_guarantee": {"const": false},
+        "late_world_change_behavior": {
+          "enum": [
+            "RemainBoundUnlessMandatoryInvariant",
+            "DynamicReactiveControl"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "binding": {
+                "properties": {"mode": {"const": "Dynamic"}},
+                "required": ["mode"]
+              }
+            },
+            "required": ["binding"]
+          },
+          "then": {
+            "properties": {
+              "late_world_change_behavior": {"const": "DynamicReactiveControl"}
+            }
+          },
+          "else": {
+            "properties": {
+              "late_world_change_behavior": {
+                "const": "RemainBoundUnlessMandatoryInvariant"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "reactiveControl": {
+      "type": "object",
+      "required": ["control_id", "semantics", "operation"],
+      "properties": {
+        "control_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "semantics": {"const": "ExplicitDynamic"},
+        "operation": {"const": "CONSTRAIN"},
+        "purpose": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  }
+}

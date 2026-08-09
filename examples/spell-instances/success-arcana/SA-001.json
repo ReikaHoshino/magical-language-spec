@@ -1,0 +1,248 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "SUCCESS-ARCANA-001",
+  "suite_id": "Experimental-Arcana-0",
+  "scenario_kind": "boundary-reflection",
+  "support_level": "implemented",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "RegisteredSpellCommand",
+      "action": "boundary-reflection",
+      "roles": [
+        {
+          "role": "Patient",
+          "value": {
+            "kind": "Reference",
+            "semantic_kind": "FixtureSubject",
+            "value": "subject:SUCCESS-ARCANA-001"
+          }
+        }
+      ],
+      "provenance": {
+        "adapter_id": null,
+        "adapter_revision": null,
+        "source_language_tags": [],
+        "provider": "SpellInstanceBundle",
+        "source_hash": null,
+        "evidence_ids": [
+          "SUCCESS-ARCANA-001"
+        ]
+      }
+    }
+  },
+  "semantic_contract": {
+    "contract_id": "controller.boundary-reflection",
+    "revision": "1"
+  },
+  "runtime_contract": {
+    "contract_id": "runtime.boundary-controller",
+    "revision": "1"
+  },
+  "registry_extensions": {
+    "controller_models": [
+      {
+        "model_id": "controller.boundary-reflection",
+        "revision": "1",
+        "valid_domain": {
+          "maximum_target_mass_kg": 20
+        },
+        "per_actuation_revalidation": true,
+        "no_authority_amplification": true
+      }
+    ]
+  },
+  "profiles": {
+    "runtime": {
+      "artifact_id": "runtime-profile:SUCCESS-ARCANA-001",
+      "revision": "1"
+    },
+    "sandbox": {
+      "artifact_id": "sandbox-profile:SUCCESS-ARCANA-001",
+      "revision": "1",
+      "limits": {
+        "max_energy_j": 14.4,
+        "max_events_per_commit": 16,
+        "max_microsteps_per_tick": 32,
+        "max_concurrency": 1
+      }
+    }
+  },
+  "world_index": {
+    "world_index_revision": "wi:SUCCESS-ARCANA-001:1",
+    "source_world_revision": "world:sa001:1",
+    "records": [
+      {
+        "entity_id": "entity:sa001:anchor",
+        "state_revision": "state-revision:anchor@world:sa001:1"
+      },
+      {
+        "entity_id": "entity:sa001:intruder",
+        "state_revision": "state-revision:intruder@world:sa001:1"
+      }
+    ]
+  },
+  "initial_world": {
+    "revision": "world:sa001:1",
+    "entities": {
+      "entity:sa001:anchor": {
+        "entity_id": "entity:sa001:anchor",
+        "state_revision": "state-revision:anchor@world:sa001:1",
+        "kind": "Anchor",
+        "normal_momentum_kg_m_s": 0
+      },
+      "entity:sa001:intruder": {
+        "entity_id": "entity:sa001:intruder",
+        "state_revision": "state-revision:intruder@world:sa001:1",
+        "kind": "MatterEntity",
+        "mass_kg": 10,
+        "normal_momentum_kg_m_s": 20,
+        "crossing": true,
+        "authorized": false
+      }
+    },
+    "capabilities": {
+      "capability:sa001:boundary-actuation": {
+        "active": true,
+        "effects": [
+          "Constrain"
+        ]
+      }
+    },
+    "leases": {
+      "lease:sa001:controller": {
+        "active": true,
+        "entity_id": "entity:sa001:anchor",
+        "mode": "Actuate"
+      }
+    },
+    "ledgers": {
+      "ledger:sa001:momentum-energy": {
+        "active": true,
+        "target_momentum_kg_m_s": 20,
+        "anchor_momentum_kg_m_s": 0,
+        "dissipated_energy_j": 0
+      }
+    },
+    "history": [],
+    "controllers": {},
+    "runtime_state": {},
+    "process_state": {
+      "process_id": "process:sa001",
+      "status": "Idle",
+      "prepared_plan_id": null
+    }
+  },
+  "execution": {
+    "operations": [
+      "RESOLVE",
+      "OBSERVE",
+      "CONSTRAIN"
+    ],
+    "parameters": {
+      "target_entity_id": "entity:sa001:intruder",
+      "reaction_anchor_id": "entity:sa001:anchor",
+      "ledger_id": "ledger:sa001:momentum-energy",
+      "controller_id": "controller:sa001:boundary-reflection",
+      "protected_region_id": "region:sevenfold-sanctuary",
+      "coefficient_of_restitution": 0.8,
+      "maximum_target_mass_kg": 20,
+      "maximum_incident_momentum_kg_m_s": 50,
+      "maximum_impulse_kg_m_s": 50,
+      "maximum_energy_j": 10,
+      "event_latency_ms": 2,
+      "max_event_latency_ms": 5,
+      "jitter_ms": 0.5,
+      "max_jitter_ms": 1,
+      "authorized_event_id": "event:sa001:authorized-passage",
+      "reflection_event_id": "event:sa001:reflection",
+      "result_world_revision": "world:sa001:2"
+    },
+    "required_evidence": {
+      "resolution": [
+        "state-revision:intruder@world:sa001:1",
+        "state-revision:anchor@world:sa001:1"
+      ],
+      "capabilities": [
+        "capability:sa001:boundary-actuation"
+      ],
+      "leases": [
+        "lease:sa001:controller"
+      ],
+      "accounting": [
+        "ledger:sa001:momentum-energy"
+      ]
+    },
+    "energy_budget_j": 7.2,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Feasible",
+    "runtime_status": "Committed",
+    "diagnostic_codes": [],
+    "final_invariants": {
+      "Sigma": {
+        "revision": "world:sa001:2"
+      }
+    },
+    "replay_status": "Match",
+    "expected_event_ids": ["event:sa001:reflection"]
+  },
+  "variants": [
+    {"variant_id": "revoked-boundary-capability", "mutations": [{"pointer": "/initial_world/capabilities/capability:sa001:boundary-actuation/active", "value": false}], "expected_diagnostic": "AuthorityError"},
+    {"variant_id": "insufficient-accounting", "mutations": [{"pointer": "/initial_world/ledgers/ledger:sa001:momentum-energy/active", "value": false}], "expected_diagnostic": "ConservationProofFailure"},
+    {"variant_id": "target-outside-domain", "mutations": [{"pointer": "/initial_world/entities/entity:sa001:intruder/mass_kg", "value": 25}], "expected_diagnostic": "ControllerDomainExceeded"},
+    {"variant_id": "timing-bound-violation", "mutations": [{"pointer": "/execution/parameters/event_latency_ms", "value": 9}], "expected_diagnostic": "ControllerTimingViolation"}
+  ],
+  "provenance": {
+    "definition_sources": [
+      "reference/spell-instance-bundles.md",
+      "reference/success-arcana.md"
+    ],
+    "generator": "repository-fixture",
+    "notes": [
+      "Experimental optional conformance only."
+    ]
+  },
+  "compatibility": {
+    "required_domains": [
+      "SpellInstanceBundle",
+      "SemanticContract",
+      "RuntimeContract"
+    ],
+    "decisions": [
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-001:SpellInstanceBundle",
+        "profile": {
+          "domain": "SpellInstanceBundle"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-001:SemanticContract",
+        "profile": {
+          "domain": "SemanticContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-001:RuntimeContract",
+        "profile": {
+          "domain": "RuntimeContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      }
+    ]
+  }
+}

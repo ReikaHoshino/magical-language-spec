@@ -1,0 +1,112 @@
+{
+  "artifact_kind": "MagicalProgram",
+  "artifact_version": "0",
+  "contract": {
+    "contract_id": "magical-program",
+    "revision": "0"
+  },
+  "stability": "experimental",
+  "program_id": "program:pure-arithmetic:001",
+  "provenance": {
+    "relation": "direct",
+    "input_stage": "program"
+  },
+  "compatibility": {
+    "registry_id": "registry:reference-experimental",
+    "registry_revision": "1",
+    "profile_id": "profile:reference-experimental",
+    "profile_revision": "1"
+  },
+  "budget": {
+    "energy_j": 0,
+    "events": 0,
+    "microsteps": 4,
+    "concurrency": 1
+  },
+  "values": [
+    {
+      "value_id": "left",
+      "kind": "quantity",
+      "semantic_type": "Length",
+      "dimension": "L1",
+      "unit": "m",
+      "value": 2
+    },
+    {
+      "value_id": "right",
+      "kind": "quantity",
+      "semantic_type": "Length",
+      "dimension": "L1",
+      "unit": "m",
+      "value": 3
+    },
+    {
+      "value_id": "limit",
+      "kind": "quantity",
+      "semantic_type": "Length",
+      "dimension": "L1",
+      "unit": "m",
+      "value": 10
+    }
+  ],
+  "nodes": [
+    {
+      "node_id": "sum",
+      "order": 0,
+      "instruction": "pure.calculate",
+      "inputs": [
+        "left",
+        "right"
+      ],
+      "produces": [
+        "total"
+      ],
+      "operator": "add"
+    },
+    {
+      "node_id": "within_limit",
+      "order": 1,
+      "instruction": "pure.compare",
+      "inputs": [
+        "total",
+        "limit"
+      ],
+      "produces": [
+        "allowed"
+      ],
+      "operator": "less_equal"
+    },
+    {
+      "node_id": "require_limit",
+      "order": 2,
+      "instruction": "assert.require",
+      "inputs": [
+        "allowed"
+      ],
+      "produces": [],
+      "diagnostic_code": "PureLimitExceeded"
+    }
+  ],
+  "edges": [
+    {
+      "from": "sum",
+      "to": "within_limit"
+    },
+    {
+      "from": "within_limit",
+      "to": "require_limit"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "total",
+      "binding": "total",
+      "kind": "value"
+    },
+    {
+      "name": "allowed",
+      "binding": "allowed",
+      "kind": "value"
+    }
+  ]
+}

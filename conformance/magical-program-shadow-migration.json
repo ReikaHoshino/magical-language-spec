@@ -1,0 +1,129 @@
+{
+  "manifest_version": "0",
+  "stability": "experimental",
+  "source_root": "examples/spell-instances",
+  "selection_policy": {
+    "dispatch_keys": ["semantic_contract", "runtime_contract"],
+    "forbidden_keys": ["path", "filename", "suite_id", "instance_id", "display_name"],
+    "legacy_executor_role": "external-frozen-oracle-only"
+  },
+  "normalizations": [
+    {
+      "normalization_id": "authority-binding-status",
+      "legacy": "Feasible",
+      "generic": "ConditionallyFeasible",
+      "normalized": "ExecutablePendingOrCompletedAuthorityBinding",
+      "reason": "Issue #110 corrected the generic evaluator so syntax cannot imply current authority; raw values remain recorded."
+    }
+  ],
+  "inventory": [
+    {
+      "migration_id": "MIG-GENERIC-001",
+      "order": 1,
+      "path": "examples/spell-instances/generic/GENERIC-001.json",
+      "semantic_contract": {"contract_id": "example.generic-transition", "revision": "1"},
+      "runtime_contract": {"contract_id": "runtime.generic-transition", "revision": "1"},
+      "classification": "implemented",
+      "phase": "foundation"
+    },
+    {
+      "migration_id": "MIG-SA-003",
+      "order": 2,
+      "path": "examples/spell-instances/success-arcana/SA-003.json",
+      "semantic_contract": {"contract_id": "evidence.snapshot-fusion", "revision": "1"},
+      "runtime_contract": {"contract_id": "runtime.evidence-artifact", "revision": "1"},
+      "classification": "implemented",
+      "phase": "success-arcana"
+    },
+    {
+      "migration_id": "MIG-SA-001",
+      "order": 3,
+      "path": "examples/spell-instances/success-arcana/SA-001.json",
+      "semantic_contract": {"contract_id": "controller.boundary-reflection", "revision": "1"},
+      "runtime_contract": {"contract_id": "runtime.boundary-controller", "revision": "1"},
+      "classification": "implemented",
+      "phase": "success-arcana"
+    },
+    {
+      "migration_id": "MIG-SA-002",
+      "order": 4,
+      "path": "examples/spell-instances/success-arcana/SA-002.json",
+      "semantic_contract": {"contract_id": "treatment.staged-repair", "revision": "1"},
+      "runtime_contract": {"contract_id": "runtime.staged-treatment", "revision": "1"},
+      "classification": "implemented",
+      "phase": "success-arcana"
+    },
+    {
+      "migration_id": "MIG-SA-004",
+      "order": 5,
+      "path": "examples/spell-instances/success-arcana/SA-004.json",
+      "semantic_contract": {"contract_id": "dynamics.explosion", "revision": "1"},
+      "runtime_contract": {"contract_id": "runtime.explosion", "revision": "1"},
+      "classification": "implemented",
+      "phase": "success-arcana"
+    },
+    {
+      "migration_id": "MIG-SA-005",
+      "order": 6,
+      "path": "examples/spell-instances/success-arcana/SA-005.json",
+      "semantic_contract": {"contract_id": "light.guidance", "revision": "1"},
+      "runtime_contract": null,
+      "classification": "recognized-unsupported",
+      "phase": "foundation"
+    },
+    {
+      "migration_id": "MIG-SA-006",
+      "order": 7,
+      "path": "examples/spell-instances/success-arcana/SA-006.json",
+      "semantic_contract": {"contract_id": "dynamics.levitation", "revision": "1"},
+      "runtime_contract": null,
+      "classification": "recognized-unsupported",
+      "phase": "foundation"
+    },
+    {
+      "migration_id": "MIG-SA-007",
+      "order": 8,
+      "path": "examples/spell-instances/success-arcana/SA-007.json",
+      "semantic_contract": {"contract_id": "matter.purification", "revision": "1"},
+      "runtime_contract": null,
+      "classification": "recognized-unsupported",
+      "phase": "foundation"
+    },
+    {
+      "migration_id": "MIG-SA-008",
+      "order": 9,
+      "path": "examples/spell-instances/success-arcana/SA-008.json",
+      "semantic_contract": {"contract_id": "observer.poison-detection", "revision": "1"},
+      "runtime_contract": null,
+      "classification": "recognized-unsupported",
+      "phase": "foundation"
+    },
+    {
+      "migration_id": "MIG-DEBUG-HELL-001",
+      "order": 10,
+      "path": "examples/spell-instances/debug-hell/DEBUG-HELL-001.json",
+      "semantic_contract": {"contract_id": "debug.pathological-planning", "revision": "1"},
+      "runtime_contract": null,
+      "classification": "adversarial",
+      "phase": "debug-hell"
+    },
+    {
+      "migration_id": "MIG-DEBUG-HELL-002",
+      "order": 11,
+      "path": "examples/spell-instances/debug-hell/DEBUG-HELL-002.json",
+      "semantic_contract": {"contract_id": "debug.prepare-bound-transit", "revision": "1"},
+      "runtime_contract": {"contract_id": "runtime.prepare-bound-transit", "revision": "1"},
+      "classification": "adversarial",
+      "phase": "debug-hell"
+    },
+    {
+      "migration_id": "MIG-DEBUG-HELL-003",
+      "order": 12,
+      "path": "examples/spell-instances/debug-hell/DEBUG-HELL-003.json",
+      "semantic_contract": {"contract_id": "debug.reactive-budget", "revision": "1"},
+      "runtime_contract": {"contract_id": "runtime.reactive-hydra", "revision": "1"},
+      "classification": "adversarial",
+      "phase": "debug-hell"
+    }
+  ]
+}

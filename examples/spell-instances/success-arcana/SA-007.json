@@ -1,0 +1,151 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "SUCCESS-ARCANA-007",
+  "suite_id": "Experimental-Arcana-0",
+  "scenario_kind": "purification",
+  "support_level": "recognized-unsupported",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "RegisteredSpellCommand",
+      "action": "purification",
+      "roles": [
+        {
+          "role": "Patient",
+          "value": {
+            "kind": "Reference",
+            "semantic_kind": "FixtureSubject",
+            "value": "subject:SUCCESS-ARCANA-007"
+          }
+        }
+      ],
+      "provenance": {
+        "adapter_id": null,
+        "adapter_revision": null,
+        "source_language_tags": [],
+        "provider": "SpellInstanceBundle",
+        "source_hash": null,
+        "evidence_ids": [
+          "SUCCESS-ARCANA-007"
+        ]
+      }
+    }
+  },
+  "semantic_contract": {
+    "contract_id": "matter.purification",
+    "revision": "1"
+  },
+  "runtime_contract": null,
+  "registry_extensions": {},
+  "profiles": {
+    "runtime": {
+      "artifact_id": "runtime-profile:SUCCESS-ARCANA-007",
+      "revision": "1"
+    },
+    "sandbox": {
+      "artifact_id": "sandbox-profile:SUCCESS-ARCANA-007",
+      "revision": "1",
+      "limits": {
+        "max_energy_j": 2,
+        "max_events_per_commit": 16,
+        "max_microsteps_per_tick": 32,
+        "max_concurrency": 1
+      }
+    }
+  },
+  "world_index": {
+    "world_index_revision": "wi:SUCCESS-ARCANA-007:1",
+    "source_world_revision": "world:SUCCESS-ARCANA-007:1",
+    "records": [
+      {
+        "entity_id": "entity:SUCCESS-ARCANA-007:subject",
+        "state_revision": "state-revision:SUCCESS-ARCANA-007:1"
+      }
+    ]
+  },
+  "initial_world": {
+    "revision": "world:SUCCESS-ARCANA-007:1",
+    "entities": {
+      "entity:SUCCESS-ARCANA-007:subject": {
+        "entity_id": "entity:SUCCESS-ARCANA-007:subject",
+        "state_revision": "state-revision:SUCCESS-ARCANA-007:1",
+        "kind": "FixtureSubject"
+      }
+    },
+    "capabilities": {},
+    "leases": {},
+    "ledgers": {},
+    "history": [],
+    "controllers": {},
+    "runtime_state": {},
+    "process_state": {
+      "process_id": "process:SUCCESS-ARCANA-007",
+      "status": "Idle",
+      "prepared_plan_id": null
+    }
+  },
+  "execution": {
+    "operations": [
+      "RESOLVE"
+    ],
+    "parameters": {},
+    "required_evidence": {
+      "resolution": [],
+      "capabilities": [],
+      "leases": [],
+      "accounting": []
+    },
+    "energy_budget_j": 0,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Indeterminate",
+    "runtime_status": null,
+    "diagnostic_codes": [
+      "UnsupportedSemanticSubset"
+    ],
+    "final_invariants": {},
+    "replay_status": null
+  },
+  "variants": [],
+  "provenance": {
+    "definition_sources": [
+      "reference/spell-instance-bundles.md",
+      "reference/success-arcana.md"
+    ],
+    "generator": "repository-fixture",
+    "notes": [
+      "Experimental optional conformance only."
+    ]
+  },
+  "compatibility": {
+    "required_domains": [
+      "SpellInstanceBundle",
+      "SemanticContract"
+    ],
+    "decisions": [
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-007:SpellInstanceBundle",
+        "profile": {
+          "domain": "SpellInstanceBundle"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      },
+      {
+        "decision_id": "decision:SUCCESS-ARCANA-007:SemanticContract",
+        "profile": {
+          "domain": "SemanticContract"
+        },
+        "result": {
+          "status": "Compatible",
+          "reason_code": "ExactExperimentalContract"
+        }
+      }
+    ]
+  }
+}

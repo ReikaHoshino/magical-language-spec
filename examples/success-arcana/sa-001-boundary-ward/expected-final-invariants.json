@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedFinalInvariants","schema_version":"1","fixture_id":"SUCCESS-ARCANA-001","expected":{"MomentumBalanced":true,"EnergyBalanced":true,"AuthorizedEntityUnaffected":true,"ActiveEffectSemanticProjection":true,"NoAuthorityAmplification":true}}

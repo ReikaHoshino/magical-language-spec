@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedRuntimeTrace","schema_version":"1","fixture_id":"SUCCESS-ARCANA-001","expected":{"status":"Committed","result_world_revision":"world:sa001:2","history_event_ids":["event:sa001:reflection"],"target_normal_momentum_kg_m_s":-16,"anchor_normal_momentum_kg_m_s":36,"dissipated_energy_j":7.2,"controller_active":true}}

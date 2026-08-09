@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/nsr.schema.json",
+  "title": "Normalized Semantic Representation v0.7.3",
+  "type": "object",
+  "required": ["schema_version", "kind", "roles"],
+  "properties": {
+    "schema_version": {"$ref": "common-values.schema.json#/$defs/version"},
+    "kind": {"type": "string"},
+    "action": {"type": ["string", "null"]},
+    "roles": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/role"}
+    },
+    "modifiers": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/semanticValue"}
+    },
+    "conditions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/semanticValue"}
+    },
+    "constraints": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/semanticValue"}
+    },
+    "unknowns": {
+      "description": "Diagnostic/index summary only. Semantic Unknown values occur at their semantic value positions.",
+      "type": "array",
+      "items": {"$ref": "#/$defs/unknown"}
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "adapter_id": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/identifier"}
+          ]
+        },
+        "adapter_revision": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/revision"}
+          ]
+        },
+        "source_language_tags": {"type": "array", "items": {"type": "string"}},
+        "provider": {"type": ["string", "null"]},
+        "source_hash": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "common-values.schema.json#/$defs/sourceEvidenceHash"}
+          ]
+        },
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "ambiguity": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "enum": ["StrictReject", "InteractiveResolve", "ContextualDeterministic", "LegacyPermissive"]
+        },
+        "candidate_id": {"type": ["string", "null"]},
+        "alternative_candidate_ids": {"type": "array", "items": {"type": "string"}},
+        "decision_evidence_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "semantic_fingerprint": {
+      "description": "SemanticFingerprintV1. This is not an artifact content_hash.",
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/semanticFingerprintV1"}
+      ]
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "role": {
+      "type": "object",
+      "required": ["role", "value"],
+      "properties": {
+        "role": {"$ref": "semantic-roles.schema.json#/$defs/semanticRole"},
+        "value": {"$ref": "#/$defs/semanticValue"}
+      },
+      "additionalProperties": true
+    },
+    "semanticValue": {
+      "type": "object",
+      "required": ["kind"],
+      "description": "Omitted properties, explicit JSON null, and kind=Unknown are distinct.",
+      "properties": {
+        "kind": {
+          "enum": ["SemanticKind", "SelectorProposal", "Literal", "Reference", "NestedNSR", "Unknown"]
+        },
+        "semantic_kind": {"type": ["string", "null"]},
+        "mode": {"type": ["string", "null"]},
+        "selector": {},
+        "value": {},
+        "unit": {"type": ["string", "null"]},
+        "reason": {"type": ["string", "null"]},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {"kind": {"const": "Unknown"}},
+            "required": ["kind"]
+          },
+          "then": {
+            "required": ["reason"],
+            "properties": {"reason": {"type": "string"}}
+          }
+        }
+      ]
+    },
+    "unknown": {
+      "type": "object",
+      "required": ["field", "reason"],
+      "properties": {
+        "field": {"type": "string"},
+        "reason": {"type": "string"},
+        "required_for": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "semanticFingerprintV1": {
+      "type": "string",
+      "pattern": "^sf:v1:sha256:[0-9a-f]{64}$"
+    }
+  }
+}

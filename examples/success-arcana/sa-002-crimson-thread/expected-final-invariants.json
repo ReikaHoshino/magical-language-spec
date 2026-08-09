@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedFinalInvariants","schema_version":"1","fixture_id":"SUCCESS-ARCANA-002","expected":{"PatientIdentityPreserved":true,"NoInformationFabrication":true,"MatterEnergyMomentumAccounted":true,"CheckpointHistoryNotRollback":true,"NoReverseProxyLink":true}}

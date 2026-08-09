@@ -1,0 +1,191 @@
+{
+  "schema_version": "0.7.3",
+  "spec_version": "0.7.3",
+  "status": "Indeterminate",
+  "input": {
+    "kind": "NaturalLanguageSource",
+    "adapter_id": "lat",
+    "external_language_tags": ["la"],
+    "hash": null,
+    "frontend_revision": "lat-adapter-v0.7.3"
+  },
+  "provenance": {
+    "adapter_id": "lat",
+    "adapter_revision": "0.7.3",
+    "normalizer_provider": "Hybrid(rule+lexicon)",
+    "ambiguity_policy": "StrictReject",
+    "semantic_fingerprint": "sf:v1:sha256:ee37e2e102ed939afd04b6142faa5c63c0cb49b0dc86987b2ffa5656c259df48",
+    "registry_hash": {
+      "scope": "registry-contract-set",
+      "status": "unresolved",
+      "reason": "Registry contract-set canonical bytes and digest algorithm are not selected pre-v0.8."
+    },
+    "world_index_revision": "4201",
+    "source_world_revision": "8890",
+    "runtime_profile": "HybridScheduler@1",
+    "created_at": null
+  },
+  "interpretations": {
+    "surface": {
+      "text": "Calorem ab aqua ad aerem transfer.",
+      "roles": {
+        "patient": "calorem",
+        "source": "aqua",
+        "goal": "aerem"
+      }
+    },
+    "normalization_candidates": [
+      {
+        "candidate_id": "N1",
+        "summary": "Transfer thermal Energy from water selector to air selector; quantity omitted."
+      }
+    ],
+    "normalization_decision": {
+      "candidate_id": "N1",
+      "policy": "StrictReject",
+      "alternative_candidate_ids": []
+    },
+    "nsr": {
+      "schema_version": "0.7.3",
+      "kind": "TransferCommand",
+      "action": "transfer",
+      "roles": [
+        {
+          "role": "Patient",
+          "value": {
+            "kind": "SemanticKind",
+            "semantic_kind": "Energy",
+            "mode": "Thermal",
+            "evidence_ids": ["E2"]
+          }
+        },
+        {
+          "role": "Source",
+          "value": {
+            "kind": "SelectorProposal",
+            "selector": {"kind": "Symbolic", "symbol": "water"},
+            "evidence_ids": ["E3"]
+          }
+        },
+        {
+          "role": "Goal",
+          "value": {
+            "kind": "SelectorProposal",
+            "selector": {"kind": "Symbolic", "symbol": "air"},
+            "evidence_ids": ["E4"]
+          }
+        },
+        {
+          "role": "Quantity",
+          "value": {
+            "kind": "Unknown",
+            "reason": "MissingSurfaceArgument",
+            "evidence_ids": []
+          }
+        }
+      ],
+      "unknowns": [
+        {
+          "field": "Quantity",
+          "reason": "MissingSurfaceArgument",
+          "required_for": ["energy", "transfer payload"]
+        }
+      ],
+      "provenance": {
+        "adapter_id": "lat",
+        "adapter_revision": "0.7.3",
+        "source_language_tags": ["la"],
+        "provider": "Hybrid(rule+lexicon)",
+        "source_hash": null,
+        "evidence_ids": ["E2", "E3", "E4"]
+      },
+      "ambiguity": {
+        "policy": "StrictReject",
+        "candidate_id": "N1",
+        "alternative_candidate_ids": [],
+        "decision_evidence_ids": ["E2", "E3", "E4"]
+      },
+      "semantic_fingerprint": "sf:v1:sha256:ee37e2e102ed939afd04b6142faa5c63c0cb49b0dc86987b2ffa5656c259df48"
+    },
+    "semantic_ast": {
+      "operation": "TRANSFER",
+      "kind": "Energy",
+      "mode": "Thermal",
+      "source_selector": "@water",
+      "goal_selector": "@air",
+      "quantity": null
+    },
+    "typed_mir": {
+      "summary": "TRANSFER<Energy>(water -> air, amount = Unknown, mode = Thermal)"
+    },
+    "kernel_plan": {
+      "operations": ["RESOLVE", "CHANNEL", "TRANSFER"],
+      "requires_commit": true
+    }
+  },
+  "energy": {
+    "total": {
+      "kind": "Unknown",
+      "reason": "Transferred energy quantity is omitted in the surface input.",
+      "unit": "J",
+      "dimension": "kg m^2 s^-2",
+      "assumption_ids": [],
+      "evidence_ids": []
+    },
+    "components": {
+      "channel_open": {
+        "kind": "LowerBound",
+        "value": 1800,
+        "unit": "J",
+        "dimension": "kg m^2 s^-2",
+        "assumption_ids": ["A1"],
+        "evidence_ids": ["E1"]
+      },
+      "physical_work": {
+        "kind": "Unknown",
+        "reason": "No transferred energy amount was specified.",
+        "unit": "J",
+        "dimension": "kg m^2 s^-2",
+        "assumption_ids": [],
+        "evidence_ids": []
+      }
+    },
+    "display_unit": "kJ",
+    "accounting_boundary": "spell execution including channel setup"
+  },
+  "resources": [
+    {
+      "kind": "Channel<Energy>",
+      "estimate": {
+        "kind": "Exact",
+        "value": 1,
+        "unit": null,
+        "dimension": "1",
+        "assumption_ids": [],
+        "evidence_ids": []
+      }
+    }
+  ],
+  "assessments": [
+    {"dimension": "syntax", "status": "Pass", "summary": "Latin adapter can parse the verb frame.", "diagnostic_ids": [], "evidence_ids": ["E2", "E3", "E4"]},
+    {"dimension": "normalization", "status": "Pass", "summary": "One semantic-critical NSR candidate remains under StrictReject.", "diagnostic_ids": [], "evidence_ids": ["E2", "E3", "E4"]},
+    {"dimension": "semantic_typing", "status": "Pass", "summary": "calor elaborates to Energy with Thermal mode.", "diagnostic_ids": [], "evidence_ids": ["E2"]},
+    {"dimension": "resolution", "status": "Conditional", "summary": "Selector proposals require WorldIndex context.", "diagnostic_ids": ["D1"], "evidence_ids": []},
+    {"dimension": "energy", "status": "Unknown", "summary": "Payload energy amount is omitted.", "diagnostic_ids": ["D2"], "evidence_ids": []},
+    {"dimension": "authority", "status": "Unknown", "summary": "No authority snapshot supplied.", "diagnostic_ids": ["D3"], "evidence_ids": []}
+  ],
+  "diagnostics": [
+    {"id": "D1", "stage": "RESOLVE", "code": "MissingEvaluationEvidence", "severity": "conditional", "message": "water/air selector proposals need world context.", "evidence_ids": []},
+    {"id": "D2", "stage": "PLANNING", "code": "ResourceEstimateIncomplete", "severity": "unknown", "message": "Transferred Energy quantity is not explicit.", "evidence_ids": []},
+    {"id": "D3", "stage": "AUTHORITY", "code": "MissingEvaluationEvidence", "severity": "unknown", "message": "Capability snapshot not provided.", "evidence_ids": []}
+  ],
+  "assumptions": [
+    {"id": "A1", "statement": "Channel distance/strength correspond to the example planning profile.", "definition_source": "profile-defined", "impact": "Affects channel_open lower bound."}
+  ],
+  "evidence": [
+    {"id": "E1", "source_kind": "profile", "source_id": "example-channel-profile", "revision": "1", "path": "channel_open"},
+    {"id": "E2", "source_kind": "lexicon+verb-frame", "source_id": "lat:calor/transferre", "revision": "0.7.3", "path": "Patient"},
+    {"id": "E3", "source_kind": "morphology+preposition", "source_id": "lat:ab+aqua", "revision": "0.7.3", "path": "Source"},
+    {"id": "E4", "source_kind": "morphology+preposition", "source_id": "lat:ad+aerem", "revision": "0.7.3", "path": "Goal"}
+  ]
+}

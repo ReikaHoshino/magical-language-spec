@@ -1,0 +1,100 @@
+{
+  "artifact_kind": "SpellInstanceBundle",
+  "artifact_version": "0",
+  "instance_id": "DEBUG-HELL-002",
+  "suite_id": "Debug-Hell-0",
+  "scenario_kind": "prepare-bound-theseus-transit",
+  "support_level": "implemented",
+  "ingress": {
+    "stage": "NSR",
+    "payload": {
+      "schema_version": "1",
+      "kind": "TransitCommand",
+      "action": "prepare-bound-transit",
+      "roles": [
+        {"role": "Patient", "value": {"kind": "SelectorProposal", "semantic_kind": "Professor", "selector": {"name": "Marcus", "ordering": "nearest"}}},
+        {"role": "Goal", "value": {"kind": "SelectorProposal", "semantic_kind": "Laboratory", "selector": {"relation": "owned-by", "owner_id": "identity:debug002:caster"}}}
+      ],
+      "provenance": {"adapter_id": null, "adapter_revision": null, "source_language_tags": [], "provider": "SpellInstanceBundle", "source_hash": null, "evidence_ids": ["issue:46", "wi:debug002:1"]}
+    }
+  },
+  "semantic_contract": {"contract_id": "debug.prepare-bound-transit", "revision": "1"},
+  "runtime_contract": {"contract_id": "runtime.prepare-bound-transit", "revision": "1"},
+  "registry_extensions": {},
+  "profiles": {
+    "runtime": {"artifact_id": "runtime-profile:debug002", "revision": "1"},
+    "sandbox": {"artifact_id": "sandbox-profile:debug002", "revision": "1", "limits": {"max_energy_j": 10, "max_events_per_commit": 16, "max_microsteps_per_tick": 32, "max_concurrency": 1}}
+  },
+  "world_index": {
+    "world_index_revision": "wi:debug002:1",
+    "source_world_revision": "world:debug002:1",
+    "records": [
+      {"entity_id": "entity:debug002:marcus-original", "state_revision": "state-revision:debug002:marcus-original:1", "selector_evidence": {"name": "Marcus", "distance_m": 5}},
+      {"entity_id": "entity:debug002:marcus-far", "state_revision": "state-revision:debug002:marcus-far:1", "selector_evidence": {"name": "Marcus", "distance_m": 10}},
+      {"entity_id": "entity:debug002:lab", "state_revision": "state-revision:debug002:lab:1", "selector_evidence": {"owner_id": "identity:debug002:caster"}}
+    ]
+  },
+  "initial_world": {
+    "revision": "world:debug002:1",
+    "entities": {
+      "entity:debug002:observer": {"entity_id": "entity:debug002:observer", "state_revision": "state-revision:debug002:observer:1", "kind": "Observer"},
+      "entity:debug002:marcus-original": {"entity_id": "entity:debug002:marcus-original", "state_revision": "state-revision:debug002:marcus-original:1", "kind": "Professor", "name": "Marcus", "distance_to_selector_m": 5, "location_id": "location:corridor"},
+      "entity:debug002:marcus-far": {"entity_id": "entity:debug002:marcus-far", "state_revision": "state-revision:debug002:marcus-far:1", "kind": "Professor", "name": "Marcus", "distance_to_selector_m": 10, "location_id": "location:library"},
+      "entity:debug002:lab": {"entity_id": "entity:debug002:lab", "state_revision": "state-revision:debug002:lab:1", "kind": "Laboratory", "owner_id": "identity:debug002:caster"},
+      "entity:debug002:attached-book": {"entity_id": "entity:debug002:attached-book", "state_revision": "state-revision:debug002:book:1", "kind": "AttachedObject", "attached_to": "entity:debug002:marcus-original"}
+    },
+    "capabilities": {"capability:debug002:transit": {"active": true, "entity_id": "entity:debug002:marcus-original", "operation": "Transit", "attached_object_authority": false}},
+    "leases": {"lease:debug002:transit": {"active": true, "entity_id": "entity:debug002:marcus-original", "mode": "Write"}},
+    "ledgers": {"ledger:debug002:transit": {"active": true, "available_energy_j": 10}},
+    "history": [],
+    "controllers": {},
+    "runtime_state": {},
+    "process_state": {"process_id": "process:debug002", "status": "Idle", "prepared_plan_id": null}
+  },
+  "execution": {
+    "operations": ["RESOLVE", "OBSERVE", "RECONFIGURE"],
+    "parameters": {
+      "source_selector": {"kind": "NearestNamedProfessor", "name": "Marcus"},
+      "destination_selector": {"kind": "OwnedLaboratory", "owner_id": "identity:debug002:caster"},
+      "binding_mode": "PrepareBound",
+      "simulate_precommit_change": true,
+      "mutated_source_state_revision": "state-revision:debug002:marcus-original:2",
+      "mutated_destination_state_revision": "state-revision:debug002:lab:2",
+      "late_candidate_id": "entity:debug002:marcus-late",
+      "late_candidate_state_revision": "state-revision:debug002:marcus-late:1",
+      "transit_lease_id": "lease:debug002:transit",
+      "attached_object_policy": "ExplicitExcluded",
+      "result_world_revision": "world:debug002:2",
+      "event_id": "event:debug002:transit"
+    },
+    "required_evidence": {
+      "resolution": ["state-revision:debug002:marcus-original:1", "state-revision:debug002:lab:1"],
+      "capabilities": ["capability:debug002:transit"],
+      "leases": ["lease:debug002:transit"],
+      "accounting": ["ledger:debug002:transit"]
+    },
+    "energy_budget_j": 1,
+    "assumptions": []
+  },
+  "expected_outcome": {
+    "evaluation_status": "Feasible",
+    "runtime_status": "Aborted",
+    "diagnostic_codes": ["StaleReference"],
+    "final_invariants": {"Sigma": {"revision": "world:debug002:1"}, "H": []},
+    "replay_status": "DeterministicAbort"
+  },
+  "variants": [{"variant_id": "dynamic-explicit", "meaning": "Dynamic binding may re-resolve only when explicitly selected and traced; this fixture does not silently promote it."}],
+  "provenance": {
+    "definition_sources": ["reference/spell-instance-bundles.md", "reference/debug-hell.md#debug-hell-002", "https://github.com/ReikaHoshino/magical-language-spec/issues/46"],
+    "generator": "repository-fixture",
+    "notes": ["The post-PREPARE change is injected by the trusted registered runtime hook and replayed deterministically."]
+  },
+  "compatibility": {
+    "required_domains": ["SpellInstanceBundle", "SemanticContract", "RuntimeContract"],
+    "decisions": [
+      {"decision_id": "decision:debug002:bundle", "profile": {"domain": "SpellInstanceBundle"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}},
+      {"decision_id": "decision:debug002:semantic", "profile": {"domain": "SemanticContract"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}},
+      {"decision_id": "decision:debug002:runtime", "profile": {"domain": "RuntimeContract"}, "result": {"status": "Compatible", "reason_code": "ExactExperimentalContract"}}
+    ]
+  }
+}

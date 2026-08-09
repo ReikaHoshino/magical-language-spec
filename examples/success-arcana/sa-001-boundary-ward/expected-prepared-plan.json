@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedPreparedPlan","schema_version":"1","fixture_id":"SUCCESS-ARCANA-001","expected":{"status":"Prepared","plan_id":"arcana:plan:boundary-reflection","reservation_amount_j":7.2,"revalidation_required":true,"world_revision":"world:sa001:1"}}

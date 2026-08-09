@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/semantic-roles.schema.json",
+  "title": "Shared Semantic Role Vocabulary",
+  "description": "Language-independent semantic-role identifiers proposed by LanguageAdapters and consumed by NSR. Surface morphology is evidence for these roles, not semantic authority.",
+  "$defs": {
+    "semanticRole": {
+      "enum": [
+        "Actor",
+        "Patient",
+        "Source",
+        "Goal",
+        "Recipient",
+        "Instrument",
+        "Path",
+        "Location",
+        "Condition",
+        "Cause",
+        "Quantity",
+        "Property",
+        "ConstraintSubject"
+      ]
+    }
+  }
+}

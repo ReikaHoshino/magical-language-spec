@@ -1,0 +1,327 @@
+{
+  "schema_version": "1",
+  "case_id": "fixture:pathological-water-ball:prepare-bound",
+  "source_semantics": {
+    "source_id": "fixture:pathological-water-ball:source",
+    "constraints": [
+      {
+        "field_path": "goal.action",
+        "source_value": {"kind": "Explicit", "value": "generate"}
+      },
+      {
+        "field_path": "goal.material",
+        "source_value": {"kind": "Explicit", "value": "water"}
+      },
+      {
+        "field_path": "goal.location.distance",
+        "source_value": {
+          "kind": "Explicit",
+          "value": {
+            "semantic_type": "Length",
+            "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 3,
+            "unit": "m"
+          }
+        }
+      },
+      {
+        "field_path": "goal.radius",
+        "source_value": {
+          "kind": "Explicit",
+          "value": {
+            "semantic_type": "Length",
+            "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 0.01,
+            "unit": "m"
+          }
+        }
+      },
+      {
+        "field_path": "goal.mass",
+        "source_value": {
+          "kind": "Explicit",
+          "value": {
+            "semantic_type": "Mass",
+            "dimension": {"kg": 1, "m": 0, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 50,
+            "unit": "kg"
+          }
+        }
+      },
+      {
+        "field_path": "motion.initial_velocity",
+        "source_value": {
+          "kind": "Explicit",
+          "value": {
+            "semantic_type": "Velocity",
+            "dimension": {"kg": 0, "m": 1, "s": -1, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 0,
+            "unit": "m/s"
+          }
+        }
+      },
+      {
+        "field_path": "motion.acceleration",
+        "source_value": {
+          "kind": "Explicit",
+          "value": {
+            "semantic_type": "Acceleration",
+            "dimension": {"kg": 0, "m": 1, "s": -2, "A": 0, "K": 0, "mol": 0, "cd": 0},
+            "value": 50,
+            "unit": "m/s^2"
+          }
+        }
+      },
+      {
+        "field_path": "motion.trajectory",
+        "source_value": {"kind": "Explicit", "value": "horizontal-forward"}
+      },
+      {
+        "field_path": "motion.terminal",
+        "source_value": {"kind": "Unknown", "reason": "MissingArgument"}
+      }
+    ]
+  },
+  "inference_records": [
+    {
+      "record_id": "inference:terminal:50m-debug",
+      "target": {
+        "field_path": "motion.terminal",
+        "value_role": "MotionTerminal"
+      },
+      "unknown": {
+        "reason": "MissingArgument",
+        "classification": "MissingArgument"
+      },
+      "criticality": "EstimateAllowed",
+      "estimate": {
+        "kind": "Exact",
+        "value": {
+          "semantic_type": "Length",
+          "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 50,
+          "unit": "m"
+        },
+        "assumption_ids": ["assumption:terminal:50m-debug"],
+        "evidence_ids": ["evidence:debug-profile-horizon"]
+      },
+      "estimator": {
+        "class": "ProfileDefault",
+        "id": "profile:debug-water-ball",
+        "revision": "1",
+        "trust": "ProfileDefined"
+      },
+      "evidence_ids": ["evidence:debug-profile-horizon"],
+      "assumption_ids": ["assumption:terminal:50m-debug"],
+      "selected_planning_value": {
+        "semantic_type": "Length",
+        "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "value": 50,
+        "unit": "m"
+      },
+      "selection": {
+        "rule": "SyntheticDebugPlanningAssumption",
+        "objective": "BoundOmittedTerminal"
+      },
+      "binding": {"mode": "PrepareBound", "binding_point": "PREPARE"},
+      "validity": {
+        "max_distance": {
+          "semantic_type": "Length",
+          "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 50,
+          "unit": "m"
+        },
+        "notes": ["Synthetic debug value; not a universal semantic default."]
+      },
+      "diagnostics": []
+    }
+  ],
+  "planning_assumptions": [
+    {
+      "assumption_id": "assumption:terminal:50m-debug",
+      "semantic_status": "PlanningAssumption",
+      "inference_record_id": "inference:terminal:50m-debug",
+      "selected_value": {
+        "semantic_type": "Length",
+        "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "value": 50,
+        "unit": "m"
+      },
+      "binding": {"mode": "PrepareBound", "binding_point": "PREPARE"},
+      "validity": {
+        "max_distance": {
+          "semantic_type": "Length",
+          "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+          "value": 50,
+          "unit": "m"
+        }
+      }
+    }
+  ],
+  "generation_goal": {
+    "kind": "DesiredWorldState",
+    "surface_action": "generate",
+    "source_semantics_id": "fixture:pathological-water-ball:source",
+    "preserved_constraint_paths": [
+      "goal.action",
+      "goal.material",
+      "goal.location.distance",
+      "goal.radius",
+      "goal.mass",
+      "motion.initial_velocity",
+      "motion.acceleration",
+      "motion.trajectory"
+    ],
+    "desired_state": {
+      "material": "water",
+      "mass_kg": 50,
+      "radius_m": 0.01,
+      "initial_distance_m": 3
+    }
+  },
+  "candidate_plans": [
+    {
+      "plan_id": "plan:transfer-reconfigure-water",
+      "source_semantics_id": "fixture:pathological-water-ball:source",
+      "source_fidelity": "Pass",
+      "mandatory_obligations": [
+        {"kind": "Type", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["proof:water-payload-type"]},
+        {"kind": "Identity", "status": "Verified", "basis": "AuthoritativeEvidence", "evidence_ids": ["resolver:source-water"]},
+        {"kind": "Conservation", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["ledger:matter-energy"]},
+        {"kind": "Authority", "status": "Verified", "basis": "AuthoritativeEvidence", "evidence_ids": ["capability:source-water"]},
+        {"kind": "Lease", "status": "Reserved", "basis": "Reservation", "evidence_ids": ["lease:source-water"]},
+        {"kind": "Sandbox", "status": "Verified", "basis": "RuntimeGuard", "evidence_ids": ["guard:runtime-ceilings"]}
+      ],
+      "feasibility": "ConditionallyFeasible",
+      "operations": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"],
+      "energy": {
+        "total": {
+          "kind": "Range",
+          "min": 125000,
+          "max": 150000,
+          "unit": "J",
+          "evidence_ids": ["evidence:synthetic-fixture-energy-range"]
+        },
+        "components": {
+          "physical_work": {"kind": "Exact", "value": 125000, "unit": "J"},
+          "channel_open": {"kind": "Range", "min": 0, "max": 5000, "unit": "J"},
+          "channel_maintenance": {"kind": "Range", "min": 0, "max": 5000, "unit": "J"},
+          "control": {"kind": "Range", "min": 0, "max": 5000, "unit": "J"},
+          "observation_information": {"kind": "Range", "min": 0, "max": 5000, "unit": "J"},
+          "losses": {"kind": "Range", "min": 0, "max": 5000, "unit": "J"}
+        },
+        "accounting_boundary": "Physical work is not total magical/runtime cost."
+      },
+      "assumption_ids": ["assumption:terminal:50m-debug"],
+      "notes": [
+        "The unusual mass/radius pair is preserved as an explicit source constraint.",
+        "Horizontal motion lowers to CONSTRAIN; gravity is not removed from the world model.",
+        "Energy ranges are synthetic fixture evidence; estimator coefficients remain owned by Issue #17."
+      ]
+    },
+    {
+      "plan_id": "plan:unresolved-source-matter",
+      "source_semantics_id": "fixture:pathological-water-ball:source",
+      "source_fidelity": "Pass",
+      "mandatory_obligations": [
+        {"kind": "Type", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["proof:water-payload-type"]},
+        {"kind": "Identity", "status": "Indeterminate", "basis": "AuthoritativeEvidence", "evidence_ids": []},
+        {"kind": "Conservation", "status": "Indeterminate", "basis": "DeterministicProof", "evidence_ids": []},
+        {"kind": "Authority", "status": "Indeterminate", "basis": "AuthoritativeEvidence", "evidence_ids": []},
+        {"kind": "Lease", "status": "Indeterminate", "basis": "Reservation", "evidence_ids": []}
+      ],
+      "feasibility": "Indeterminate",
+      "operations": ["RESOLVE", "CHANNEL", "TRANSFER", "RECONFIGURE"],
+      "energy": {
+        "total": {"kind": "Unknown", "reason": "Unavailable"}
+      },
+      "assumption_ids": ["assumption:terminal:50m-debug"],
+      "notes": ["Speculative inference cannot satisfy missing identity, conservation, authority, or Lease obligations."]
+    },
+    {
+      "plan_id": "plan:assemble-compatible-water",
+      "source_semantics_id": "fixture:pathological-water-ball:source",
+      "source_fidelity": "Pass",
+      "mandatory_obligations": [
+        {"kind": "Type", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["proof:water-payload-type"]},
+        {"kind": "Identity", "status": "Verified", "basis": "AuthoritativeEvidence", "evidence_ids": ["resolver:assembly-feedstock"]},
+        {"kind": "Conservation", "status": "Verified", "basis": "DeterministicProof", "evidence_ids": ["ledger:matter-energy"]},
+        {"kind": "Authority", "status": "Verified", "basis": "AuthoritativeEvidence", "evidence_ids": ["capability:assembly-feedstock"]},
+        {"kind": "Lease", "status": "Reserved", "basis": "Reservation", "evidence_ids": ["lease:assembly-feedstock"]},
+        {"kind": "Sandbox", "status": "Verified", "basis": "RuntimeGuard", "evidence_ids": ["guard:runtime-ceilings"]}
+      ],
+      "feasibility": "ConditionallyFeasible",
+      "operations": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"],
+      "energy": {
+        "total": {
+          "kind": "Range",
+          "min": 180000,
+          "max": 220000,
+          "unit": "J",
+          "evidence_ids": ["evidence:synthetic-fixture-energy-range"]
+        },
+        "components": {
+          "physical_work": {"kind": "Range", "min": 125000, "max": 180000, "unit": "J"},
+          "control": {"kind": "Range", "min": 0, "max": 20000, "unit": "J"},
+          "losses": {"kind": "Range", "min": 0, "max": 20000, "unit": "J"}
+        }
+      },
+      "assumption_ids": ["assumption:terminal:50m-debug"],
+      "notes": [
+        "A higher-Energy feasible alternative for deterministic objective-order testing.",
+        "Energy ranges are synthetic fixture estimates; estimator coefficients remain owned by Issue #17."
+      ]
+    }
+  ],
+  "selection": {
+    "selected_plan_id": "plan:transfer-reconfigure-water",
+    "ordering": [
+      "SourceSemanticFidelity",
+      "MandatoryObligations",
+      "Feasibility",
+      "OptimizationObjective"
+    ],
+    "objective": "MinimumEstimatedTotalEnergy"
+  },
+  "terminal_policy": {
+    "source_terminal": {"kind": "Unknown", "reason": "MissingArgument"},
+    "precedence": [
+      "ExplicitTerminal",
+      "SemanticTarget",
+      "WorldProjection",
+      "ProfileHorizon"
+    ],
+    "selected_source": "ProfileHorizon",
+    "inference_record_id": "inference:terminal:50m-debug",
+    "binding": {"mode": "PrepareBound", "binding_point": "PREPARE"},
+    "bounds": {
+      "max_distance": {
+        "semantic_type": "Length",
+        "dimension": {"kg": 0, "m": 1, "s": 0, "A": 0, "K": 0, "mol": 0, "cd": 0},
+        "value": 50,
+        "unit": "m"
+      }
+    }
+  },
+  "planner_predictions": [
+    {
+      "prediction_id": "prediction:bound-trajectory",
+      "kind": "Trajectory",
+      "binding": {"mode": "PrepareBound", "binding_point": "PREPARE"},
+      "runtime_safety_guarantee": false,
+      "late_world_change_behavior": "RemainBoundUnlessMandatoryInvariant"
+    }
+  ],
+  "reactive_controls": [
+    {
+      "control_id": "control:horizontal-gravity-compensation",
+      "semantics": "ExplicitDynamic",
+      "operation": "CONSTRAIN",
+      "purpose": "Maintain the explicit horizontal trajectory constraint without removing gravity from the model."
+    }
+  ],
+  "diagnostics": [
+    "PlannerPrediction is not a RuntimeSafetyGuarantee.",
+    "Late unrelated entities do not silently retarget the PrepareBound terminal."
+  ]
+}

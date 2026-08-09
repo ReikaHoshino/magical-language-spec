@@ -1,0 +1,119 @@
+{
+  "schema_version": "1",
+  "decision_id": "ambiguity:context-drift:1",
+  "policy": "ContextualDeterministic",
+  "decision_status": "Unreproducible",
+  "profile": {
+    "profile_id": "ambiguity-profile:contextual-reference",
+    "profile_revision": "1",
+    "ordering_revision": "1",
+    "ranking_rules": [
+      {
+        "rule_id": "context:possessor-match",
+        "input": "ContextualEvidence",
+        "comparator": "BooleanTrueFirst",
+        "missing_value": "Unreproducible",
+        "evidence_required": true
+      }
+    ],
+    "final_tie_break": [
+      "SemanticFingerprintAscending",
+      "CandidateIdAscending"
+    ]
+  },
+  "context_snapshot": {
+    "snapshot_id": "context:casting-scene:42",
+    "snapshot_revision": "8",
+    "fact_ids": [],
+    "evidence_ids": ["evidence:world-index:stone-possession:8"]
+  },
+  "candidate_set": {
+    "candidate_set_id": "candidate-set:stone-reference",
+    "candidate_set_revision": "1",
+    "input_candidate_ids": [
+      "candidate:stone-of-fire",
+      "candidate:stone-near-fire"
+    ],
+    "canonical_candidate_ids": [
+      "candidate:stone-near-fire",
+      "candidate:stone-of-fire"
+    ],
+    "candidates": [
+      {
+        "candidate_id": "candidate:stone-of-fire",
+        "semantic_fingerprint": "sf:v1:sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "normalization_valid": true,
+        "semantic_critical": true,
+        "evidence_ids": ["evidence:surface:genitive-relation"],
+        "assumption_ids": []
+      },
+      {
+        "candidate_id": "candidate:stone-near-fire",
+        "semantic_fingerprint": "sf:v1:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "normalization_valid": true,
+        "semantic_critical": true,
+        "evidence_ids": ["evidence:surface:genitive-relation"],
+        "assumption_ids": []
+      }
+    ]
+  },
+  "ranking_evaluations": [
+    {
+      "candidate_id": "candidate:stone-of-fire",
+      "eligible": true,
+      "rank_terms": [
+        {
+          "rule_id": "context:possessor-match",
+          "value": null,
+          "evidence_ids": []
+        }
+      ],
+      "rejection_reason_ids": []
+    },
+    {
+      "candidate_id": "candidate:stone-near-fire",
+      "eligible": true,
+      "rank_terms": [
+        {
+          "rule_id": "context:possessor-match",
+          "value": null,
+          "evidence_ids": []
+        }
+      ],
+      "rejection_reason_ids": []
+    }
+  ],
+  "selected_candidate_id": null,
+  "rejected_candidate_ids": [],
+  "unresolved_assumption_ids": [],
+  "mandatory_downstream_checks": [
+    "type",
+    "authority",
+    "conservation",
+    "identity"
+  ],
+  "diagnostics": [
+    {
+      "code": "AmbiguityContextDrift",
+      "severity": "conditional",
+      "evidence_ids": ["evidence:world-index:stone-possession:8"]
+    },
+    {
+      "code": "AmbiguityDecisionUnreproducible",
+      "severity": "fatal",
+      "evidence_ids": []
+    }
+  ],
+  "replay": {
+    "replay_status": "Incompatible",
+    "recorded_profile_revision": "1",
+    "recorded_ordering_revision": "1",
+    "recorded_context_snapshot_id": "context:casting-scene:42",
+    "recorded_context_snapshot_revision": "7",
+    "recorded_candidate_set_id": "candidate-set:stone-reference",
+    "recorded_candidate_set_revision": "1",
+    "recorded_selected_candidate_id": "candidate:stone-of-fire",
+    "recorded_selected_semantic_fingerprint": "sf:v1:sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "diagnostic_code": "AmbiguityContextDrift"
+  }
+}

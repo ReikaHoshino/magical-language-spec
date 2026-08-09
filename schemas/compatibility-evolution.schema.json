@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/compatibility-evolution.schema.json",
+  "title": "Compatibility evolution policy",
+  "description": "Machine-readable v1.x stable-scope, deprecation, and exact migration evidence. It does not define domain compatibility algorithms.",
+  "$defs": {
+    "exactToken": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^*?]+$"
+    },
+    "releaseVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
+    "contractReference": {
+      "type": "object",
+      "required": ["contract_kind", "contract_id", "contract_revision"],
+      "properties": {
+        "contract_kind": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "contract_id": {"$ref": "#/$defs/exactToken"},
+        "contract_revision": {"$ref": "#/$defs/exactToken"}
+      },
+      "additionalProperties": false
+    },
+    "migrationContractReference": {
+      "type": "object",
+      "required": [
+        "contract_kind",
+        "contract_id",
+        "contract_revision",
+        "profile_id",
+        "profile_revision"
+      ],
+      "properties": {
+        "contract_kind": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "contract_id": {"$ref": "#/$defs/exactToken"},
+        "contract_revision": {"$ref": "#/$defs/exactToken"},
+        "profile_id": {"$ref": "#/$defs/exactToken"},
+        "profile_revision": {"$ref": "#/$defs/exactToken"}
+      },
+      "additionalProperties": false
+    },
+    "guaranteeEntry": {
+      "type": "object",
+      "required": ["contract", "status", "since"],
+      "properties": {
+        "contract": {"$ref": "#/$defs/contractReference"},
+        "status": {
+          "enum": [
+            "RequiredCore",
+            "StablePublic",
+            "OptIn",
+            "Experimental",
+            "ImplementationInternal"
+          ]
+        },
+        "since": {"$ref": "#/$defs/releaseVersion"},
+        "note": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "deprecation": {
+      "type": "object",
+      "required": [
+        "deprecation_id",
+        "owner",
+        "rule_source",
+        "affected_contract",
+        "deprecated_in",
+        "earliest_removal_major"
+      ],
+      "properties": {
+        "deprecation_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "owner": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "rule_source": {"type": "string", "minLength": 1},
+        "affected_contract": {"$ref": "#/$defs/contractReference"},
+        "deprecated_in": {"$ref": "#/$defs/releaseVersion"},
+        "earliest_removal_major": {"type": "integer", "minimum": 1},
+        "replacement": {"$ref": "#/$defs/contractReference"},
+        "rationale": {"type": "string", "minLength": 1}
+      },
+      "anyOf": [
+        {"required": ["replacement"]},
+        {"required": ["rationale"]}
+      ],
+      "additionalProperties": false
+    },
+    "migration": {
+      "type": "object",
+      "required": [
+        "migration_id",
+        "domain",
+        "owner",
+        "rule_source",
+        "source_contract",
+        "target_contract",
+        "transformation",
+        "required_postconditions"
+      ],
+      "properties": {
+        "migration_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "domain": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "owner": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "rule_source": {"type": "string", "minLength": 1},
+        "source_contract": {"$ref": "#/$defs/migrationContractReference"},
+        "target_contract": {"$ref": "#/$defs/migrationContractReference"},
+        "transformation": {
+          "type": "object",
+          "required": ["transformation_id", "transformation_revision"],
+          "properties": {
+            "transformation_id": {"$ref": "#/$defs/exactToken"},
+            "transformation_revision": {"$ref": "#/$defs/exactToken"}
+          },
+          "additionalProperties": false
+        },
+        "required_postconditions": {
+          "type": "array",
+          "items": {
+            "enum": ["SchemaValidation", "CompatibilityReevaluation"]
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "allOf": [
+            {"contains": {"const": "SchemaValidation"}},
+            {"contains": {"const": "CompatibilityReevaluation"}}
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "required": [
+    "document_kind",
+    "schema_version",
+    "policy_id",
+    "policy_revision",
+    "policy_status",
+    "stable_major",
+    "guarantee_scope",
+    "deprecations",
+    "migrations"
+  ],
+  "properties": {
+    "document_kind": {"const": "CompatibilityEvolutionPolicy"},
+    "schema_version": {"const": "1"},
+    "policy_id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+    "policy_revision": {"$ref": "common-values.schema.json#/$defs/revision"},
+    "policy_status": {"enum": ["candidate", "released"]},
+    "stable_major": {"type": "integer", "minimum": 1},
+    "guarantee_scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/guaranteeEntry"}
+    },
+    "deprecations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/deprecation"}
+    },
+    "migrations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/migration"}
+    }
+  },
+  "additionalProperties": false
+}

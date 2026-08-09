@@ -1,0 +1,65 @@
+// v0.6.2 — Reaction kinetics / catalyst / equilibrium planning example
+//
+// この例は実在反応の物性値を与えるものではない。
+// registry内に @reaction_A_to_B, @path_catalyzed, @kinetics_A,
+// @equilibrium_A, @catalyst が定義済みであると仮定する。
+
+spell ConvertAtoB(
+    batch : Ref<Region>,
+    catalyst : Ref<Artifact>
+)
+! {
+    Read,
+    Write<Composition>,
+    Transfer<Energy>
+}
+{
+    // PREPAREでは以下を評価する想定:
+    // - reactant inventory / limiting species
+    // - ReactionPathway / KineticModel domain
+    // - catalyst state / requirements
+    // - equilibrium limit
+    // - predicted rate / duration
+    // - energy/accounting obligations
+    // - deadline feasibility
+
+    prepare {
+        let composition =
+            observe batch.composition @ 0.001 mol;
+
+        let temperature =
+            observe batch.temperature @ 0.1 K;
+
+        reconfigure batch {
+            reaction = @reaction_A_to_B;
+            extent = 0.50 mol;
+            pathway = @path_catalyzed;
+            kinetic_model = @kinetics_A;
+            equilibrium_model = @equilibrium_A;
+            catalyst = catalyst;
+            deadline = 30 s;
+            identity = preserve;
+        }
+    }
+
+    commit;
+}
+
+// planning resultは概念的に以下を持てる:
+//
+// PreparedReactionPlan {
+//     predicted_rate
+//     predicted_duration
+//     limiting_species
+//     equilibrium_assessment
+//     catalyst_requirements
+//     energy_accounting
+//     uncertainty
+//     assumptions
+// }
+//
+// FeasibilityStatus:
+//     Feasible | ConditionallyFeasible | Infeasible | Indeterminate
+//
+// activation energyは総消費Energyと同一ではない。
+// continuous physical rate dξ/dt とruntime tickも別概念。

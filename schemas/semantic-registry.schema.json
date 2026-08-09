@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/semantic-registry.schema.json",
+  "title": "SemanticRegistry Artifact",
+  "type": "object",
+  "required": ["metadata", "registry_hash", "namespaces"],
+  "properties": {
+    "metadata": {"$ref": "artifact-metadata.schema.json"},
+    "registry_hash": {"$ref": "common-values.schema.json#/$defs/registryContractSetHash"},
+    "namespaces": {
+      "type": "object",
+      "required": ["semantic_kinds", "species", "structure_schemas", "reaction_rules", "kinetic_models", "reaction_pathways", "catalyst_models", "inhibitor_models", "equilibrium_models", "activity_models", "observer_models", "conservation_ledgers"],
+      "properties": {
+        "semantic_kinds": {"$ref": "#/$defs/semanticEntries"},
+        "species": {"$ref": "#/$defs/speciesEntries"},
+        "structure_schemas": {"$ref": "#/$defs/structureSchemaEntries"},
+        "reaction_rules": {"$ref": "#/$defs/reactionRuleEntries"},
+        "kinetic_models": {"$ref": "#/$defs/kineticModelEntries"},
+        "reaction_pathways": {"$ref": "#/$defs/reactionPathwayEntries"},
+        "catalyst_models": {"$ref": "#/$defs/catalystModelEntries"},
+        "inhibitor_models": {"$ref": "#/$defs/inhibitorModelEntries"},
+        "equilibrium_models": {"$ref": "#/$defs/equilibriumModelEntries"},
+        "activity_models": {"$ref": "#/$defs/activityModelEntries"},
+        "observer_models": {"$ref": "#/$defs/observerModelEntries"},
+        "controller_models": {"$ref": "#/$defs/controllerModelEntries"},
+        "conservation_ledgers": {"$ref": "#/$defs/conservationLedgerEntries"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "revisionedEntry": {
+      "type": "object", "required": ["id", "revision", "contract"],
+      "properties": {
+        "id": {"$ref": "common-values.schema.json#/$defs/identifier"},
+        "revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"},
+        "contract": {"type": "object"}
+      }
+    },
+    "SemanticEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/SemanticEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "SpeciesEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/SpeciesEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "StructureSchemaEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/StructureSchemaEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "ReactionRuleEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/ReactionRuleEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "KineticModelEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/KineticModelEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "ReactionPathwayEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/ReactionPathwayEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "CatalystModelEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/CatalystModelEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "InhibitorModelEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/InhibitorModelEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "EquilibriumModelEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/EquilibriumModelEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "ActivityModelEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/ActivityModelEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "ObserverModelEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"oneOf": [
+          {"$ref": "semantic-registry-contracts.schema.json#/$defs/ObserverModelEntryContract"},
+          {"$ref": "semantic-registry-contracts.schema.json#/$defs/EvidenceFusionModelEntryContract"}
+        ]}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "ControllerModelEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/ControllerModelEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "ConservationLedgerEntry": {
+      "allOf": [
+        {"$ref": "#/$defs/revisionedEntry"},
+        {"properties": {"contract": {"$ref": "semantic-registry-contracts.schema.json#/$defs/ConservationLedgerEntryContract"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "semanticEntries": {"type": "array", "items": {"$ref": "#/$defs/SemanticEntry"}},
+    "speciesEntries": {"type": "array", "items": {"$ref": "#/$defs/SpeciesEntry"}},
+    "structureSchemaEntries": {"type": "array", "items": {"$ref": "#/$defs/StructureSchemaEntry"}},
+    "reactionRuleEntries": {"type": "array", "items": {"$ref": "#/$defs/ReactionRuleEntry"}},
+    "kineticModelEntries": {"type": "array", "items": {"$ref": "#/$defs/KineticModelEntry"}},
+    "reactionPathwayEntries": {"type": "array", "items": {"$ref": "#/$defs/ReactionPathwayEntry"}},
+    "catalystModelEntries": {"type": "array", "items": {"$ref": "#/$defs/CatalystModelEntry"}},
+    "inhibitorModelEntries": {"type": "array", "items": {"$ref": "#/$defs/InhibitorModelEntry"}},
+    "equilibriumModelEntries": {"type": "array", "items": {"$ref": "#/$defs/EquilibriumModelEntry"}},
+    "activityModelEntries": {"type": "array", "items": {"$ref": "#/$defs/ActivityModelEntry"}},
+    "observerModelEntries": {"type": "array", "items": {"$ref": "#/$defs/ObserverModelEntry"}},
+    "controllerModelEntries": {"type": "array", "items": {"$ref": "#/$defs/ControllerModelEntry"}},
+    "conservationLedgerEntries": {"type": "array", "items": {"$ref": "#/$defs/ConservationLedgerEntry"}}
+  }
+}

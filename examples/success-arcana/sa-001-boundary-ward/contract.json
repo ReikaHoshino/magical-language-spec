@@ -1,0 +1,57 @@
+{
+  "document_kind": "ExperimentalArcanaFixtureContract",
+  "schema_version": "1",
+  "fixture_id": "SUCCESS-ARCANA-001",
+  "experimental_class": "Experimental-Arcana-0",
+  "action": "boundary_reflection",
+  "handler_id": "handler:experimental-arcana:boundary-reflection@1",
+  "plan_id": "arcana:plan:boundary-reflection",
+  "runtime_profile": {"artifact_id": "runtime-profile:arcana-sa001", "revision": "1"},
+  "sandbox_profile": {"artifact_id": "sandbox-profile:arcana-sa001", "revision": "1", "max_energy_j": 10, "fixture_only": true, "max_events_per_commit": 4, "max_microsteps_per_tick": 16},
+  "operations": ["RESOLVE", "OBSERVE", "CONSTRAIN"],
+  "lowering": [
+    {"mki_operation": "RESOLVE", "kernel_interactions": ["QUERY"], "atomic_group": "group:sa001:selection"},
+    {"mki_operation": "OBSERVE", "kernel_interactions": ["SAMPLE"], "atomic_group": "group:sa001:crossing"},
+    {"mki_operation": "CONSTRAIN", "kernel_interactions": ["ACTIVATE", "TRANSITION"], "atomic_group": "group:sa001:actuation"}
+  ],
+  "energy_budget_j": 7.2,
+  "required_evidence": {
+    "resolution": ["state-revision:intruder@world:sa001:1", "state-revision:anchor@world:sa001:1"],
+    "capabilities": ["capability:sa001:boundary-actuation"],
+    "leases": ["lease:sa001:controller"],
+    "accounting": ["ledger:sa001:momentum-energy"]
+  },
+  "typed_parameters": {
+    "protected_region_id": "region:sevenfold-sanctuary",
+    "reaction_anchor_id": "entity:sa001:anchor",
+    "target_entity_id": "entity:sa001:intruder",
+    "coefficient_of_restitution": 0.8,
+    "target_mass_kg": 10,
+    "incident_normal_momentum_kg_m_s": 20,
+    "maximum_target_mass_kg": 20,
+    "maximum_incident_momentum_kg_m_s": 50,
+    "maximum_impulse_kg_m_s": 50,
+    "maximum_energy_j": 10,
+    "observation_resolution_m": 0.01,
+    "sample_period_ms": 10,
+    "event_latency_ms": 2,
+    "max_event_latency_ms": 5,
+    "jitter_ms": 0.5,
+    "max_jitter_ms": 1,
+    "overload_policy": "EmitOverloadAndDeactivate",
+    "termination_policy": "ExplicitDeactivateOrOverload"
+  },
+  "dynamic_capability_scope": {
+    "anchor_id": "entity:sa001:anchor",
+    "region_id": "region:sevenfold-sanctuary",
+    "target_predicate": {"crossing": true, "authorized": false},
+    "maximum_target_scope": {"mass_kg": 20},
+    "maximum_event_scope": {"incident_momentum_kg_m_s": 50, "impulse_kg_m_s": 50, "energy_j": 10},
+    "effect_class": "Constrain",
+    "validity_interval": {"not_before": "2026-01-01T00:00:00Z", "not_after": "2026-01-01T00:10:00Z"},
+    "per_actuation_revalidation": true,
+    "no_authority_amplification": true
+  },
+  "success_invariants": ["AuthorizedEntityUnaffected", "BoundedNormalImpulse", "MomentumBalanced", "EnergyBalanced", "ActiveEffectSemanticProjection", "DeterministicReplay"],
+  "definition_sources": ["reference/success-arcana.md", "reference/kernel-execution.md", "reference/security-sandbox.md"]
+}

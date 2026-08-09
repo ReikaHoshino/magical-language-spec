@@ -1,0 +1,16 @@
+graft _custom_build
+graft schemas
+graft examples
+graft reference
+graft conformance
+graft grammar
+graft data
+graft tests
+graft planning
+graft spec
+include README.md
+include CHANGELOG.md
+include TODO.md
+include PROJECT_HANDOFF.md
+include requirements-dev.txt
+global-exclude __pycache__ *.py[cod] .DS_Store

@@ -1,0 +1,87 @@
+{
+  "document_kind": "CompatibilityEvolutionPolicy",
+  "schema_version": "1",
+  "policy_id": "compat-evolution:v1x-reference-candidate",
+  "policy_revision": "1",
+  "policy_status": "candidate",
+  "stable_major": 1,
+  "guarantee_scope": [
+    {
+      "contract": {
+        "contract_kind": "ConformanceClass",
+        "contract_id": "Core-1.0",
+        "contract_revision": "candidate-1"
+      },
+      "status": "RequiredCore",
+      "since": "1.0.0"
+    },
+    {
+      "contract": {
+        "contract_kind": "ArtifactSchema",
+        "contract_id": "schemas/compatibility.schema.json",
+        "contract_revision": "1"
+      },
+      "status": "StablePublic",
+      "since": "1.0.0"
+    },
+    {
+      "contract": {
+        "contract_kind": "InternalRepresentation",
+        "contract_id": "ECIR",
+        "contract_revision": "unreleased"
+      },
+      "status": "ImplementationInternal",
+      "since": "1.0.0",
+      "note": "Public serialized ECIR is not part of the current v1 stable contract."
+    }
+  ],
+  "deprecations": [
+    {
+      "deprecation_id": "deprecation:compatibility-envelope:v1-example",
+      "owner": "CompatibilityReleaseProfile",
+      "rule_source": "reference/versioning-and-migration.md#3-deprecation-lifecycle",
+      "affected_contract": {
+        "contract_kind": "ArtifactSchema",
+        "contract_id": "schemas/compatibility.schema.json",
+        "contract_revision": "1"
+      },
+      "deprecated_in": "1.2.0",
+      "earliest_removal_major": 2,
+      "replacement": {
+        "contract_kind": "ArtifactSchema",
+        "contract_id": "schemas/compatibility.schema.json",
+        "contract_revision": "2"
+      }
+    }
+  ],
+  "migrations": [
+    {
+      "migration_id": "migration:compatibility-envelope:1-to-2",
+      "domain": "Schema",
+      "owner": "CompatibilitySchemaMigrationProfile",
+      "rule_source": "reference/versioning-and-migration.md#4-explicit-migration-contract",
+      "source_contract": {
+        "contract_kind": "ArtifactSchema",
+        "contract_id": "schemas/compatibility.schema.json",
+        "contract_revision": "1",
+        "profile_id": "compat-profile:schema:core-config",
+        "profile_revision": "1"
+      },
+      "target_contract": {
+        "contract_kind": "ArtifactSchema",
+        "contract_id": "schemas/compatibility.schema.json",
+        "contract_revision": "2",
+        "profile_id": "compat-profile:schema:core-config",
+        "profile_revision": "2"
+      },
+      "transformation": {
+        "transformation_id": "transform:compatibility-envelope:1-to-2",
+        "transformation_revision": "1"
+      },
+      "required_postconditions": [
+        "SchemaValidation",
+        "CompatibilityReevaluation"
+      ]
+    }
+  ]
+}

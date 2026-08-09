@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language/runtime-execution.schema.json",
+  "title": "Sandbox Runtime Execution Trace",
+  "type": "object",
+  "required": [
+    "document_kind",
+    "schema_version",
+    "status",
+    "runtime_profile",
+    "sandbox_profile",
+    "source_world_revision",
+    "world_revision"
+  ],
+  "properties": {
+    "document_kind": {"const": "SandboxExecutionTrace"},
+    "schema_version": {"const": "1"},
+    "status": {"enum": ["Committed", "Aborted"]},
+    "runtime_profile": {"$ref": "#/$defs/artifactRef"},
+    "sandbox_profile": {
+      "type": "object",
+      "required": ["artifact_id", "revision", "runtime_limits", "external_interaction"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "runtime_limits": {
+          "type": "object",
+          "required": ["max_energy_j", "max_events_per_commit", "max_microsteps_per_tick", "max_concurrency"],
+          "properties": {
+            "max_energy_j": {"type": "number", "minimum": 0},
+            "max_events_per_commit": {"type": "integer", "minimum": 0},
+            "max_microsteps_per_tick": {"type": "integer", "minimum": 0},
+            "max_concurrency": {"type": "integer", "minimum": 0}
+          },
+          "additionalProperties": false
+        },
+        "external_interaction": {
+          "type": "object",
+          "required": ["allowed"],
+          "properties": {"allowed": {"type": "boolean"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_world_revision": {"type": "string", "minLength": 1},
+    "world_revision": {"type": "string", "minLength": 1},
+    "admission": {"type": "object"},
+    "control_plane": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/controlRecord"}
+    },
+    "scheduler": {"$ref": "#/$defs/scheduler"},
+    "runtime": {"type": "object"},
+    "history_event_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "result_state_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "abort": {
+      "type": "object",
+      "required": ["stage", "cause_stage", "code", "message"],
+      "properties": {
+        "stage": {"const": "ABORT"},
+        "cause_stage": {"type": "string", "minLength": 1},
+        "code": {"type": "string", "minLength": 1},
+        "message": {"type": "string", "minLength": 1},
+        "internal_cause": {"type": "string", "minLength": 1},
+        "internal_trace": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "world_revision_unchanged": {"type": "boolean"},
+    "history_unchanged": {"type": "boolean"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "Committed"}}},
+      "then": {
+        "required": ["admission", "control_plane", "scheduler", "runtime", "history_event_ids", "result_state_hash"]
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "Aborted"}}},
+      "then": {
+        "required": ["abort", "control_plane", "world_revision_unchanged", "history_unchanged"]
+      }
+    }
+  ],
+  "$defs": {
+    "artifactRef": {
+      "type": "object",
+      "required": ["artifact_id", "revision"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "controlRecord": {
+      "type": "object",
+      "required": ["operation", "status"],
+      "properties": {
+        "operation": {"enum": ["ACQUIRE", "RELEASE", "COMMIT", "ABORT"]},
+        "status": {"type": "string", "minLength": 1},
+        "evidence_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "reason": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "integrationReport": {
+      "type": "object",
+      "required": ["integrator", "status", "start", "end", "duration_seconds", "steps", "process_count", "physical_law_modified"],
+      "properties": {
+        "integrator": {"$ref": "#/$defs/artifactRef"},
+        "status": {"enum": ["NoAdvanceRequired", "AdvancedNoProcesses"]},
+        "start": {"type": "string", "minLength": 1},
+        "end": {"type": "string", "minLength": 1},
+        "duration_seconds": {"type": "number", "minimum": 0},
+        "steps": {"type": "integer", "minimum": 0},
+        "process_count": {"type": "integer", "minimum": 0},
+        "physical_law_modified": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "scheduler": {
+      "type": "object",
+      "required": ["physical_time_is_runtime_tick", "phase_order", "integration_report", "records"],
+      "properties": {
+        "physical_time_is_runtime_tick": {"const": false},
+        "phase_order": {
+          "type": "array",
+          "const": ["Ingress", "ContinuousAdvance", "Revalidate", "Commit", "PublishSnapshot", "Control", "IndexUpdate", "Dispatch"]
+        },
+        "integration_report": {"$ref": "#/$defs/integrationReport"},
+        "records": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": ["epoch", "tick", "phase", "ordinal"],
+            "properties": {
+              "epoch": {"type": "string", "minLength": 1},
+              "tick": {"type": "string", "minLength": 1},
+              "phase": {"enum": ["Ingress", "ContinuousAdvance", "Revalidate", "Commit", "PublishSnapshot", "Control", "IndexUpdate", "Dispatch"]},
+              "ordinal": {"type": "integer", "minimum": 0},
+              "interval": {"type": "object"},
+              "status": {"type": "string"},
+              "effective_at": {"type": "string"},
+              "committed_at": {"type": "string"},
+              "world_revision": {"type": "string"},
+              "controller_registered": {"type": "boolean"},
+              "source_world_revision": {"type": "string"},
+              "result_world_revision": {"type": "string"},
+              "history_event_id": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

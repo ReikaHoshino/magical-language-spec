@@ -1,0 +1,19 @@
+{
+  "document_kind":"ExperimentalArcanaFixtureContract","schema_version":"1","fixture_id":"SUCCESS-ARCANA-002","experimental_class":"Experimental-Arcana-0",
+  "action":"staged_treatment","handler_id":"handler:experimental-arcana:staged-treatment@1","plan_id":"arcana:plan:staged-treatment",
+  "runtime_profile":{"artifact_id":"runtime-profile:arcana-sa002","revision":"1"},
+  "sandbox_profile":{"artifact_id":"sandbox-profile:arcana-sa002","revision":"1","max_energy_j":800,"fixture_only":true,"max_events_per_commit":8,"max_microsteps_per_tick":32},
+  "operations":["RESOLVE","OBSERVE","CHANNEL","TRANSFER","RECONFIGURE"],
+  "lowering":[
+    {"mki_operation":"RESOLVE","kernel_interactions":["QUERY"],"atomic_group":"group:sa002:selection"},
+    {"mki_operation":"OBSERVE","kernel_interactions":["SAMPLE"],"atomic_group":"group:sa002:decomposition"},
+    {"mki_operation":"CHANNEL","kernel_interactions":["ACTIVATE","DEACTIVATE"],"atomic_group":"group:sa002:stabilize"},
+    {"mki_operation":"TRANSFER","kernel_interactions":["TRANSITION"],"atomic_group":"group:sa002:stabilize"},
+    {"mki_operation":"RECONFIGURE","kernel_interactions":["TRANSITION"],"atomic_group":"group:sa002:repair-manifest"}
+  ],
+  "energy_budget_j":620,
+  "required_evidence":{"resolution":["state-revision:patient@world:sa002:1","state-revision:proxy@world:sa002:1","state-revision:donor@world:sa002:1","state-revision:reservoir@world:sa002:1"],"capabilities":["capability:sa002:medical-treatment","capability:sa002:proxy-manifest"],"leases":["lease:sa002:patient","lease:sa002:resources"],"accounting":["ledger:sa002:matter-energy-momentum"]},
+  "typed_parameters":{"patient_id":"entity:sa002:patient","proxy_id":"entity:sa002:proxy","sink_id":"entity:sa002:sink","donor_id":"entity:sa002:donor","energy_reservoir_id":"entity:sa002:energy-reservoir","correspondence_token_id":"token:sa002:red-thread","correspondence_unique":true,"reverse_proxy_effect":false,"identity_policy":"IdentityPolicy<Organism>","excess_thermal_energy_j":120,"repair_energy_j":450,"manifest_energy_j":50,"removable_fluid_kg":0.02,"donor_matter_kg":0.005,"chemical_state_deviation":"reversible-minor","reversible_structural_deviation":"laceration:5mm","irreversible_information_loss":false,"uncertainty":"bounded-fixture","sink_capacity_j":200,"sink_capacity_kg":0.05,"treatment_stages":["Stabilize","Repair","Manifest"]},
+  "success_invariants":["PatientIdentityPreserved","NoInformationFabrication","MatterEnergyMomentumAccounted","CheckpointHistoryNotRollback","NoReverseProxyLink","DeterministicReplay"],
+  "definition_sources":["reference/success-arcana.md","reference/payloads.md","reference/security-sandbox.md"]
+}

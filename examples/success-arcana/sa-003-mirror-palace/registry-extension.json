@@ -1,0 +1,24 @@
+{
+  "document_kind": "ExperimentalArcanaRegistryExtension",
+  "schema_version": "1",
+  "fixture_id": "SUCCESS-ARCANA-003",
+  "namespaces": {
+    "semantic_kinds": [
+      {"id":"arcana:kind:Measurement","revision":"1","contract":{"category":["EvidenceKind"],"traits":["ProvenanceBearing"],"allowed_modes":["Current","Historical"],"endpoint_requirements":{},"observer_properties":["Uncertainty"]}},
+      {"id":"arcana:kind:HistoricalMeasurement","revision":"1","contract":{"category":["EvidenceKind"],"traits":["Committed","ProvenanceBearing"],"allowed_modes":["HistoryQuery"],"endpoint_requirements":{},"observer_properties":["Freshness"]}},
+      {"id":"arcana:kind:FrozenEvidenceContext","revision":"1","contract":{"category":["EvidenceContextKind"],"traits":["SnapshotConsistent"],"allowed_modes":["EvidenceFusion"],"endpoint_requirements":{},"observer_properties":["WorldRevision","HistoryRevision","EvidenceRevision"]}},
+      {"id":"arcana:kind:ObservationArtifact","revision":"1","contract":{"category":["ArtifactKind"],"traits":["NonPhysical","ProvenanceBearing"],"allowed_modes":["EvidencePublication"],"endpoint_requirements":{},"observer_properties":["Uncertainty"]}}
+    ],
+    "structure_schemas": [],
+    "reaction_rules": [],
+    "observer_models": [
+      {"id":"observer:sa003:trace","revision":"1","contract":{"input_type":"PhysicalTrace","output_type":"Measurement","domain":{"source":"observer:sa003:trace"},"response":{"acquisition":"OBSERVE-then-SAMPLE"},"normalization":{"ordering":"source-id-then-event-id"}}},
+      {"id":"evidence-fusion:sa003","revision":"1","contract":{"model_kind":"EvidenceFusionModel","accepted_measurement_types":["HistoricalMeasurement","TraceMeasurement"],"hypothesis_schema":{"id":"schema:sa003:history-hypothesis"},"source_independence_treatment":{"kind":"GroupByOrigin"},"conflict_policy":{"kind":"PreserveConflict"},"scoring_calibration":{"kind":"FixtureWeightedEvidence","confidence_is_truth":false},"uncertainty_output":{"kind":"IntervalAndConflictSet"},"minimum_evidence_policy":{"count":3},"valid_domain":{"history_revisions":["history-revision:sa003:4"]},"deterministic_tie_break":{"order":["score-desc","hypothesis-id-asc"]},"provenance":{"definition_source":"reference/evidence-inference.md"}}}
+    ],
+    "controller_models": [],
+    "conservation_ledgers": [
+      {"id":"ledger:sa003:observation-energy","revision":"1","contract":{"semantic_type":"Energy","balance_rule":{"observation_and_optional_display":"separately_accounted"},"applicable_domains":["EvidenceAcquisition","PhysicalDisplay"]}}
+    ]
+  },
+  "authority_is_not_registry_metadata": true
+}

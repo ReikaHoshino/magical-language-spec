@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/v1-required-surface.schema.json",
+  "title": "V1RequiredSurfaceMatrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["document_kind", "schema_version", "suite_version", "target", "source_issue", "requirements"],
+  "properties": {
+    "document_kind": {"const": "V1RequiredSurfaceMatrix"},
+    "schema_version": {"const": "1"},
+    "suite_version": {"const": "0.12.0"},
+    "target": {"const": "v1.0.0-rc.N"},
+    "source_issue": {"const": 38},
+    "requirements": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": {"$ref": "#/$defs/requirement"}
+    }
+  },
+  "$defs": {
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requirement_id", "description", "class_ids", "case_ids"],
+      "properties": {
+        "requirement_id": {"type": "string", "pattern": "^V1-CONF-[0-9]{3}$"},
+        "description": {"type": "string", "minLength": 1},
+        "class_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["Core-1.0", "Evaluator-1.0", "Adapter-lat-1.0", "Runtime-1.0"]}
+        },
+        "case_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

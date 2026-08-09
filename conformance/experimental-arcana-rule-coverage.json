@@ -1,0 +1,18 @@
+{
+  "document_kind": "ExperimentalRuleCoverage",
+  "schema_version": "1",
+  "suite": "Experimental-Arcana-0",
+  "rules": [
+    {"rule_id": "ARCANA-RULE-DYNAMIC-CAPABILITY", "owner": "reference/success-arcana.md#dynamic-capability-target-scope", "case_ids": ["SUCCESS-ARCANA-001"]},
+    {"rule_id": "ARCANA-RULE-CONTROLLER-ACTUATION", "owner": "reference/success-arcana.md#success-arcana-001", "case_ids": ["SUCCESS-ARCANA-001"]},
+    {"rule_id": "ARCANA-RULE-ACTIVE-EFFECT-REPLAY", "owner": "reference/success-arcana.md#success-arcana-001", "case_ids": ["SUCCESS-ARCANA-001"]},
+    {"rule_id": "ARCANA-RULE-TREATMENT-DECOMPOSITION", "owner": "reference/success-arcana.md#success-arcana-002", "case_ids": ["SUCCESS-ARCANA-002"]},
+    {"rule_id": "ARCANA-RULE-ONE-WAY-CORRESPONDENCE", "owner": "reference/success-arcana.md#success-arcana-002", "case_ids": ["SUCCESS-ARCANA-002"]},
+    {"rule_id": "ARCANA-RULE-IDENTITY-ACCOUNTING", "owner": "reference/success-arcana.md#success-arcana-002", "case_ids": ["SUCCESS-ARCANA-002"]},
+    {"rule_id": "ARCANA-RULE-FROZEN-EVIDENCE", "owner": "reference/evidence-inference.md", "case_ids": ["SUCCESS-ARCANA-003"]},
+    {"rule_id": "ARCANA-RULE-CONFIDENCE-BOUNDARY", "owner": "reference/evidence-inference.md", "case_ids": ["SUCCESS-ARCANA-003"]},
+    {"rule_id": "ARCANA-RULE-ARTIFACT-RENDERING", "owner": "reference/evidence-inference.md", "case_ids": ["SUCCESS-ARCANA-003"]},
+    {"rule_id": "ARCANA-RULE-BOUNDED-EXPLOSION", "owner": "reference/success-arcana.md#success-arcana-004", "case_ids": ["SUCCESS-ARCANA-004"]},
+    {"rule_id": "ARCANA-RULE-RECOGNIZED-UNSUPPORTED", "owner": "reference/spell-instance-bundles.md#support-level", "case_ids": ["SUCCESS-ARCANA-005", "SUCCESS-ARCANA-006", "SUCCESS-ARCANA-007", "SUCCESS-ARCANA-008"]}
+  ]
+}

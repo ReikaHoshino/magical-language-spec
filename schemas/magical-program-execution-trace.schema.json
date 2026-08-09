@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/magical-program-execution-trace.schema.json",
+  "title": "MagicalProgramExecutionTrace-0",
+  "type": "object",
+  "required": [
+    "document_kind",
+    "schema_version",
+    "status",
+    "program_id",
+    "runtime_profile",
+    "source_world_revision",
+    "world_revision"
+  ],
+  "properties": {
+    "document_kind": {"const": "MagicalProgramExecutionTrace"},
+    "schema_version": {"const": "0"},
+    "status": {"enum": ["Committed", "Aborted"]},
+    "program_id": {"type": "string", "minLength": 1},
+    "runtime_profile": {
+      "type": "object",
+      "required": ["profile_id", "revision", "limits"],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "limits": {
+          "type": "object",
+          "required": [
+            "max_energy_j",
+            "max_matter_kg",
+            "max_events",
+            "max_microsteps",
+            "max_concurrency"
+          ],
+          "properties": {
+            "max_energy_j": {"type": "number", "minimum": 0},
+            "max_matter_kg": {"type": "number", "minimum": 0},
+            "max_events": {"type": "integer", "minimum": 0},
+            "max_microsteps": {"type": "integer", "minimum": 0},
+            "max_concurrency": {"type": "integer", "minimum": 1}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_world_revision": {"type": "string", "minLength": 1},
+    "world_revision": {"type": "string", "minLength": 1},
+    "prepared_plan_id": {"type": "string", "minLength": 1},
+    "preparation": {"type": "object"},
+    "revalidation": {"type": "object"},
+    "effects": {"type": "array", "items": {"type": "object"}},
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "binding", "kind"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "binding": {"type": "string", "minLength": 1},
+          "kind": {
+            "enum": [
+              "value",
+              "reference",
+              "evidence",
+              "effect_result",
+              "event",
+              "artifact"
+            ]
+          },
+          "value": {},
+          "event_id": {"type": "string", "minLength": 1},
+          "artifact_id": {"type": "string", "minLength": 1},
+          "entity_id": {"type": "string", "minLength": 1},
+          "state_revision": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "history_event_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "result_state_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "abort": {
+      "type": "object",
+      "required": ["stage", "code", "message"],
+      "properties": {
+        "stage": {"enum": ["PREPARE", "REVALIDATE", "COMMIT"]},
+        "code": {"type": "string", "minLength": 1},
+        "message": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "world_revision_unchanged": {"type": "boolean"},
+    "history_unchanged": {"type": "boolean"},
+    "configuration_unchanged": {"type": "boolean"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"status": {"const": "Committed"}},
+        "required": ["status"]
+      },
+      "then": {
+        "required": [
+          "prepared_plan_id",
+          "preparation",
+          "revalidation",
+          "effects",
+          "results",
+          "history_event_ids",
+          "result_state_hash"
+        ],
+        "not": {"required": ["abort"]}
+      }
+    },
+    {
+      "if": {
+        "properties": {"status": {"const": "Aborted"}},
+        "required": ["status"]
+      },
+      "then": {
+        "required": [
+          "abort",
+          "world_revision_unchanged",
+          "history_unchanged",
+          "configuration_unchanged"
+        ],
+        "not": {"required": ["result_state_hash"]}
+      }
+    }
+  ],
+  "additionalProperties": false
+}

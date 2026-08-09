@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/world-index.schema.json",
+  "title": "WorldIndex Artifact",
+  "type": "object",
+  "required": ["metadata", "index_schema_revision", "world_index_revision", "source_world_revision", "snapshot", "records", "indexes"],
+  "properties": {
+    "metadata": {"$ref": "artifact-metadata.schema.json"},
+    "index_schema_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"},
+    "world_index_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"},
+    "source_world_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"},
+    "snapshot": {
+      "type": "object", "required": ["world_index_revision", "source_world_revision", "captured_at", "index_schema_revision"],
+      "properties": {"world_index_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"}, "source_world_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"}, "captured_at": {"type": "string", "format": "date-time"}, "index_schema_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"}},
+      "additionalProperties": false
+    },
+    "records": {"type": "array", "items": {"$ref": "#/$defs/entityIndexRecord"}},
+    "indexes": {
+      "type": "object", "required": ["identity", "symbolic", "spatial", "relation", "visibility"],
+      "properties": {"identity": {"type": "object"}, "symbolic": {"type": "object"}, "spatial": {"type": "object"}, "relation": {"type": "object"}, "visibility": {"type": "object"}}, "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "entityIndexRecord": {
+      "type": "object", "required": ["entity_id", "type_tags", "symbolic_names", "relation_keys", "visibility_metadata", "record_revision", "source_world_revision"],
+      "properties": {
+        "entity_id": {"$ref": "common-values.schema.json#/$defs/identifier"}, "type_tags": {"type": "array", "items": {"$ref": "common-values.schema.json#/$defs/identifier"}, "uniqueItems": true},
+        "symbolic_names": {"type": "array", "items": {"$ref": "common-values.schema.json#/$defs/identifier"}, "uniqueItems": true}, "spatial_summary": {"type": ["object", "null"]},
+        "relation_keys": {"type": "array", "items": {"$ref": "common-values.schema.json#/$defs/identifier"}, "uniqueItems": true},
+        "visibility_metadata": {"type": "object", "required": ["discoverability_class", "redaction_policy"], "properties": {"discoverability_class": {"type": "string"}, "required_discovery_context": {}, "redaction_policy": {}}, "additionalProperties": true},
+        "record_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"}, "source_world_revision": {"$ref": "artifact-metadata.schema.json#/$defs/revision"}
+      }, "additionalProperties": false
+    }
+  }
+}

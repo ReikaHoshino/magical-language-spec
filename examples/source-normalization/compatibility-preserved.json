@@ -1,0 +1,30 @@
+{
+  "contract_version": "source-text-normalization-v1",
+  "status": "Accepted",
+  "adapter": {
+    "adapter_id": "zho",
+    "external_language_tags": ["zh-Hant"],
+    "script_hints": ["Hant"]
+  },
+  "input": {
+    "boundary": "unicode-text",
+    "encoding": "UTF-8",
+    "original_text": "Ａether ①",
+    "utf8_bom_removed": false
+  },
+  "output": {
+    "normalization_form": "NFC",
+    "normalized_text": "Ａether ①"
+  },
+  "transformations": [],
+  "source_map": {
+    "offset_unit": "unicode-scalar-value",
+    "entries": [
+      {
+        "output_span": {"start": 0, "end": 8},
+        "source_span": {"start": 0, "end": 8},
+        "exact": true
+      }
+    ]
+  }
+}

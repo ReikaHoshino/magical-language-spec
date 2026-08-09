@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/experimental-arcana-manifest.schema.json",
+  "title": "Experimental-Arcana-0 manifest",
+  "type": "object",
+  "required": ["suite", "required_surface_unchanged", "cases"],
+  "properties": {
+    "suite": {
+      "type": "object",
+      "required": ["class_id", "revision", "lifecycle", "owner", "stable_required_claim"],
+      "properties": {
+        "class_id": {"const": "Experimental-Arcana-0"},
+        "revision": {"const": "0"},
+        "lifecycle": {"const": "experimental"},
+        "owner": {"const": "reference/success-arcana.md"},
+        "stable_required_claim": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "required_surface_unchanged": {
+      "type": "object",
+      "required": ["manifest", "class_ids", "case_count"],
+      "properties": {
+        "manifest": {"const": "conformance/manifest.json"},
+        "class_ids": {"const": ["Core-1.0", "Evaluator-1.0", "Adapter-lat-1.0", "Runtime-1.0"]},
+        "case_count": {"const": 65}
+      },
+      "additionalProperties": false
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["case_id", "bundle_file", "rule_ids", "support_level", "replay_required"],
+        "properties": {
+          "case_id": {"pattern": "^SUCCESS-ARCANA-00[1-8]$"},
+          "bundle_file": {"type": "string"},
+          "rule_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "support_level": {"enum": ["implemented", "recognized-unsupported"]},
+          "replay_required": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

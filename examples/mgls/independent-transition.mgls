@@ -1,0 +1,35 @@
+mgls "0";
+source "source:bounded-transition:001";
+program "program:bounded-transition:001";
+registry "registry:reference-experimental" revision "1";
+profile "profile:reference-experimental" revision "1";
+budget {
+  energy 10;
+  events 1;
+  microsteps 8;
+  concurrency 1;
+}
+
+selector target_selector = {
+  entity_type = "test-target",
+  scope = "local",
+};
+let desired_state: string = "transitioned";
+
+node resolve_target: resolve target_ref from target_selector;
+node invoke_transition after resolve_target: effect transition_result = invoke
+  "generic.transition" revision "1" (target_ref, desired_state)
+  requires {
+    capability "capability.transition" on target_ref effect "Reconfigure";
+    lease "lease.transition" on target_ref mode "Write";
+    identity "identity.target" on target_ref;
+    accounting "accounting.transition" kind "EnergyMatter" on target_ref;
+    resources {
+      energy 10;
+      matter 0;
+      events 1;
+    }
+  };
+
+output "result" effect_result from transition_result;
+output "event" event from transition_result;

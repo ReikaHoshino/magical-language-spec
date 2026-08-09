@@ -1,0 +1,540 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/canonical-water-ball.schema.json",
+  "title": "Canonical water-ball conformance documents",
+  "description": "Pre-v0.8 end-to-end pipeline, failure catalog, and rule-to-test traceability contract.",
+  "oneOf": [
+    {"$ref": "#/$defs/pipeline"},
+    {"$ref": "#/$defs/failureCatalog"},
+    {"$ref": "#/$defs/traceabilityMatrix"}
+  ],
+  "$defs": {
+    "identifier": {"$ref": "common-values.schema.json#/$defs/identifier"},
+    "revision": {"$ref": "common-values.schema.json#/$defs/revision"},
+    "quantity": {"$ref": "common-values.schema.json#/$defs/quantity"},
+    "artifactReference": {
+      "type": "object",
+      "required": ["artifact_id", "revision"],
+      "properties": {
+        "artifact_id": {"$ref": "#/$defs/identifier"},
+        "revision": {"$ref": "#/$defs/revision"}
+      },
+      "additionalProperties": false
+    },
+    "stageRecord": {
+      "type": "object",
+      "required": ["stage", "representation_id", "owner", "status"],
+      "properties": {
+        "stage": {
+          "enum": [
+            "NaturalLanguageSource",
+            "SourceNormalization",
+            "NormalizationCandidateSet",
+            "NSR",
+            "SemanticAST",
+            "TypedMIR",
+            "ResolutionAndRegistryInputs",
+            "KernelPlan",
+            "FeasibilityAndPrepare",
+            "RuntimeScheduleAndCommit",
+            "WorldStateAndHistory"
+          ]
+        },
+        "representation_id": {"$ref": "#/$defs/identifier"},
+        "owner": {
+          "enum": [
+            "LanguageAdapter",
+            "Specification",
+            "Registry",
+            "World",
+            "Profile",
+            "LocalEvaluator",
+            "Runtime"
+          ]
+        },
+        "status": {"enum": ["Exact", "ProfileDefined", "RegistryDefined", "WorldDefined", "Estimated", "Prepared", "Committed"]},
+        "evidence_ids": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/identifier"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "adapter_id",
+        "adapter_revision",
+        "external_language_tags",
+        "original_text",
+        "normalized_text",
+        "normalization_profile"
+      ],
+      "properties": {
+        "adapter_id": {"const": "eng"},
+        "adapter_revision": {"$ref": "#/$defs/revision"},
+        "external_language_tags": {
+          "type": "array",
+          "const": ["en"]
+        },
+        "original_text": {"type": "string", "minLength": 1},
+        "normalized_text": {"type": "string", "minLength": 1},
+        "normalization_profile": {"$ref": "#/$defs/artifactReference"},
+        "terminal_was_omitted": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "normalization": {
+      "type": "object",
+      "required": [
+        "policy",
+        "selected_candidate_id",
+        "alternative_candidate_ids",
+        "nsr"
+      ],
+      "properties": {
+        "policy": {"const": "StrictReject"},
+        "selected_candidate_id": {"$ref": "#/$defs/identifier"},
+        "alternative_candidate_ids": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "nsr": {"$ref": "nsr.schema.json"}
+      },
+      "additionalProperties": false
+    },
+    "semanticAst": {
+      "type": "object",
+      "required": ["node_kind", "action", "desired_state", "constraints", "unknowns"],
+      "properties": {
+        "node_kind": {"const": "GenerationGoal"},
+        "action": {"const": "generate"},
+        "desired_state": {"type": "object"},
+        "constraints": {"type": "object"},
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["field_path", "reason"],
+            "properties": {
+              "field_path": {"type": "string", "minLength": 1},
+              "reason": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "typedMir": {
+      "type": "object",
+      "required": [
+        "declaration_kind",
+        "name",
+        "goal_kind",
+        "typed_constraints",
+        "effects",
+        "terminal"
+      ],
+      "properties": {
+        "declaration_kind": {"const": "spell"},
+        "name": {"const": "CanonicalWaterBall"},
+        "goal_kind": {"const": "DesiredWorldState"},
+        "typed_constraints": {
+          "type": "object",
+          "required": ["material", "mass", "radius", "distance", "initial_velocity", "acceleration", "trajectory"],
+          "properties": {
+            "material": {"const": "water"},
+            "mass": {"$ref": "#/$defs/quantity"},
+            "radius": {"$ref": "#/$defs/quantity"},
+            "distance": {"$ref": "#/$defs/quantity"},
+            "initial_velocity": {"$ref": "#/$defs/quantity"},
+            "acceleration": {"$ref": "#/$defs/quantity"},
+            "trajectory": {"const": "horizontal-forward"}
+          },
+          "additionalProperties": false
+        },
+        "effects": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "Resolve",
+              "Read",
+              "Channel<Matter>",
+              "Transfer<Matter>",
+              "Reconfigure",
+              "Constrain",
+              "Commit"
+            ]
+          }
+        },
+        "terminal": {
+          "type": "object",
+          "required": ["source_value", "criticality"],
+          "properties": {
+            "source_value": {"$ref": "planning-inference.schema.json#/$defs/sourceValue"},
+            "criticality": {"const": "EstimateAllowed"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "obligation": {
+      "$ref": "planning-inference.schema.json#/$defs/mandatoryObligation"
+    },
+    "candidatePlan": {
+      "type": "object",
+      "required": [
+        "plan_id",
+        "source_fidelity",
+        "mandatory_obligations",
+        "feasibility",
+        "estimated_total_energy",
+        "operations"
+      ],
+      "properties": {
+        "plan_id": {"$ref": "#/$defs/identifier"},
+        "source_fidelity": {"enum": ["Pass", "Fail"]},
+        "mandatory_obligations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/obligation"}
+        },
+        "feasibility": {
+          "enum": ["Feasible", "ConditionallyFeasible", "Infeasible", "Indeterminate"]
+        },
+        "estimated_total_energy": {
+          "$ref": "estimator-profile.schema.json#/$defs/quantityEstimate"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "enum": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "planning": {
+      "type": "object",
+      "required": [
+        "inference_fixture",
+        "estimator_profile",
+        "candidate_plans",
+        "selected_plan_id",
+        "selection_order",
+        "terminal_assumption"
+      ],
+      "properties": {
+        "inference_fixture": {"type": "string", "minLength": 1},
+        "dynamic_fixture": {"type": "string", "minLength": 1},
+        "estimator_profile": {"$ref": "#/$defs/artifactReference"},
+        "candidate_plans": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/candidatePlan"}
+        },
+        "selected_plan_id": {"$ref": "#/$defs/identifier"},
+        "selection_order": {
+          "const": [
+            "SourceSemanticFidelity",
+            "MandatoryObligations",
+            "Feasibility",
+            "OptimizationObjective"
+          ]
+        },
+        "terminal_assumption": {
+          "type": "object",
+          "required": [
+            "source_value",
+            "estimate",
+            "planning_assumption_id",
+            "binding"
+          ],
+          "properties": {
+            "source_value": {"$ref": "planning-inference.schema.json#/$defs/semanticUnknown"},
+            "estimate": {
+              "$ref": "estimator-profile.schema.json#/$defs/quantityEstimate"
+            },
+            "planning_assumption_id": {"$ref": "#/$defs/identifier"},
+            "binding": {"$ref": "planning-inference.schema.json#/$defs/binding"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "kernelPlan": {
+      "type": "object",
+      "required": [
+        "source_plan_id",
+        "operations",
+        "resolution_evidence_ids",
+        "capability_ids",
+        "lease_ids",
+        "accounting_evidence_ids",
+        "runtime_profile",
+        "revalidation_required"
+      ],
+      "properties": {
+        "source_plan_id": {"$ref": "#/$defs/identifier"},
+        "operations": {
+          "type": "array",
+          "items": {
+            "enum": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]
+          }
+        },
+        "resolution_evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "capability_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "lease_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "accounting_evidence_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "runtime_profile": {"$ref": "#/$defs/artifactReference"},
+        "revalidation_required": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "resolutionInputs": {
+      "type": "object",
+      "required": [
+        "semantic_registry",
+        "world_index",
+        "world_index_revision",
+        "source_world_revision",
+        "required_registry_contracts",
+        "authority_evidence",
+        "lease_evidence",
+        "conservation_evidence"
+      ],
+      "properties": {
+        "semantic_registry": {"$ref": "#/$defs/artifactReference"},
+        "world_index": {"$ref": "#/$defs/artifactReference"},
+        "world_index_revision": {"$ref": "#/$defs/revision"},
+        "source_world_revision": {"$ref": "#/$defs/revision"},
+        "required_registry_contracts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "authority_evidence": {"$ref": "#/$defs/identifier"},
+        "lease_evidence": {"$ref": "#/$defs/identifier"},
+        "conservation_evidence": {"$ref": "#/$defs/identifier"}
+      },
+      "additionalProperties": false
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "runtime_profile",
+        "physical_time_is_runtime_tick",
+        "prepare_status",
+        "revalidation",
+        "commit",
+        "world_effect"
+      ],
+      "properties": {
+        "runtime_profile": {"$ref": "#/$defs/artifactReference"},
+        "physical_time_is_runtime_tick": {"const": false},
+        "prepare_status": {"const": "Prepared"},
+        "revalidation": {
+          "type": "object",
+          "required": ["stage", "status", "evidence_ids"],
+          "properties": {
+            "stage": {"const": "Revalidate"},
+            "status": {"const": "Pass"},
+            "evidence_ids": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"$ref": "#/$defs/identifier"}
+            }
+          },
+          "additionalProperties": false
+        },
+        "commit": {
+          "type": "object",
+          "required": ["stage", "status", "effective_at", "committed_at", "tick_stamp"],
+          "properties": {
+            "stage": {"const": "COMMIT"},
+            "status": {"const": "Committed"},
+            "effective_at": {"type": "string", "format": "date-time"},
+            "committed_at": {"type": "string", "format": "date-time"},
+            "tick_stamp": {
+              "type": "object",
+              "required": ["epoch", "tick", "phase", "ordinal"],
+              "properties": {
+                "epoch": {"$ref": "#/$defs/identifier"},
+                "tick": {"$ref": "#/$defs/identifier"},
+                "phase": {"const": "Commit"},
+                "ordinal": {"type": "integer", "minimum": 0}
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "world_effect": {
+          "type": "object",
+          "required": [
+            "source_world_revision",
+            "result_world_revision",
+            "history_event_id",
+            "effect_kind",
+            "entity_identity_policy"
+          ],
+          "properties": {
+            "source_world_revision": {"$ref": "#/$defs/revision"},
+            "result_world_revision": {"$ref": "#/$defs/revision"},
+            "history_event_id": {"$ref": "#/$defs/identifier"},
+            "effect_kind": {"const": "MatterTransferAndReconfiguration"},
+            "entity_identity_policy": {"const": "NewEntityFromAccountedMatter"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "pipeline": {
+      "type": "object",
+      "required": [
+        "document_kind",
+        "schema_version",
+        "case_id",
+        "stages",
+        "source",
+        "normalization",
+        "semantic_ast",
+        "typed_mir",
+        "resolution_inputs",
+        "planning",
+        "kernel_plan",
+        "feasibility_report",
+        "runtime",
+        "failure_catalog",
+        "traceability_matrix"
+      ],
+      "properties": {
+        "document_kind": {"const": "CanonicalPipeline"},
+        "schema_version": {"$ref": "common-values.schema.json#/$defs/version"},
+        "case_id": {"const": "WB-CANON-001"},
+        "stages": {
+          "type": "array",
+          "minItems": 11,
+          "maxItems": 11,
+          "items": {"$ref": "#/$defs/stageRecord"}
+        },
+        "source": {"$ref": "#/$defs/source"},
+        "normalization": {"$ref": "#/$defs/normalization"},
+        "semantic_ast": {"$ref": "#/$defs/semanticAst"},
+        "typed_mir": {"$ref": "#/$defs/typedMir"},
+        "resolution_inputs": {"$ref": "#/$defs/resolutionInputs"},
+        "planning": {"$ref": "#/$defs/planning"},
+        "kernel_plan": {"$ref": "#/$defs/kernelPlan"},
+        "feasibility_report": {"$ref": "feasibility-report.schema.json"},
+        "runtime": {"$ref": "#/$defs/runtime"},
+        "failure_catalog": {"type": "string", "minLength": 1},
+        "traceability_matrix": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "failureCase": {
+      "type": "object",
+      "required": ["test_id", "category", "stage", "expected_status", "diagnostic"],
+      "properties": {
+        "test_id": {"type": "string", "pattern": "^WB-FAIL-[0-9]{3}$"},
+        "category": {
+          "enum": [
+            "ParseNormalization",
+            "Ambiguity",
+            "Type",
+            "Dimension",
+            "Resolution",
+            "AuthorityLease",
+            "Conservation",
+            "EstimatorUnavailable",
+            "MustResolveInference",
+            "SourceFidelity",
+            "PlanSelection",
+            "Binding",
+            "RuntimeRevalidation"
+          ]
+        },
+        "stage": {
+          "enum": ["Normalize", "Elaborate", "PREPARE", "Revalidate", "COMMIT"]
+        },
+        "expected_status": {
+          "enum": ["Rejected", "Infeasible", "Indeterminate", "Aborted"]
+        },
+        "diagnostic": {"$ref": "#/$defs/identifier"},
+        "fixture_or_mutation": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "failureCatalog": {
+      "type": "object",
+      "required": ["document_kind", "schema_version", "catalog_id", "cases"],
+      "properties": {
+        "document_kind": {"const": "FailureCatalog"},
+        "schema_version": {"$ref": "common-values.schema.json#/$defs/version"},
+        "catalog_id": {"const": "WB-FAILURES-001"},
+        "cases": {
+          "type": "array",
+          "minItems": 13,
+          "items": {"$ref": "#/$defs/failureCase"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "traceabilityEntry": {
+      "type": "object",
+      "required": ["rule_id", "owner", "test_ids", "fixture_paths"],
+      "properties": {
+        "rule_id": {"type": "string", "pattern": "^WB-RULE-[0-9]{3}$"},
+        "owner": {"type": "string", "minLength": 1},
+        "test_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^WB-(?:TEST|FAIL)-[0-9]{3}$"}
+        },
+        "fixture_paths": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      },
+      "additionalProperties": false
+    },
+    "traceabilityMatrix": {
+      "type": "object",
+      "required": ["document_kind", "schema_version", "matrix_id", "entries"],
+      "properties": {
+        "document_kind": {"const": "TraceabilityMatrix"},
+        "schema_version": {"$ref": "common-values.schema.json#/$defs/version"},
+        "matrix_id": {"const": "WB-TRACE-001"},
+        "entries": {
+          "type": "array",
+          "minItems": 10,
+          "items": {"$ref": "#/$defs/traceabilityEntry"}
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

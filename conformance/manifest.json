@@ -1,0 +1,701 @@
+{
+  "document_kind": "ConformanceManifest",
+  "schema_version": "1",
+  "suite": {
+    "suite_id": "magical-language-conformance",
+    "suite_version": "0.12.0",
+    "release_target": "v0.12.0"
+  },
+  "classes": [
+    {
+      "class_id": "Core-1.0",
+      "status": "candidate",
+      "normative_references": [
+        {"document": "reference/scope-and-ownership.md", "heading": "## Key invariants"},
+        {"document": "reference/compatibility.md", "heading": "## 2. Result model"},
+        {"document": "reference/compatibility.md", "heading": "## 4. Domain rules"},
+        {"document": "reference/versioning-and-migration.md", "heading": "## 2. Release-number contract"},
+        {"document": "reference/versioning-and-migration.md", "heading": "## 3. Deprecation lifecycle"},
+        {"document": "reference/versioning-and-migration.md", "heading": "## 4. Explicit migration contract"},
+        {"document": "reference/versioning-and-migration.md", "heading": "## 5. Migration execution boundary"},
+        {"document": "reference/versioning-and-migration.md", "heading": "## 6. Compatibility/admission boundary"},
+        {"document": "reference/canonical-water-ball.md", "heading": "## 4. Resolution, authority, and conservation"},
+        {"document": "reference/planning-inference.md", "heading": "## Key invariants"},
+        {"document": "reference/canonical-water-ball.md", "heading": "## 9. Traceability"}
+      ],
+      "required_case_ids": [
+        "CORE-COMPAT-001",
+        "CORE-COMPAT-COVERAGE-001",
+        "CORE-COMPAT-COVERAGE-002",
+        "CORE-COMPAT-DEPRECATION-001",
+        "CORE-COMPAT-EVOLUTION-001",
+        "CORE-COMPAT-EVOLUTION-002",
+        "CORE-COMPAT-MIGRATION-001",
+        "CORE-COMPAT-MIGRATION-AMBIGUOUS-001",
+        "CORE-COMPAT-MIGRATION-AUTHORITY-001",
+        "CORE-COMPAT-MIGRATION-INCOMPATIBLE-001",
+        "CORE-COMPAT-MIGRATION-INVALID-001",
+        "CORE-COMPAT-MIGRATION-MISSING-001",
+        "CORE-COMPAT-MIGRATION-PROFILE-001",
+        "CORE-FINGERPRINT-001",
+        "CORE-OWNERSHIP-001",
+        "CORE-PLANNING-001",
+        "CORE-PLANNING-BINDING-001",
+        "CORE-PLANNING-GENERATION-001",
+        "WB-TEST-001",
+        "WB-TEST-002",
+        "WB-TEST-003",
+        "WB-TEST-004",
+        "WB-TEST-005",
+        "WB-TEST-006",
+        "WB-TEST-007",
+        "WB-TEST-008",
+        "WB-TEST-009",
+        "WB-TEST-010",
+        "WB-TEST-011"
+      ],
+      "unsupported_or_deferred": [
+        "production WorldIndex/storage algorithms",
+        "formal theorem proving",
+        "non-reference language adapter breadth"
+      ]
+    },
+    {
+      "class_id": "Evaluator-1.0",
+      "status": "candidate",
+      "normative_references": [
+        {"document": "reference/evaluator-implementation.md", "heading": "## Public v0.8 ingress"},
+        {"document": "reference/evaluator-implementation.md", "heading": "## Read-only evidence boundaries"},
+        {"document": "reference/evaluator-implementation.md", "heading": "## Estimation and obligations"},
+        {"document": "reference/evaluator-implementation.md", "heading": "## CLI"},
+        {"document": "reference/evaluator-implementation.md", "heading": "## Canonical conformance"}
+      ],
+      "required_case_ids": [
+        "EVAL-AUTH-001",
+        "EVAL-CONSERV-001",
+        "EVAL-DIM-001",
+        "EVAL-INGRESS-001",
+        "EVAL-PLAN-SELECTION-001",
+        "EVAL-RESOLUTION-001",
+        "EVAL-SERIALIZATION-001",
+        "EVAL-TYPE-001",
+        "EVAL-UNKNOWN-001",
+        "EVAL-WATER-BALL-001"
+      ],
+      "unsupported_or_deferred": [
+        "public later-stage direct ingress",
+        "automatic language detection",
+        "authoritative world mutation"
+      ]
+    },
+    {
+      "class_id": "Adapter-lat-1.0",
+      "status": "candidate",
+      "normative_references": [
+        {"document": "reference/language-adapters.md", "heading": "## 2. Adapter contract"},
+        {"document": "reference/language-adapters.md", "heading": "## 3. Layering"},
+        {"document": "reference/source-text-normalization.md", "heading": "## 9. Conformance"},
+        {"document": "reference/language-adapters.md", "heading": "### 8.5 AmbiguityDecisionTraceV1"}
+      ],
+      "required_case_ids": [
+        "ADAPTER-LAT-001",
+        "ADAPTER-LAT-AMBIG-001",
+        "ADAPTER-LAT-CONTEXTUAL-001",
+        "ADAPTER-LAT-DISPATCH-001",
+        "ADAPTER-LAT-LEGACY-001",
+        "ADAPTER-LAT-NORMALIZATION-001"
+      ],
+      "unsupported_or_deferred": [
+        "non-Latin adapters",
+        "automatic language detection",
+        "full historical/register Latin profiles"
+      ]
+    },
+    {
+      "class_id": "Runtime-1.0",
+      "status": "candidate",
+      "normative_references": [
+        {"document": "reference/runtime-implementation.md", "heading": "## PREPARE"},
+        {"document": "reference/runtime-implementation.md", "heading": "## Revalidate / COMMIT"},
+        {"document": "reference/runtime-implementation.md", "heading": "## Conservation / identity"},
+        {"document": "reference/runtime-implementation.md", "heading": "## Replay"},
+        {"document": "reference/runtime-implementation.md", "heading": "## Machine-readable trace"},
+        {"document": "reference/kernel-execution.md", "heading": "## 13. Runtime-1.0 conformance obligations"},
+        {"document": "reference/runtime-implementation.md", "heading": "## MKI data plane"},
+        {"document": "reference/runtime-implementation.md", "heading": "## Planning binding and reactive behavior"}
+      ],
+      "required_case_ids": [
+        "RUNTIME-ACTIVE-EFFECT-001",
+        "RUNTIME-AUTH-001",
+        "RUNTIME-BINDING-001",
+        "RUNTIME-COMMIT-001",
+        "RUNTIME-CONSERV-001",
+        "RUNTIME-IDENTITY-001",
+        "RUNTIME-KERNEL-ABI-001",
+        "RUNTIME-KERNEL-ATOMIC-001",
+        "RUNTIME-KERNEL-CLASS-001",
+        "RUNTIME-KERNEL-LIFECYCLE-001",
+        "RUNTIME-KERNEL-SEMANTICS-001",
+        "RUNTIME-KERNEL-TIME-001",
+        "RUNTIME-LEASE-001",
+        "RUNTIME-MKI-EXEC-001",
+        "RUNTIME-PREPARE-001",
+        "RUNTIME-REPLAY-001",
+        "RUNTIME-RESOURCE-001",
+        "RUNTIME-SCHEDULER-001",
+        "RUNTIME-SERIALIZATION-001",
+        "RUNTIME-STOP-001"
+      ],
+      "unsupported_or_deferred": [
+        "public ECIR serialization",
+        "production distributed runtime",
+        "high-performance parallel scheduler",
+        "exhaustive physical models"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "CORE-COMPAT-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/compatibility.md", "heading": "## 2. Result model"}],
+      "test": {"file": "tests/test_compatibility_contract.py", "test_class": "CompatibilityContractTests", "test_method": "test_domain_owner_and_rule_source_are_mandatory"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-FINGERPRINT-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/scope-and-ownership.md", "heading": "## Key invariants"}],
+      "test": {"file": "tests/test_semantic_fingerprint.py", "test_class": "SemanticFingerprintV1Tests", "test_method": "test_expected_projection_and_fingerprint"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-OWNERSHIP-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/scope-and-ownership.md", "heading": "## Key invariants"}],
+      "test": {"file": "tests/test_scope_and_ownership.py", "test_class": "ScopeAndOwnershipContractTests", "test_method": "test_open_semantics_have_explicit_owners"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-PLANNING-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/scope-and-ownership.md", "heading": "## Key invariants"}],
+      "test": {"file": "tests/test_planning_inference.py", "test_class": "PlanningInferenceTests", "test_method": "test_unknown_estimate_and_assumption_remain_distinct"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-006",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/scope-and-ownership.md", "heading": "## Key invariants"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_006_generation_lowers_only_to_six_mki_primitives"},
+      "expected_outcome": "pass",
+      "notes": "Reuses the pre-existing stable canonical conformance ID rather than inventing a duplicate v0.10 ID."
+    },
+    {
+      "case_id": "WB-TEST-008",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 4. Resolution, authority, and conservation"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_008_registry_index_and_world_revision_domains_are_explicit"},
+      "expected_outcome": "pass",
+      "notes": "Reuses the existing stable canonical identity/revision-domain conformance ID."
+    },
+    {
+      "case_id": "EVAL-AUTH-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Estimation and obligations"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_explicit_authority_failure_is_infeasible"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "EVAL-CONSERV-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Estimation and obligations"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_explicit_conservation_failure_is_infeasible"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "EVAL-DIM-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Public v0.8 ingress"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_dimension_error_fails_before_planning"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "EVAL-INGRESS-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Public v0.8 ingress"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_internal_stage_ingress_is_not_public_api"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "EVAL-RESOLUTION-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Read-only evidence boundaries"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_reference_latin_source_enters_same_evaluator_pipeline"},
+      "expected_outcome": "pass",
+      "notes": "The supported Latin path reaches the shared evaluator and remains Indeterminate with explicit ResolutionFailure rather than fabricating identity."
+    },
+    {
+      "case_id": "EVAL-SERIALIZATION-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## CLI"}],
+      "test": {"file": "tests/test_evaluator_cli.py", "test_class": "EvaluatorCliTests", "test_method": "test_nsr_json_machine_output_is_deterministic_report"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "EVAL-TYPE-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Public v0.8 ingress"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_type_error_fails_closed"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "EVAL-UNKNOWN-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Estimation and obligations"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_unavailable_required_estimator_is_indeterminate_not_zero"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "ADAPTER-LAT-001",
+      "class_ids": ["Adapter-lat-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/language-adapters.md", "heading": "## 3. Layering"}],
+      "test": {"file": "tests/test_latin_adapter.py", "test_class": "LatinAdapterTests", "test_method": "test_lat_001_reaches_expected_nsr_deterministically"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "ADAPTER-LAT-AMBIG-001",
+      "class_ids": ["Adapter-lat-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/language-adapters.md", "heading": "## Key invariants"}],
+      "test": {"file": "tests/test_latin_adapter.py", "test_class": "LatinAdapterTests", "test_method": "test_aquae_candidates_are_preserved_and_strict_rejects"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "ADAPTER-LAT-DISPATCH-001",
+      "class_ids": ["Adapter-lat-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/language-adapters.md", "heading": "## 2. Adapter contract"}],
+      "test": {"file": "tests/test_latin_adapter.py", "test_class": "LatinAdapterTests", "test_method": "test_dispatch_is_explicit_and_does_not_detect_language"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-AUTH-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Revalidate / COMMIT"}],
+      "test": {"file": "tests/test_sandbox_runtime.py", "test_class": "SandboxRuntimeTests", "test_method": "test_revoked_capability_fails_before_mutation"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-COMMIT-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Revalidate / COMMIT"}],
+      "test": {"file": "tests/test_sandbox_runtime.py", "test_class": "SandboxRuntimeTests", "test_method": "test_canonical_plan_commits_expected_world_and_history"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-CONSERV-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Revalidate / COMMIT"}],
+      "test": {"file": "tests/test_sandbox_runtime.py", "test_class": "SandboxRuntimeTests", "test_method": "test_missing_conservation_evidence_fails_before_mutation"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-IDENTITY-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Conservation / identity"}],
+      "test": {"file": "tests/test_runtime_primitive_effects.py", "test_class": "RuntimePrimitiveEffectTests", "test_method": "test_resolve_and_observe_require_authoritative_source_evidence"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-LEASE-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Revalidate / COMMIT"}],
+      "test": {"file": "tests/test_sandbox_runtime.py", "test_class": "SandboxRuntimeTests", "test_method": "test_expired_lease_fails_before_mutation"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-PREPARE-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## PREPARE"}],
+      "test": {"file": "tests/test_sandbox_runtime.py", "test_class": "SandboxRuntimeTests", "test_method": "test_prepare_is_reversible_and_does_not_mutate_world"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-REPLAY-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Replay"}],
+      "test": {"file": "tests/test_sandbox_runtime.py", "test_class": "SandboxRuntimeTests", "test_method": "test_replay_detects_divergence"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-SCHEDULER-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Scheduler and time"}],
+      "test": {"file": "tests/test_runtime_engine.py", "test_class": "ReferenceRuntimeEngineTests", "test_method": "test_scheduler_records_canonical_phase_order"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-SERIALIZATION-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Machine-readable trace"}],
+      "test": {"file": "tests/test_runtime_execution_schema.py", "test_class": "RuntimeExecutionSchemaTests", "test_method": "test_committed_runtime_trace_validates"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-STOP-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Emergency stop"}],
+      "test": {"file": "tests/test_sandbox_runtime.py", "test_class": "SandboxRuntimeTests", "test_method": "test_emergency_stop_fences_prepare_and_commit"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-KERNEL-ABI-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/kernel-execution.md", "heading": "## 1. Stable public boundary vs lower execution boundary"}],
+      "test": {"file": "tests/test_kernel_execution_contract.py", "test_class": "KernelExecutionContractTests", "test_method": "test_lower_boundary_preserves_six_mki_operations"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-KERNEL-CLASS-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/kernel-execution.md", "heading": "## 2. Kernel interaction classes"}],
+      "test": {"file": "tests/test_kernel_execution_contract.py", "test_class": "KernelExecutionContractTests", "test_method": "test_kernel_interaction_classes_are_fixed_semantic_categories"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-ACTIVE-EFFECT-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/kernel-execution.md", "heading": "## 3. Authoritative active-effect ownership"}],
+      "test": {"file": "tests/test_kernel_execution_contract.py", "test_class": "KernelExecutionContractTests", "test_method": "test_causal_active_effects_have_authoritative_semantic_projection"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-KERNEL-LIFECYCLE-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/kernel-execution.md", "heading": "## 5. COMMIT semantics"}],
+      "test": {"file": "tests/test_kernel_execution_contract.py", "test_class": "KernelExecutionContractTests", "test_method": "test_commit_and_scheduler_commit_remain_distinct"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-KERNEL-ATOMIC-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/kernel-execution.md", "heading": "## 6. Atomic semantic groups"}],
+      "test": {"file": "tests/test_kernel_execution_contract.py", "test_class": "KernelExecutionContractTests", "test_method": "test_atomic_group_is_all_or_none"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-KERNEL-SEMANTICS-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/kernel-execution.md", "heading": "## 13. Runtime-1.0 conformance obligations"}],
+      "test": {"file": "tests/test_kernel_execution_contract.py", "test_class": "KernelExecutionContractTests", "test_method": "test_spec_owned_validation_cases_cover_issue_55"},
+      "fixtures": ["examples/kernel-execution/semantic-cases.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-KERNEL-TIME-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/kernel-execution.md", "heading": "## 12. Runtime `Ω` boundary"}],
+      "test": {"file": "tests/test_kernel_execution_contract.py", "test_class": "KernelExecutionContractTests", "test_method": "test_existing_time_and_world_kernel_invariants_remain_compatible"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-COVERAGE-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/compatibility.md", "heading": "## 4. Domain rules"}],
+      "test": {"file": "tests/test_compatibility_coverage.py", "test_class": "CompatibilityCoverageTests", "test_method": "test_required_domains_have_exact_owned_profiles_and_fixture_evidence"},
+      "fixtures": ["conformance/compatibility-coverage.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-COVERAGE-002",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/compatibility.md", "heading": "## 3. Domain decision matrix"}],
+      "test": {"file": "tests/test_compatibility_coverage.py", "test_class": "CompatibilityCoverageTests", "test_method": "test_required_reference_path_artifacts_have_no_unowned_domain"},
+      "fixtures": ["conformance/compatibility-coverage.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-EVOLUTION-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 2. Release-number contract"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_minor_additive_change_is_allowed_without_becoming_compatibility_proof"},
+      "fixtures": ["examples/compatibility/evolution-policy-v1.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-EVOLUTION-002",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 2. Release-number contract"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_patch_reinterpretation_is_forbidden"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-DEPRECATION-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 3. Deprecation lifecycle"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_same_major_deprecation_removal_is_forbidden"},
+      "fixtures": ["examples/compatibility/evolution-policy-v1.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-MIGRATION-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 5. Migration execution boundary"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_explicit_migration_succeeds_only_after_both_postconditions"},
+      "fixtures": ["examples/compatibility/evolution-policy-v1.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-MIGRATION-MISSING-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 4. Explicit migration contract"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_missing_migration_path_fails_closed"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-MIGRATION-AMBIGUOUS-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 4. Explicit migration contract"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_ambiguous_migration_path_fails_closed"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-MIGRATION-INVALID-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 5. Migration execution boundary"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_invalid_migrated_output_fails_closed"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-MIGRATION-INCOMPATIBLE-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 5. Migration execution boundary"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_post_migration_incompatibility_fails_closed"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-MIGRATION-PROFILE-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 5. Migration execution boundary"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_wrong_target_profile_fails_closed"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-COMPAT-MIGRATION-AUTHORITY-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/versioning-and-migration.md", "heading": "## 6. Compatibility/admission boundary"}],
+      "test": {"file": "tests/test_compatibility_evolution.py", "test_class": "CompatibilityEvolutionTests", "test_method": "test_explicit_migration_succeeds_only_after_both_postconditions"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "ADAPTER-LAT-NORMALIZATION-001",
+      "class_ids": ["Adapter-lat-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/source-text-normalization.md", "heading": "## 9. Conformance"}],
+      "test": {"file": "tests/test_source_text_normalization.py", "test_class": "SourceTextNormalizationTests", "test_method": "test_latin_source_is_unchanged"},
+      "fixtures": ["examples/source-normalization/latin-unchanged.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "ADAPTER-LAT-CONTEXTUAL-001",
+      "class_ids": ["Adapter-lat-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/language-adapters.md", "heading": "### 8.5 AmbiguityDecisionTraceV1"}],
+      "test": {"file": "tests/test_ambiguity_decision_trace.py", "test_class": "AmbiguityDecisionTraceTests", "test_method": "test_contextual_selection_is_stable_under_input_permutation"},
+      "fixtures": ["examples/ambiguity-policy/contextual-permutation-a.json", "examples/ambiguity-policy/contextual-permutation-b.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "ADAPTER-LAT-LEGACY-001",
+      "class_ids": ["Adapter-lat-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/language-adapters.md", "heading": "### 8.4 Policy behavior"}],
+      "test": {"file": "tests/test_ambiguity_decision_trace.py", "test_class": "AmbiguityDecisionTraceTests", "test_method": "test_strict_and_legacy_results_remain_distinct"},
+      "fixtures": ["examples/ambiguity-policy/strict-reject.json", "examples/ambiguity-policy/legacy-permissive-unexpected-result.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-PLANNING-GENERATION-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/planning-inference.md", "heading": "## 7. Generation goal lowering"}],
+      "test": {"file": "tests/test_planning_inference.py", "test_class": "PlanningInferenceTests", "test_method": "test_generation_uses_six_existing_primitives_and_energy_order"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "CORE-PLANNING-BINDING-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/planning-inference.md", "heading": "## 5. PlanningAssumption binding"}],
+      "test": {"file": "tests/test_planning_inference.py", "test_class": "PlanningInferenceTests", "test_method": "test_bound_and_dynamic_terminal_behavior_are_distinct"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-001",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 9. Traceability"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_001_documents_and_owned_references_validate"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json", "examples/canonical-water-ball/failure-cases.json", "examples/canonical-water-ball/traceability.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-002",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 2. Pipeline and ownership"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_002_pipeline_stages_and_representations_remain_distinct"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-003",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 3. NSR, SemanticAST, and TypedMIR"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_003_semantic_fingerprint_matches_nsr_not_artifact_hash"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-004",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 3. NSR, SemanticAST, and TypedMIR"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_004_pathological_explicit_constraints_survive_elaboration"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-005",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 5. Terminal inference and binding"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_005_unknown_estimate_assumption_and_binding_are_distinct"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-007",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 6. Estimation and plan selection"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_007_only_eligible_plans_enter_energy_optimization"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-009",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 4. Resolution, authority, and conservation"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_009_authority_lease_and_conservation_are_not_estimates"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-010",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 5. Terminal inference and binding"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_010_bound_dynamic_and_runtime_commit_are_distinct"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "WB-TEST-011",
+      "class_ids": ["Core-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/canonical-water-ball.md", "heading": "## 9. Traceability"}],
+      "test": {"file": "tests/test_canonical_water_ball.py", "test_class": "CanonicalWaterBallTests", "test_method": "test_wb_011_failure_and_traceability_coverage_is_stable"},
+      "fixtures": ["examples/canonical-water-ball/failure-cases.json", "examples/canonical-water-ball/traceability.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "EVAL-PLAN-SELECTION-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Planning inference"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_plan_selection_uses_minimum_energy_only_after_eligibility"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "EVAL-WATER-BALL-001",
+      "class_ids": ["Evaluator-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/evaluator-implementation.md", "heading": "## Canonical conformance"}],
+      "test": {"file": "tests/test_local_evaluator.py", "test_class": "LocalEvaluatorTests", "test_method": "test_canonical_water_ball_reaches_conditional_report_without_commit"},
+      "fixtures": ["examples/canonical-water-ball/pipeline.json"],
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-MKI-EXEC-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## MKI data plane"}],
+      "test": {"file": "tests/test_runtime_primitive_effects.py", "test_class": "RuntimePrimitiveEffectTests", "test_method": "test_canonical_execution_exercises_exactly_six_mki_primitives"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-RESOURCE-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## SandboxProfile"}],
+      "test": {"file": "tests/test_runtime_engine.py", "test_class": "ReferenceRuntimeEngineTests", "test_method": "test_sandbox_energy_ceiling_fails_closed_without_mutation"},
+      "expected_outcome": "pass"
+    },
+    {
+      "case_id": "RUNTIME-BINDING-001",
+      "class_ids": ["Runtime-1.0"],
+      "requirement": "required",
+      "rule_refs": [{"document": "reference/runtime-implementation.md", "heading": "## Planning binding and reactive behavior"}],
+      "test": {"file": "tests/test_runtime_engine.py", "test_class": "ReferenceRuntimeEngineTests", "test_method": "test_late_unrelated_entity_does_not_retarget_prepare_bound_terminal"},
+      "expected_outcome": "pass"
+    }
+  ]
+}

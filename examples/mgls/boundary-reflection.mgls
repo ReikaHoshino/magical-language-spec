@@ -1,0 +1,75 @@
+mgls "0";
+source "source:boundary-reflection:001";
+program "program:boundary-reflection:001";
+registry "registry:reference-experimental" revision "1";
+profile "profile:reference-experimental" revision "1";
+budget {
+  energy 0;
+  events 1;
+  microsteps 16;
+  concurrency 1;
+}
+
+selector target_selector = {
+  entity_id = "entity:sa001:target",
+};
+selector anchor_selector = {
+  entity_id = "entity:sa001:anchor",
+};
+
+let controller_model: record<BoundaryReflectionModel> =
+  record<BoundaryReflectionModel> {
+    model_id: string = "controller.boundary-reflection";
+    revision: string = "1";
+    registered_maximum_target_mass_kg: int = 100;
+    per_actuation_revalidation: bool = true;
+    no_authority_amplification: bool = true;
+  };
+
+let boundary_policy: record<BoundaryReflectionPolicy> =
+  record<BoundaryReflectionPolicy> {
+    coefficient_of_restitution: number = 0.8;
+    maximum_target_mass_kg: number = 10;
+    maximum_incident_momentum_kg_m_s: number = 100;
+    maximum_impulse_kg_m_s: number = 180;
+    maximum_energy_j: number = 1000;
+    event_latency_ms: number = 1;
+    max_event_latency_ms: number = 10;
+    jitter_ms: number = 0;
+    max_jitter_ms: number = 1;
+  };
+
+let publication: record<BoundaryReflectionPublication> =
+  record<BoundaryReflectionPublication> {
+    controller_id: string = "controller:sa001:boundary";
+    protected_region_id: string = "region:sa001:protected";
+    authorized_event_id: string = "event:sa001:authorized";
+    reflection_event_id: string = "event:sa001:reflection";
+  };
+
+node resolve_boundary_target:
+  resolve target_ref from target_selector;
+node resolve_reaction_anchor:
+  resolve anchor_ref from anchor_selector;
+node invoke_boundary_reflection after resolve_boundary_target, resolve_reaction_anchor:
+  effect boundary_result = invoke
+    "controller.boundary-reflection" revision "1"
+    (target_ref, anchor_ref, controller_model, boundary_policy, publication)
+    requires {
+      capability "capability.boundary-actuation" on anchor_ref
+        effect "Constrain" scope "local";
+      lease "lease.boundary-controller" on anchor_ref
+        mode "Actuate" scope "local";
+      identity "identity.boundary-target" on target_ref;
+      identity "identity.reaction-anchor" on anchor_ref;
+      accounting "accounting.boundary-momentum-energy"
+        kind "BoundaryMomentumEnergyAccounting" on anchor_ref;
+      resources {
+        energy 0;
+        matter 0;
+        events 1;
+      }
+    };
+
+output "result" effect_result from boundary_result;
+output "event" event from boundary_result;

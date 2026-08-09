@@ -1,0 +1,20 @@
+{
+  "document_kind": "FailureCatalog",
+  "schema_version": "1",
+  "catalog_id": "WB-FAILURES-001",
+  "cases": [
+    {"test_id": "WB-FAIL-001", "category": "ParseNormalization", "stage": "Normalize", "expected_status": "Rejected", "diagnostic": "InvalidUTF8", "fixture_or_mutation": "Invalid UTF-8 or unsupported scalar produces no candidate."},
+    {"test_id": "WB-FAIL-002", "category": "Ambiguity", "stage": "Normalize", "expected_status": "Rejected", "diagnostic": "AmbiguousNormalization", "fixture_or_mutation": "StrictReject receives two semantic-critical candidates."},
+    {"test_id": "WB-FAIL-003", "category": "Type", "stage": "Elaborate", "expected_status": "Rejected", "diagnostic": "TypeError", "fixture_or_mutation": "Material is replaced with Quantity<Time>."},
+    {"test_id": "WB-FAIL-004", "category": "Dimension", "stage": "Elaborate", "expected_status": "Rejected", "diagnostic": "DimensionError", "fixture_or_mutation": "Acceleration carries Length rather than Length/Time^2."},
+    {"test_id": "WB-FAIL-005", "category": "Resolution", "stage": "PREPARE", "expected_status": "Indeterminate", "diagnostic": "ResolutionFailure", "fixture_or_mutation": "Source-water selector has multiple unrevalidated candidates."},
+    {"test_id": "WB-FAIL-006", "category": "AuthorityLease", "stage": "PREPARE", "expected_status": "Infeasible", "diagnostic": "AuthorityError", "fixture_or_mutation": "Capability or write Lease evidence is absent."},
+    {"test_id": "WB-FAIL-007", "category": "Conservation", "stage": "PREPARE", "expected_status": "Infeasible", "diagnostic": "ConservationProofFailure", "fixture_or_mutation": "No accounted source matter or valid ledger proof exists."},
+    {"test_id": "WB-FAIL-008", "category": "EstimatorUnavailable", "stage": "PREPARE", "expected_status": "Indeterminate", "diagnostic": "EstimatorModelUnavailable", "fixture_or_mutation": "Required world-owned estimator model is unavailable."},
+    {"test_id": "WB-FAIL-009", "category": "MustResolveInference", "stage": "PREPARE", "expected_status": "Rejected", "diagnostic": "InferenceForbidden", "fixture_or_mutation": "PlanningAssumption is proposed for an Authority MustResolve obligation."},
+    {"test_id": "WB-FAIL-010", "category": "SourceFidelity", "stage": "PREPARE", "expected_status": "Rejected", "diagnostic": "SourceSemanticDrift", "fixture_or_mutation": "A cheaper candidate silently reduces the explicit 50 kg mass."},
+    {"test_id": "WB-FAIL-011", "category": "PlanSelection", "stage": "PREPARE", "expected_status": "Rejected", "diagnostic": "InvalidPlanSelection", "fixture_or_mutation": "A higher-Energy feasible plan is selected under the default objective."},
+    {"test_id": "WB-FAIL-012", "category": "Binding", "stage": "COMMIT", "expected_status": "Aborted", "diagnostic": "PlanningBindingViolation", "fixture_or_mutation": "PrepareBound terminal is silently retargeted after binding; Dynamic requires explicit CONSTRAIN."},
+    {"test_id": "WB-FAIL-013", "category": "RuntimeRevalidation", "stage": "Revalidate", "expected_status": "Aborted", "diagnostic": "StaleReference", "fixture_or_mutation": "Entity/state revision, Capability, Lease, or conservation guard changes before COMMIT."}
+  ]
+}

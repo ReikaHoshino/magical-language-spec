@@ -1,0 +1,1 @@
+{"document_kind":"ExpectedFeasibilityReport","schema_version":"1","fixture_id":"SUCCESS-ARCANA-002","expected":{"status":"Feasible","source_plan_id":"arcana:plan:staged-treatment","operations":["RESOLVE","OBSERVE","CHANNEL","TRANSFER","RECONFIGURE"],"energy_j":620,"identity_policy":"IdentityPolicy<Organism>"}}
