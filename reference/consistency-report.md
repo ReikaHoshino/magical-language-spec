@@ -1,6 +1,6 @@
 # 整合性チェック報告 — v1.0.0-rc.1 release candidate
 
-**Status:** **RC RELEASE TASK IN PROGRESS** / public Issue #1 GO and explicit public Issue #2 confirmation complete; exact-head and post-merge gates remain mandatory.
+**Status:** **v1.0.0-rc.1 FINALIZED / NO WAIVERS** / public Issue #2 release and post-merge certification complete; final `v1.0.0` remains unauthorized.
 
 **Renewed public audit baseline:** `0df7c42dfd741086cb0dcace040f69419f99acbb`
 
@@ -10,7 +10,7 @@
 
 **Release target:** `v1.0.0-rc.1` / Python package `1.0.0rc1`.
 
-**RC finalization timestamp:** pending post-merge evidence; no pre-merge timestamp is final.
+**RC finalization timestamp:** `2026-08-12 00:16:14 +09:00` Asia/Tokyo.
 
 > Sections 1–13 preserve the detailed pre-public preflight and integration evidence. They do not override the renewed public verdict recorded at the top of this document and in the final public-audit checkpoint below.
 
@@ -57,10 +57,10 @@ conformance suite      1.0.0-rc.1
 release target         v1.0.0-rc.1
 latest immutable spec  spec/v1.0.0-rc.1.md
 RC owner               public Issue #2
-RC timestamp           pending post-merge certification
+RC timestamp           2026-08-12 00:16:14 +09:00 Asia/Tokyo
 ```
 
-pre-public archive Issue #82 did not assign `v1.0.0-rc.1`. The renewed public Issue #1 audit reached GO and the user explicitly confirmed public Issue #2 on 2026-08-11; this separately scoped task owns the atomic identity and snapshot writes. Tag/publication/final timestamp still require landing evidence.
+pre-public archive Issue #82 did not assign `v1.0.0-rc.1`. The renewed public Issue #1 audit reached GO and the user explicitly confirmed public Issue #2 on 2026-08-11; the separately scoped task then completed the atomic identity, snapshot, exact-head gate, landing, prerelease publication, and post-merge certification.
 
 No historical snapshot was modified by pre-public archive Issues #47, pre-public archive Issue #48, or pre-public archive Issue #82.
 
@@ -405,12 +405,12 @@ immutable RC snapshot             spec/v1.0.0-rc.1.md
 historical snapshots              unchanged
 experimental promotion            none
 final v1.0.0                       not authorized / public Issue #3
-finalization timestamp            pending post-merge evidence
+finalization timestamp            2026-08-12 00:16:14 +09:00 Asia/Tokyo
 ```
 
-The release branch must still record focused/full local gate results, exact PR head, all required workflow results,
-independent audit, merge SHA, and post-merge package/consistency certification. No waiver converts a failed or missing
-gate into RC readiness.
+The release branch recorded focused/full local gate results, exact PR head, all required workflow results, independent
+audit, merge SHA, and post-merge package/consistency certification. No waiver converted a failed or missing gate into RC
+readiness.
 
 ### Local release-branch gate
 
@@ -434,6 +434,29 @@ evaluator still emitted the historical `0.8.0` report identity even though the d
 were at RC. `src/evaluator/evaluator.py` now emits `1.0.0-rc.1`, and the repository regression asserts that identity.
 This changes release metadata only; evaluator semantics, schemas, fixtures, and the frozen 4/65/14 surface are unchanged.
 
-The remaining mandatory evidence is exact published PR-head CI plus a clean exact-head audit, followed by merge-SHA and
-post-merge certification. The RC finalization timestamp, tag/publication, public Issue #2 closure, and public Issue #3
-unblock remain deliberately pending.
+The exact published PR-head CI, clean exact-head audit, merge-SHA verification, post-merge certification, and prerelease
+publication are complete. public Issue #2 closes with the reconciliation PR. public Issue #3 is the next release task but
+requires separate explicit authorization; this RC evidence does not authorize final `v1.0.0`.
+
+### Exact-head landing and post-merge certification
+
+```text
+public release PR                  public PR #21
+reviewed/published head            7d4aaead644f558548320b26c44f7a40f761f9bf
+exact-head protected checks        PASS / 7 of 7
+independent clean-head audit       PASS / 32 schemas / 65 cases / 421 tests / 4 classes / 14 claims
+squash merge                       776395dbcde6a820b96a358d1085552331cd497c
+post-merge local gate              PASS / schemas / conformance / 421 tests / wheel / sdist
+post-merge package workflow        run 31505529263 / SUCCESS
+post-merge runtime workflow        run 31505529287 / SUCCESS
+prerelease                         https://github.com/ReikaHoshino/magical-language-spec/releases/tag/v1.0.0-rc.1
+tag target                         776395dbcde6a820b96a358d1085552331cd497c
+historical snapshots               unchanged; spec/v1.0.0-rc.1.md added only
+stable surface                     4 released classes / 65 required cases / 14 required claims
+MKI / World Kernel                 6 / 5 unchanged
+experimental promotion            none
+RC finalization                    2026-08-12 00:16:14 +09:00 Asia/Tokyo
+```
+
+Next RESUME POINT: close public Issue #2 through this reconciliation, then stop before public Issue #3 until the user
+explicitly authorizes final `v1.0.0`. public Issue #4 remains the final umbrella after the final release and handoff.
