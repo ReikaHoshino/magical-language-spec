@@ -1,9 +1,9 @@
 {
   "document_kind": "V1RequiredSurfaceMatrix",
   "schema_version": "1",
-  "suite_version": "0.12.0",
-  "target": "v1.0.0-rc.N",
-  "source_issue": 38,
+  "suite_version": "1.0.0-rc.1",
+  "target": "v1.0.0-rc.1",
+  "source_issue": 2,
   "requirements": [
     {
       "requirement_id": "V1-CONF-001",

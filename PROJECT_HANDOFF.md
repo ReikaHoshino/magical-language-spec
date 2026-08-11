@@ -163,6 +163,11 @@ Chat / agents / local tools / humans
 
 release finalization timestampは、release後チェック・文書同期・次RESUME POINT設定が完了した時点のevidenceに基づいて記録する。pre-merge candidate時刻をfinalとして扱わない。
 
+Release-candidate identityはdomainに応じて表記を分離する。spec/conformance/tag identityはSemVer形式
+`v1.0.0-rc.1` / `1.0.0-rc.1`、Python distribution metadataはPEP 440形式`1.0.0rc1`を使用する。
+両者の対応はrelease-owned evidenceへ明記し、文字列差をcompatibility failureやsemantic differenceとして
+扱わない。tag/publication/Issue closureはexact landingとpost-merge certificationより先に行わない。
+
 ---
 
 ## 6. Stable project invariants worth carrying across environments

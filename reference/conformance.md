@@ -1,12 +1,12 @@
-# Conformance Reference — v0.12 candidate
+# Conformance Reference — v1.0.0-rc.1
 
-**Status:** normative complete v1.0-candidate conformance-harness contract for the post-v0.9 stabilization train. Individual class surfaces remain candidate until the owning RC release marks them released.
+**Status:** normative released v1.0 RC conformance contract. public Issue #2 freezes the four required classes and 65 required cases at `v1.0.0-rc.1`; experimental inventories remain excluded.
 
 ## Purpose
 
 このreferenceは、実装が「tests passed」と主張するだけでstable core適合を名乗ることを防ぎ、versioned conformance class、stable case ID、normative rule ownership、fixture/test evidence、blocked stateをmachine-readableに結び付ける。
 
-v0.12が継承するclassは:
+v1.0.0-rc.1がreleaseするclassは:
 
 ```text
 Core-1.0
@@ -72,7 +72,7 @@ manifestは少なくとも次を保証するMUST:
 - stable case IDが一意。
 - class IDが一意。
 - required caseが実在し、そのclassを明示。
-- candidate classはprovisional caseをrequiredにしない。
+- released/candidate classはprovisional caseをrequiredにしない。
 - blocked classはblocking dependencyを明示。
 - rule referenceのdocument/headingがcurrent referenceに実在。
 - executable caseが参照するtest/fixtureが実在。
@@ -126,9 +126,16 @@ headingが削除・移動された場合、manifestも更新してintentional mi
 class status:
 
 ```text
+released
 candidate
 blocked
 ```
+
+### released
+
+owning release gateがexact required surface、normative owner、expected truth、package path、
+fail-closed boundaryを凍結し、required casesをwaiverなしで通過した状態。released classへcaseを追加・削除・
+再解釈するにはversioning-and-migration contractに従う新しいrelease actionを要求する。
 
 ### candidate
 
@@ -153,7 +160,9 @@ blocked baseline all green != class conformance
 
 reference runnerの`--include-blocked`は測定専用でありstatusを変更しない。
 
-pre-public archive Issue #55はpre-public archive PR #57で解決済みであるため、v0.12 candidate manifestの`Runtime-1.0`は現在`candidate`である。将来別dependencyでclassがblockedになった場合も上記lifecycleを使う。
+pre-public archive Issue #55はpre-public archive PR #57で解決済みであり、public Issue #2のRC gateで
+`Core-1.0 / Evaluator-1.0 / Adapter-lat-1.0 / Runtime-1.0`を`released`へ移行した。
+将来別dependencyでclassがblockedになった場合も上記lifecycleを使う。
 
 ## 5. Initial class definitions
 
@@ -188,7 +197,7 @@ v0.8から継承するsupported evaluator surface:
 - deterministic validated FeasibilityReport;
 - no authoritative COMMIT/world mutation;
 
-をrequired candidate surfaceとする。
+をrequired released RC surfaceとする。
 
 ### Adapter-lat-1.0
 
@@ -206,7 +215,7 @@ reference `LanguageAdapter<lat>` supported surface:
 
 ### Runtime-1.0
 
-v0.9 runtimeから発展するstable runtime candidateである。
+v0.9 runtimeから発展し、v1.0.0-rc.1でreleaseされたstable runtime surfaceである。
 
 pre-public archive Issue #55 / pre-public archive PR #57でWorld Kernel lower semantic execution boundary、active-effect semantic ownership、`KernelAtomicGroup`、COMMIT/lifecycle distinctionが確定したため、本classはそれらをrequired surfaceへ含める。
 
@@ -227,7 +236,7 @@ pre-public archive Issue #55 / pre-public archive PR #57でWorld Kernel lower se
 - bounded Controller future-actuation revalidation;
 - DEACTIVATE/emergency stop is settlement/termination, not rollback;
 
-をrequired candidate surfaceとする。
+をrequired released RC surfaceとする。
 
 Runtime-1.0はpublic serialized ECIR、one storage layout、solver microsteps、高性能parallel schedulerをrequired stable surfaceにしない。
 
@@ -307,7 +316,7 @@ Capability、Lease、authority、trust、semantic proof、admissionを生成し�
 
 ## 9. Clean-environment execution
 
-v0.12 release gateの最低source-checkout reference path:
+v1.0.0-rc.1 release gateの最低source-checkout reference path:
 
 ```text
 python -m pip install --requirement requirements-dev.txt
@@ -327,7 +336,7 @@ magical-language-evaluator --source "Calorem ab aqua ad aerem transfer." --lang 
 installed entry point smokeはrepository外cwdから実行し、current canonical resource lookupがcwd依存でないことを確認する。
 
 このpathはproduction deploymentを意味しない。pre-public archive Issue #60 / pre-public archive PR #62で追加したsingle-authoring-source
-resource projectionにより、v0.12 release gateはeditable installに加えisolated wheel/sdist installed
+resource projectionにより、v1.0.0-rc.1 release gateはeditable installに加えisolated wheel/sdist installed
 executionも検証する。historical v0.10 snapshotの限定保証は遡及変更しない。
 
 release PRでは`git diff --check`も実施する。
@@ -342,7 +351,7 @@ manifestにrequired rule/caseを追加する際、ruleにexecutable conformance 
 暗黙にcoverage済みとみなしてはならない。
 
 v0.12もrepository内の全testを無差別にpublic guaranteeへ昇格しない。代わりに
-`conformance/v1-required-surface.json`がpre-public archive Issue #38の14 required conformance claimを列挙し、各claimを
+`conformance/v1-required-surface.json`がpre-public archive Issue #38から継承してpublic Issue #2がreleaseする14 required conformance claimを列挙し、各claimを
 stable required case IDへmappingする。matrix caseはmanifestでrequiredであり、owning classの
 `required_case_ids`へ含まれ、reverse rule coverageを持たなければならない。
 
@@ -355,7 +364,8 @@ requiredへ昇格しない。
 
 ## 11. v1.0 readiness boundary
 
-4 classのcomplete required matrixがv0.12でcandidateとしてPASSしても、pre-public archive Issue #40の全readiness gate完了を意味しない。
+4 classのcomplete required matrixはv0.12でcandidate evidenceを獲得し、renewed public Issue #1 auditのGOと
+public Issue #2 release gateを経てv1.0.0-rc.1でreleasedとなる。
 
 v1.0 RC eligibilityには別途:
 

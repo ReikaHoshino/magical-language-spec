@@ -75,7 +75,7 @@ def _assessment(
 def _fatal(program: Mapping[str, Any] | None, diagnostic: _JSON) -> _JSON:
     report = {
         "schema_version": "1",
-        "spec_version": "0.12.0",
+        "spec_version": "1.0.0-rc.1",
         "status": "Infeasible",
         "input": {
             "kind": "StructuredInput",
@@ -459,7 +459,7 @@ class MagicalProgramEvaluator:
         )
         report = {
             "schema_version": "1",
-            "spec_version": "0.12.0",
+            "spec_version": "1.0.0-rc.1",
             "status": status,
             "input": {
                 "kind": "StructuredInput",

@@ -24,7 +24,7 @@ class UserWorkflowConformanceTests(unittest.TestCase):
         self.assertEqual("ExperimentalConformanceInventory", INVENTORY["artifact_kind"])
         self.assertEqual("0", INVENTORY["artifact_version"])
         self.assertEqual("experimental", INVENTORY["stability"])
-        self.assertEqual("0.12.0", INVENTORY["spec_version"])
+        self.assertEqual("1.0.0-rc.1", INVENTORY["spec_version"])
         self.assertTrue(INVENTORY["excluded_from_stable_manifest"])
         cases = INVENTORY["cases"]
         self.assertEqual(
@@ -73,7 +73,7 @@ class UserWorkflowConformanceTests(unittest.TestCase):
             "Evaluation != Execution",
             "syntax != authority",
             "same semantic dispatch\n!= same occurrence identity",
-            "package version                     0.12.0",
+            "package version                     1.0.0rc1",
         ):
             self.assertIn(marker, REFERENCE)
 

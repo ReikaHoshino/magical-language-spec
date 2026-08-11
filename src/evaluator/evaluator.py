@@ -12,7 +12,7 @@ from typing import Any
 from .core import LocalEvaluator as _CoreLocalEvaluator
 from .schema import validate_feasibility_report
 
-PUBLIC_SPEC_VERSION = "0.8.0"
+PUBLIC_SPEC_VERSION = "1.0.0-rc.1"
 
 
 def _report_status(assessments: list[dict[str, Any]]) -> str:

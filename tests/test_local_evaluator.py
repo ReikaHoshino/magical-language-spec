@@ -50,6 +50,7 @@ class LocalEvaluatorTests(unittest.TestCase):
 
         self.assertEqual(self.canonical_nsr, original)
         self.assertEqual(report["status"], "ConditionallyFeasible")
+        self.assertEqual(report["spec_version"], "1.0.0-rc.1")
         validate_feasibility_report(report)
 
         interpretations = report["interpretations"]

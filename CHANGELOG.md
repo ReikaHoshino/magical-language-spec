@@ -2,22 +2,27 @@
 
 ## Unreleased experimental
 
-- public Issue #1: exact public main `0df7c42dfd741086cb0dcace040f69419f99acbb`からrenewed no-waiver auditを再実行し、open Issue inventory、14 required claims、stable/experimental分離、schema/regression/conformance、editable/wheel/sdist、runtime/security/replay、公開履歴とGitHub security settingsをwaiverなしでPASS。判定はGOだが、version `0.12.0`とrelease stateは変更せず、public Issue #2は明示確認待ち。
-- public Issue #15: current live documentsのtracker参照を`public Issue/PR #N`と`pre-public archive Issue/PR #N`へ明示分類し、clean-history migration後の番号衝突を防ぐregression checkを追加。
-- public Issue #16: retained v0.5 Restore/Rewind semanticsをcurrent normative ownerへreconcileし、`HistoricalRef<T>`、`Restore != Rewind`、`Replay != Rewind`、`Capability<History,Causality,Rewrite>`、fail-closed cycle/authority diagnostics、およびv1 deferred scopeを明示。runtime implementation、version、stable conformance、historical `spec/` snapshotsは変更しない。
-- public repositoryをclean historyへ移行し、active release trackingをpublic Issue #1 through public Issue #4へ再構成。pre-public Issue/PR番号はhistorical identifierとして保持する。
-- public security policy、Dependabot configuration、full-SHA-pinned GitHub Actionsを追加。仕様意味論、version `0.12.0`、stable 4 classes / 65 cases、historical `spec/` snapshotは変更しない。
 - pre-public archive Issue #91 / pre-public archive PR #129: public `SpellInstanceBundle` executionをcomplete current `MagicalProgram-0` pathへcutoverし、専用executorをlegacy oracleへ隔離。
 - pre-public archive Issue #92 / pre-public archive PR #131: bounded human-authored `MGLS-0` source contract、closed EBNF、lowering/source-map/diagnostic ownership、2 positive / 15 negative examplesを追加。
 - pre-public archive Issue #93 / pre-public archive PR #133: strict deterministic MGLS parser/typechecker/compiler、independent target admission、semantic/source-map verification、editable/wheel/sdist compiler smokeを追加。
 - pre-public archive Issue #94 / pre-public archive PR #135: compatibility-safe experimental `magical-language check/eval/run/compile`、single-read decoded-kind routing、common JSON envelope、fixed exit codes、atomic output guards、source/program/bundle/replay parityを追加。
 - `conformance/experimental-user-workflow.json`へ11 experimental E2E casesを追加し、stable `conformance/manifest.json`の4 classes / 65 required casesから分離。
-- current release judgmentはroot `TODO.md`に従いSUSPENDED。version `0.12.0`、six MKI operations、five World Kernel classes、historical `spec/`を変更しない。
 - pre-public archive Issue #80 / pre-public archive draft PR #78: strict self-contained `SpellInstanceBundle` ingress、versioned artifact/semantic/runtime registries、deterministic `check/eval/run` CLIを追加。
 - SUCCESS-ARCANA-001..008、DEBUG-HELL-001..003、non-suite GENERIC-001を同じfail-closed pathへ統合。SA-005..008はrecognized-unsupportedのまま。
-- stable v0.12.0 / 4 required classes / 65 stable cases / WB-CANON-001 / historical `spec/`を変更しない。
+- これらはpackage `1.0.0rc1`に同梱されるが、stable 4 classes / 65 cases / WB-CANON-001へ昇格しない。
 
-このログは設計会話とrepository releaseを v0.1〜v0.12.0 に再整理したものです。
+## v1.0.0-rc.1 — Release Candidate 1
+
+- public Issue #1のrenewed exact-main no-waiver auditをGOとして完了し、public Issue #2の明示承認後に専用release gateを再実行。
+- Core-1.0 / Evaluator-1.0 / Adapter-lat-1.0 / Runtime-1.0を4 classes / 65 required cases / 14 required claimsのまま`released` RC surfaceとして凍結。
+- conformance manifest、rule coverage、compatibility coverage、v1 required-surface matrixを`1.0.0-rc.1` / `v1.0.0-rc.1`へ同期。
+- Python distribution identityはPEP 440 `1.0.0rc1`、spec/conformance identityは`1.0.0-rc.1`として明示分離。
+- public Issue #15でtracker namespaceを明示し、public Issue #16でHistoricalRef / Restore / Rewind / Replayのauthority境界をcurrent normative ownerへreconcile。
+- clean public history、public security policy、Dependabot、full-SHA-pinned GitHub Actions、exact-head branch protectionをrelease evidenceへ含める。
+- README、reference、schemas、examples、tests、TODO、PROJECT_HANDOFF、consistency report、immutable `spec/v1.0.0-rc.1.md`を同期。
+- `SemanticFingerprint != artifact content_hash`、release version != compatibility oracle、experimental evidence != stable conformanceを維持。
+
+このログは設計会話とrepository releaseを v0.1〜v1.0.0-rc.1 に再整理したものです。
 
 ## v0.12.0 — Conformance Guarantee
 

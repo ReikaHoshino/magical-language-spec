@@ -37,12 +37,12 @@ class ConformanceManifestTests(unittest.TestCase):
         self.assertIn("CORE-COMPAT-COVERAGE-002", case_ids)
         self.assertIn("CORE-COMPAT-MIGRATION-PROFILE-001", case_ids)
 
-    def test_runtime_class_is_candidate_after_issue_55_resolution(self) -> None:
+    def test_runtime_class_is_released_in_v1_rc1(self) -> None:
         manifest = load_manifest(MANIFEST)
         runtime = next(
             item for item in manifest["classes"] if item["class_id"] == "Runtime-1.0"
         )
-        self.assertEqual("candidate", runtime["status"])
+        self.assertEqual("released", runtime["status"])
         self.assertNotIn("blocked_by", runtime)
         self.assertNotIn("pending_rule_areas", runtime)
         self.assertIn(
@@ -66,11 +66,11 @@ class ConformanceManifestTests(unittest.TestCase):
             }.issubset(runtime["required_case_ids"])
         )
 
-    def test_candidate_classes_require_only_required_cases(self) -> None:
+    def test_released_and_candidate_classes_require_only_required_cases(self) -> None:
         manifest = load_manifest(MANIFEST)
         cases = {item["case_id"]: item for item in manifest["cases"]}
         for class_def in manifest["classes"]:
-            if class_def["status"] != "candidate":
+            if class_def["status"] not in {"released", "candidate"}:
                 continue
             for case_id in class_def["required_case_ids"]:
                 self.assertEqual("required", cases[case_id]["requirement"])
@@ -102,8 +102,8 @@ class ConformanceManifestTests(unittest.TestCase):
             check=False,
         )
         self.assertEqual(0, completed.returncode, completed.stderr)
-        self.assertIn("CLASS Core-1.0 candidate", completed.stdout)
-        self.assertIn("CLASS Runtime-1.0 candidate", completed.stdout)
+        self.assertIn("CLASS Core-1.0 released", completed.stdout)
+        self.assertIn("CLASS Runtime-1.0 released", completed.stdout)
         self.assertIn("CASE WB-TEST-006 requirement=required", completed.stdout)
         self.assertIn("CASE WB-TEST-008 requirement=required", completed.stdout)
         self.assertIn("CASE EVAL-RESOLUTION-001 requirement=required", completed.stdout)

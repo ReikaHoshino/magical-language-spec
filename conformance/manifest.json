@@ -3,13 +3,13 @@
   "schema_version": "1",
   "suite": {
     "suite_id": "magical-language-conformance",
-    "suite_version": "0.12.0",
-    "release_target": "v0.12.0"
+    "suite_version": "1.0.0-rc.1",
+    "release_target": "v1.0.0-rc.1"
   },
   "classes": [
     {
       "class_id": "Core-1.0",
-      "status": "candidate",
+      "status": "released",
       "normative_references": [
         {"document": "reference/scope-and-ownership.md", "heading": "## Key invariants"},
         {"document": "reference/compatibility.md", "heading": "## 2. Result model"},
@@ -62,7 +62,7 @@
     },
     {
       "class_id": "Evaluator-1.0",
-      "status": "candidate",
+      "status": "released",
       "normative_references": [
         {"document": "reference/evaluator-implementation.md", "heading": "## Public v0.8 ingress"},
         {"document": "reference/evaluator-implementation.md", "heading": "## Read-only evidence boundaries"},
@@ -90,7 +90,7 @@
     },
     {
       "class_id": "Adapter-lat-1.0",
-      "status": "candidate",
+      "status": "released",
       "normative_references": [
         {"document": "reference/language-adapters.md", "heading": "## 2. Adapter contract"},
         {"document": "reference/language-adapters.md", "heading": "## 3. Layering"},
@@ -113,7 +113,7 @@
     },
     {
       "class_id": "Runtime-1.0",
-      "status": "candidate",
+      "status": "released",
       "normative_references": [
         {"document": "reference/runtime-implementation.md", "heading": "## PREPARE"},
         {"document": "reference/runtime-implementation.md", "heading": "## Revalidate / COMMIT"},

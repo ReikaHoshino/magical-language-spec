@@ -55,7 +55,7 @@ public service.
 - replay covers committed and deterministic-abort paths;
 - recognized-unsupported contracts remain `Indeterminate` and have no runtime;
 - stable v1.0 candidate conformance remains four classes and 65 required cases;
-- package version remains `0.12.0`.
+- package version transition does not promote this experimental cutover; the current package is `1.0.0rc1`.
 
 ## Verification requirement
 

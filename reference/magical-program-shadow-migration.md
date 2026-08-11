@@ -4,7 +4,7 @@
 
 **Prerequisites:** corrected `MagicalProgram-0` artifact/evaluator/runtime contracts from pre-public archive Issues #110, pre-public archive Issue #114, and pre-public archive Issue #118.
 
-**Stable v1.0 impact:** none. Migration evidence does not alter the released four-class / 65-case conformance surface or version `0.12.0`.
+**Stable v1.0 impact:** none. Migration evidence remains experimental in package `1.0.0rc1` and does not alter the released four-class / 65-case conformance surface.
 
 ## 1. Purpose
 

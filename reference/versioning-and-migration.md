@@ -1,6 +1,6 @@
 # v1.x Versioning, Deprecation, and Migration Guarantee
 
-**Status:** normative candidate contract for the v1.x stable line; v0.11 provides versioned conformance evidence, while final v1 stable-scope release remains owned by the v1.0 gate.
+**Status:** normative RC contract for the v1.x stable line. `v1.0.0-rc.1` freezes the required core surface for validation; the final `v1.0.0` release remains owned by public Issue #3.
 
 ## Purpose
 
@@ -27,7 +27,7 @@ domain固有の互換性判定は引き続き[`compatibility.md`](compatibility.
 - [`errors.md`](errors.md)
 - [`../planning/v1.0-roadmap.md`](../planning/v1.0-roadmap.md)
 
-machine-readable candidate policyは
+machine-readable released RC policyは
 [`schemas/compatibility-evolution.schema.json`](../schemas/compatibility-evolution.schema.json)、
 reference fixtureは
 [`examples/compatibility/evolution-policy-v1.json`](../examples/compatibility/evolution-policy-v1.json)

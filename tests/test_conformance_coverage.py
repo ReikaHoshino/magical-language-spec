@@ -48,7 +48,7 @@ class ConformanceRuleCoverageTests(unittest.TestCase):
                 self.assertIn(case_id, cases, rule["rule_id"])
                 self.assertIn(rule["class_id"], cases[case_id]["class_ids"], case_id)
 
-    def test_every_candidate_required_case_has_reverse_rule_coverage(self) -> None:
+    def test_every_released_or_candidate_required_case_has_reverse_rule_coverage(self) -> None:
         covered_case_ids = {
             case_id
             for rule in self.coverage["rules"]
@@ -58,7 +58,7 @@ class ConformanceRuleCoverageTests(unittest.TestCase):
         required_case_ids = {
             case_id
             for class_def in self.manifest["classes"]
-            if class_def["status"] == "candidate"
+            if class_def["status"] in {"released", "candidate"}
             for case_id in class_def["required_case_ids"]
         }
         self.assertEqual(required_case_ids, required_case_ids & covered_case_ids)
@@ -74,7 +74,7 @@ class ConformanceRuleCoverageTests(unittest.TestCase):
             self.assertTrue(rule.get("rationale", "").strip(), rule["rule_id"])
             self.assertFalse(rule.get("case_ids"), rule["rule_id"])
 
-    def test_all_four_candidate_classes_have_coverage_inventory_entries(self) -> None:
+    def test_all_four_released_classes_have_coverage_inventory_entries(self) -> None:
         classes = {item["class_id"] for item in self.coverage["rules"]}
         self.assertEqual(
             {"Core-1.0", "Evaluator-1.0", "Adapter-lat-1.0", "Runtime-1.0"},

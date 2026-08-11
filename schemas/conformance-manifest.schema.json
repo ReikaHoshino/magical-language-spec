@@ -58,7 +58,7 @@
       "properties": {
         "suite_id": {"const": "magical-language-conformance"},
         "suite_version": {"type": "string", "minLength": 1},
-        "release_target": {"const": "v0.12.0"}
+        "release_target": {"const": "v1.0.0-rc.1"}
       },
       "additionalProperties": false
     },
@@ -78,7 +78,7 @@
           "class_id": {"$ref": "#/$defs/classId"},
           "status": {
             "type": "string",
-            "enum": ["candidate", "blocked"]
+            "enum": ["released", "candidate", "blocked"]
           },
           "blocked_by": {
             "type": "array",

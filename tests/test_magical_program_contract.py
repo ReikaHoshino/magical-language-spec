@@ -303,8 +303,8 @@ class MagicalProgramContractTests(unittest.TestCase):
         self.assert_diagnostic(fabricated, "ProgramSchemaViolation")
 
         manifest = load(MANIFEST_PATH)
-        self.assertEqual("0.12.0", manifest["suite"]["suite_version"])
-        self.assertEqual("v0.12.0", manifest["suite"]["release_target"])
+        self.assertEqual("1.0.0-rc.1", manifest["suite"]["suite_version"])
+        self.assertEqual("v1.0.0-rc.1", manifest["suite"]["release_target"])
         self.assertEqual(
             65,
             sum(len(item["required_case_ids"]) for item in manifest["classes"]),

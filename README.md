@@ -2,15 +2,15 @@
 
 魔法を「世界状態に対する型付き・権限付きプログラム」として記述するための架空言語仕様です。
 
-このリポジトリは **魔術言語仕様 v0.1〜v0.12.0**、current `reference/`、machine-readable contracts、reference implementation、versioned conformance suiteを追跡します。
+このリポジトリは **魔術言語仕様 v0.1〜v1.0.0-rc.1**、current `reference/`、machine-readable contracts、reference implementation、versioned conformance suiteを追跡します。
 
 このrepositoryは2026-08-09に、公開用のclean historyへ移行しました。current workはこのpublic repositoryのIssueとPRで追跡します。current document内のtracker参照は`public Issue/PR #N`または`pre-public archive Issue/PR #N`としてnamespaceを明示します。active release trainは [public Issue #1 audit](https://github.com/ReikaHoshino/magical-language-spec/issues/1) → [public Issue #2 RC](https://github.com/ReikaHoshino/magical-language-spec/issues/2) → [public Issue #3 final](https://github.com/ReikaHoshino/magical-language-spec/issues/3) → [public Issue #4 umbrella](https://github.com/ReikaHoshino/magical-language-spec/issues/4) です。
 
 ## 現行版
 
-**v0.12.0 — Conformance Guarantee**
+**v1.0.0-rc.1 — Release Candidate 1**
 
-v0.12.0はv0.11 compatibility guaranteeを維持し、pre-public archive Issue #38で定義されたcomplete v1.0-required conformance surfaceをversioned stable case ID、reverse rule coverage、machine-readable requirement matrixへ固定するstabilization releaseです。
+v1.0.0-rc.1はpublic Issue #1のrenewed no-waiver auditとpublic Issue #2のrelease gateを経て、complete v1.0-required conformance surfaceを凍結する最初のrelease candidateです。4 class / 65 required case / 14 required claim、six MKI operations、five World Kernel interaction classesを維持します。
 
 ```text
 Core-1.0
@@ -40,7 +40,7 @@ lower World Kernel classes =
 
 lower interaction classは新MKI primitiveでも、public ECIR serializationでも、solver/integrator microstepでもありません。
 
-### v0.12 preserved boundaries
+### v1.0 RC preserved boundaries
 
 ```text
 Evaluation != Execution
@@ -61,7 +61,7 @@ control-plane COMMIT != all future consequences already occurred
 DEACTIVATE != rollback
 ```
 
-v0.12.0自体はv1.0 RCではありません。pre-public archive Issue #72 / pre-public archive PR #75のhistorical rehearsal evidenceは保持しますが、MagicalProgram/MGLS拡張後のcurrent release判断には再利用しません。public Issue #1のrenewed no-waiver auditはexact public main `0df7c42dfd741086cb0dcace040f69419f99acbb`に対してGOですが、root `TODO.md`に従い、public Issue #2のRC/version taskは明示的なユーザー確認があるまで開始しません。
+v1.0.0-rc.1はfinal v1.0.0ではありません。RCではcore breaking changeを計画せず、blocker fix、conformance/compatibility/migration correction、documentation、release engineeringだけを原則とします。final releaseはpublic Issue #3が所有し、RCでmaterial semantic redesignが必要と判明した場合は新しいv0.x stabilizationへ戻ります。
 
 ## Reference implementation / conformanceを使う
 
@@ -127,7 +127,7 @@ evaluation、PREPARE/COMMIT、replayは別の境界です。詳細ownerは
 [`conformance/experimental-user-workflow.json`](conformance/experimental-user-workflow.json)です。
 
 `magical-language-evaluator`、`magical-language-conformance`、`magical-language-artifact`等の既存
-entry pointは維持されます。`magical-language`はpackage version `0.12.0`上のexperimental additive
+entry pointは維持されます。`magical-language`はpackage version `1.0.0rc1`上のexperimental additive
 surfaceであり、stable 4 class / 65 caseやv0.8 public direct-entry contractを変更しません。
 
 repository-local equivalent:
@@ -245,7 +245,7 @@ KernelPlan / PreparedPlan
              Σ + H + Ω + P
 ```
 
-v0.8.0がdry-run evaluator、v0.9.0がsupported sandbox execution、v0.10.0がconformance harness、v0.11.0がversioned compatibility guarantee evidence、v0.12.0がcomplete v1.0 candidate conformance matrixを追加します。
+v0.8.0がdry-run evaluator、v0.9.0がsupported sandbox execution、v0.10.0がconformance harness、v0.11.0がversioned compatibility guarantee evidence、v0.12.0がcomplete v1.0 candidate conformance matrix、v1.0.0-rc.1がfrozen RC surfaceを追加します。
 
 ## Language Adapter priority
 

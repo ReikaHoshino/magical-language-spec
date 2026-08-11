@@ -371,7 +371,7 @@ class MagicalProgramRuntimeTests(unittest.TestCase):
             self.assertNotIn(forbidden, source)
 
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-        self.assertEqual("0.12.0", manifest["suite"]["suite_version"])
+        self.assertEqual("1.0.0-rc.1", manifest["suite"]["suite_version"])
         self.assertEqual(65, sum(len(item["required_case_ids"]) for item in manifest["classes"]))
 
 

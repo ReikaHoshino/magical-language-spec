@@ -2,7 +2,7 @@
 
 **Status:** experimental normative owner after the pre-public archive Issue #110 architecture correction and pre-public archive Issue #114 structured-value extension.
 
-**Stable v1.0 impact:** none. The released package and required four-class / 65-case conformance surface remain `0.12.0`.
+**Stable v1.0 impact:** none. Packaging this experimental contract in `1.0.0rc1` does not add it to the released four-class / 65-case conformance surface.
 
 ## 1. Boundary
 

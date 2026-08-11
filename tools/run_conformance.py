@@ -113,9 +113,9 @@ def _validate_integrity(manifest: dict[str, Any]) -> None:
                 raise ConformanceManifestError(
                     f"{case_id} is required by {class_def['class_id']} but does not name that class"
                 )
-            if class_def["status"] == "candidate" and case["requirement"] != "required":
+            if class_def["status"] in {"released", "candidate"} and case["requirement"] != "required":
                 raise ConformanceManifestError(
-                    f"candidate class {class_def['class_id']} cannot require provisional case {case_id}"
+                    f"released/candidate class {class_def['class_id']} cannot require provisional case {case_id}"
                 )
         if class_def["status"] == "blocked" and not class_def.get("blocked_by"):
             raise ConformanceManifestError(

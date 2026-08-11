@@ -43,7 +43,7 @@ class MglsSourceContractTests(unittest.TestCase):
                 "stable_conformance_cases": 65,
                 "mki_operations": 6,
                 "world_kernel_interaction_classes": 5,
-                "released_version": "0.12.0",
+                "released_version": "1.0.0-rc.1",
             },
             self.contract["preserved_counts"],
         )

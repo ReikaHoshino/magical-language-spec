@@ -1,6 +1,6 @@
-# 整合性チェック報告 — renewed public exact-main no-waiver audit
+# 整合性チェック報告 — v1.0.0-rc.1 release candidate
 
-**Status:** **GO** / public Issue #1 complete; STOP before public Issue #2 until explicit user confirmation.
+**Status:** **RC RELEASE TASK IN PROGRESS** / public Issue #1 GO and explicit public Issue #2 confirmation complete; exact-head and post-merge gates remain mandatory.
 
 **Renewed public audit baseline:** `0df7c42dfd741086cb0dcace040f69419f99acbb`
 
@@ -8,9 +8,9 @@
 
 **Historical pre-public preflight merge:** `e9c83c48afc374772af45310a1d141f218b4f262`
 
-**Released identity:** `v0.12.0` — unchanged.
+**Release target:** `v1.0.0-rc.1` / Python package `1.0.0rc1`.
 
-**RC identity/timestamp:** not assigned.
+**RC finalization timestamp:** pending post-merge evidence; no pre-merge timestamp is final.
 
 > Sections 1–13 preserve the detailed pre-public preflight and integration evidence. They do not override the renewed public verdict recorded at the top of this document and in the final public-audit checkpoint below.
 
@@ -19,7 +19,7 @@
 Audited sources:
 
 - current `reference/`;
-- immutable historical `spec/` snapshots through `spec/v0.12.0.md`;
+- immutable historical `spec/` snapshots through `spec/v0.12.0.md` plus the new RC snapshot `spec/v1.0.0-rc.1.md`;
 - schemas, examples, grammar, data, conformance artifacts, tests, and reference implementation;
 - README, CHANGELOG, root TODO, planning documents, package metadata, and GitHub workflows;
 - pre-public archive Issue #38 release-candidate gate;
@@ -49,24 +49,24 @@ PREPARE success != COMMIT permission
 
 ## 2. Version and release identity
 
-Current released identity remains synchronized at:
+The release branch synchronizes:
 
 ```text
-package version        0.12.0
-conformance suite      0.12.0
-release target         v0.12.0
-latest immutable spec  spec/v0.12.0.md
-RC version             not assigned
-RC timestamp           not recorded
+package version        1.0.0rc1 (PEP 440)
+conformance suite      1.0.0-rc.1
+release target         v1.0.0-rc.1
+latest immutable spec  spec/v1.0.0-rc.1.md
+RC owner               public Issue #2
+RC timestamp           pending post-merge certification
 ```
 
-pre-public archive Issue #82 did not assign `v1.0.0-rc.1`, create its snapshot, create a tag/release, or invent a finalization timestamp. Those writes belong to a separately confirmed atomic version task.
+pre-public archive Issue #82 did not assign `v1.0.0-rc.1`. The renewed public Issue #1 audit reached GO and the user explicitly confirmed public Issue #2 on 2026-08-11; this separately scoped task owns the atomic identity and snapshot writes. Tag/publication/final timestamp still require landing evidence.
 
 No historical snapshot was modified by pre-public archive Issues #47, pre-public archive Issue #48, or pre-public archive Issue #82.
 
-## 3. Stable candidate surface
+## 3. Frozen RC surface
 
-The stable candidate surface remains exactly:
+The released RC surface is frozen exactly at:
 
 ```text
 Core-1.0         29 required cases
@@ -77,7 +77,7 @@ Runtime-1.0      20 required cases
 total            65 required cases
 ```
 
-`conformance/v1-required-surface.json` maps pre-public archive Issue #38’s 14 required claims to these class/case IDs.
+`conformance/v1-required-surface.json` maps the 14 claims inherited from pre-public archive Issue #38 and released by public Issue #2 to these class/case IDs.
 
 Execution boundaries remain:
 
@@ -287,9 +287,11 @@ v0.8 input / canonical conformance clarification:
 - source→NSR reference conformance remains owned by the `lat` corpus;
 - pre-public archive Issue #48はfuture architecture issueとして当時扱われ、current designはlanding済みだがhistorical v0.8 public contractを遡及変更しない。
 
-## 13. Stop condition
+## 13. Historical stop condition — satisfied
 
-**STOP before versioning.** The next action is to request explicit user confirmation for a dedicated `v1.0.0-rc.1` version-update task. Only that task may synchronize RC version identities, README, CHANGELOG, release notes, immutable snapshot, TODO, consistency report, and finalization timestamp.
+The historical stop required explicit user confirmation before versioning. That confirmation was received on
+2026-08-11 for public Issue #2. It does not authorize final `v1.0.0`, experimental promotion, or bypass of exact-head and
+post-merge gates.
 
 ---
 
@@ -328,13 +330,13 @@ Consistency assertions:
 - editable, wheel, and sdist smoke invoke the actual installed `magical-language` console script outside checkout cwd;
 - experimental evidence remains outside `conformance/manifest.json` and does not satisfy stable pre-public archive Issue #38 claims by itself.
 
-The prerequisites retained in this historical section are complete. Current release/version action is governed by the renewed public audit below and root `TODO.md`; public Issue #2 still requires explicit user confirmation for that specific RC/version task.
+The prerequisites retained in this historical section are complete. Current release/version action is governed by public Issue #2 and root `TODO.md`; explicit confirmation has been received for this RC task only.
 
 ---
 
 ## Renewed public exact-main no-waiver audit — 2026-08-11
 
-Status: **GO** for public Issue #1; **not** a version change, RC snapshot, tag, publication, or authorization to start public Issue #2 without explicit user confirmation.
+Status: **GO** for public Issue #1. It was not itself a version change; the subsequent explicit confirmation authorizes public Issue #2 only.
 
 ```text
 public repository                  ReikaHoshino/magical-language-spec
@@ -381,7 +383,57 @@ Public-suitability assertions:
 
 Next RESUME POINT:
 
-1. public PR #19 and public Issue #1 are complete with exact-head and merge evidence;
-2. STOP before public Issue #2;
-3. begin no RC/version work until the user explicitly confirms that specific task;
-4. if confirmed, re-run the normal release gate and keep all version/snapshot/tag writes atomic.
+1. public PR #19, public Issue #1, and public PR #20 reconciliation are complete;
+2. public Issue #2 is explicitly confirmed and owns `v1.0.0-rc.1`;
+3. run the normal release gate on the exact RC PR head;
+4. after landing, run post-merge certification, record the Asia/Tokyo finalization timestamp, and only then close public Issue #2/unblock public Issue #3.
+
+---
+
+## public Issue #2 RC synchronization checkpoint — 2026-08-11
+
+```text
+baseline                          public main 01902409b7a844ac6b4d321411823a8525a96f0a
+spec identity                     v1.0.0-rc.1
+Python package identity           1.0.0rc1
+stable classes                    4 / released
+stable required cases             65
+v1 required claims                14 / source public Issue #2
+MKI data-plane operations         6
+World Kernel interaction classes  5
+immutable RC snapshot             spec/v1.0.0-rc.1.md
+historical snapshots              unchanged
+experimental promotion            none
+final v1.0.0                       not authorized / public Issue #3
+finalization timestamp            pending post-merge evidence
+```
+
+The release branch must still record focused/full local gate results, exact PR head, all required workflow results,
+independent audit, merge SHA, and post-merge package/consistency certification. No waiver converts a failed or missing
+gate into RC readiness.
+
+### Local release-branch gate
+
+The pre-publication gate on the dedicated branch passed without a waiver:
+
+```text
+schema validation                  PASS / 32 schemas and all enumerated fixtures
+stable conformance                 PASS / 4 released classes / 65 of 65 required cases
+repository regression              PASS / 421 tests / 3 environment-dependent skips
+wheel build and isolated install   PASS / 1.0.0rc1
+sdist build and isolated install   PASS / 1.0.0rc1
+installed public entry points      PASS / evaluator, artifact, workflow, conformance, experimental inventory
+installed runtime and replay       PASS / canonical commit plus deterministic replay
+installed resource boundary        PASS / package-owned resources and missing-resource fail-closed diagnostic
+generated source-tree projection   absent after build
+historical snapshots               unchanged; only the new RC snapshot was added
+```
+
+The installed-entry-point pass found and corrected one synchronization defect before publication: the stable Latin
+evaluator still emitted the historical `0.8.0` report identity even though the distribution and conformance artifacts
+were at RC. `src/evaluator/evaluator.py` now emits `1.0.0-rc.1`, and the repository regression asserts that identity.
+This changes release metadata only; evaluator semantics, schemas, fixtures, and the frozen 4/65/14 surface are unchanged.
+
+The remaining mandatory evidence is exact published PR-head CI plus a clean exact-head audit, followed by merge-SHA and
+post-merge certification. The RC finalization timestamp, tag/publication, public Issue #2 closure, and public Issue #3
+unblock remain deliberately pending.

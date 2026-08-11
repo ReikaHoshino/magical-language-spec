@@ -64,10 +64,10 @@ class CompatibilityEvolutionTests(unittest.TestCase):
             "domain": self.migration["domain"],
         }
 
-    def test_candidate_policy_is_schema_valid_and_semantically_consistent(self) -> None:
+    def test_released_policy_is_schema_valid_and_semantically_consistent(self) -> None:
         self.validator.validate(self.policy)
         validate_evolution_policy(self.policy)
-        self.assertEqual("candidate", self.policy["policy_status"])
+        self.assertEqual("released", self.policy["policy_status"])
         self.assertEqual(1, self.policy["stable_major"])
 
     def test_minor_additive_change_is_allowed_without_becoming_compatibility_proof(self) -> None:
