@@ -3,8 +3,8 @@
 **Status:** experimental normative integration owner for pre-public archive Issue #94. This
 contract adds a compatibility-safe command over already owned MGLS,
 MagicalProgram, and SpellInstanceBundle paths. It does not change the stable
-v0.8 evaluator ingress, the stable conformance manifest, or package version
-`0.12.0`.
+v0.8 evaluator ingress or the stable conformance manifest. Inclusion in package
+`1.0.0rc1` does not promote this workflow.
 
 ## Purpose
 
@@ -382,7 +382,7 @@ package-owned resources.
 ### UX-COMPAT-001 — experimental surface
 
 The workflow contract and command are experimental revision `0`. Their presence
-in package version `0.12.0` does not promote MGLS, MagicalProgram, or
+in package version `1.0.0rc1` does not promote MGLS, MagicalProgram, or
 SpellInstanceBundle to the stable v1.0 candidate direct-entry surface.
 
 ### UX-COMPAT-002 — stable counts unchanged
@@ -395,7 +395,7 @@ stable conformance classes          4
 stable required cases              65
 MKI data-plane operations           6
 World Kernel interaction classes    5
-package version                     0.12.0
+package version                     1.0.0rc1
 ```
 
 Historical `spec/` snapshots remain immutable.

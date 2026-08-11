@@ -99,14 +99,14 @@ def validate_lexical_authority_boundary(value, path: str = "$") -> None:
 def validate_release_consistency() -> None:
     """Keep historical snapshots immutable while checking the current release identity."""
 
-    current_release = "v0.12.0"
+    current_release = "v1.0.0-rc.1"
     current_files = [
         ROOT / "README.md",
         ROOT / "TODO.md",
         ROOT / "CHANGELOG.md",
         ROOT / "reference" / "terminology.md",
         ROOT / "reference" / "consistency-report.md",
-        ROOT / "spec" / "v0.12.0.md",
+        ROOT / "spec" / "v1.0.0-rc.1.md",
     ]
     for path in current_files:
         if current_release not in path.read_text(encoding="utf-8"):
@@ -134,18 +134,20 @@ def validate_release_consistency() -> None:
             )
 
     manifest = load(ROOT / "conformance" / "manifest.json")
-    if manifest["suite"]["suite_version"] != "0.12.0":
-        raise AssertionError("conformance suite version is not synchronized to 0.12.0")
+    if manifest["suite"]["suite_version"] != "1.0.0-rc.1":
+        raise AssertionError("conformance suite version is not synchronized to 1.0.0-rc.1")
     if manifest["suite"]["release_target"] != current_release:
-        raise AssertionError("conformance release target does not match v0.12.0")
+        raise AssertionError("conformance release target does not match v1.0.0-rc.1")
+    if {item["status"] for item in manifest["classes"]} != {"released"}:
+        raise AssertionError("all four v1.0 RC conformance classes must be released")
 
     coverage = load(ROOT / "conformance" / "rule-coverage.json")
     if coverage["suite_version"] != manifest["suite"]["suite_version"]:
         raise AssertionError("conformance rule coverage version does not match manifest")
 
     package = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    if package["project"]["version"] != "0.12.0":
-        raise AssertionError("reference package version is not synchronized to 0.12.0")
+    if package["project"]["version"] != "1.0.0rc1":
+        raise AssertionError("reference package version is not synchronized to 1.0.0rc1")
 
     todo = (ROOT / "TODO.md").read_text(encoding="utf-8")
     if "release最終整理時刻（v0.7.3）: **PENDING" in todo:
@@ -154,8 +156,8 @@ def validate_release_consistency() -> None:
         raise AssertionError("TODO.md lost the historical v0.8 resume marker")
     current_resume_markers = [
         "# 0. RESUME POINT",
-        "last released version: **v0.12.0**",
-        "Issue #40",
+        "last released version: **v1.0.0-rc.1**",
+        "public Issue #2",
     ]
     for marker in current_resume_markers:
         if marker not in todo:

@@ -2,8 +2,8 @@
 
 **Status:** experimental normative source-language contract for pre-public archive Issue #92.
 
-**Stable v1.0 impact:** none. This contract does not change package version
-`0.12.0`, the four required conformance classes / 65 required cases, the six
+**Stable v1.0 impact:** none. Inclusion in package `1.0.0rc1` does not change
+the four required conformance classes / 65 required cases, the six
 MKI data-plane operations, the five lower World Kernel interaction classes, or
 historical `spec/` snapshots.
 

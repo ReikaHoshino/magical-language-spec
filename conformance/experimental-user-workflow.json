@@ -3,7 +3,7 @@
   "artifact_version": "0",
   "inventory_id": "magical-language-user-workflow-0",
   "stability": "experimental",
-  "spec_version": "0.12.0",
+  "spec_version": "1.0.0-rc.1",
   "normative_reference": "reference/user-workflow.md",
   "excluded_from_stable_manifest": true,
   "stable_manifest_expectation": {

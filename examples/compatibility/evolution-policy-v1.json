@@ -3,7 +3,7 @@
   "schema_version": "1",
   "policy_id": "compat-evolution:v1x-reference-candidate",
   "policy_revision": "1",
-  "policy_status": "candidate",
+  "policy_status": "released",
   "stable_major": 1,
   "guarantee_scope": [
     {

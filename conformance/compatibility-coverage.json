@@ -1,7 +1,7 @@
 {
   "document_kind": "CompatibilityCoverageInventory",
   "schema_version": "1",
-  "release_target": "v0.12.0",
+  "release_target": "v1.0.0-rc.1",
   "required_domains": [
     {"domain": "SpecVersion", "profile_id": "compat-profile:spec-version:pre-v0.8", "profile_revision": "1", "owner": "LocalEvaluatorReleaseProfile", "rule_source": "reference/compatibility.md#41-spec-version"},
     {"domain": "Schema", "profile_id": "compat-profile:schema:core-config", "profile_revision": "1", "owner": "CoreConfigurationLoader", "rule_source": "reference/compatibility.md#42-schema"},

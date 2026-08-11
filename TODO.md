@@ -6,17 +6,17 @@
 - historical snapshot: immutable `spec/`。
 - 作業計画の正本: **この `TODO.md`**。
 - cross-chat / Work / Codex / agent同期点: GitHub。
-- last released version: **v0.12.0**。
+- last released version: **v1.0.0-rc.1**。
 - pre-public archive compatibility marker: **pre-public archive Issue #36 — v0.8 Minimal Local Evaluator**。
 - pre-public archive stabilization owner: **pre-public archive Issue #40 — v0.10+ Conformance / Stabilization**。
 - pre-public all-open-issue sweep baseline: **`7257601cc19d73e394be98ad3b58115073cd8908`**。
 - latest completed pre-public implementation: **pre-public archive Issue #94 / pre-public archive PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
 - completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
-- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`**。
-- active concrete work: **STOP — public Issue #1 renewed audit is GO; awaiting explicit user confirmation before public Issue #2**。
-- release judgment: **GO from the renewed no-waiver audit; no RC/version task is authorized without explicit user confirmation**。
-- release/version state: **unchanged at `0.12.0`; no RC snapshot/tag/publication/finalization timestamp exists**。
+- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`; public PR #20 merge `01902409b7a844ac6b4d321411823a8525a96f0a`**。
+- active concrete work: **IN PROGRESS — public Issue #2 `v1.0.0-rc.1` atomic version/release task**。
+- release judgment: **AUTHORIZED by explicit user confirmation after public Issue #1 GO; exact-head release gate and post-merge certification remain mandatory**。
+- release/version state: **RC identity `v1.0.0-rc.1` / package `1.0.0rc1` assigned in the release branch; snapshot prepared; tag/publication/finalization timestamp remain pending until landing and post-merge evidence**。
 - final outcome order: **public Issue #15 → public Issue #16 → public Issue #1 audit → public Issue #2 RC → public Issue #3 final → public Issue #4 umbrella**。
 
 > 会話とrepositoryが食い違う場合はcurrent `reference/`、current `main`、このTODO、relevant Issue/PR evidenceを照合してreconcileする。
@@ -121,18 +121,18 @@ renewed audit                 public Issue #1 — GO / no waivers
 open public inventory         public Issue #1, public Issue #2, public Issue #3, public Issue #4 at audit start
 stable surface                4 classes / 65 cases / 14 required claims
 package evidence              fresh editable / wheel / sdist outside checkout PASS
-next                          STOP; public Issue #2 requires explicit user confirmation
-release action                forbidden until that confirmation; version remains 0.12.0
+next                          public Issue #2 v1.0.0-rc.1 release task
+release action                explicitly confirmed; exact-head gate and post-merge certification required
 ```
 
-The renewed audit branch, evidence PR, and public Issue #1 closure are complete. Do not restart that audit from this checkpoint; remain stopped before public Issue #2 until the user explicitly confirms that specific RC/version task.
+The renewed audit branch, evidence PR, public Issue #1 closure, and public PR #20 reconciliation are complete. The user explicitly confirmed public Issue #2 on 2026-08-11; do not restart the audit or broaden the frozen RC surface.
 
 ## Audit-start / post-merge public Issue inventory
 
 ```text
 public stabilization / release / umbrella
   public Issue #1   renewed exact-main no-waiver release-readiness audit — GO / closed via public PR #19
-  public Issue #2   v1.0 RC — READY ONLY AFTER explicit user confirmation
+  public Issue #2   v1.0.0-rc.1 — IN PROGRESS / explicit confirmation received
   public Issue #3   v1.0 final release — BLOCKED BY public Issue #2
   public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3 and post-v1.0 handoff
 ```
@@ -253,7 +253,7 @@ current user instruction
 PRE-PUBLIC DONE: pre-public archive Issue #46 pre-public archive Issue #77 pre-public archive Issue #84 pre-public archive Issue #86 pre-public archive Issue #87 pre-public archive Issue #88 pre-public archive Issue #89 pre-public archive Issue #90 pre-public archive Issue #91 pre-public archive Issue #92 pre-public archive Issue #93 pre-public archive Issue #94 pre-public archive Issue #110 pre-public archive Issue #114 pre-public archive Issue #118
 PUBLIC DONE:     public Issue #15 / public PR #17; public Issue #16 / public PR #18
 AUDIT GO:        public Issue #1 renewed exact-main no-waiver audit
-CONFIRMATION:    public Issue #2 RC task requires explicit user confirmation
+CONFIRMATION:    public Issue #2 RC task explicitly confirmed on 2026-08-11
 BLOCKED:         public Issue #3 final release requires valid RC
 FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 ```
@@ -329,7 +329,22 @@ FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 - [x] verify version, README, CHANGELOG, schemas, grammar, examples, reference, conformance, consistency report, and TODO synchronization;
 - [x] verify historical `spec/` snapshots remain immutable;
 - [x] publish an exact-main GO report with no waivers in the consistency report and public Issue #1;
-- [x] keep version, snapshot, tag, and release state unchanged; public Issue #2 still requires explicit user confirmation.
+- [x] keep version, snapshot, tag, and release state unchanged at the public Issue #1 audit checkpoint; the later confirmation is recorded in section 2.9.
+
+## 2.9 public Issue #2 v1.0.0-rc.1 — IN PROGRESS
+
+- [x] explicit user confirmation received after public Issue #1 GO;
+- [x] exact current public `main` baseline `01902409b7a844ac6b4d321411823a8525a96f0a` fetched into a dedicated branch;
+- [x] stable surface frozen at 4 classes / 65 required cases / 14 required claims;
+- [x] spec/conformance identity `1.0.0-rc.1` and PEP 440 package identity `1.0.0rc1` selected from the accepted preflight;
+- [x] immutable `spec/v1.0.0-rc.1.md` prepared without rewriting older snapshots;
+- [x] local full release gate green: 32-schema validation, 4 released classes / 65 required cases, 421 repository tests (`OK`, 3 environment-dependent skips), final wheel/sdist `1.0.0rc1` installed outside checkout with public CLI, runtime commit, replay, package-resource, and fail-closed smoke PASS;
+- [ ] exact PR head passes all required workflows and independent audit;
+- [ ] merge SHA and post-merge package/consistency evidence recorded;
+- [ ] Asia/Tokyo release finalization timestamp recorded at second precision;
+- [ ] public Issue #2 closed and public Issue #3 unblocked.
+
+Current RC rule: no new required class/case, no material semantic redesign, no experimental promotion, and no tag/final timestamp before exact landing evidence.
 
 ---
 
@@ -439,5 +454,5 @@ pre-public archive Issue #93 MGLS compiler pre-public archive PR #133 merge 4f61
 pre-public archive Issue #94 unified workflow pre-public archive PR #135 merge d5ed0fae5570c8c5ada40533689246d82e2d1d09
 ```
 
-No line in this ledger authorizes an RC or final release。
+Historical ledger entries do not authorize a release. public Issue #2 is authorized only by the explicit 2026-08-11 user confirmation recorded above; final v1.0.0 remains unauthorized and owned by public Issue #3。
 

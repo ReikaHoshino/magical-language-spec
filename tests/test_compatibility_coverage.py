@@ -54,9 +54,9 @@ class CompatibilityCoverageTests(unittest.TestCase):
         schema = load(SCHEMAS / "compatibility-coverage.schema.json")
         cls.validator = Draft202012Validator(schema, registry=registry)
 
-    def test_inventory_is_schema_valid_and_versioned_for_v012(self) -> None:
+    def test_inventory_is_schema_valid_and_versioned_for_v1_rc1(self) -> None:
         self.validator.validate(self.inventory)
-        self.assertEqual("v0.12.0", self.inventory["release_target"])
+        self.assertEqual("v1.0.0-rc.1", self.inventory["release_target"])
 
     def test_required_domains_have_exact_owned_profiles_and_fixture_evidence(self) -> None:
         profiles = {

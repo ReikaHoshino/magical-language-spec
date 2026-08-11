@@ -294,8 +294,8 @@ class MagicalProgramEvaluatorTests(unittest.TestCase):
 
     def test_stable_conformance_manifest_is_unchanged(self) -> None:
         manifest = load(MANIFEST_PATH)
-        self.assertEqual("0.12.0", manifest["suite"]["suite_version"])
-        self.assertEqual("v0.12.0", manifest["suite"]["release_target"])
+        self.assertEqual("1.0.0-rc.1", manifest["suite"]["suite_version"])
+        self.assertEqual("v1.0.0-rc.1", manifest["suite"]["release_target"])
         self.assertEqual(
             ["Core-1.0", "Evaluator-1.0", "Adapter-lat-1.0", "Runtime-1.0"],
             [item["class_id"] for item in manifest["classes"]],

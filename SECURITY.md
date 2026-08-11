@@ -2,7 +2,7 @@
 
 ## Supported scope
 
-Security fixes are evaluated against the current `main` branch and the current released specification identity, v0.12.0. Historical files under `spec/` are immutable records and are not maintained as executable security baselines.
+Security fixes are evaluated against the current `main` branch and the current released specification identity, v1.0.0-rc.1. Historical files under `spec/` are immutable records and are not maintained as executable security baselines.
 
 This repository is a reference specification and implementation. It is not authorization for real-world control, production deployment, or unsafe execution. The authority, lease, conservation, sandbox, and fail-closed boundaries in current `reference/` remain normative.
 

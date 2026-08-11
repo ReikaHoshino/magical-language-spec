@@ -32,13 +32,13 @@ class ConformanceReferenceTests(unittest.TestCase):
         runtime = next(
             item for item in self.manifest["classes"] if item["class_id"] == "Runtime-1.0"
         )
-        self.assertEqual("candidate", runtime["status"])
+        self.assertEqual("released", runtime["status"])
         self.assertIn(
             "pre-public archive Issue #55はpre-public archive PR #57で解決済み",
             self.reference,
         )
 
-    def test_runtime_candidate_owns_kernel_execution_obligations(self) -> None:
+    def test_runtime_released_class_owns_kernel_execution_obligations(self) -> None:
         runtime = next(
             item for item in self.manifest["classes"] if item["class_id"] == "Runtime-1.0"
         )

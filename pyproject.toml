@@ -5,7 +5,7 @@ backend-path = ["_custom_build"]
 
 [project]
 name = "magical-language-spec-reference"
-version = "0.12.0"
+version = "1.0.0rc1"
 description = "Reference evaluator, sandbox runtime, and conformance tooling for magical-language-spec"
 requires-python = ">=3.12"
 dependencies = [

@@ -1,4 +1,4 @@
-# 術語索引 — v0.12.0
+# 術語索引 — v1.0.0-rc.1
 
 **Status:** informative index; formal definitions live in linked normative reference documents.
 
@@ -72,16 +72,17 @@ formal contractは[`conformance.md`](conformance.md)、machine-readable class/ca
 |---|---|---|---|
 | ConformanceManifest | `ConformanceManifest` | suite/class/stable case ID/rule owner/test-fixture locatorをversionedに結ぶmanifest。 | v0.10.0 |
 | conformance class | class ID | 実装がclaimできるstable surface単位。初期classはCore/Evaluator/Adapter-lat/Runtime。 | v0.10.0 |
-| Core-1.0 | class | core representation/ownership/MKI/planning/fingerprint/compatibility/resolution-domain candidate surface。 | v0.10.0 |
-| Evaluator-1.0 | class | v0.8 evaluator ingress/type/dimension/resolution/obligation/reporting candidate surface。 | v0.10.0 |
-| Adapter-lat-1.0 | class | supported Latin source normalization/ambiguity/NSR path candidate surface。 | v0.10.0 |
-| Runtime-1.0 | class | PREPARE/COMMIT/MKI/scheduler/replay plus World Kernel active-effect boundary candidate surface。 | v0.10.0 |
+| Core-1.0 | class | v1.0.0-rc.1でreleaseされたcore representation/ownership/MKI/planning/fingerprint/compatibility/resolution-domain surface。 | v1.0.0-rc.1 |
+| Evaluator-1.0 | class | v1.0.0-rc.1でreleaseされたv0.8 evaluator ingress/type/dimension/resolution/obligation/reporting surface。 | v1.0.0-rc.1 |
+| Adapter-lat-1.0 | class | v1.0.0-rc.1でreleaseされたsupported Latin source normalization/ambiguity/NSR path。 | v1.0.0-rc.1 |
+| Runtime-1.0 | class | v1.0.0-rc.1でreleaseされたPREPARE/COMMIT/MKI/scheduler/replay plus World Kernel active-effect boundary。 | v1.0.0-rc.1 |
 | stable case ID | case ID | test method名とは独立したsemantic obligation identity。既存`WB-TEST-*`も意味が同じなら再利用する。 | v0.10.0 |
 | candidate class | status | required case setをrelease candidate surfaceとして定義できるclass。 | v0.10.0 |
+| released class | status | exact release gateを通過し、versioning contractなしにrequired caseを再解釈できないclass。 | v1.0.0-rc.1 |
 | blocked class | status | semantic/release dependency未解決のためconformance claim不可なclass。 | v0.10.0 |
 | provisional measurement | execution mode | blocked/provisional baselineを測るだけでclass statusを昇格しない実行。 | v0.10.0 |
 | rule coverage inventory | artifact | required caseのreverse mappingとexplicit deferred/non-executable ruleを列挙するconformance-owned crosswalk。 | v0.10.0 |
-| V1RequiredSurfaceMatrix | conformance artifact | pre-public archive Issue #38の14 required conformance claimをowning classとstable required case IDへ完全mappingする。repository testの存在だけをcoverage claimにしない。 | v0.12.0 |
+| V1RequiredSurfaceMatrix | conformance artifact | pre-public archive Issue #38から継承しpublic Issue #2がreleaseする14 required conformance claimをowning classとstable required case IDへ完全mappingする。repository testの存在だけをcoverage claimにしない。 | v1.0.0-rc.1 |
 | CompatibilityAdmission | aggregate gate | domain-owned CompatibilityDecisionを集約しAllowed/Denied/Indeterminateを返す。compatibility自体を再計算せずauthorityも付与しない。 | v0.10.0 |
 | Experimental-Arcana-0 | experimental class | SUCCESS-ARCANA-001〜008のoptional success/guard/replay/recognized-unsupported surface。4 required classと65 stable caseには含まれない。formal ownerは`success-arcana.md`。 | Unreleased experimental |
 | SpellInstanceBundle | experimental artifact | self-contained NSR、versioned semantic/runtime contracts、profiles、WorldIndex/WorldState evidence、expectationを持つsingle-file ingress。filename/suite/instance IDはdispatch authorityではない。formal ownerは`spell-instance-bundles.md`。 | Unreleased experimental |
@@ -167,7 +168,7 @@ adapter priority:
 lat → lzh → ger → jpn → eng → zho
 ```
 
-v0.12.0でもsource→NSR conformanceを持つreference implementationは`lat`だけであり、canonical water-ball English surfaceは`eng` adapter conformance claimではない。
+v1.0.0-rc.1でもsource→NSR conformanceを持つreference implementationは`lat`だけであり、canonical water-ball English surfaceは`eng` adapter conformance claimではない。
 
 ## F. Resolution / identity / authority
 
