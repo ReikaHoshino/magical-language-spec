@@ -13,6 +13,7 @@
 - `feasibility.md`
 - `world-index.md`
 - `runtime-time.md`
+- `temporal-causality.md`
 - `matter.md`
 - `kinetics.md`
 - `registry.md`
@@ -35,6 +36,10 @@ Ref<T>
 HistoricalRef<T>
 IdentityPolicy<T>
 ```
+
+`HistoricalRef<T>` is a read-only historical view. It is not directly convertible to current `Ref<T>` and
+does not grant current identity, liveness, Capability, Lease, or write authority. Detailed ownership lives in
+[`temporal-causality.md`](temporal-causality.md).
 
 ## 2. Language adapter / normalization — v0.7.3
 
@@ -136,9 +141,14 @@ QueryBudget
 
 ```text
 Capability<Target,Domain,Operation>
+Capability<History,Causality,Rewrite>
 Lease<Target,Domain,Mode,Lifetime>
 Borrow<Target,Domain,Mode,Lifetime>
 ```
+
+`Capability<History,Causality,Rewrite>` is the canonical high-authority specialization for an explicitly
+admitted committed-history mutation profile. It is unsupported/deferred by the current reference
+implementation; its presence in the type index does not create an executor or stable conformance promise.
 
 ## 7. Quantity / transfer
 
@@ -429,6 +439,8 @@ Event effective time != runtime commit time in general
 Tick execution order != causal order
 Integrator approximation != physical law
 DeterministicReplay != Rewind
+Restore != Rewind
+Energy/resource magnitude != temporal/causal authority
 Dimension equality != Semantic type equality
 Transferable != Conserved
 ```

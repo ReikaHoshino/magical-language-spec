@@ -345,6 +345,9 @@ PLANNING  / EnergyModelUnavailable / unknown
 
 ## 9. Causality / identity
 
+Temporal/causal ownership and fail-closed ordering are defined by
+[`temporal-causality.md`](temporal-causality.md).
+
 ```text
 IdentityViolation
 IdentityContinuityFailure
@@ -352,6 +355,22 @@ HistoryMutationDenied
 TemporalAuthorityError
 CausalityCycleError
 ```
+
+### `HistoryMutationDenied`
+
+Committed history `H` would be mutated, but no admitted rewrite operation/profile exists, the current
+implementation does not support Rewind, or policy denies history mutation. No authoritative mutation occurs.
+
+### `TemporalAuthorityError`
+
+An admitted temporal/causal operation was recognized, but required authority is missing, inactive, expired,
+out of scope, or cannot be authoritatively revalidated. Energy/resource magnitude cannot satisfy this authority.
+No history mutation or direct future observation occurs.
+
+### `CausalityCycleError`
+
+The proposed causal relation is cyclic or violates the admitted causal-order contract. Authorization does not
+waive causal validation; failure leaves committed `H` unchanged.
 
 ## 10. Important boundaries
 

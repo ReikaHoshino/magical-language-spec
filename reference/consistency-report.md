@@ -344,13 +344,13 @@ stable conformance                4 classes / 65 cases unchanged
 MKI data-plane operations         6 unchanged
 World Kernel interaction classes  5 unchanged
 historical spec snapshots         immutable
-active prerequisite              public Issue #15 tracker-reference qualification
-next prerequisite                public Issue #16 temporal/causal authority reconciliation
-active audit                      public Issue #1 / blocked by public Issue #15 and public Issue #16
+completed prerequisite           public Issue #15 / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
+active prerequisite              public Issue #16 temporal/causal authority reconciliation
+active audit                      public Issue #1 / blocked by public Issue #16
 RC tracker                        public Issue #2 / blocked by public Issue #1
 final tracker                     public Issue #3 / blocked by public Issue #2
 umbrella tracker                  public Issue #4
-release judgment                  SUSPENDED pending public Issue #15, public Issue #16, and public Issue #1
+release judgment                  SUSPENDED pending public Issue #16 and public Issue #1
 ```
 
 Public-suitability assertions:
@@ -362,15 +362,17 @@ Public-suitability assertions:
 - `SECURITY.md` routes sensitive reports away from public Issues;
 - the repository makes no open-source license grant; source visibility must not be confused with permission to reuse;
 - current live documents explicitly qualify tracker namespaces as `public Issue/PR #N` or `pre-public archive Issue/PR #N`;
-- public Issue #15 and public Issue #16 are current prerequisites; public Issue #1 through public Issue #4 own the release train;
+- public Issue #15 completed tracker-reference qualification with exact-head CI on public PR #17; public Issue #16 is the remaining semantic prerequisite;
+- the current temporal/causal owner preserves `HistoricalRef<T>` read-only semantics, `Restore != Rewind`, `Replay != Rewind`, and `Capability<History,Causality,Rewrite>`;
+- unsupported Rewind execution remains outside the stable v1 four-class / 65-case surface and fails closed without inventing a runtime path;
+- public Issue #1 through public Issue #4 own the release train;
 - `TODO.md` remains the authoritative RESUME POINT and records exact public-main audit ownership;
-- no current `reference/`, schema, fixture, implementation semantics, package version, or historical `spec/` snapshot changed in this reconciliation.
+- no schema, fixture, runtime implementation, package version, stable conformance inventory, or historical `spec/` snapshot changed in this reconciliation.
 
 Next RESUME POINT:
 
-1. complete public Issue #15 tracker-reference qualification;
-2. complete public Issue #16 temporal/causal authority reconciliation;
-3. resolve exact public `main` at the start of the renewed audit and record that SHA in public Issue #1;
-4. create a fresh audit branch from that resolved baseline;
-5. execute public Issue #1 with no waivers and publish an evidence-backed GO or NO-GO;
-6. do not begin public Issue #2 or change any version identity without public Issue #1 GO and explicit user confirmation.
+1. complete public Issue #16 temporal/causal authority reconciliation with exact-head CI;
+2. resolve exact public `main` at the start of the renewed audit and record that SHA in public Issue #1;
+3. create a fresh audit branch from that resolved baseline;
+4. execute public Issue #1 with no waivers and publish an evidence-backed GO or NO-GO;
+5. do not begin public Issue #2 or change any version identity without public Issue #1 GO and explicit user confirmation.

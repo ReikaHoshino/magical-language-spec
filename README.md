@@ -197,17 +197,18 @@ v0.10 release時点のpackaging guaranteeは**clean checkout + declared dependen
 9. [`reference/versioning-and-migration.md`](reference/versioning-and-migration.md) — v1.x stable scope / deprecation / exact migration boundary。
 10. [`reference/world-index.md`](reference/world-index.md) — RESOLVE database contract。
 11. [`reference/runtime-time.md`](reference/runtime-time.md) — tick/scheduler/replay。
-12. [`reference/security-sandbox.md`](reference/security-sandbox.md) — sandbox / emergency stop / threat boundary。
-13. [`reference/planning-inference.md`](reference/planning-inference.md) — Unknown / Estimate / PlanningAssumption / generation planning。
-14. [`reference/estimator-models.md`](reference/estimator-models.md) — Energy/resource/timing model ownership。
-15. [`reference/feasibility.md`](reference/feasibility.md) — dry-run evaluator contract。
-16. [`reference/evaluator-implementation.md`](reference/evaluator-implementation.md) — v0.8 reference evaluator profile。
-17. [`reference/runtime-implementation.md`](reference/runtime-implementation.md) — v0.9 sandbox runtime profile。
-18. [`reference/kernel-execution.md`](reference/kernel-execution.md) — World Kernel lower semantic execution boundary。
-19. [`reference/conformance.md`](reference/conformance.md) — v0.12 conformance class / stable case / lifecycle contract。
-20. [`reference/canonical-water-ball.md`](reference/canonical-water-ball.md) — 全pipeline conformance path。
-21. [`reference/terminology.md`](reference/terminology.md) — 術語索引。
-22. [`reference/user-workflow.md`](reference/user-workflow.md) — experimental MGLS / MagicalProgram / bundle user workflow。
+12. [`reference/temporal-causality.md`](reference/temporal-causality.md) — historical access / Restore / Rewind / causal authority。
+13. [`reference/security-sandbox.md`](reference/security-sandbox.md) — sandbox / emergency stop / threat boundary。
+14. [`reference/planning-inference.md`](reference/planning-inference.md) — Unknown / Estimate / PlanningAssumption / generation planning。
+15. [`reference/estimator-models.md`](reference/estimator-models.md) — Energy/resource/timing model ownership。
+16. [`reference/feasibility.md`](reference/feasibility.md) — dry-run evaluator contract。
+17. [`reference/evaluator-implementation.md`](reference/evaluator-implementation.md) — v0.8 reference evaluator profile。
+18. [`reference/runtime-implementation.md`](reference/runtime-implementation.md) — v0.9 sandbox runtime profile。
+19. [`reference/kernel-execution.md`](reference/kernel-execution.md) — World Kernel lower semantic execution boundary。
+20. [`reference/conformance.md`](reference/conformance.md) — v0.12 conformance class / stable case / lifecycle contract。
+21. [`reference/canonical-water-ball.md`](reference/canonical-water-ball.md) — 全pipeline conformance path。
+22. [`reference/terminology.md`](reference/terminology.md) — 術語索引。
+23. [`reference/user-workflow.md`](reference/user-workflow.md) — experimental MGLS / MagicalProgram / bundle user workflow。
 23. [`CHANGELOG.md`](CHANGELOG.md) — release差分。
 24. [`SECURITY.md`](SECURITY.md) — vulnerability reportingとpublic disclosure policy。
 

@@ -23,6 +23,7 @@
 - [`semantics.md`](semantics.md)
 - [`mki.md`](mki.md)
 - [`runtime-time.md`](runtime-time.md)
+- [`temporal-causality.md`](temporal-causality.md)
 - [`registry.md`](registry.md)
 - [`errors.md`](errors.md)
 
@@ -39,6 +40,8 @@ Sandbox allowance != Capability
 Emergency-stop requested != stopped
 Stopped != rolled back
 Replay/log input != authoritative world state
+Energy/resource magnitude != temporal/causal authority
+Sandbox allowance != history rewrite authority
 ```
 
 ## 1. Security objectives
@@ -65,11 +68,16 @@ Availabilityはbest-effortであり、安全条件を緩和して継続しては
 - AI/statistical proposal、confidence、ranking metadata。
 - NSR、SemanticAST、TypedMIRを名乗る外部JSON。
 - replay manifest、event log、diagnostic export。
+- `HistoricalRef`、historical measurement、future prediction、simulation output。
 - remote tool/provider response。
 
 lexiconがconfigured sourceから読まれた場合でも、lexical dataはEntityID、Capability、
 Lease、authority grantを生成できない。外部structured inputは対応schemaとsemantic
 validatorを通過するまで、宣言された表現levelとして扱ってはならない。
+
+Historical/future evidenceも`Capability<History,Causality,Rewrite>`またはdirect future observation
+authorityを生成しない。Current reference runtimeはRewindを実装せず、unsupported committed-history
+mutationを`HistoryMutationDenied`としてfail closedする。
 
 ### 2.2 Provisionally trusted artifacts
 

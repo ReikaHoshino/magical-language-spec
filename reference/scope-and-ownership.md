@@ -90,6 +90,23 @@ maintain horizontal trajectory under gravity
 暗黙に得られる能力ではない。別個の明示的な高権限contract、authority model、causality/accounting
 境界を要求するMUSTであり、`RECONFIGURE` / `CONSTRAIN` 等を法則書換えとして解釈してはならない。
 
+### Temporal / causal authority boundary
+
+Committed-history mutationはordinary world effectではない。Current normative ownerは
+[`temporal-causality.md`](temporal-causality.md)であり、released v0.5 specialization
+`Capability<History,Causality,Rewrite>`をcurrent generic capability familyの下で保持する。
+
+Rewind executionとdirect future observationはcurrent reference implementationでは
+unsupported/deferredであり、v1 stable 4 classes / 65 required casesの外側である。これはsemantic
+meaningの削除ではなく、未実装featureをstable promiseへ昇格しないclassificationである。
+
+```text
+ordinary magic != committed-history rewrite authority
+Energy/resource magnitude != temporal/causal authority
+Restore != Rewind
+Replay != Rewind
+```
+
 ### World Kernel boundary
 
 `World Kernel` は、validated / revalidatedなsemantic effect requestとauthoritative world evolutionの

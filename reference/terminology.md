@@ -101,6 +101,11 @@ CompatibilityAdmission != Lease
 |---|---|---|---|
 | 世界状態 | `Σ` | authoritative current WorldState。 | v0.1 |
 | 世界履歴 | `H=(E,≺)` | committed Event集合と因果関係。 | v0.5 |
+| historical reference | `HistoricalRef<T>` | admitted historical evidenceへのread-only view。current `Ref<T>`、identity、Capability、Lease、write authorityを生成しない。formal ownerは[`temporal-causality.md`](temporal-causality.md)。 | v0.5/current |
+| Restore | temporal operation | 過去と同じ/近い状態を現在で再構成し、新しいrestoration Eventを追加する。prior `H`をrewriteしない。 | v0.5/current |
+| Rewind | causal operation | existing committed `H`自体のmutation。ordinary `RECONFIGURE`、Restore、Replay、rollbackではない。current implementationではunsupported/deferred。formal ownerは[`temporal-causality.md`](temporal-causality.md)。 | v0.5/current |
+| causal rewrite capability | `Capability<History,Causality,Rewrite>` | explicitly admitted history-rewrite profile用の高権限specialization。Energy/resource/syntax/evidenceから生成できない。 | v0.5/current |
+| direct future observation | causal-layer access | prediction/simulation/ordinary Readとは別のcausal authorityを要求するaccess。current stable public operationは未定義・unsupported/deferred。 | v0.5/current |
 | runtime state | `Ω` | scheduler/runtime realization、queues、handles、cache等。causal active-effect semanticsのsole ownerではない。 | v0.5.2/v0.10.0 |
 | process state | `P` | admitted/active processとreservation等のprocess-local state。 | v0.5.2/v0.9.0 |
 | 実行構成 | `C=<Σ,H,Ω,P>` | runtime evaluation configuration。 | v0.5.2/v0.9.0 |
@@ -134,6 +139,8 @@ DEACTIVATE != rollback
 Physical time != runtime tick
 Integrator approximation != physical law
 DeterministicReplay != Rewind
+Restore != Rewind
+Energy/resource magnitude != temporal/causal authority
 ```
 
 ## E. Language Adapter / NSR
