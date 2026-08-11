@@ -2,6 +2,7 @@
 
 ## Unreleased experimental
 
+- public Issue #1: exact public main `0df7c42dfd741086cb0dcace040f69419f99acbb`からrenewed no-waiver auditを再実行し、open Issue inventory、14 required claims、stable/experimental分離、schema/regression/conformance、editable/wheel/sdist、runtime/security/replay、公開履歴とGitHub security settingsをwaiverなしでPASS。判定はGOだが、version `0.12.0`とrelease stateは変更せず、public Issue #2は明示確認待ち。
 - public Issue #15: current live documentsのtracker参照を`public Issue/PR #N`と`pre-public archive Issue/PR #N`へ明示分類し、clean-history migration後の番号衝突を防ぐregression checkを追加。
 - public Issue #16: retained v0.5 Restore/Rewind semanticsをcurrent normative ownerへreconcileし、`HistoricalRef<T>`、`Restore != Rewind`、`Replay != Rewind`、`Capability<History,Causality,Rewrite>`、fail-closed cycle/authority diagnostics、およびv1 deferred scopeを明示。runtime implementation、version、stable conformance、historical `spec/` snapshotsは変更しない。
 - public repositoryをclean historyへ移行し、active release trackingをpublic Issue #1 through public Issue #4へ再構成。pre-public Issue/PR番号はhistorical identifierとして保持する。

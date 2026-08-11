@@ -13,9 +13,9 @@
 - latest completed pre-public implementation: **pre-public archive Issue #94 / pre-public archive PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
 - completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
-- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`**。
-- active concrete work: **public Issue #16 — reconcile temporal/causal authority; then public Issue #1 renewed audit**。
-- release judgment: **SUSPENDED until the renewed no-waiver audit is complete**。
+- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`**。
+- active concrete work: **STOP — public Issue #1 renewed audit is GO; awaiting explicit user confirmation before public Issue #2**。
+- release judgment: **GO from the renewed no-waiver audit; no RC/version task is authorized without explicit user confirmation**。
 - release/version state: **unchanged at `0.12.0`; no RC snapshot/tag/publication/finalization timestamp exists**。
 - final outcome order: **public Issue #15 → public Issue #16 → public Issue #1 audit → public Issue #2 RC → public Issue #3 final → public Issue #4 umbrella**。
 
@@ -115,27 +115,24 @@ stable surface                counts/version/historical snapshots unchanged
 ```text
 public migration baseline     46f366ddb221a1517c6545784b4614154423e1da
 audit baseline                exact public main at public Issue #1 audit start; resolved SHA recorded in public Issue #1
-completed prerequisite       public Issue #15 tracker-reference qualification / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
-active work                   public Issue #16 temporal/causal authority reconciliation
-then                          public Issue #1 renewed exact-main no-waiver release-readiness audit
-audit first                   enumerate every open Issue and release requirement on current main
-audit then                    re-read all current normative owners and the 14 archived RC claims represented by public Issue #2
-then                          run repository / stable conformance / editable-wheel-sdist / runtime gates
-then                          verify README / CHANGELOG / schemas / examples / grammar / reference / tests / conformance / TODO consistency
-then                          publish an evidence-backed GO or NO-GO without changing version
-release action                forbidden until audit completion and explicit user confirmation
+audit baseline                0df7c42dfd741086cb0dcace040f69419f99acbb
+completed prerequisites       public Issue #15 / public PR #17; public Issue #16 / public PR #18
+renewed audit                 public Issue #1 — GO / no waivers
+open public inventory         public Issue #1, public Issue #2, public Issue #3, public Issue #4 at audit start
+stable surface                4 classes / 65 cases / 14 required claims
+package evidence              fresh editable / wheel / sdist outside checkout PASS
+next                          STOP; public Issue #2 requires explicit user confirmation
+release action                forbidden until that confirmation; version remains 0.12.0
 ```
 
 Create a **fresh audit branch from exact public main and record that resolved SHA in public Issue #1 before running the audit**。
 
-## Remaining open Issue inventory
+## Audit-start / post-merge public Issue inventory
 
 ```text
 public stabilization / release / umbrella
-  public Issue #15  tracker-reference namespace qualification — DONE / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
-  public Issue #16  temporal/causal authority reconciliation — ACTIVE
-  public Issue #1   renewed exact-main no-waiver release-readiness audit — BLOCKED BY public Issue #16
-  public Issue #2   v1.0 RC — BLOCKED BY public Issue #1 and explicit user confirmation
+  public Issue #1   renewed exact-main no-waiver release-readiness audit — GO / closes via the audit evidence PR
+  public Issue #2   v1.0 RC — READY ONLY AFTER explicit user confirmation
   public Issue #3   v1.0 final release — BLOCKED BY public Issue #2
   public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3 and post-v1.0 handoff
 ```
@@ -143,9 +140,9 @@ public stabilization / release / umbrella
 ## Dependency-correct execution order
 
 ```text
-public Issue #15 tracker-reference qualification
-public Issue #16 temporal/causal authority reconciliation
-public Issue #1 renewed no-waiver release audit
+public Issue #15 tracker-reference qualification — DONE
+public Issue #16 temporal/causal authority reconciliation — DONE
+public Issue #1 renewed no-waiver release audit — GO
 public Issue #2 RC path or evidence-backed return to stabilization
 public Issue #3 final release after a valid RC
 public Issue #4 umbrella closure after v1.0 and post-v1.0 handoff
@@ -254,10 +251,9 @@ current user instruction
 
 ```text
 PRE-PUBLIC DONE: pre-public archive Issue #46 pre-public archive Issue #77 pre-public archive Issue #84 pre-public archive Issue #86 pre-public archive Issue #87 pre-public archive Issue #88 pre-public archive Issue #89 pre-public archive Issue #90 pre-public archive Issue #91 pre-public archive Issue #92 pre-public archive Issue #93 pre-public archive Issue #94 pre-public archive Issue #110 pre-public archive Issue #114 pre-public archive Issue #118
-PUBLIC DONE:     public Issue #15 tracker-reference qualification / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
-ACTIVE:          public Issue #16 temporal/causal authority reconciliation
-SUSPENDED:       public Issue #1 renewed audit pending public Issue #16
-SUSPENDED:       public Issue #2 RC judgment pending public Issue #1 and explicit user confirmation
+PUBLIC DONE:     public Issue #15 / public PR #17; public Issue #16 / public PR #18
+AUDIT GO:        public Issue #1 renewed exact-main no-waiver audit
+CONFIRMATION:    public Issue #2 RC task requires explicit user confirmation
 BLOCKED:         public Issue #3 final release requires valid RC
 FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 ```
@@ -315,25 +311,25 @@ FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 - [x] add a durable regression check for future ambiguous tracker references;
 - [x] land exact-head CI evidence at head `f52c050bdd60a78a8808e76ae48348f507988ce8` and close public Issue #15 via public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`.
 
-## 2.7 public Issue #16 temporal/causal authority reconciliation — ACTIVE
+## 2.7 public Issue #16 temporal/causal authority reconciliation — DONE
 
 - [x] reconcile the current normative owner with the retained v0.5 Restore/Rewind contract;
 - [x] preserve `Replay != Rewind` and fail-closed authority/cycle validation;
 - [x] decide and record v1 stable versus deferred conformance scope;
-- [ ] land exact-head CI evidence and close public Issue #16.
+- [x] land exact-head CI at head `aaad4a425f4df9a56bfa762cc8ac0e5774673e08` and close public Issue #16 via public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`.
 
-## 2.8 public Issue #1 renewed no-waiver release-readiness audit — BLOCKED BY public Issue #16
+## 2.8 public Issue #1 renewed no-waiver release-readiness audit — GO
 
-- [ ] enumerate all open Issues and verify no implementation/roadmap blocker remains;
-- [ ] re-read all 14 pre-public RC required-surface claims, now tracked by public Issue #2, against exact current main;
-- [ ] re-read every current normative owner touched since the historical pre-public archive Issue #82/pre-public archive Issue #72 rehearsal;
-- [ ] verify four stable classes / 65 cases and experimental inventories remain correctly separated;
-- [ ] run repository regression, stable conformance, package, runtime, security, replay, and diff gates;
-- [ ] verify fresh checkout and installed editable/wheel/sdist command behavior outside checkout cwd;
-- [ ] verify version, README, CHANGELOG, schemas, grammar, examples, reference, conformance, consistency report, and TODO synchronization;
-- [ ] verify historical `spec/` snapshots remain immutable;
-- [ ] publish an exact-main GO or NO-GO report with no waivers;
-- [ ] do not change version, snapshot, tag, or release state before explicit user confirmation after a GO.
+- [x] enumerate all open Issues and verify no implementation/roadmap blocker remains;
+- [x] re-read all 14 pre-public RC required-surface claims, now tracked by public Issue #2, against exact main `0df7c42dfd741086cb0dcace040f69419f99acbb`;
+- [x] re-read every current normative owner touched since the historical pre-public archive Issue #82/pre-public archive Issue #72 rehearsal;
+- [x] verify four stable classes / 65 cases and experimental inventories remain correctly separated;
+- [x] run repository regression, stable conformance, package, runtime, security, replay, and diff gates;
+- [x] verify fresh checkout and installed editable/wheel/sdist command behavior outside checkout cwd;
+- [x] verify version, README, CHANGELOG, schemas, grammar, examples, reference, conformance, consistency report, and TODO synchronization;
+- [x] verify historical `spec/` snapshots remain immutable;
+- [x] publish an exact-main GO report with no waivers in the consistency report and public Issue #1;
+- [x] keep version, snapshot, tag, and release state unchanged; public Issue #2 still requires explicit user confirmation.
 
 ---
 
