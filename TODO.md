@@ -13,7 +13,7 @@
 - latest completed pre-public implementation: **pre-public archive Issue #94 / pre-public archive PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
 - completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
-- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`**。
+- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`**。
 - active concrete work: **STOP — public Issue #1 renewed audit is GO; awaiting explicit user confirmation before public Issue #2**。
 - release judgment: **GO from the renewed no-waiver audit; no RC/version task is authorized without explicit user confirmation**。
 - release/version state: **unchanged at `0.12.0`; no RC snapshot/tag/publication/finalization timestamp exists**。
@@ -125,13 +125,13 @@ next                          STOP; public Issue #2 requires explicit user confi
 release action                forbidden until that confirmation; version remains 0.12.0
 ```
 
-Create a **fresh audit branch from exact public main and record that resolved SHA in public Issue #1 before running the audit**。
+The renewed audit branch, evidence PR, and public Issue #1 closure are complete. Do not restart that audit from this checkpoint; remain stopped before public Issue #2 until the user explicitly confirms that specific RC/version task.
 
 ## Audit-start / post-merge public Issue inventory
 
 ```text
 public stabilization / release / umbrella
-  public Issue #1   renewed exact-main no-waiver release-readiness audit — GO / closes via the audit evidence PR
+  public Issue #1   renewed exact-main no-waiver release-readiness audit — GO / closed via public PR #19
   public Issue #2   v1.0 RC — READY ONLY AFTER explicit user confirmation
   public Issue #3   v1.0 final release — BLOCKED BY public Issue #2
   public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3 and post-v1.0 handoff
