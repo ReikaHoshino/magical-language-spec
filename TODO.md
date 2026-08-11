@@ -13,10 +13,10 @@
 - latest completed pre-public implementation: **pre-public archive Issue #94 / pre-public archive PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
 - completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
-- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`; public PR #20 merge `01902409b7a844ac6b4d321411823a8525a96f0a`**。
-- active concrete work: **IN PROGRESS — public Issue #2 `v1.0.0-rc.1` atomic version/release task**。
-- release judgment: **AUTHORIZED by explicit user confirmation after public Issue #1 GO; exact-head release gate and post-merge certification remain mandatory**。
-- release/version state: **RC identity `v1.0.0-rc.1` / package `1.0.0rc1` assigned in the release branch; snapshot prepared; tag/publication/finalization timestamp remain pending until landing and post-merge evidence**。
+- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`; public PR #20 merge `01902409b7a844ac6b4d321411823a8525a96f0a`; public PR #21 merge `776395dbcde6a820b96a358d1085552331cd497c`**。
+- active concrete work: **NEXT — public Issue #3 final `v1.0.0` release; requires a separate explicit user confirmation**。
+- release judgment: **v1.0.0-rc.1 finalized without waiver; final `v1.0.0` remains NOT AUTHORIZED**。
+- release/version state: **RC prerelease `v1.0.0-rc.1` / package `1.0.0rc1` published at merge `776395dbcde6a820b96a358d1085552331cd497c`; finalization `2026-08-12 00:16:14 +09:00` Asia/Tokyo**。
 - final outcome order: **public Issue #15 → public Issue #16 → public Issue #1 audit → public Issue #2 RC → public Issue #3 final → public Issue #4 umbrella**。
 
 > 会話とrepositoryが食い違う場合はcurrent `reference/`、current `main`、このTODO、relevant Issue/PR evidenceを照合してreconcileする。
@@ -121,19 +121,19 @@ renewed audit                 public Issue #1 — GO / no waivers
 open public inventory         public Issue #1, public Issue #2, public Issue #3, public Issue #4 at audit start
 stable surface                4 classes / 65 cases / 14 required claims
 package evidence              fresh editable / wheel / sdist outside checkout PASS
-next                          public Issue #2 v1.0.0-rc.1 release task
-release action                explicitly confirmed; exact-head gate and post-merge certification required
+next                          public Issue #3 final v1.0.0 release decision
+release action                separate explicit confirmation required; RC evidence must not be reused as final authorization
 ```
 
-The renewed audit branch, evidence PR, public Issue #1 closure, and public PR #20 reconciliation are complete. The user explicitly confirmed public Issue #2 on 2026-08-11; do not restart the audit or broaden the frozen RC surface.
+The renewed audit, public PR #21, exact-head gate, post-merge certification, and `v1.0.0-rc.1` prerelease are complete. Do not restart the audit, broaden the frozen surface, or begin public Issue #3 without separate explicit confirmation.
 
 ## Audit-start / post-merge public Issue inventory
 
 ```text
 public stabilization / release / umbrella
   public Issue #1   renewed exact-main no-waiver release-readiness audit — GO / closed via public PR #19
-  public Issue #2   v1.0.0-rc.1 — IN PROGRESS / explicit confirmation received
-  public Issue #3   v1.0 final release — BLOCKED BY public Issue #2
+  public Issue #2   v1.0.0-rc.1 — DONE / closes with post-merge reconciliation
+  public Issue #3   v1.0 final release — NEXT / separate explicit confirmation required
   public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3 and post-v1.0 handoff
 ```
 
@@ -143,8 +143,8 @@ public stabilization / release / umbrella
 public Issue #15 tracker-reference qualification — DONE
 public Issue #16 temporal/causal authority reconciliation — DONE
 public Issue #1 renewed no-waiver release audit — GO
-public Issue #2 RC path or evidence-backed return to stabilization
-public Issue #3 final release after a valid RC
+public Issue #2 RC release and post-merge certification — DONE
+public Issue #3 final release after a valid RC — NEXT / NOT AUTHORIZED
 public Issue #4 umbrella closure after v1.0 and post-v1.0 handoff
 ```
 
@@ -253,8 +253,8 @@ current user instruction
 PRE-PUBLIC DONE: pre-public archive Issue #46 pre-public archive Issue #77 pre-public archive Issue #84 pre-public archive Issue #86 pre-public archive Issue #87 pre-public archive Issue #88 pre-public archive Issue #89 pre-public archive Issue #90 pre-public archive Issue #91 pre-public archive Issue #92 pre-public archive Issue #93 pre-public archive Issue #94 pre-public archive Issue #110 pre-public archive Issue #114 pre-public archive Issue #118
 PUBLIC DONE:     public Issue #15 / public PR #17; public Issue #16 / public PR #18
 AUDIT GO:        public Issue #1 renewed exact-main no-waiver audit
-CONFIRMATION:    public Issue #2 RC task explicitly confirmed on 2026-08-11
-BLOCKED:         public Issue #3 final release requires valid RC
+PUBLIC RC DONE:  public Issue #2 / public PR #21 / v1.0.0-rc.1 prerelease
+NEXT BLOCKED:    public Issue #3 final release requires separate explicit confirmation
 FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 ```
 
@@ -331,7 +331,7 @@ FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 - [x] publish an exact-main GO report with no waivers in the consistency report and public Issue #1;
 - [x] keep version, snapshot, tag, and release state unchanged at the public Issue #1 audit checkpoint; the later confirmation is recorded in section 2.9.
 
-## 2.9 public Issue #2 v1.0.0-rc.1 — IN PROGRESS
+## 2.9 public Issue #2 v1.0.0-rc.1 — DONE
 
 - [x] explicit user confirmation received after public Issue #1 GO;
 - [x] exact current public `main` baseline `01902409b7a844ac6b4d321411823a8525a96f0a` fetched into a dedicated branch;
@@ -339,10 +339,11 @@ FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 - [x] spec/conformance identity `1.0.0-rc.1` and PEP 440 package identity `1.0.0rc1` selected from the accepted preflight;
 - [x] immutable `spec/v1.0.0-rc.1.md` prepared without rewriting older snapshots;
 - [x] local full release gate green: 32-schema validation, 4 released classes / 65 required cases, 421 repository tests (`OK`, 3 environment-dependent skips), final wheel/sdist `1.0.0rc1` installed outside checkout with public CLI, runtime commit, replay, package-resource, and fail-closed smoke PASS;
-- [ ] exact PR head passes all required workflows and independent audit;
-- [ ] merge SHA and post-merge package/consistency evidence recorded;
-- [ ] Asia/Tokyo release finalization timestamp recorded at second precision;
-- [ ] public Issue #2 closed and public Issue #3 unblocked.
+- [x] exact PR head `7d4aaead644f558548320b26c44f7a40f761f9bf` passed 7/7 required workflows and an independent clean-head audit;
+- [x] public PR #21 squash merge `776395dbcde6a820b96a358d1085552331cd497c` and post-merge package/consistency evidence recorded;
+- [x] `v1.0.0-rc.1` prerelease published for exact merge `776395dbcde6a820b96a358d1085552331cd497c`;
+- [x] Asia/Tokyo release finalization timestamp `2026-08-12 00:16:14 +09:00` recorded at second precision;
+- [x] public Issue #2 closure is bound to the post-merge reconciliation PR; public Issue #3 is next but requires separate authorization.
 
 Current RC rule: no new required class/case, no material semantic redesign, no experimental promotion, and no tag/final timestamp before exact landing evidence.
 
@@ -431,6 +432,7 @@ v0.9   pre-public archive PR #53  Sandboxed Runtime
 v0.10  pre-public archive PR #59  merge 90e47b7d71766272620e5f14f6304897a857d0a1
 v0.11  pre-public archive PR #67  merge e79677d1706f3d05480cb230626856a8ef0b4224
 v0.12  pre-public archive PR #74  merge 6d6ee23762456da6fe9e697d9f4742af09c4b447
+v1.0.0-rc.1 public PR #21 merge 776395dbcde6a820b96a358d1085552331cd497c / prerelease tag v1.0.0-rc.1
 Gate rehearsal pre-public archive PR #75 merge 191b8148b3daaaa48f7696dcddb893f9d4206e8f
 SpellInstanceBundle pre-public archive PR #78 merge b177d92f6036fbb6d7c214cb9784de42cfc77fdd
 MagicalProgram architecture pre-public archive PR #95 merge 822894e4c62a764c10ab965baa1b7077a8bd3990
