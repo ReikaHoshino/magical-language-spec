@@ -61,7 +61,7 @@ control-plane COMMIT != all future consequences already occurred
 DEACTIVATE != rollback
 ```
 
-v0.12.0自体はv1.0 RCではありません。pre-public archive Issue #72 / pre-public archive PR #75のhistorical rehearsal evidenceは保持しますが、MagicalProgram/MGLS拡張後のcurrent release判断には再利用しません。root `TODO.md`に従い、public Issue #1のrenewed no-waiver auditが完了するまでpublic Issue #2のRC判断はSUSPENDEDです。
+v0.12.0自体はv1.0 RCではありません。pre-public archive Issue #72 / pre-public archive PR #75のhistorical rehearsal evidenceは保持しますが、MagicalProgram/MGLS拡張後のcurrent release判断には再利用しません。public Issue #1のrenewed no-waiver auditはexact public main `0df7c42dfd741086cb0dcace040f69419f99acbb`に対してGOですが、root `TODO.md`に従い、public Issue #2のRC/version taskは明示的なユーザー確認があるまで開始しません。
 
 ## Reference implementation / conformanceを使う
 

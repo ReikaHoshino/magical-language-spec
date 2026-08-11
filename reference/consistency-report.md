@@ -1,14 +1,18 @@
-# 整合性チェック報告 — v1.0.0-rc.1 preflight complete
+# 整合性チェック報告 — renewed public exact-main no-waiver audit
 
-**Status:** PASS / GO TO SEPARATELY CONFIRMED RC VERSION TASK.
+**Status:** **GO** / public Issue #1 complete; STOP before public Issue #2 until explicit user confirmation.
 
-**Preflight baseline:** `b1bfd46899ce063d1c9985c213a01163618958ef`
+**Renewed public audit baseline:** `0df7c42dfd741086cb0dcace040f69419f99acbb`
 
-**Preflight merge:** `e9c83c48afc374772af45310a1d141f218b4f262`
+**Historical pre-public preflight baseline:** `b1bfd46899ce063d1c9985c213a01163618958ef`
+
+**Historical pre-public preflight merge:** `e9c83c48afc374772af45310a1d141f218b4f262`
 
 **Released identity:** `v0.12.0` — unchanged.
 
 **RC identity/timestamp:** not assigned.
+
+> Sections 1–13 preserve the detailed pre-public preflight and integration evidence. They do not override the renewed public verdict recorded at the top of this document and in the final public-audit checkpoint below.
 
 ## 1. Scope and source of truth
 
@@ -211,7 +215,7 @@ P0 findings = 0
 P1 findings = 0
 ```
 
-## 10. pre-public archive Issue #38 gate result
+## 10. Historical pre-public archive Issue #38 gate result
 
 | Gate | Result | Notes |
 |---|---|---|
@@ -225,7 +229,7 @@ P1 findings = 0
 | 8. unsupported domains explicit | PASS | Section 5. |
 | 9. RC version/timestamp recorded | NOT STARTED BY DESIGN | Requires explicit confirmation and completion of the separate version task. |
 
-Conclusion: **GO TO SEPARATELY CONFIRMED `v1.0.0-rc.1` VERSION TASK.** This does not claim that an RC has already been cut.
+Historical conclusion at that checkpoint: **GO TO SEPARATELY CONFIRMED `v1.0.0-rc.1` VERSION TASK.** This archived conclusion did not cut an RC and does not replace the renewed public verdict at the top of this report.
 
 ## 11. Verification evidence
 
@@ -328,51 +332,56 @@ The next release/version action remains gated by root `TODO.md`: complete pre-pu
 
 ---
 
-## Public repository migration and consistency checkpoint — 2026-08-09
+## Renewed public exact-main no-waiver audit — 2026-08-11
 
-Status: public-history/security/documentation reconciliation; **not a semantic change, version update, RC authorization, or release GO**.
+Status: **GO** for public Issue #1; **not** a version change, RC snapshot, tag, publication, or authorization to start public Issue #2 without explicit user confirmation.
 
 ```text
 public repository                  ReikaHoshino/magical-language-spec
-public migration baseline         46f366ddb221a1517c6545784b4614154423e1da
-public hardening merge             de9341aa288159067b2a6cf598d28ff850164815
-Node 24 Actions merge              b707ed3fa865f2b4aa190bc4975c37a391eb503b
-RESUME sync merge                  2865e2513f1d3ca81f57832520638994a7a24724
-current audit baseline             exact public main at public Issue #1 audit start; resolved SHA in public Issue #1
+exact audit baseline              0df7c42dfd741086cb0dcace040f69419f99acbb
+public Issue #15                  DONE / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
+public Issue #16                  DONE / public PR #18 merge 0df7c42dfd741086cb0dcace040f69419f99acbb
+open Issues at audit start        public Issue #1, public Issue #2, public Issue #3, public Issue #4
 released identity                 v0.12.0 unchanged
 stable conformance                4 classes / 65 cases unchanged
+v1 required claims               14 / all mapped and tested
 MKI data-plane operations         6 unchanged
 World Kernel interaction classes  5 unchanged
 historical spec snapshots         immutable
-completed prerequisite           public Issue #15 / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
-active prerequisite              public Issue #16 temporal/causal authority reconciliation
-active audit                      public Issue #1 / blocked by public Issue #16
-RC tracker                        public Issue #2 / blocked by public Issue #1
+audit result                      GO / no waivers
+RC tracker                        public Issue #2 / explicit user confirmation required
 final tracker                     public Issue #3 / blocked by public Issue #2
 umbrella tracker                  public Issue #4
-release judgment                  SUSPENDED pending public Issue #16 and public Issue #1
+release/version state             unchanged / no RC identity or timestamp
 ```
 
 Public-suitability assertions:
 
-- the public repository uses a clean history with privacy-preserving commit metadata;
+- public history uses only GitHub noreply identity metadata and contains no high-confidence secret match found by the renewed full-history scan;
+- no tracked symlink, file over 5 MiB, or current host-specific user path is present;
 - public `main` is protected by exact required regression, editable-install, wheel, sdist, and runtime smoke checks;
 - workflow tokens are read-only and third-party Actions are pinned to full commit SHAs;
 - secret scanning, push protection, Dependabot security updates, and private vulnerability reporting are enabled;
+- open Dependabot and secret-scanning alert counts were zero at audit time;
 - `SECURITY.md` routes sensitive reports away from public Issues;
 - the repository makes no open-source license grant; source visibility must not be confused with permission to reuse;
 - current live documents explicitly qualify tracker namespaces as `public Issue/PR #N` or `pre-public archive Issue/PR #N`;
-- public Issue #15 completed tracker-reference qualification with exact-head CI on public PR #17; public Issue #16 is the remaining semantic prerequisite;
+- public Issue #15 and public Issue #16 completed with exact-head CI and no remaining semantic prerequisite;
 - the current temporal/causal owner preserves `HistoricalRef<T>` read-only semantics, `Restore != Rewind`, `Replay != Rewind`, and `Capability<History,Causality,Rewrite>`;
 - unsupported Rewind execution remains outside the stable v1 four-class / 65-case surface and fails closed without inventing a runtime path;
-- public Issue #1 through public Issue #4 own the release train;
-- `TODO.md` remains the authoritative RESUME POINT and records exact public-main audit ownership;
-- no schema, fixture, runtime implementation, package version, stable conformance inventory, or historical `spec/` snapshot changed in this reconciliation.
+- public Issue #1 through public Issue #4 own the release train; only public Issue #1 through public Issue #4 were open at audit start;
+- the 14 machine-readable v1 claims are present exactly once and point only to required cases in the four stable classes;
+- experimental Arcana, SpellInstance, and UX evidence remains outside the stable manifest and cannot satisfy stable claims by itself;
+- local exact-baseline gates passed: 32 schemas, 421 tests with 3 environment skips, stable 65/65, Experimental-Arcana PASS, and 12 SpellInstanceBundle cases PASS;
+- fresh editable, wheel, and sdist installs ran outside checkout; wheel/sdist resolved package-owned resources and passed security, runtime commit/abort, replay, and 12-bundle cutover smoke;
+- exact-baseline post-merge Conformance package smoke and MagicalProgram runtime smoke succeeded; the audit evidence PR must also pass all seven protected checks at its exact head;
+- `TODO.md` remains the authoritative RESUME POINT;
+- no package version, stable conformance inventory, MKI/World Kernel count, RC identity, tag, release, or historical `spec/` snapshot changed in this audit.
 
 Next RESUME POINT:
 
-1. complete public Issue #16 temporal/causal authority reconciliation with exact-head CI;
-2. resolve exact public `main` at the start of the renewed audit and record that SHA in public Issue #1;
-3. create a fresh audit branch from that resolved baseline;
-4. execute public Issue #1 with no waivers and publish an evidence-backed GO or NO-GO;
-5. do not begin public Issue #2 or change any version identity without public Issue #1 GO and explicit user confirmation.
+1. land the public Issue #1 audit evidence PR only after all seven protected checks pass at its exact head;
+2. close public Issue #1 with exact-head and merge evidence;
+3. STOP before public Issue #2;
+4. begin no RC/version work until the user explicitly confirms that specific task;
+5. if confirmed, re-run the normal release gate and keep all version/snapshot/tag writes atomic.
