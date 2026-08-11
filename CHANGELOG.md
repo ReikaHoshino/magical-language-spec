@@ -3,7 +3,7 @@
 ## Unreleased experimental
 
 - public Issue #15: current live documentsのtracker参照を`public Issue/PR #N`と`pre-public archive Issue/PR #N`へ明示分類し、clean-history migration後の番号衝突を防ぐregression checkを追加。
-- public Issue #16をpublic Issue #1の次のsemantic prerequisiteとして記録。version、stable conformance、historical `spec/` snapshotsは変更しない。
+- public Issue #16: retained v0.5 Restore/Rewind semanticsをcurrent normative ownerへreconcileし、`HistoricalRef<T>`、`Restore != Rewind`、`Replay != Rewind`、`Capability<History,Causality,Rewrite>`、fail-closed cycle/authority diagnostics、およびv1 deferred scopeを明示。runtime implementation、version、stable conformance、historical `spec/` snapshotsは変更しない。
 - public repositoryをclean historyへ移行し、active release trackingをpublic Issue #1 through public Issue #4へ再構成。pre-public Issue/PR番号はhistorical identifierとして保持する。
 - public security policy、Dependabot configuration、full-SHA-pinned GitHub Actionsを追加。仕様意味論、version `0.12.0`、stable 4 classes / 65 cases、historical `spec/` snapshotは変更しない。
 - pre-public archive Issue #91 / pre-public archive PR #129: public `SpellInstanceBundle` executionをcomplete current `MagicalProgram-0` pathへcutoverし、専用executorをlegacy oracleへ隔離。

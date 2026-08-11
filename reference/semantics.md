@@ -8,6 +8,8 @@ MIR/MKIのsmall-step semantics、PREPARE/COMMIT、World Index resolution、async
 
 lower World Kernel execution interaction、semantic active-effect ownership、atomic groupの詳細は
 [`kernel-execution.md`](kernel-execution.md)が所有する。
+Committed-history mutation authority、Restore/Rewind、historical/future observationの詳細は
+[`temporal-causality.md`](temporal-causality.md)が所有する。
 
 ## Non-goals
 
@@ -21,6 +23,7 @@ lower World Kernel execution interaction、semantic active-effect ownership、at
 - `architecture.md`
 - `world-index.md`
 - `runtime-time.md`
+- `temporal-causality.md`
 - `mki.md`
 - `kernel-execution.md`
 - `kinetics.md`
@@ -584,7 +587,15 @@ Normal execution appends Events and does not delete past Events.
 
 An Event may record both `effective_at` and `committed_at`; causal/history commitment follows committed execution, not a backdated runtime record.
 
-Restore adds a new restoration Event. Rewind mutates existing `H` and requires higher causal authority.
+Restore adds a new restoration Event and does not rewrite prior Events. Rewind mutates existing `H`, is not ordinary `RECONFIGURE`, and is owned by [`temporal-causality.md`](temporal-causality.md).
+
+```text
+Restore != Rewind
+Capability<History,Causality,Rewrite>
+Energy/resource magnitude != temporal/causal authority
+```
+
+The current reference implementation does not support Rewind. Unsupported committed-history mutation fails closed as `HistoryMutationDenied`; admitted temporal operations with missing or invalid causal authority fail as `TemporalAuthorityError`; a cyclic proposed history fails as `CausalityCycleError`.
 
 ## 25. Deterministic replay
 
@@ -616,6 +627,7 @@ DeterministicReplay != Rewind
 ```
 
 Replay reconstructs execution in another runtime/simulation instance; it does not mutate committed history of the original world.
+Replay evidence, state hashes, and recorded decisions grant no `Capability<History,Causality,Rewrite>`.
 
 ## 27. Source-language boundary
 

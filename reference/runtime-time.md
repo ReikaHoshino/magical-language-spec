@@ -17,6 +17,7 @@ v0.5の`Instant`/async/Eventとv0.6.2のcontinuous kineticsを、runtime schedul
 
 - `conventions.md`
 - `semantics.md`
+- `temporal-causality.md`
 - `world-index.md`
 - `kinetics.md`
 - `mki.md`
@@ -438,6 +439,11 @@ DeterministicReplay != Rewind
 ```
 
 Replayは別runtime/simulation instanceでexecutionを再構成する。元worldの確定済み履歴Hを書き換えない。
+Restore/Rewind、committed-history mutation authority、direct future observationのnormative ownerは
+[`temporal-causality.md`](temporal-causality.md)である。Replay manifest、TickRecord、recorded Capability/Leaseは
+元worldのhistory rewrite authorityを生成しない。
+
+Current reference runtimeはRewind executorを持たず、Replay modeをRewindへ昇格しない。
 
 ## 23. Source-language boundary
 

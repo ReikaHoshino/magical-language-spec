@@ -13,8 +13,8 @@
 - latest completed pre-public implementation: **pre-public archive Issue #94 / pre-public archive PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
 - completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
-- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`**。
-- active concrete work: **public Issue #15 — qualify pre-public tracker references; then public Issue #16; then public Issue #1 renewed audit**。
+- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`**。
+- active concrete work: **public Issue #16 — reconcile temporal/causal authority; then public Issue #1 renewed audit**。
 - release judgment: **SUSPENDED until the renewed no-waiver audit is complete**。
 - release/version state: **unchanged at `0.12.0`; no RC snapshot/tag/publication/finalization timestamp exists**。
 - final outcome order: **public Issue #15 → public Issue #16 → public Issue #1 audit → public Issue #2 RC → public Issue #3 final → public Issue #4 umbrella**。
@@ -115,8 +115,8 @@ stable surface                counts/version/historical snapshots unchanged
 ```text
 public migration baseline     46f366ddb221a1517c6545784b4614154423e1da
 audit baseline                exact public main at public Issue #1 audit start; resolved SHA recorded in public Issue #1
-active work                   public Issue #15 tracker-reference qualification
-then                          public Issue #16 temporal/causal authority reconciliation
+completed prerequisite       public Issue #15 tracker-reference qualification / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
+active work                   public Issue #16 temporal/causal authority reconciliation
 then                          public Issue #1 renewed exact-main no-waiver release-readiness audit
 audit first                   enumerate every open Issue and release requirement on current main
 audit then                    re-read all current normative owners and the 14 archived RC claims represented by public Issue #2
@@ -132,9 +132,9 @@ Create a **fresh audit branch from exact public main and record that resolved SH
 
 ```text
 public stabilization / release / umbrella
-  public Issue #15  tracker-reference namespace qualification — ACTIVE
-  public Issue #16  temporal/causal authority reconciliation — BLOCKED BY public Issue #15 execution order
-  public Issue #1   renewed exact-main no-waiver release-readiness audit — BLOCKED BY public Issue #15 and public Issue #16
+  public Issue #15  tracker-reference namespace qualification — DONE / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
+  public Issue #16  temporal/causal authority reconciliation — ACTIVE
+  public Issue #1   renewed exact-main no-waiver release-readiness audit — BLOCKED BY public Issue #16
   public Issue #2   v1.0 RC — BLOCKED BY public Issue #1 and explicit user confirmation
   public Issue #3   v1.0 final release — BLOCKED BY public Issue #2
   public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3 and post-v1.0 handoff
@@ -254,9 +254,9 @@ current user instruction
 
 ```text
 PRE-PUBLIC DONE: pre-public archive Issue #46 pre-public archive Issue #77 pre-public archive Issue #84 pre-public archive Issue #86 pre-public archive Issue #87 pre-public archive Issue #88 pre-public archive Issue #89 pre-public archive Issue #90 pre-public archive Issue #91 pre-public archive Issue #92 pre-public archive Issue #93 pre-public archive Issue #94 pre-public archive Issue #110 pre-public archive Issue #114 pre-public archive Issue #118
-ACTIVE:          public Issue #15 tracker-reference qualification
-NEXT:            public Issue #16 temporal/causal authority reconciliation
-SUSPENDED:       public Issue #1 renewed audit pending public Issue #15 and public Issue #16
+PUBLIC DONE:     public Issue #15 tracker-reference qualification / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
+ACTIVE:          public Issue #16 temporal/causal authority reconciliation
+SUSPENDED:       public Issue #1 renewed audit pending public Issue #16
 SUSPENDED:       public Issue #2 RC judgment pending public Issue #1 and explicit user confirmation
 BLOCKED:         public Issue #3 final release requires valid RC
 FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
@@ -308,21 +308,21 @@ FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 - [x] actual installed command verified outside checkout for editable/wheel/sdist;
 - [x] version `0.12.0`, six MKI operations, five World Kernel classes, historical snapshots unchanged.
 
-## 2.6 public Issue #15 tracker-reference qualification — ACTIVE
+## 2.6 public Issue #15 tracker-reference qualification — DONE
 
-- [ ] qualify current live-document tracker references as public or pre-public archive;
-- [ ] preserve immutable historical `spec/` snapshots;
-- [ ] add a durable regression check for future ambiguous tracker references;
-- [ ] land exact-head CI evidence and close public Issue #15.
+- [x] qualify current live-document tracker references as public or pre-public archive;
+- [x] preserve immutable historical `spec/` snapshots;
+- [x] add a durable regression check for future ambiguous tracker references;
+- [x] land exact-head CI evidence at head `f52c050bdd60a78a8808e76ae48348f507988ce8` and close public Issue #15 via public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`.
 
-## 2.7 public Issue #16 temporal/causal authority reconciliation — NEXT
+## 2.7 public Issue #16 temporal/causal authority reconciliation — ACTIVE
 
-- [ ] reconcile the current normative owner with the retained v0.5 Restore/Rewind contract;
-- [ ] preserve `Replay != Rewind` and fail-closed authority/cycle validation;
-- [ ] decide and record v1 stable versus deferred conformance scope;
+- [x] reconcile the current normative owner with the retained v0.5 Restore/Rewind contract;
+- [x] preserve `Replay != Rewind` and fail-closed authority/cycle validation;
+- [x] decide and record v1 stable versus deferred conformance scope;
 - [ ] land exact-head CI evidence and close public Issue #16.
 
-## 2.8 public Issue #1 renewed no-waiver release-readiness audit — BLOCKED BY public Issue #15 and public Issue #16
+## 2.8 public Issue #1 renewed no-waiver release-readiness audit — BLOCKED BY public Issue #16
 
 - [ ] enumerate all open Issues and verify no implementation/roadmap blocker remains;
 - [ ] re-read all 14 pre-public RC required-surface claims, now tracked by public Issue #2, against exact current main;
