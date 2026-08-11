@@ -328,7 +328,7 @@ Consistency assertions:
 - editable, wheel, and sdist smoke invoke the actual installed `magical-language` console script outside checkout cwd;
 - experimental evidence remains outside `conformance/manifest.json` and does not satisfy stable pre-public archive Issue #38 claims by itself.
 
-The next release/version action remains gated by root `TODO.md`: complete pre-public archive Issue #94/pre-public archive Issue #84, run a renewed exact-main no-waiver audit, then obtain explicit user confirmation for the specific version task.
+The prerequisites retained in this historical section are complete. Current release/version action is governed by the renewed public audit below and root `TODO.md`; public Issue #2 still requires explicit user confirmation for that specific RC/version task.
 
 ---
 
@@ -339,6 +339,7 @@ Status: **GO** for public Issue #1; **not** a version change, RC snapshot, tag, 
 ```text
 public repository                  ReikaHoshino/magical-language-spec
 exact audit baseline              0df7c42dfd741086cb0dcace040f69419f99acbb
+audit evidence merge             public PR #19 / 105946c1315799cbfbf6c2a8b59df0bd7e67a4c3
 public Issue #15                  DONE / public PR #17 merge 82c3a42d169fe8e88cdc141eab23af24a44fe11c
 public Issue #16                  DONE / public PR #18 merge 0df7c42dfd741086cb0dcace040f69419f99acbb
 open Issues at audit start        public Issue #1, public Issue #2, public Issue #3, public Issue #4
@@ -380,8 +381,7 @@ Public-suitability assertions:
 
 Next RESUME POINT:
 
-1. land the public Issue #1 audit evidence PR only after all seven protected checks pass at its exact head;
-2. close public Issue #1 with exact-head and merge evidence;
-3. STOP before public Issue #2;
-4. begin no RC/version work until the user explicitly confirms that specific task;
-5. if confirmed, re-run the normal release gate and keep all version/snapshot/tag writes atomic.
+1. public PR #19 and public Issue #1 are complete with exact-head and merge evidence;
+2. STOP before public Issue #2;
+3. begin no RC/version work until the user explicitly confirms that specific task;
+4. if confirmed, re-run the normal release gate and keep all version/snapshot/tag writes atomic.
