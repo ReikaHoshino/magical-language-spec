@@ -61,7 +61,7 @@ The following are intentionally **not** public v0.8 ingress contracts:
 - automatic language detection;
 - automatic input-kind detection.
 
-General multi-stage direct ingestion remains owned by Issue #48.
+General multi-stage direct ingestion remains owned by pre-public archive Issue #48.
 
 ## CLI
 
@@ -247,11 +247,11 @@ Machine-readable CLI output uses deterministic JSON key ordering. Every public e
 
 ## Experimental handler dispatch
 
-Issue #77 adds an implementation-owned `(NSR kind, action) -> evaluator handler` dispatch for
+pre-public archive Issue #77 adds an implementation-owned `(NSR kind, action) -> evaluator handler` dispatch for
 `Experimental-Arcana-0`. The existing WB-CANON-001 Generation handler is preserved. Unknown action or
 unadmitted extension fails as `UnsupportedSemanticSubset`; it is not ignored or coerced. Handler-produced
 SemanticAST/TypedMIR/KernelPlan remain internal evidence, not new public direct-ingress or serialized ECIR
 contracts. The portable semantic owner is `success-arcana.md`.
 - performance optimization.
 
-Sandboxed execution/runtime is owned by Issue #37 (v0.9).
+Sandboxed execution/runtime is owned by pre-public archive Issue #37 (v0.9).

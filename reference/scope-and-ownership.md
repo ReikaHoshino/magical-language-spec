@@ -242,9 +242,9 @@ world-defined != WorldIndex guess
 
 | Work | Owner | Blocking status |
 |---|---|---|
-| minimal Local Evaluator implementation | Issue #36 / [`planning/v1.0-roadmap.md`](../planning/v1.0-roadmap.md) | DONE。v0.8 contractを実装し、COMMIT/world mutationを行わない。 |
-| sandbox execution/runtime | Issue #37 | DONE。v0.9.0 reference subset。 |
-| MKI → lower semantic execution layer → World Kernel detailed boundary | Issue #55 / Issue #40 | **P0 / v1.0 blocker**。本書のcore principle / law boundaryを維持したままactive-effect state、lowering、Runtime-1.0 conformance ownerを確定する。 |
+| minimal Local Evaluator implementation | pre-public archive Issue #36 / [`planning/v1.0-roadmap.md`](../planning/v1.0-roadmap.md) | DONE。v0.8 contractを実装し、COMMIT/world mutationを行わない。 |
+| sandbox execution/runtime | pre-public archive Issue #37 | DONE。v0.9.0 reference subset。 |
+| MKI → lower semantic execution layer → World Kernel detailed boundary | pre-public archive Issue #55 / pre-public archive Issue #40 | **P0 / v1.0 blocker**。本書のcore principle / law boundaryを維持したままactive-effect state、lowering、Runtime-1.0 conformance ownerを確定する。 |
 | generic artifact canonical bytes / digest algorithm | owning future profile/design issue | 明示的deferred。v1.0 blockerへpromotionされない限りoptional。 |
 
 この表の未完事項を、implementation default、world guess、AI proposalまたはinformative exampleで

@@ -1,6 +1,6 @@
 # MagicalProgram-0 Runtime
 
-**Status:** experimental normative owner after Issues #110 and #114.
+**Status:** experimental normative owner after pre-public archive Issues #110 and pre-public archive Issue #114.
 
 **Public import:**
 
@@ -8,7 +8,7 @@
 from src.runtime.magical_program import MagicalProgramRuntime
 ```
 
-Former Issue #89 module names are compatibility re-exports only. Exactly one `MagicalProgramRuntime` class owns behavior.
+Former pre-public archive Issue #89 module names are compatibility re-exports only. Exactly one `MagicalProgramRuntime` class owns behavior.
 
 ## 1. Common path
 
@@ -144,7 +144,7 @@ Event and artifact identities derive from program digest, frozen source revision
 
 The runtime admits no raw state path, arbitrary dynamic import, artifact-authored executable code, host-ceiling escalation, authority amplification, untyped structured wildcard, opaque legacy payload, or legacy-executor call inside the generic path.
 
-Legacy spell executors may be invoked only by the external differential harness as frozen oracles during Issue #90.
+Legacy spell executors may be invoked only by the external differential harness as frozen oracles during pre-public archive Issue #90.
 
 ## 10. Traceability
 

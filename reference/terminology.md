@@ -81,7 +81,7 @@ formal contractは[`conformance.md`](conformance.md)、machine-readable class/ca
 | blocked class | status | semantic/release dependency未解決のためconformance claim不可なclass。 | v0.10.0 |
 | provisional measurement | execution mode | blocked/provisional baselineを測るだけでclass statusを昇格しない実行。 | v0.10.0 |
 | rule coverage inventory | artifact | required caseのreverse mappingとexplicit deferred/non-executable ruleを列挙するconformance-owned crosswalk。 | v0.10.0 |
-| V1RequiredSurfaceMatrix | conformance artifact | Issue #38の14 required conformance claimをowning classとstable required case IDへ完全mappingする。repository testの存在だけをcoverage claimにしない。 | v0.12.0 |
+| V1RequiredSurfaceMatrix | conformance artifact | pre-public archive Issue #38の14 required conformance claimをowning classとstable required case IDへ完全mappingする。repository testの存在だけをcoverage claimにしない。 | v0.12.0 |
 | CompatibilityAdmission | aggregate gate | domain-owned CompatibilityDecisionを集約しAllowed/Denied/Indeterminateを返す。compatibility自体を再計算せずauthorityも付与しない。 | v0.10.0 |
 | Experimental-Arcana-0 | experimental class | SUCCESS-ARCANA-001〜008のoptional success/guard/replay/recognized-unsupported surface。4 required classと65 stable caseには含まれない。formal ownerは`success-arcana.md`。 | Unreleased experimental |
 | SpellInstanceBundle | experimental artifact | self-contained NSR、versioned semantic/runtime contracts、profiles、WorldIndex/WorldState evidence、expectationを持つsingle-file ingress。filename/suite/instance IDはdispatch authorityではない。formal ownerは`spell-instance-bundles.md`。 | Unreleased experimental |
@@ -233,7 +233,7 @@ Unknown != zero
 | EvidenceFusionModel | registry model | acquired Measurementからhypothesisを決定的に評価するpure evidence model。PlanningAssumption、Identity proof、authority grantではない。formal ownerは`evidence-inference.md`。 | Unreleased experimental |
 | ObservationArtifact | non-physical artifact | evidence context、bundle、model revision、ranking/uncertaintyを持つprovenance-bearing result。生成だけではWorldState mutationではない。formal ownerは`evidence-inference.md`。 | Unreleased experimental |
 | editable-install reference path | packaging contract | clean checkout上のcanonical resourcesを使い、installed entry pointをrepository外cwdから実行するv0.10 tested path。 | v0.10.0 |
-| standalone resource portability | packaging contract | wheel/sdist単体でcanonical resourcesを解決する能力。Issue #60 / PR #62でsingle-authoring-source projectionとisolated smokeを追加。 | v0.11.0 |
+| standalone resource portability | packaging contract | wheel/sdist単体でcanonical resourcesを解決する能力。pre-public archive Issue #60 / pre-public archive PR #62でsingle-authoring-source projectionとisolated smokeを追加。 | v0.11.0 |
 
 ```text
 SemanticFingerprint != artifact content_hash

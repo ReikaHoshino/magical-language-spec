@@ -98,7 +98,7 @@ This is an experimental optional contract selected by versioned semantic/runtime
 
 The reference implementation maps versioned semantic/runtime contract identities through the generic registries defined by `spell-instance-bundles.md`. Suite names, spell names, filenames, fixture paths, and instance IDs do not dispatch behavior. Unknown versions/contracts fail as explicit unknown-contract diagnostics; recognized but unsupported semantics return `UnsupportedSemanticSubset`. Extensions are not ignored or coerced.
 
-The handler/executor interface and `implementation_lowering_evidence` are internal. Direct public entry into SemanticAST/TypedMIR/KernelPlan/PreparedPlan remains deferred to Issue #48. WB-CANON-001 continues through its existing handler with exact behavior.
+The handler/executor interface and `implementation_lowering_evidence` are internal. Direct public entry into SemanticAST/TypedMIR/KernelPlan/PreparedPlan remains deferred to pre-public archive Issue #48. WB-CANON-001 continues through its existing handler with exact behavior.
 
 ## Conformance scope
 

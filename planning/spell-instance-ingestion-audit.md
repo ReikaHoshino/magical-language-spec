@@ -4,9 +4,9 @@
 
 **Repository:** `ReikaHoshino/magical-language-spec`
 
-**PR:** #78
+**PR:** pre-public archive Issue #78
 
-**Issue:** #80
+**Issue:** pre-public archive Issue #80
 
 **Main SHA / merge base:** `01c7113c85bf932396ebd81098a66ef3cd968e42`
 
@@ -20,7 +20,7 @@
 
 **Independence statement:** the original blocking review was performed against exact head `8c13f5737eca7cf81fc1772bc4e27cdbf19ad102`. This re-audit starts from that review's findings and independently rechecks current implementation, tests, schemas, package workflow, and stable-surface evidence rather than treating green CI as sufficient proof. No implementation claim is accepted solely because the implementation author reported it as fixed.
 
-**Scope:** PR #78 / Issue #80 generic `SpellInstanceBundle` ingress and the optional Experimental-Arcana suites. This audit does not promote the work into stable v1.0 conformance, does not change the four stable classes or 65 required cases, and does not alter Issue #38 readiness.
+**Scope:** pre-public archive PR #78 / pre-public archive Issue #80 generic `SpellInstanceBundle` ingress and the optional Experimental-Arcana suites. This audit does not promote the work into stable v1.0 conformance, does not change the four stable classes or 65 required cases, and does not alter pre-public archive Issue #38 readiness.
 
 ## Commands and evidence sources
 
@@ -54,7 +54,7 @@ historical spec snapshots changed: no
 P3 informational findings:
 
 1. The historical commit sequence was not rewritten to exactly four commits named A/B/C/D. Equivalent implementation separation is evidenced structurally by independent extension packages and current-tree generic-core tests; the PR must not claim exact historical four-commit compliance.
-2. Final TODO/Issue landing reconciliation remains a post-merge task; pre-merge TODO must state READY FOR REVIEW while preserving Issue #38 as the return point.
+2. Final TODO/Issue landing reconciliation remains a post-merge task; pre-merge TODO must state READY FOR REVIEW while preserving pre-public archive Issue #38 as the return point.
 
 ## P0 re-audit
 
@@ -129,7 +129,7 @@ Evidence:
 - `tests/test_success_arcana.py::test_debug_hell_executes_owned_adversarial_semantics`
 - `tests/test_success_arcana.py::test_adversarial_abort_has_no_partial_commit_and_replays`
 
-The claimed scope does not promote Issue #46 as globally complete and does not claim production planner, teleportation, or reactive-controller breadth.
+The claimed scope does not promote pre-public archive Issue #46 as globally complete and does not claim production planner, teleportation, or reactive-controller breadth.
 
 ### P1-3 — generic extension proof was coupled to SUCCESS-ARCANA
 
@@ -179,7 +179,7 @@ Expected truth remains fixture/specification-owned; runners compare against it a
 ## P2 disposition
 
 - repository and PR test counts are synchronized to the exact-head CI result;
-- DEBUG-HELL provenance points to `reference/debug-hell.md` and Issue #46;
+- DEBUG-HELL provenance points to `reference/debug-hell.md` and pre-public archive Issue #46;
 - `test_core_contains_no_fixture_or_suite_dispatch` performs the prohibited-string implementation-file audit;
 - `registry_extensions` is schema-whitelisted, bounded, non-executable data; unknown namespaces and executable selector fields fail closed, while owning extension handlers validate/consume admitted records where required;
 - extension registration is repository-owned Python code only; an artifact cannot name a module, function, URI, or other executable resource to load code;
@@ -257,23 +257,23 @@ MKI primitives: 6
 lower World Kernel interactions: 5
 WB-CANON-001 exact regression: PASS
 historical spec/ changes: none
-Issue #38: READY / non-blocked
+pre-public archive Issue #38: READY / non-blocked
 ```
 
 ## Exact-head validation evidence
 
 For implementation head `ef3edf5bff2074bc3fe4ea9d05eccc2f95f63cd5`:
 
-- Repository regression #153 — SUCCESS;
+- pre-public CI Repository regression run #153 — SUCCESS;
 - schema/fixture validation — SUCCESS (27 schemas; 12 SpellInstanceBundle documents);
 - repository unit regression — SUCCESS (268 tests, OK);
 - `git diff --check` — SUCCESS;
-- Conformance package smoke #66 — SUCCESS.
+- pre-public CI Conformance package smoke run #66 — SUCCESS.
 
 For prior audit-evidence head `3314d2e84894bdfcdd2c25999b0c905bd170674a`:
 
-- Repository regression #155 — SUCCESS;
-- Conformance package smoke #68 — SUCCESS;
+- pre-public CI Repository regression run #155 — SUCCESS;
+- pre-public CI Conformance package smoke run #68 — SUCCESS;
 - compare `97319448f5ac7fb93343b4f269beb8b2be4a5d8c..3314d2e84894bdfcdd2c25999b0c905bd170674a` reports one commit and zero changed files;
 - compare `ef3edf5bff2074bc3fe4ea9d05eccc2f95f63cd5..3314d2e84894bdfcdd2c25999b0c905bd170674a` reports only `planning/spell-instance-ingestion-audit.md` as a content change.
 
@@ -290,4 +290,4 @@ post-merge reconciliation = pending by design
 final decision = PASS subject to exact-head CI and TODO/PR metadata synchronization
 ```
 
-Issue #80 may close when PR #78 lands. Issue #48 continues to own full typed multi-stage ingress. Issue #38 remains the authoritative next release task after this optional interruption is resolved.
+pre-public archive Issue #80 may close when pre-public archive PR #78 lands. pre-public archive Issue #48 continues to own full typed multi-stage ingress. pre-public archive Issue #38 remains the authoritative next release task after this optional interruption is resolved.

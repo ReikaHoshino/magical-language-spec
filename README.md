@@ -4,7 +4,7 @@
 
 このリポジトリは **魔術言語仕様 v0.1〜v0.12.0**、current `reference/`、machine-readable contracts、reference implementation、versioned conformance suiteを追跡します。
 
-このrepositoryは2026-08-09に、公開用のclean historyへ移行しました。current workはこのpublic repositoryのIssueとPRで追跡します。本文に残るIssue/PR番号のうち、public tracker #1〜#4以外は原則としてpre-public archiveのhistorical identifierです。active release trainは [#1 audit](https://github.com/ReikaHoshino/magical-language-spec/issues/1) → [#2 RC](https://github.com/ReikaHoshino/magical-language-spec/issues/2) → [#3 final](https://github.com/ReikaHoshino/magical-language-spec/issues/3) → [#4 umbrella](https://github.com/ReikaHoshino/magical-language-spec/issues/4) です。
+このrepositoryは2026-08-09に、公開用のclean historyへ移行しました。current workはこのpublic repositoryのIssueとPRで追跡します。current document内のtracker参照は`public Issue/PR #N`または`pre-public archive Issue/PR #N`としてnamespaceを明示します。active release trainは [public Issue #1 audit](https://github.com/ReikaHoshino/magical-language-spec/issues/1) → [public Issue #2 RC](https://github.com/ReikaHoshino/magical-language-spec/issues/2) → [public Issue #3 final](https://github.com/ReikaHoshino/magical-language-spec/issues/3) → [public Issue #4 umbrella](https://github.com/ReikaHoshino/magical-language-spec/issues/4) です。
 
 ## 現行版
 
@@ -29,7 +29,7 @@ stable case ID
 != Python test method name
 ```
 
-`Runtime-1.0`はIssue #55 / PR #57で確定したWorld Kernel lower semantic boundaryを含みます。
+`Runtime-1.0`はpre-public archive Issue #55 / pre-public archive PR #57で確定したWorld Kernel lower semantic boundaryを含みます。
 
 ```text
 MKI public semantic ABI = 6 operations
@@ -61,7 +61,7 @@ control-plane COMMIT != all future consequences already occurred
 DEACTIVATE != rollback
 ```
 
-v0.12.0自体はv1.0 RCではありません。pre-public archive Issue #72 / PR #75のhistorical rehearsal evidenceは保持しますが、MagicalProgram/MGLS拡張後のcurrent release判断には再利用しません。root `TODO.md`に従い、public Issue #1のrenewed no-waiver auditが完了するまでpublic Issue #2のRC判断はSUSPENDEDです。
+v0.12.0自体はv1.0 RCではありません。pre-public archive Issue #72 / pre-public archive PR #75のhistorical rehearsal evidenceは保持しますが、MagicalProgram/MGLS拡張後のcurrent release判断には再利用しません。root `TODO.md`に従い、public Issue #1のrenewed no-waiver auditが完了するまでpublic Issue #2のRC判断はSUSPENDEDです。
 
 ## Reference implementation / conformanceを使う
 
@@ -182,7 +182,7 @@ world = canonical_sandbox_world()
 trace = ReferenceRuntimeEngine().execute_strict(report, world)
 ```
 
-v0.10 release時点のpackaging guaranteeは**clean checkout + declared dependencies / editable install**でした。post-v0.10 Issue #60 / PR #62では、single authoring sourceを維持したpackage-owned projectionとisolated editable/wheel/sdist smokeをcurrent reference implementationへ追加済みです。これはhistorical v0.10 snapshotの保証を遡及変更せず、Issue #40の全readiness gate完了も意味しません。
+v0.10 release時点のpackaging guaranteeは**clean checkout + declared dependencies / editable install**でした。post-v0.10 pre-public archive Issue #60 / pre-public archive PR #62では、single authoring sourceを維持したpackage-owned projectionとisolated editable/wheel/sdist smokeをcurrent reference implementationへ追加済みです。これはhistorical v0.10 snapshotの保証を遡及変更せず、pre-public archive Issue #40の全readiness gate完了も意味しません。
 
 ## 最初に読むもの
 
@@ -462,7 +462,7 @@ Reference implementation:
 - [`conformance/experimental-arcana.json`](conformance/experimental-arcana.json) — separate experimental class/case mapping; stable required claimではない。
 - [`conformance/experimental-arcana-rule-coverage.json`](conformance/experimental-arcana-rule-coverage.json) — experimental rule reverse coverage。
 - [`conformance/spell-instance-experimental.json`](conformance/spell-instance-experimental.json) — success/adversarial/non-suite bundle inventory; stable required claimではない。
-- [`examples/kernel-execution/`](examples/kernel-execution/) — #55 lower-boundary semantic cases。
+- [`examples/kernel-execution/`](examples/kernel-execution/) — pre-public archive Issue #55 lower-boundary semantic cases。
 - [`examples/sandbox-runtime/`](examples/sandbox-runtime/) — runtime examples。
 
 Conformance fixtures:

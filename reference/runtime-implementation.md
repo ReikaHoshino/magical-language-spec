@@ -281,7 +281,7 @@ These are v0.9 implementation tests, not a substitute for the broader Runtime-1.
 
 ## Experimental executor dispatch
 
-Issue #77 adds an implementation-owned `plan_id -> runtime executor` dispatch. WB-CANON-001 retains its
+pre-public archive Issue #77 adds an implementation-owned `plan_id -> runtime executor` dispatch. WB-CANON-001 retains its
 existing executor and exact result. Only the three admitted `Experimental-Arcana-0` plan IDs are added;
 unknown plans fail as `UnsupportedRuntimeSubset`. Every executor still passes PREPARE, current
 Capability/Lease/accounting/state revision revalidation, COMMIT, the six MKI operation check, sandbox limits,
@@ -299,4 +299,4 @@ serialized ECIR.
 - general continuous DynamicsProcess lifecycle;
 - general persistent Controller actuation lifecycle.
 
-Post-v0.9 conformance/stabilization is owned by Issue #40.
+Post-v0.9 conformance/stabilization is owned by pre-public archive Issue #40.

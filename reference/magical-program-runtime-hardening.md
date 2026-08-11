@@ -2,7 +2,7 @@
 
 **Status:** historical correction record. Normative runtime behavior is owned by `magical-program-runtime.md`.
 
-Issue #89 initially accumulated safety fixes through several subclass and entrypoint layers. The Issue #110 architecture audit retained the safety invariants but removed the layered implementation as a normative design.
+pre-public archive Issue #89 initially accumulated safety fixes through several subclass and entrypoint layers. The pre-public archive Issue #110 architecture audit retained the safety invariants but removed the layered implementation as a normative design.
 
 ## Retained invariants
 
@@ -32,4 +32,4 @@ Portable requirements remain in the artifact. Exact host evidence exists only in
 
 ## Migration consequence
 
-Issue #90 must not preserve the old executor by embedding a base64 SpellInstanceBundle in a generic program. A migrated spell must be explicit values, nodes, edges, outputs, and reusable host contract registrations. The old executor is an external frozen oracle only.
+pre-public archive Issue #90 must not preserve the old executor by embedding a base64 SpellInstanceBundle in a generic program. A migrated spell must be explicit values, nodes, edges, outputs, and reusable host contract registrations. The old executor is an external frozen oracle only.

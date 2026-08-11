@@ -15,13 +15,15 @@ def read(path: str) -> str:
 class PreV08IntegrationTests(unittest.TestCase):
     def test_resume_point_and_release_train_are_current(self) -> None:
         todo = read("TODO.md")
-        self.assertIn("Issue #36 — v0.8 Minimal Local Evaluator", todo)
+        self.assertIn(
+            "pre-public archive Issue #36 — v0.8 Minimal Local Evaluator", todo
+        )
         sequence = [
-            "#36 v0.8 Minimal Local Evaluator",
-            "#37 v0.9 Sandboxed Runtime",
-            "#40 v0.10+ Conformance / Stabilization",
-            "#38 v1.0.0-rc.N",
-            "#39 v1.0.0 final",
+            "pre-public archive Issue #36 v0.8 Minimal Local Evaluator",
+            "pre-public archive Issue #37 v0.9 Sandboxed Runtime",
+            "pre-public archive Issue #40 v0.10+ Conformance / Stabilization",
+            "pre-public archive Issue #38 v1.0.0-rc.N",
+            "pre-public archive Issue #39 v1.0.0 final",
         ]
         positions = [todo.index(item) for item in sequence]
         self.assertEqual(positions, sorted(positions))
@@ -36,7 +38,7 @@ class PreV08IntegrationTests(unittest.TestCase):
     def test_completed_foundations_and_deferred_breadth_are_distinct(self) -> None:
         todo = read("TODO.md")
         for completed in (
-            "DONE(contract + v0.8 implementation) — Issue #34 / Issue #36",
+            "DONE(contract + v0.8 implementation) — pre-public archive Issue #34 / pre-public archive Issue #36",
             "estimator model/profile ownership contract + deterministic synthetic profile",
             "水球生成をcanonical end-to-end例として仕様化",
             "canonical pathの仕様rule ↔ stable test/fixture ID traceability matrix",
@@ -73,12 +75,17 @@ class PreV08IntegrationTests(unittest.TestCase):
 
     def test_changelog_and_consistency_checkpoint_cover_final_gate(self) -> None:
         changelog = read("CHANGELOG.md")
-        for issue in ("#12", "#13", "#14", "#15", "#16", "#17", "#18", "#19", "#20", "#34"):
-            self.assertIn(f"Issue {issue}", changelog)
+        for issue in (12, 13, 14, 15, 16, 17, 18, 19, 20, 34):
+            self.assertIn(f"pre-public archive Issue #{issue}", changelog)
         report = read("reference/consistency-report.md")
-        self.assertIn("Final pre-v0.8 integration audit — Issue #19", report)
+        self.assertIn(
+            "Final pre-v0.8 integration audit — pre-public archive Issue #19",
+            report,
+        )
         self.assertIn("pre-v0.8 specification/readiness gate = PASS", report)
-        self.assertIn("next RESUME POINT = Issue #36", report)
+        self.assertIn(
+            "next RESUME POINT = pre-public archive Issue #36", report
+        )
 
     def test_v08_entry_and_water_ball_conformance_boundaries_are_explicit(self) -> None:
         todo = read("TODO.md")
@@ -87,7 +94,7 @@ class PreV08IntegrationTests(unittest.TestCase):
         self.assertIn("schema-validなNSR JSON", todo)
         self.assertIn("stableな外部direct-entry contractとはしない", todo)
         self.assertIn("multi-stage direct ingestion", todo)
-        self.assertIn("Issue #48", todo)
+        self.assertIn("pre-public archive Issue #48", todo)
         self.assertNotIn("- NSR / SemanticAST。", todo)
         self.assertNotIn("- Typed MIR / NormalizedIR。", todo)
 

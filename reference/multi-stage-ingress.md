@@ -1,6 +1,6 @@
 # Typed Multi-Stage Ingress
 
-**Status:** experimental normative architecture owner for Issues #48 and #92.
+**Status:** experimental normative architecture owner for pre-public archive Issues #48 and pre-public archive Issue #92.
 This document classifies public and internal entry stages and fixes downstream
 validation obligations. MGLS source revision `0` is owned by
 [`mgls-source-language.md`](mgls-source-language.md).
@@ -303,7 +303,7 @@ No `ast`, `mir`, `plan`, or `prepared` token is registered.
 
 ---
 
-## Issue #94 unified workflow implementation
+## pre-public archive Issue #94 unified workflow implementation
 
 The experimental `magical-language` integration provides a single-read implementation of the direct-ingress obligations in this document:
 

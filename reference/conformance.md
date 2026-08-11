@@ -153,7 +153,7 @@ blocked baseline all green != class conformance
 
 reference runnerの`--include-blocked`は測定専用でありstatusを変更しない。
 
-Issue #55はPR #57で解決済みであるため、v0.12 candidate manifestの`Runtime-1.0`は現在`candidate`である。将来別dependencyでclassがblockedになった場合も上記lifecycleを使う。
+pre-public archive Issue #55はpre-public archive PR #57で解決済みであるため、v0.12 candidate manifestの`Runtime-1.0`は現在`candidate`である。将来別dependencyでclassがblockedになった場合も上記lifecycleを使う。
 
 ## 5. Initial class definitions
 
@@ -208,7 +208,7 @@ reference `LanguageAdapter<lat>` supported surface:
 
 v0.9 runtimeから発展するstable runtime candidateである。
 
-Issue #55 / PR #57でWorld Kernel lower semantic execution boundary、active-effect semantic ownership、`KernelAtomicGroup`、COMMIT/lifecycle distinctionが確定したため、本classはそれらをrequired surfaceへ含める。
+pre-public archive Issue #55 / pre-public archive PR #57でWorld Kernel lower semantic execution boundary、active-effect semantic ownership、`KernelAtomicGroup`、COMMIT/lifecycle distinctionが確定したため、本classはそれらをrequired surfaceへ含める。
 
 少なくとも:
 
@@ -301,7 +301,7 @@ v0.12ではrequired reference pathが消費するartifact/profile coverageを
 `conformance/compatibility-coverage.json`へversionedに列挙する。inventoryはdomain/profile ownerを
 指し示すだけで、互換性resultを再計算しない。
 
-Issue #64のrelease evolution/deprecation/migration rulesはCore-1.0 required stable casesへ昇格する。
+pre-public archive Issue #64のrelease evolution/deprecation/migration rulesはCore-1.0 required stable casesへ昇格する。
 exact migrationはtarget schema validationとtarget profile compatibility re-evaluationを要求し、
 Capability、Lease、authority、trust、semantic proof、admissionを生成しない。
 
@@ -326,7 +326,7 @@ magical-language-evaluator --source "Calorem ab aqua ad aerem transfer." --lang 
 
 installed entry point smokeはrepository外cwdから実行し、current canonical resource lookupがcwd依存でないことを確認する。
 
-このpathはproduction deploymentを意味しない。Issue #60 / PR #62で追加したsingle-authoring-source
+このpathはproduction deploymentを意味しない。pre-public archive Issue #60 / pre-public archive PR #62で追加したsingle-authoring-source
 resource projectionにより、v0.12 release gateはeditable installに加えisolated wheel/sdist installed
 executionも検証する。historical v0.10 snapshotの限定保証は遡及変更しない。
 
@@ -342,20 +342,20 @@ manifestにrequired rule/caseを追加する際、ruleにexecutable conformance 
 暗黙にcoverage済みとみなしてはならない。
 
 v0.12もrepository内の全testを無差別にpublic guaranteeへ昇格しない。代わりに
-`conformance/v1-required-surface.json`がIssue #38の14 required conformance claimを列挙し、各claimを
+`conformance/v1-required-surface.json`がpre-public archive Issue #38の14 required conformance claimを列挙し、各claimを
 stable required case IDへmappingする。matrix caseはmanifestでrequiredであり、owning classの
 `required_case_ids`へ含まれ、reverse rule coverageを持たなければならない。
 
 v0.12でpromoteする追加surfaceは、common source normalization、ContextualDeterministic /
 LegacyPermissive ambiguity trace、planning binding/generation/minimum-Energy selection、complete
 `WB-TEST-001..011`、canonical evaluator path、six-operation runtime execution、resource ceiling、
-PrepareBound vs Dynamic runtime behaviorである。これはIssue #38 required promiseのfreezeであり、
+PrepareBound vs Dynamic runtime behaviorである。これはpre-public archive Issue #38 required promiseのfreezeであり、
 non-reference adapter、production storage/distributed runtime、public ECIR等のexplicit non-goalを
 requiredへ昇格しない。
 
 ## 11. v1.0 readiness boundary
 
-4 classのcomplete required matrixがv0.12でcandidateとしてPASSしても、Issue #40の全readiness gate完了を意味しない。
+4 classのcomplete required matrixがv0.12でcandidateとしてPASSしても、pre-public archive Issue #40の全readiness gate完了を意味しない。
 
 v1.0 RC eligibilityには別途:
 
@@ -365,5 +365,5 @@ v1.0 RC eligibilityには別途:
 - Conformance Guarantee Ready;
 - Release Guarantee Ready;
 
-の全gateを#40がcertifyする必要がある。v0.12はGate 4 evidenceを所有し、Issue #72はexact
-post-v0.12 `main`でGate 5のno-waiver rehearsalをPASSした。Issue #72 / PR #75はlanding済みで、Issue #38のv1.0 RC entryはREADY。
+の全gateをpre-public archive Issue #40がcertifyする必要がある。v0.12はGate 4 evidenceを所有し、pre-public archive Issue #72はexact
+post-v0.12 `main`でGate 5のno-waiver rehearsalをPASSした。pre-public archive Issue #72 / pre-public archive PR #75はlanding済みで、pre-public archive Issue #38のv1.0 RC entryはREADY。

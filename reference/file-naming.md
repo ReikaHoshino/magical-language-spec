@@ -1,6 +1,6 @@
 # Source and Artifact File Naming
 
-**Status:** experimental normative naming owner for Issues #47 and #92. This
+**Status:** experimental normative naming owner for pre-public archive Issues #47 and pre-public archive Issue #92. This
 document defines filename and media-type hints. Concrete source revision 0 is
 owned by [`mgls-source-language.md`](mgls-source-language.md).
 
@@ -237,7 +237,7 @@ as its newest supported version.
 
 ---
 
-## Issue #94 unified workflow integration
+## pre-public archive Issue #94 unified workflow integration
 
 The experimental `magical-language` command implements the rules above as follows:
 

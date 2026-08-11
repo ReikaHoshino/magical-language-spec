@@ -564,7 +564,7 @@ generic artifact / registry contract-setのcanonical bytesとdigest algorithmは
 明示的にdeferする。fixtureは`status: unresolved`とscope/reasonを記録し、SHA-256その他の
 algorithmやdigest valueを捏造しない。
 
-`controller_models`はIssue #77のexperimental ownerとしてfull machine-readable contractを
+`controller_models`はpre-public archive Issue #77のexperimental ownerとしてfull machine-readable contractを
 要求する。単なるcontroller ID/string registrationでは不十分であり、登録によってCapability、
 Lease、authorityが生成されることはない。`EvidenceFusionModelEntryContract`は不要な新namespaceを
 増やさず`observer_models`内で明示的に識別するが、通常のObserverModel conversionおよび

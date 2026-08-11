@@ -1,6 +1,6 @@
 # Independent Golden Expectations and Parity Harness
 
-**Status:** Experimental normative contract for Issue #86 and current Issue #90 migration evidence.
+**Status:** Experimental normative contract for pre-public archive Issue #86 and the then-current pre-public archive Issue #90 migration evidence.
 
 **Owner:** `conformance/magical-program-golden-parity.json`.
 
@@ -72,7 +72,7 @@ The eight base expectations are:
 - DEBUG-HELL-002 deterministic post-PREPARE stale-reference abort;
 - DEBUG-HELL-003 deterministic microstep-budget abort and rollback.
 
-The 25 variants remain the mandatory SA-001..004 negative neighbors declared at Issue #86 start. The manifest also owns committed replay, deterministic abort replay, abort atomicity, exact event IDs, SA-003 artifact/winner identity and artifact subset, and SA-004 affected/unaffected entity evidence.
+The 25 variants remain the mandatory SA-001..004 negative neighbors declared at pre-public archive Issue #86 start. The manifest also owns committed replay, deterministic abort replay, abort atomicity, exact event IDs, SA-003 artifact/winner identity and artifact subset, and SA-004 affected/unaffected entity evidence.
 
 Renamed filename/instance-ID behavior and synthetic event/winner/artifact drift are covered by separate mutation tests. The complete current MagicalProgram suite additionally proves 5 implemented, 3 adversarial, and 4 recognized-unsupported contract pairs across all 12 repository bundles.
 
@@ -88,4 +88,4 @@ Golden data is test expectation, not runtime authority. It cannot grant Capabili
 
 ## 10. Migration and cutover use
 
-Issue #90 registers the complete current MagicalProgram observation suite beside the legacy runner. Both consume the same frozen input snapshot and satisfy this independent manifest. Issue #91 may retire dedicated executors only after the complete 12-contract matrix, installed-package smoke, source-dispatch audit, and exact-head CI remain green. New fields require an owner and comparison mode; silently regenerating golden output from either runner is forbidden.
+pre-public archive Issue #90 registers the complete current MagicalProgram observation suite beside the legacy runner. Both consume the same frozen input snapshot and satisfy this independent manifest. pre-public archive Issue #91 may retire dedicated executors only after the complete 12-contract matrix, installed-package smoke, source-dispatch audit, and exact-head CI remain green. New fields require an owner and comparison mode; silently regenerating golden output from either runner is forbidden.

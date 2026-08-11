@@ -2,7 +2,7 @@
 
 ## Status
 
-Design instance for Issue #77. Not yet an executable fixture.
+Design instance for pre-public archive Issue #77. Not yet an executable fixture.
 
 ## Intent
 

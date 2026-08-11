@@ -14,7 +14,7 @@ A bundle is a bounded UTF-8 JSON object with in-document artifact_kind = SpellIn
 
 The filename, directory, suite ID, display name, and instance_id do not select executable behavior. Dispatch uses only explicitly registered (contract_id, revision) pairs. Renaming a file or instance therefore cannot change the selected handler/executor.
 
-The only admitted frontend stage in version 0 is schema-valid NSR. Direct public SemanticAST, TypedMIR, KernelPlan, PreparedPlan, or multi-stage ingestion remains deferred to Issue #48.
+The only admitted frontend stage in version 0 is schema-valid NSR. Direct public SemanticAST, TypedMIR, KernelPlan, PreparedPlan, or multi-stage ingestion remains deferred to pre-public archive Issue #48.
 
 ## Phases
 

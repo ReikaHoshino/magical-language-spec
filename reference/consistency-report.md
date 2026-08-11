@@ -18,8 +18,8 @@ Audited sources:
 - immutable historical `spec/` snapshots through `spec/v0.12.0.md`;
 - schemas, examples, grammar, data, conformance artifacts, tests, and reference implementation;
 - README, CHANGELOG, root TODO, planning documents, package metadata, and GitHub workflows;
-- Issue #38 release-candidate gate;
-- Issue #82 acceptance criteria;
+- pre-public archive Issue #38 release-candidate gate;
+- pre-public archive Issue #82 acceptance criteria;
 - open issue and PR inventory;
 - three independent CI states.
 
@@ -56,9 +56,9 @@ RC version             not assigned
 RC timestamp           not recorded
 ```
 
-Issue #82 did not assign `v1.0.0-rc.1`, create its snapshot, create a tag/release, or invent a finalization timestamp. Those writes belong to a separately confirmed atomic version task.
+pre-public archive Issue #82 did not assign `v1.0.0-rc.1`, create its snapshot, create a tag/release, or invent a finalization timestamp. Those writes belong to a separately confirmed atomic version task.
 
-No historical snapshot was modified by Issues #47, #48, or #82.
+No historical snapshot was modified by pre-public archive Issues #47, pre-public archive Issue #48, or pre-public archive Issue #82.
 
 ## 3. Stable candidate surface
 
@@ -73,7 +73,7 @@ Runtime-1.0      20 required cases
 total            65 required cases
 ```
 
-`conformance/v1-required-surface.json` maps Issue #38’s 14 required claims to these class/case IDs.
+`conformance/v1-required-surface.json` maps pre-public archive Issue #38’s 14 required claims to these class/case IDs.
 
 Execution boundaries remain:
 
@@ -136,9 +136,9 @@ Their boundaries remain explicit:
 - no authority/resource/truth creation from metadata or filename;
 - no impact on the 65 required cases.
 
-## 6. Issue #47 / #48 reconciliation
+## 6. pre-public archive Issue #47 / pre-public archive Issue #48 reconciliation
 
-Issue #47 / PR #98 established:
+pre-public archive Issue #47 / pre-public archive PR #98 established:
 
 ```text
 source hint          *.mgls
@@ -147,7 +147,7 @@ optional stage hint  *.<stage>.mga.json
 authority            in-document versioned envelope
 ```
 
-Issue #48 / PR #99 established:
+pre-public archive Issue #48 / pre-public archive PR #99 established:
 
 - direct entry skips only preceding transformations;
 - downstream type/identity/authority/accounting/PREPARE/COMMIT/sandbox/replay obligations remain mandatory;
@@ -201,8 +201,8 @@ Package smoke validates:
 
 Final P0/P1 searches returned only:
 
-- Issue #38 — release owner;
-- Issue #82 — preflight owner, now completed.
+- pre-public archive Issue #38 — release owner;
+- pre-public archive Issue #82 — preflight owner, now completed.
 
 Other open work is final-release, retained experimental ownership, or planned post-v1.0 work. No separate P0/P1 blocker is waived.
 
@@ -211,7 +211,7 @@ P0 findings = 0
 P1 findings = 0
 ```
 
-## 10. Issue #38 gate result
+## 10. pre-public archive Issue #38 gate result
 
 | Gate | Result | Notes |
 |---|---|---|
@@ -233,9 +233,9 @@ Conclusion: **GO TO SEPARATELY CONFIRMED `v1.0.0-rc.1` VERSION TASK.** This does
 
 ```text
 head                              0b9c7d12390ce8c1bfdcc638b38e348b5bc8caf6
-Repository regression #190        SUCCESS
+pre-public CI Repository regression run #190        SUCCESS
 schemas / tests / diff             27 / 268 PASS / PASS
-Conformance package smoke #111    SUCCESS — editable / wheel / sdist
+pre-public CI Conformance package smoke run #111    SUCCESS — editable / wheel / sdist
 review threads / reviews           0 / 0
 ```
 
@@ -243,8 +243,8 @@ review threads / reviews           0 / 0
 
 ```text
 head                              508e2ba5612961ca67758c0a0f37db216c7a1e0b
-Repository regression #191        SUCCESS
-Conformance package smoke #112    SUCCESS — editable / wheel / sdist
+pre-public CI Repository regression run #191        SUCCESS
+pre-public CI Conformance package smoke run #112    SUCCESS — editable / wheel / sdist
 review threads / reviews           0 / 0
 version                             0.12.0
 ```
@@ -255,14 +255,14 @@ version                             0.12.0
 exact post-merge main              e9c83c48afc374772af45310a1d141f218b4f262
 identical-tree certification head  cca08610525043b030bbb47c5b1f9cf31760cbfb
 compare files                      []
-PR #101 changed files              0
-Repository regression #192        SUCCESS
-Conformance package smoke #114    SUCCESS — editable / wheel / sdist
+pre-public archive PR #101 changed files              0
+pre-public CI Repository regression run #192        SUCCESS
+pre-public CI Conformance package smoke run #114    SUCCESS — editable / wheel / sdist
 review threads / reviews           0 / 0
 version                             0.12.0
 ```
 
-PR #101 was closed without merge and made no persistent repository change.
+pre-public archive PR #101 was closed without merge and made no persistent repository change.
 
 Initial correction runs are not counted as passes. They found documentary/historical marker omissions and whitespace; all were corrected before Pass 1. No semantic/runtime blocker was found.
 
@@ -271,9 +271,9 @@ Initial correction runs are not counted as passes. They found documentary/histor
 These exact phrases remain part of repository compatibility evidence:
 
 ```text
-Final pre-v0.8 integration audit — Issue #19
+Final pre-v0.8 integration audit — pre-public archive Issue #19
 pre-v0.8 specification/readiness gate = PASS
-next RESUME POINT = Issue #36
+next RESUME POINT = pre-public archive Issue #36
 ```
 
 v0.8 input / canonical conformance clarification:
@@ -281,7 +281,7 @@ v0.8 input / canonical conformance clarification:
 - selected structured NSR is canonical evaluator ingress;
 - authoritative English provenance does not claim an implemented `eng` adapter;
 - source→NSR reference conformance remains owned by the `lat` corpus;
-- Issue #48はfuture architecture issueとして当時扱われ、current designはlanding済みだがhistorical v0.8 public contractを遡及変更しない。
+- pre-public archive Issue #48はfuture architecture issueとして当時扱われ、current designはlanding済みだがhistorical v0.8 public contractを遡及変更しない。
 
 ## 13. Stop condition
 
@@ -289,7 +289,7 @@ v0.8 input / canonical conformance clarification:
 
 ---
 
-## Issue #94 experimental unified user workflow consistency checkpoint
+## pre-public archive Issue #94 experimental unified user workflow consistency checkpoint
 
 Status: implementation/reference/package integration checkpoint; **not a release or RC authorization**.
 
@@ -322,9 +322,9 @@ Consistency assertions:
 - identity renaming cannot select semantics, while occurrence-derived event/process identities may legitimately change;
 - diagnostics preserve pipeline stage order and retain the terminal runtime abort separately;
 - editable, wheel, and sdist smoke invoke the actual installed `magical-language` console script outside checkout cwd;
-- experimental evidence remains outside `conformance/manifest.json` and does not satisfy stable Issue #38 claims by itself.
+- experimental evidence remains outside `conformance/manifest.json` and does not satisfy stable pre-public archive Issue #38 claims by itself.
 
-The next release/version action remains gated by root `TODO.md`: complete #94/#84, run a renewed exact-main no-waiver audit, then obtain explicit user confirmation for the specific version task.
+The next release/version action remains gated by root `TODO.md`: complete pre-public archive Issue #94/pre-public archive Issue #84, run a renewed exact-main no-waiver audit, then obtain explicit user confirmation for the specific version task.
 
 ---
 
@@ -338,17 +338,19 @@ public migration baseline         46f366ddb221a1517c6545784b4614154423e1da
 public hardening merge             de9341aa288159067b2a6cf598d28ff850164815
 Node 24 Actions merge              b707ed3fa865f2b4aa190bc4975c37a391eb503b
 RESUME sync merge                  2865e2513f1d3ca81f57832520638994a7a24724
-current audit baseline             exact public main at #1 audit start; resolved SHA in #1
+current audit baseline             exact public main at public Issue #1 audit start; resolved SHA in public Issue #1
 released identity                 v0.12.0 unchanged
 stable conformance                4 classes / 65 cases unchanged
 MKI data-plane operations         6 unchanged
 World Kernel interaction classes  5 unchanged
 historical spec snapshots         immutable
-active audit                      public Issue #1
-RC tracker                        public Issue #2 / blocked by #1
-final tracker                     public Issue #3 / blocked by #2
+active prerequisite              public Issue #15 tracker-reference qualification
+next prerequisite                public Issue #16 temporal/causal authority reconciliation
+active audit                      public Issue #1 / blocked by public Issue #15 and public Issue #16
+RC tracker                        public Issue #2 / blocked by public Issue #1
+final tracker                     public Issue #3 / blocked by public Issue #2
 umbrella tracker                  public Issue #4
-release judgment                  SUSPENDED pending public #1
+release judgment                  SUSPENDED pending public Issue #15, public Issue #16, and public Issue #1
 ```
 
 Public-suitability assertions:
@@ -359,13 +361,16 @@ Public-suitability assertions:
 - secret scanning, push protection, Dependabot security updates, and private vulnerability reporting are enabled;
 - `SECURITY.md` routes sensitive reports away from public Issues;
 - the repository makes no open-source license grant; source visibility must not be confused with permission to reuse;
-- pre-public Issue/PR numbers remain historical evidence, while public Issues #1–#4 own current release tracking;
+- current live documents explicitly qualify tracker namespaces as `public Issue/PR #N` or `pre-public archive Issue/PR #N`;
+- public Issue #15 and public Issue #16 are current prerequisites; public Issue #1 through public Issue #4 own the release train;
 - `TODO.md` remains the authoritative RESUME POINT and records exact public-main audit ownership;
 - no current `reference/`, schema, fixture, implementation semantics, package version, or historical `spec/` snapshot changed in this reconciliation.
 
 Next RESUME POINT:
 
-1. resolve exact public `main` at the start of the renewed audit and record that SHA in public Issue #1;
-2. create a fresh audit branch from that resolved baseline;
-3. execute public Issue #1 with no waivers and publish an evidence-backed GO or NO-GO;
-4. do not begin public Issue #2 or change any version identity without #1 GO and explicit user confirmation.
+1. complete public Issue #15 tracker-reference qualification;
+2. complete public Issue #16 temporal/causal authority reconciliation;
+3. resolve exact public `main` at the start of the renewed audit and record that SHA in public Issue #1;
+4. create a fresh audit branch from that resolved baseline;
+5. execute public Issue #1 with no waivers and publish an evidence-backed GO or NO-GO;
+6. do not begin public Issue #2 or change any version identity without public Issue #1 GO and explicit user confirmation.

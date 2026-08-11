@@ -1,6 +1,6 @@
 # MagicalProgram Generic Semantic Evaluation and Lowering
 
-**Status:** experimental normative owner after Issues #110 and #114.
+**Status:** experimental normative owner after pre-public archive Issues #110 and pre-public archive Issue #114.
 
 **Input:** `MagicalProgram-0`.
 
