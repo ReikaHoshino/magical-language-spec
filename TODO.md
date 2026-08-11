@@ -7,17 +7,17 @@
 - 作業計画の正本: **この `TODO.md`**。
 - cross-chat / Work / Codex / agent同期点: GitHub。
 - last released version: **v0.12.0**。
-- pre-public archive compatibility marker: **Issue #36 — v0.8 Minimal Local Evaluator**。
-- pre-public archive stabilization owner: **Issue #40 — v0.10+ Conformance / Stabilization**。
+- pre-public archive compatibility marker: **pre-public archive Issue #36 — v0.8 Minimal Local Evaluator**。
+- pre-public archive stabilization owner: **pre-public archive Issue #40 — v0.10+ Conformance / Stabilization**。
 - pre-public all-open-issue sweep baseline: **`7257601cc19d73e394be98ad3b58115073cd8908`**。
-- latest completed pre-public implementation: **archive Issue #94 / PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
-- completed pre-public architecture roadmap: **archive Issue #84 — MagicalProgram / MGLS common user workflow**。
+- latest completed pre-public implementation: **pre-public archive Issue #94 / pre-public archive PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
+- completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
-- public hardening checkpoints: **PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`**。
-- active concrete work: **public Issue #1 — renewed exact-main no-waiver release-readiness audit**。
+- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`**。
+- active concrete work: **public Issue #15 — qualify pre-public tracker references; then public Issue #16; then public Issue #1 renewed audit**。
 - release judgment: **SUSPENDED until the renewed no-waiver audit is complete**。
 - release/version state: **unchanged at `0.12.0`; no RC snapshot/tag/publication/finalization timestamp exists**。
-- final outcome order: **public #1 audit → public #2 RC → public #3 final → public #4 umbrella**。
+- final outcome order: **public Issue #15 → public Issue #16 → public Issue #1 audit → public Issue #2 RC → public Issue #3 final → public Issue #4 umbrella**。
 
 > 会話とrepositoryが食い違う場合はcurrent `reference/`、current `main`、このTODO、relevant Issue/PR evidenceを照合してreconcileする。
 
@@ -28,63 +28,63 @@
 ## Historical release-train order retained for integration
 
 ```text
-#36 v0.8 Minimal Local Evaluator
-#37 v0.9 Sandboxed Runtime
-#40 v0.10+ Conformance / Stabilization
-#38 v1.0.0-rc.N
-#39 v1.0.0 final
+pre-public archive Issue #36 v0.8 Minimal Local Evaluator
+pre-public archive Issue #37 v0.9 Sandboxed Runtime
+pre-public archive Issue #40 v0.10+ Conformance / Stabilization
+pre-public archive Issue #38 v1.0.0-rc.N
+pre-public archive Issue #39 v1.0.0 final
 ```
 
-The issue numbers in this historical block belong to the pre-public archive. Current public tracking is #1 → #2 → #3 → #4 below。
+The issue numbers in this historical block belong to the pre-public archive. Current public tracking is public Issue #15 → public Issue #16 → public Issue #1 → public Issue #2 → public Issue #3 → public Issue #4 below。
 
 ## Current checkpoint
 
 ユーザーは2026-08-04に、本来の設計思想・過去要求・current `reference/`・current implementationを再監査し、不足Issueを新設したうえで**全Issueを依存順にautonomousに解決**するよう指示した。
 
-Archive Issue #82 / PR #75 / Issue #72の旧preflight/rehearsal evidenceはhistorical evidenceとして保持するが、MagicalProgram/MGLS実装拡張後のrelease判断には再利用しない。
+pre-public archive Issue #82 / pre-public archive PR #75 / pre-public archive Issue #72の旧preflight/rehearsal evidenceはhistorical evidenceとして保持するが、MagicalProgram/MGLS実装拡張後のrelease判断には再利用しない。
 
 ### Completed correction / migration / source / integration chain
 
 ```text
-#110 architecture correction
-  PR #111 merge d36588000413695f35c97d74e97539599496da30
-#90 phase 1 shadow foundation
-  PR #113 merge 1a5cd48a9e696fde734f50fe87ba0da77c38f4d9
-#114 bounded typed structured values
-  PR #115 merge f4065d646898f63b6ef8ad375bb82700bd91ae79
-#90 SA-003 evidence fusion
-  PR #117 merge 4e65f974ffc5623e609a2a55731ac0c7ffa504cf
-#118 red-main correction / exact-head gate
-  PR #119 merge 65f9707681958e4da30eb48a5d28c0898ab6b9c5
-  TODO reconciliation PR #120 merge fab87bda89f5d04e4d303ebd2394516246110c7b
-#90 SA-001 boundary reflection
-  PR #121 merge 57b8f8d68e262c0986d251e75f1ed7dea1f513c1
-#90 SA-002 staged treatment
-  PR #123 merge a166ba13b3b2f89562e523b304f14f8e383acb62
-#90 SA-004 bounded explosion
-  PR #125 merge c27b13be5634712b54f982be298281f464641ba0
-#90 DEBUG-HELL + complete matrix
-  PR #127 merge a85a5aedb0ac22e080ef69b615ae3913ccc3ad66
-#91 public MagicalProgram cutover + legacy executor retirement
-  PR #129 merge 18c53d9a347db895fad3b93e2eac344ecec5c8a8
-#92 bounded human-authored MGLS-0 source contract
-  PR #131 merge 1a3ae3ebac8db9b12f35a65f2931c3c971f7ad46
-#93 deterministic MGLS-0 parser / checker / compiler
-  PR #133 merge 4f61fad2da979f8510ace372f70ec93e673e0a4e
-#94 unified CLI / diagnostics / docs / packaging / E2E conformance
-  PR #135 merge d5ed0fae5570c8c5ada40533689246d82e2d1d09
-#84 MagicalProgram / MGLS architecture roadmap complete
+pre-public archive Issue #110 architecture correction
+  pre-public archive PR #111 merge d36588000413695f35c97d74e97539599496da30
+pre-public archive Issue #90 phase 1 shadow foundation
+  pre-public archive PR #113 merge 1a5cd48a9e696fde734f50fe87ba0da77c38f4d9
+pre-public archive Issue #114 bounded typed structured values
+  pre-public archive PR #115 merge f4065d646898f63b6ef8ad375bb82700bd91ae79
+pre-public archive Issue #90 SA-003 evidence fusion
+  pre-public archive PR #117 merge 4e65f974ffc5623e609a2a55731ac0c7ffa504cf
+pre-public archive Issue #118 red-main correction / exact-head gate
+  pre-public archive PR #119 merge 65f9707681958e4da30eb48a5d28c0898ab6b9c5
+  TODO reconciliation pre-public archive PR #120 merge fab87bda89f5d04e4d303ebd2394516246110c7b
+pre-public archive Issue #90 SA-001 boundary reflection
+  pre-public archive PR #121 merge 57b8f8d68e262c0986d251e75f1ed7dea1f513c1
+pre-public archive Issue #90 SA-002 staged treatment
+  pre-public archive PR #123 merge a166ba13b3b2f89562e523b304f14f8e383acb62
+pre-public archive Issue #90 SA-004 bounded explosion
+  pre-public archive PR #125 merge c27b13be5634712b54f982be298281f464641ba0
+pre-public archive Issue #90 DEBUG-HELL + complete matrix
+  pre-public archive PR #127 merge a85a5aedb0ac22e080ef69b615ae3913ccc3ad66
+pre-public archive Issue #91 public MagicalProgram cutover + legacy executor retirement
+  pre-public archive PR #129 merge 18c53d9a347db895fad3b93e2eac344ecec5c8a8
+pre-public archive Issue #92 bounded human-authored MGLS-0 source contract
+  pre-public archive PR #131 merge 1a3ae3ebac8db9b12f35a65f2931c3c971f7ad46
+pre-public archive Issue #93 deterministic MGLS-0 parser / checker / compiler
+  pre-public archive PR #133 merge 4f61fad2da979f8510ace372f70ec93e673e0a4e
+pre-public archive Issue #94 unified CLI / diagnostics / docs / packaging / E2E conformance
+  pre-public archive PR #135 merge d5ed0fae5570c8c5ada40533689246d82e2d1d09
+pre-public archive Issue #84 MagicalProgram / MGLS architecture roadmap complete
 ```
 
-### Exact completion evidence for Issue #94 / roadmap #84
+### Exact completion evidence for pre-public archive Issue #94 / roadmap pre-public archive Issue #84
 
 ```text
-PR                            #135
+PR                            pre-public archive PR #135
 reviewed/current head         4c49e8d09e174825a0701012a11286e946172643
 merge                         d5ed0fae5570c8c5ada40533689246d82e2d1d09
-Repository regression #394    SUCCESS / 32 schemas / 414 tests / diff check
-Conformance package #346      SUCCESS / editable + wheel + sdist
-MagicalProgram runtime #209   SUCCESS / editable + wheel + sdist
+pre-public CI Repository regression run #394    SUCCESS / 32 schemas / 414 tests / diff check
+pre-public CI Conformance package run #346      SUCCESS / editable + wheel + sdist
+pre-public CI MagicalProgram runtime run #209   SUCCESS / editable + wheel + sdist
 public command                magical-language check/eval/run/compile
 user workflows                MGLS source + emitted program + repository bundle
 installed command             editable / wheel / sdist outside checkout cwd
@@ -95,7 +95,7 @@ stable conformance            4 classes / 65 cases unchanged
 released version              0.12.0 unchanged
 ```
 
-Issue #94 / roadmap #84 retained guarantees:
+pre-public archive Issue #94 / roadmap pre-public archive Issue #84 retained guarantees:
 
 ```text
 routing                       one immutable snapshot + one selected decoder
@@ -114,10 +114,12 @@ stable surface                counts/version/historical snapshots unchanged
 
 ```text
 public migration baseline     46f366ddb221a1517c6545784b4614154423e1da
-audit baseline                exact public main at public #1 audit start; resolved SHA recorded in #1
-active work                   public Issue #1 renewed exact-main no-waiver release-readiness audit
-first                         enumerate every open Issue and release requirement on current main
-then                          re-read all current normative owners and the 14 archived RC claims represented by public #2
+audit baseline                exact public main at public Issue #1 audit start; resolved SHA recorded in public Issue #1
+active work                   public Issue #15 tracker-reference qualification
+then                          public Issue #16 temporal/causal authority reconciliation
+then                          public Issue #1 renewed exact-main no-waiver release-readiness audit
+audit first                   enumerate every open Issue and release requirement on current main
+audit then                    re-read all current normative owners and the 14 archived RC claims represented by public Issue #2
 then                          run repository / stable conformance / editable-wheel-sdist / runtime gates
 then                          verify README / CHANGELOG / schemas / examples / grammar / reference / tests / conformance / TODO consistency
 then                          publish an evidence-backed GO or NO-GO without changing version
@@ -129,20 +131,24 @@ Create a **fresh audit branch from exact public main and record that resolved SH
 ## Remaining open Issue inventory
 
 ```text
-public release / umbrella
-  #1  renewed exact-main no-waiver release-readiness audit — ACTIVE
-  #2  v1.0 RC — BLOCKED BY #1
-  #3  v1.0 final release — BLOCKED BY #2
-  #4  v0.8 → v1.0 umbrella roadmap — closes after #3 and post-v1.0 handoff
+public stabilization / release / umbrella
+  public Issue #15  tracker-reference namespace qualification — ACTIVE
+  public Issue #16  temporal/causal authority reconciliation — BLOCKED BY public Issue #15 execution order
+  public Issue #1   renewed exact-main no-waiver release-readiness audit — BLOCKED BY public Issue #15 and public Issue #16
+  public Issue #2   v1.0 RC — BLOCKED BY public Issue #1 and explicit user confirmation
+  public Issue #3   v1.0 final release — BLOCKED BY public Issue #2
+  public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3 and post-v1.0 handoff
 ```
 
 ## Dependency-correct execution order
 
 ```text
-public #1 renewed no-waiver release audit
-public #2 RC path or evidence-backed return to stabilization
-public #3 final release after a valid RC
-public #4 umbrella closure after v1.0 and post-v1.0 handoff
+public Issue #15 tracker-reference qualification
+public Issue #16 temporal/causal authority reconciliation
+public Issue #1 renewed no-waiver release audit
+public Issue #2 RC path or evidence-backed return to stabilization
+public Issue #3 final release after a valid RC
+public Issue #4 umbrella closure after v1.0 and post-v1.0 handoff
 ```
 
 ## Stable boundaries preserved throughout the sweep
@@ -247,14 +253,16 @@ current user instruction
 # 2. Active issue sweep
 
 ```text
-PRE-PUBLIC DONE: #46 #77 #84 #86 #87 #88 #89 #90 #91 #92 #93 #94 #110 #114 #118
-ACTIVE:          public #1 renewed exact-main no-waiver release-readiness audit
-SUSPENDED:       public #2 RC judgment pending #1 and explicit user confirmation
-BLOCKED:         public #3 final release requires valid RC
-FINAL UMBRELLA:  public #4 closes after v1.0 and post-v1.0 handoff
+PRE-PUBLIC DONE: pre-public archive Issue #46 pre-public archive Issue #77 pre-public archive Issue #84 pre-public archive Issue #86 pre-public archive Issue #87 pre-public archive Issue #88 pre-public archive Issue #89 pre-public archive Issue #90 pre-public archive Issue #91 pre-public archive Issue #92 pre-public archive Issue #93 pre-public archive Issue #94 pre-public archive Issue #110 pre-public archive Issue #114 pre-public archive Issue #118
+ACTIVE:          public Issue #15 tracker-reference qualification
+NEXT:            public Issue #16 temporal/causal authority reconciliation
+SUSPENDED:       public Issue #1 renewed audit pending public Issue #15 and public Issue #16
+SUSPENDED:       public Issue #2 RC judgment pending public Issue #1 and explicit user confirmation
+BLOCKED:         public Issue #3 final release requires valid RC
+FINAL UMBRELLA:  public Issue #4 closes after v1.0 and post-v1.0 handoff
 ```
 
-## 2.1 #90 true shadow migration — DONE
+## 2.1 pre-public archive Issue #90 true shadow migration — DONE
 
 - [x] complete 12-contract matrix and 33 external-golden evaluations;
 - [x] GENERIC-001, SA-001..004, DEBUG-HELL-001..003, recognized-unsupported SA-005..008;
@@ -262,21 +270,21 @@ FINAL UMBRELLA:  public #4 closes after v1.0 and post-v1.0 handoff
 - [x] no fixture/suite/name dispatch or opaque executable tunnelling;
 - [x] installed editable/wheel/sdist matrix and exact-head gates.
 
-## 2.2 #91 public cutover — DONE
+## 2.2 pre-public archive Issue #91 public cutover — DONE
 
 - [x] complete current MagicalProgram suite is the public SpellInstance path;
 - [x] dedicated success/debug executors retired from production dispatch;
 - [x] legacy executor retained only behind explicit test/oracle API;
 - [x] public API/CLI and installed packages use generic execution for all 12 bundles.
 
-## 2.3 #92 source contract — DONE
+## 2.3 pre-public archive Issue #92 source contract — DONE
 
 - [x] bounded `.mgls` grammar, values, bindings, contracts, obligations, outputs;
 - [x] deterministic source -> MagicalProgram-0 lowering and source-map contract;
 - [x] source spans, diagnostic ownership, limits, compatibility, no-import boundary;
 - [x] 2 positive and 15 negative implementation-ready cases.
 
-## 2.4 #93 compiler — DONE
+## 2.4 pre-public archive Issue #93 compiler — DONE
 
 - [x] strict UTF-8 normalization, bounded lexer/parser, deterministic source AST;
 - [x] exact name/type/dimension/effect/obligation/resource/output checking;
@@ -285,7 +293,7 @@ FINAL UMBRELLA:  public #4 closes after v1.0 and post-v1.0 handoff
 - [x] MGLS-NEG-001..015 fail closed with no partial program;
 - [x] repository/editable/wheel/sdist determinism evidence.
 
-## 2.5 #94 integration / #84 roadmap — DONE
+## 2.5 pre-public archive Issue #94 integration / pre-public archive Issue #84 roadmap — DONE
 
 - [x] compatibility-safe `magical-language check/eval/run/compile`;
 - [x] existing stable and experimental commands preserved;
@@ -300,11 +308,25 @@ FINAL UMBRELLA:  public #4 closes after v1.0 and post-v1.0 handoff
 - [x] actual installed command verified outside checkout for editable/wheel/sdist;
 - [x] version `0.12.0`, six MKI operations, five World Kernel classes, historical snapshots unchanged.
 
-## 2.6 public #1 renewed no-waiver release-readiness audit — ACTIVE
+## 2.6 public Issue #15 tracker-reference qualification — ACTIVE
+
+- [ ] qualify current live-document tracker references as public or pre-public archive;
+- [ ] preserve immutable historical `spec/` snapshots;
+- [ ] add a durable regression check for future ambiguous tracker references;
+- [ ] land exact-head CI evidence and close public Issue #15.
+
+## 2.7 public Issue #16 temporal/causal authority reconciliation — NEXT
+
+- [ ] reconcile the current normative owner with the retained v0.5 Restore/Rewind contract;
+- [ ] preserve `Replay != Rewind` and fail-closed authority/cycle validation;
+- [ ] decide and record v1 stable versus deferred conformance scope;
+- [ ] land exact-head CI evidence and close public Issue #16.
+
+## 2.8 public Issue #1 renewed no-waiver release-readiness audit — BLOCKED BY public Issue #15 and public Issue #16
 
 - [ ] enumerate all open Issues and verify no implementation/roadmap blocker remains;
-- [ ] re-read all 14 pre-public RC required-surface claims, now tracked by public #2, against exact current main;
-- [ ] re-read every current normative owner touched since the historical #82/#72 rehearsal;
+- [ ] re-read all 14 pre-public RC required-surface claims, now tracked by public Issue #2, against exact current main;
+- [ ] re-read every current normative owner touched since the historical pre-public archive Issue #82/pre-public archive Issue #72 rehearsal;
 - [ ] verify four stable classes / 65 cases and experimental inventories remain correctly separated;
 - [ ] run repository regression, stable conformance, package, runtime, security, replay, and diff gates;
 - [ ] verify fresh checkout and installed editable/wheel/sdist command behavior outside checkout cwd;
@@ -320,7 +342,7 @@ FINAL UMBRELLA:  public #4 closes after v1.0 and post-v1.0 handoff
 ## 3.1 Completed foundations
 
 ```text
-DONE(contract + v0.8 implementation) — Issue #34 / Issue #36
+DONE(contract + v0.8 implementation) — pre-public archive Issue #34 / pre-public archive Issue #36
 estimator model/profile ownership contract + deterministic synthetic profile
 水球生成をcanonical end-to-end例として仕様化
 canonical pathの仕様rule ↔ stable test/fixture ID traceability matrix
@@ -342,7 +364,7 @@ The v0.8 public input boundary consists of:
 - reference `LanguageAdapter<lat>` path;
 - schema-validなNSR JSON direct ingress。
 
-SemanticAST and TypedMIR remain implementation-internal stages and are **stableな外部direct-entry contractとはしない**。Broader **multi-stage direct ingestion** belongs to **Issue #48** and later experimental/public contracts。MGLS / MagicalProgram / SpellInstanceBundleの`magical-language` workflowはexperimental additive surfaceであり、このstable境界を変更しない。
+SemanticAST and TypedMIR remain implementation-internal stages and are **stableな外部direct-entry contractとはしない**。Broader **multi-stage direct ingestion** belongs to **pre-public archive Issue #48** and later experimental/public contracts。MGLS / MagicalProgram / SpellInstanceBundleの`magical-language` workflowはexperimental additive surfaceであり、このstable境界を変更しない。
 
 ## 3.3 Historical snapshot checkpoint
 
@@ -393,32 +415,32 @@ These remain **post-v1.0またはexperimental** unless separately promoted by ev
 # 5. Release evidence ledger
 
 ```text
-v0.8   PR #52  Minimal Local Evaluator
-v0.9   PR #53  Sandboxed Runtime
-v0.10  PR #59  merge 90e47b7d71766272620e5f14f6304897a857d0a1
-v0.11  PR #67  merge e79677d1706f3d05480cb230626856a8ef0b4224
-v0.12  PR #74  merge 6d6ee23762456da6fe9e697d9f4742af09c4b447
-Gate rehearsal PR #75 merge 191b8148b3daaaa48f7696dcddb893f9d4206e8f
-SpellInstanceBundle PR #78 merge b177d92f6036fbb6d7c214cb9784de42cfc77fdd
-MagicalProgram architecture PR #95 merge 822894e4c62a764c10ab965baa1b7077a8bd3990
-open-issue sweep PR #103 merge d3f49a72a04f2f5cc5ea39f0acd9650bec25918a
-golden parity PR #105 merge 4240bc82507b222d294d32c38c7a0998c4a3563f
-artifact contract PR #106 merge 2c2e1348ea3513d51af39ac1bdd05f5cb2e3de78
-evaluator PR #108 merge 2a13fb1941e73cdab8e3d8fc57298ec354d9de9a
-runtime PR #109 merge a656d09425d11c7ac16fac918560e83afc764e6b
-architecture correction PR #111 merge d36588000413695f35c97d74e97539599496da30
-shadow foundation PR #113 merge 1a5cd48a9e696fde734f50fe87ba0da77c38f4d9
-structured values PR #115 merge f4065d646898f63b6ef8ad375bb82700bd91ae79
-SA-003 PR #117 merge 4e65f974ffc5623e609a2a55731ac0c7ffa504cf
-red-main correction PR #119 merge 65f9707681958e4da30eb48a5d28c0898ab6b9c5
-SA-001 PR #121 merge 57b8f8d68e262c0986d251e75f1ed7dea1f513c1
-SA-002 PR #123 merge a166ba13b3b2f89562e523b304f14f8e383acb62
-SA-004 PR #125 merge c27b13be5634712b54f982be298281f464641ba0
-Issue #90 completion PR #127 merge a85a5aedb0ac22e080ef69b615ae3913ccc3ad66
-Issue #91 public cutover PR #129 merge 18c53d9a347db895fad3b93e2eac344ecec5c8a8
-Issue #92 MGLS source contract PR #131 merge 1a3ae3ebac8db9b12f35a65f2931c3c971f7ad46
-Issue #93 MGLS compiler PR #133 merge 4f61fad2da979f8510ace372f70ec93e673e0a4e
-Issue #94 unified workflow PR #135 merge d5ed0fae5570c8c5ada40533689246d82e2d1d09
+v0.8   pre-public archive PR #52  Minimal Local Evaluator
+v0.9   pre-public archive PR #53  Sandboxed Runtime
+v0.10  pre-public archive PR #59  merge 90e47b7d71766272620e5f14f6304897a857d0a1
+v0.11  pre-public archive PR #67  merge e79677d1706f3d05480cb230626856a8ef0b4224
+v0.12  pre-public archive PR #74  merge 6d6ee23762456da6fe9e697d9f4742af09c4b447
+Gate rehearsal pre-public archive PR #75 merge 191b8148b3daaaa48f7696dcddb893f9d4206e8f
+SpellInstanceBundle pre-public archive PR #78 merge b177d92f6036fbb6d7c214cb9784de42cfc77fdd
+MagicalProgram architecture pre-public archive PR #95 merge 822894e4c62a764c10ab965baa1b7077a8bd3990
+open-issue sweep pre-public archive PR #103 merge d3f49a72a04f2f5cc5ea39f0acd9650bec25918a
+golden parity pre-public archive PR #105 merge 4240bc82507b222d294d32c38c7a0998c4a3563f
+artifact contract pre-public archive PR #106 merge 2c2e1348ea3513d51af39ac1bdd05f5cb2e3de78
+evaluator pre-public archive PR #108 merge 2a13fb1941e73cdab8e3d8fc57298ec354d9de9a
+runtime pre-public archive PR #109 merge a656d09425d11c7ac16fac918560e83afc764e6b
+architecture correction pre-public archive PR #111 merge d36588000413695f35c97d74e97539599496da30
+shadow foundation pre-public archive PR #113 merge 1a5cd48a9e696fde734f50fe87ba0da77c38f4d9
+structured values pre-public archive PR #115 merge f4065d646898f63b6ef8ad375bb82700bd91ae79
+SA-003 pre-public archive PR #117 merge 4e65f974ffc5623e609a2a55731ac0c7ffa504cf
+red-main correction pre-public archive PR #119 merge 65f9707681958e4da30eb48a5d28c0898ab6b9c5
+SA-001 pre-public archive PR #121 merge 57b8f8d68e262c0986d251e75f1ed7dea1f513c1
+SA-002 pre-public archive PR #123 merge a166ba13b3b2f89562e523b304f14f8e383acb62
+SA-004 pre-public archive PR #125 merge c27b13be5634712b54f982be298281f464641ba0
+pre-public archive Issue #90 completion pre-public archive PR #127 merge a85a5aedb0ac22e080ef69b615ae3913ccc3ad66
+pre-public archive Issue #91 public cutover pre-public archive PR #129 merge 18c53d9a347db895fad3b93e2eac344ecec5c8a8
+pre-public archive Issue #92 MGLS source contract pre-public archive PR #131 merge 1a3ae3ebac8db9b12f35a65f2931c3c971f7ad46
+pre-public archive Issue #93 MGLS compiler pre-public archive PR #133 merge 4f61fad2da979f8510ace372f70ec93e673e0a4e
+pre-public archive Issue #94 unified workflow pre-public archive PR #135 merge d5ed0fae5570c8c5ada40533689246d82e2d1d09
 ```
 
 No line in this ledger authorizes an RC or final release。

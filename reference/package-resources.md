@@ -6,7 +6,7 @@
 
 このreferenceは、source checkoutではrepository-root resourceを使い、standalone wheel/sdist installationではpackage-owned immutable bundleを使うためのownership、lookup、build、failure contractを定義する。
 
-Issue #60以前のreference implementationは`schemas/`や`examples/`をcheckout-relative pathで参照していた。その構成はeditable installでは動作するが、standalone wheelへcanonical resourcesが含まれる保証を持たなかった。本contractはそのRelease Guarantee gapを閉じる。
+pre-public archive Issue #60以前のreference implementationは`schemas/`や`examples/`をcheckout-relative pathで参照していた。その構成はeditable installでは動作するが、standalone wheelへcanonical resourcesが含まれる保証を持たなかった。本contractはそのRelease Guarantee gapを閉じる。
 
 ## Non-goals
 
@@ -189,4 +189,4 @@ same canonical resource content through a different installation layout
 != semantic change
 ```
 
-Issue #60 closes the known standalone package-resource blocker. Issue #40 still owns the complete v1.0 Release Guarantee and the other four readiness gates; resolving this contract alone does not make v1.0 RC ready.
+pre-public archive Issue #60 closes the known standalone package-resource blocker. pre-public archive Issue #40 still owns the complete v1.0 Release Guarantee and the other four readiness gates; resolving this contract alone does not make v1.0 RC ready.

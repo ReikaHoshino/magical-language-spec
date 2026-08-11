@@ -1,6 +1,6 @@
 # Magical Language Source — MGLS-0
 
-**Status:** experimental normative source-language contract for Issue #92.
+**Status:** experimental normative source-language contract for pre-public archive Issue #92.
 
 **Stable v1.0 impact:** none. This contract does not change package version
 `0.12.0`, the four required conformance classes / 65 required cases, the six
@@ -756,9 +756,9 @@ not thereby make its source MGLS or claim MGLS source fidelity.
 
 ---
 
-## 16. Implementation handoff to Issue #93
+## 16. Implementation handoff to pre-public archive Issue #93
 
-Issue #93 MUST implement:
+pre-public archive Issue #93 MUST implement:
 
 - strict normalized-source decoding and token limits;
 - a deterministic lexer/parser for `grammar/mgls.ebnf`;

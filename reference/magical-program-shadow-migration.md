@@ -1,8 +1,8 @@
 # MagicalProgram Shadow Migration
 
-**Status:** experimental normative migration owner for Issue #90.
+**Status:** experimental normative migration owner for pre-public archive Issue #90.
 
-**Prerequisites:** corrected `MagicalProgram-0` artifact/evaluator/runtime contracts from Issues #110, #114, and #118.
+**Prerequisites:** corrected `MagicalProgram-0` artifact/evaluator/runtime contracts from pre-public archive Issues #110, pre-public archive Issue #114, and pre-public archive Issue #118.
 
 **Stable v1.0 impact:** none. Migration evidence does not alter the released four-class / 65-case conformance surface or version `0.12.0`.
 
@@ -21,7 +21,7 @@ frozen SpellInstanceBundle bytes
        -> contract-owned normalized projection comparison
 ```
 
-Migration is not cutover. The legacy path remains available only as an external differential oracle until Issue #91.
+Migration is not cutover. The legacy path remains available only as an external differential oracle until pre-public archive Issue #91.
 
 ## 2. Selection boundary
 
@@ -49,7 +49,7 @@ The generic path must not:
 - treat expected outcomes as program semantics;
 - compare only a self-authored expected field while ignoring the external oracle.
 
-Complex parameters use bounded typed records and sequences from Issue #114.
+Complex parameters use bounded typed records and sequences from pre-public archive Issue #114.
 
 ## 4. Differential evidence
 
@@ -350,14 +350,14 @@ Nine external-golden variants prove deterministic atomic abort parity for insuff
 
 Legacy execution is imported only by the differential orchestrator. Contract modules must not import `src.extensions` or `default_service`.
 
-## 11. Remaining Issue #90 work
+## 11. Remaining pre-public archive Issue #90 work
 
 ```text
 DEBUG-HELL-001..003 adversarial semantics
 full 12-case differential matrix and package smoke
 ```
 
-Issue #91 may retire dedicated executors only after every implemented and adversarial case has exact accepted parity evidence.
+pre-public archive Issue #91 may retire dedicated executors only after every implemented and adversarial case has exact accepted parity evidence.
 
 ## 12. Traceability
 

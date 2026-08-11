@@ -3,7 +3,7 @@
 ## Status
 
 This document defines the current experimental public execution ownership for
-`SpellInstanceBundle` after Issue #91.
+`SpellInstanceBundle` after pre-public archive Issue #91.
 
 ## Public path
 

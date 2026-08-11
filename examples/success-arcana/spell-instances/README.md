@@ -1,6 +1,6 @@
 # SUCCESS-ARCANA spell-instance library
 
-Status: design inputs for Issue #77 (`Experimental-Arcana-0`). These files are not current normative reference text and are not executable conformance fixtures by themselves.
+Status: design inputs for pre-public archive Issue #77 (`Experimental-Arcana-0`). These files are not current normative reference text and are not executable conformance fixtures by themselves.
 
 Each spell instance lives in one standalone file. Instance IDs and names are fixture identities only; evaluator/runtime dispatch MUST depend on versioned semantic/runtime contract identities rather than `SA-*` names.
 

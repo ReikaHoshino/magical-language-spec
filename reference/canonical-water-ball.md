@@ -56,7 +56,7 @@ v0.8 Local Evaluatorのcanonical conformanceでは、`WB-CANON-001`を選択済�
 structured fixtureからevaluatorへ入力する。English surfaceはsource fidelityとprovenanceの
 証拠として保持するが、v0.8が`eng` source→NSR adapterを実装・検証済みであるとは主張しない。
 source→NSR frontend conformanceはreference `lat` corpusが担当する。SemanticAST / TypedMIR等を
-stableな外部direct-entry artifactとして受理する一般契約はIssue #48へdeferする。
+stableな外部direct-entry artifactとして受理する一般契約はpre-public archive Issue #48へdeferする。
 
 次の値はsourceが明示しているため、異常・高cost・実装困難でも変更しない。
 
@@ -203,7 +203,7 @@ failure pathではRevalidateまたはCOMMITがabortし、successful WorldRevisio
 ## 9. Traceability
 
 `traceability.json`の`WB-RULE-*` IDsはnormative ownerを、`WB-TEST-*` / `WB-FAIL-*`は
-再実行可能なregressionまたはfailure caseを指す。#36/#37はIDを再利用・拡張し、#38で
+再実行可能なregressionまたはfailure caseを指す。pre-public archive Issue #36/pre-public archive Issue #37はIDを再利用・拡張し、pre-public archive Issue #38で
 conformance setをfreezeできる。既存IDの意味を別ruleへ再利用してはならない。
 
 Regression entry points:

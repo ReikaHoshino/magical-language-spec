@@ -1,6 +1,6 @@
 # MagicalProgram-0 Artifact Contract
 
-**Status:** experimental normative owner after the Issue #110 architecture correction and Issue #114 structured-value extension.
+**Status:** experimental normative owner after the pre-public archive Issue #110 architecture correction and pre-public archive Issue #114 structured-value extension.
 
 **Stable v1.0 impact:** none. The released package and required four-class / 65-case conformance surface remain `0.12.0`.
 

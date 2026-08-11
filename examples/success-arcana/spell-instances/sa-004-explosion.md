@@ -2,7 +2,7 @@
 
 ## Status
 
-Executable experimental fixture for Issue #77 and Issue #80. It remains outside the stable required surface.
+Executable experimental fixture for pre-public archive Issue #77 and pre-public archive Issue #80. It remains outside the stable required surface.
 
 ## Intent
 

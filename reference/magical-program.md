@@ -1,6 +1,6 @@
 # MagicalProgram Architecture — experimental planning contract
 
-**Status:** experimental architecture owner for Issue #84 / #85. This document does not change the stable v1.0 candidate surface, the four required conformance classes / 65 required cases, the six MKI data-plane primitives, the five lower World Kernel interaction classes, or historical `spec/` snapshots.
+**Status:** experimental architecture owner for pre-public archive Issue #84 / pre-public archive Issue #85. This document does not change the stable v1.0 candidate surface, the four required conformance classes / 65 required cases, the six MKI data-plane primitives, the five lower World Kernel interaction classes, or historical `spec/` snapshots.
 
 ## Purpose
 
@@ -24,8 +24,8 @@ A file name, suite name, scenario label, spell proper name, or fixture identity 
 
 ## Non-goals
 
-- This document does not define the concrete `MagicalProgram-0` JSON Schema; Issue #87 owns that work.
-- This document does not implement generic semantic validation, lowering, runtime interpretation, migration, source parsing, or CLI integration; Issues #88–#94 own those steps.
+- This document does not define the concrete `MagicalProgram-0` JSON Schema; pre-public archive Issue #87 owns that work.
+- This document does not implement generic semantic validation, lowering, runtime interpretation, migration, source parsing, or CLI integration; pre-public archive Issues #88–pre-public archive Issue #94 own those steps.
 - `MagicalProgram` is not a public stable serialized ECIR, `TypedMIR`, `KernelPlan`, or `PreparedPlan`.
 - It does not add a seventh MKI primitive or a sixth lower World Kernel interaction class.
 - It does not expose arbitrary `SET`, raw state-path mutation, host-language code execution, imports, plugins, network loading, or unrestricted filesystem loading.
@@ -42,10 +42,10 @@ A file name, suite name, scenario label, spell proper name, or fixture identity 
 - `security-sandbox.md`
 - `compatibility.md`
 - `spell-instance-bundles.md`
-- Issue #47 — source/artifact extension family
-- Issue #48 — typed multi-stage ingress
-- Issue #77 — Experimental-Arcana semantic ownership
-- Issue #84 — parent roadmap
+- pre-public archive Issue #47 — source/artifact extension family
+- pre-public archive Issue #48 — typed multi-stage ingress
+- pre-public archive Issue #77 — Experimental-Arcana semantic ownership
+- pre-public archive Issue #84 — parent roadmap
 
 ## Key invariants
 
@@ -110,9 +110,9 @@ Placing `MagicalProgram` before `SemanticAST` preserves the existing separation:
 
 | Stage | Owner | Serialization / stability in this roadmap | May skip downstream checks? |
 |---|---|---|---|
-| Human source | Issue #92 / source frontend; coordinated with #47 | future experimental source contract | No |
+| Human source | pre-public archive Issue #92 / source frontend; coordinated with pre-public archive Issue #47 | future experimental source contract | No |
 | NSR | current reference owners | current stable/defined surface where already promised | No |
-| `MagicalProgram` | this document + #87 | public experimental artifact | No |
+| `MagicalProgram` | this document + pre-public archive Issue #87 | public experimental artifact | No |
 | SemanticAST | evaluator implementation/reference | implementation-owned unless separately promoted | No |
 | TypedMIR | evaluator implementation/reference | implementation-owned unless separately promoted | No |
 | KernelPlan | planner/runtime implementation/reference | profile/revision-bound; no new public stable ECIR here | No |
@@ -127,13 +127,13 @@ Entering at `MagicalProgram` skips only prior source-language or normalization t
 
 `MagicalProgram-0` uses a **finite directed acyclic graph**. A straight-line program is the special case in which every node depends on the preceding node.
 
-The concrete schema is deferred to #87, but the following architecture is fixed:
+The concrete schema is deferred to pre-public archive Issue #87, but the following architecture is fixed:
 
 - every node has a stable explicit identity;
 - dependency edges are explicit;
 - cycles are rejected before evaluation;
 - evaluation order is a deterministic topological order;
-- where multiple nodes are ready, their explicit order in the serialized node list is the normative tie-break unless #87 defines an equivalently deterministic rule;
+- where multiple nodes are ready, their explicit order in the serialized node list is the normative tie-break unless pre-public archive Issue #87 defines an equivalently deterministic rule;
 - all bindings have one declared producer;
 - no implicit mutable global variable exists;
 - host ceilings bound nodes, edges, values, bytes, depth, effects, events, Energy, microsteps, and concurrency.
@@ -168,7 +168,7 @@ Bindings are immutable within one admitted program snapshot. World mutation occu
 
 ## 5. Instruction taxonomy
 
-Exact serialized instruction names belong to #87. The architecture recognizes four semantic classes.
+Exact serialized instruction names belong to pre-public archive Issue #87. The architecture recognizes four semantic classes.
 
 ### 5.1 Resolution and evidence-read requests
 
@@ -281,7 +281,7 @@ An implementation may optimize pure nodes, but optimization MUST preserve determ
 
 ## 9. Admission, compatibility, provenance, and identity
 
-A serialized program carries an authoritative in-document artifact kind and version. File extensions are hints only and remain coordinated with #47.
+A serialized program carries an authoritative in-document artifact kind and version. File extensions are hints only and remain coordinated with pre-public archive Issue #47.
 
 Admission must include, as applicable:
 
@@ -298,7 +298,7 @@ Admission must include, as applicable:
 
 `MagicalProgram` provenance records what was actually supplied or produced. Direct program input does not invent a source sentence, source AST, adapter, or source-language fidelity claim.
 
-`SemanticFingerprint` remains distinct from artifact content hashing. Exact canonical-byte, content-digest, and semantic-projection algorithms for `MagicalProgram-0` are owned by #87 / compatibility work and are not silently inferred from the current NSR fingerprint.
+`SemanticFingerprint` remains distinct from artifact content hashing. Exact canonical-byte, content-digest, and semantic-projection algorithms for `MagicalProgram-0` are owned by pre-public archive Issue #87 / compatibility work and are not silently inferred from the current NSR fingerprint.
 
 ## 10. Error ownership and fail-closed matrix
 
@@ -314,7 +314,7 @@ Admission must include, as applicable:
 | sandbox/host ceiling exceeded | admission/PREPARE/runtime | deterministic rejection/abort |
 | effect implementation absent | registry/support-level boundary | recognized unsupported or deterministic unknown-contract failure; never successful no-op |
 | replay mismatch | replay verifier | explicit divergence/failure |
-| expected/golden mismatch | independent conformance owner (#86) | field-level parity failure |
+| expected/golden mismatch | independent conformance owner (pre-public archive Issue #86) | field-level parity failure |
 
 ## 11. Common-path requirement
 
@@ -347,7 +347,7 @@ Domain-specific registered contracts may exist, but they are reusable model/effe
 
 ## 12. Migration and rollback
 
-Migration from current dedicated experimental executors proceeds only through #86, #90, and #91.
+Migration from current dedicated experimental executors proceeds only through pre-public archive Issue #86, pre-public archive Issue #90, and pre-public archive Issue #91.
 
 ### Shadow phase
 
@@ -370,7 +370,7 @@ Before legacy production paths are deleted, each cutover PR must identify an exa
 
 ## 13. Source-language frontend relationship
 
-Issue #92 defines the source language; Issue #93 implements its compiler.
+pre-public archive Issue #92 defines the source language; pre-public archive Issue #93 implements its compiler.
 
 The source frontend MUST compile into the same `MagicalProgram` contract used by direct structured authoring and migrated SA programs.
 
@@ -391,27 +391,27 @@ This architecture is post-v1.0 experimental work unless a separate release-scope
 
 If implementation is proposed before v1.0 final and materially changes the frozen stable surface, the project MUST decide whether to exit RC and return to a stabilization release. It must not force the redesign into the RC without resetting the applicable release gates.
 
-Initial artifacts, schemas, commands, and diagnostics introduced by #87–#94 must be explicitly classified as experimental or stable under the normal compatibility process. Historical `spec/` snapshots remain immutable.
+Initial artifacts, schemas, commands, and diagnostics introduced by pre-public archive Issue #87–pre-public archive Issue #94 must be explicitly classified as experimental or stable under the normal compatibility process. Historical `spec/` snapshots remain immutable.
 
 ## 15. Child issue dependency map
 
 ```text
-#85 architecture
- ├─> #87 program artifact
- │    ├─> #88 semantic validation/lowering
- │    │    └─> #89 runtime/replay
- │    └─> #92 source-language contract
- └─> #86 independent golden/parity
+pre-public archive Issue #85 architecture
+ ├─> pre-public archive Issue #87 program artifact
+ │    ├─> pre-public archive Issue #88 semantic validation/lowering
+ │    │    └─> pre-public archive Issue #89 runtime/replay
+ │    └─> pre-public archive Issue #92 source-language contract
+ └─> pre-public archive Issue #86 independent golden/parity
 
-#86 + #87 + #88 + #89
- └─> #90 shadow migration
-      └─> #91 cutover
+pre-public archive Issue #86 + pre-public archive Issue #87 + pre-public archive Issue #88 + pre-public archive Issue #89
+ └─> pre-public archive Issue #90 shadow migration
+      └─> pre-public archive Issue #91 cutover
 
-#87 + #88 + #92
- └─> #93 compiler
+pre-public archive Issue #87 + pre-public archive Issue #88 + pre-public archive Issue #92
+ └─> pre-public archive Issue #93 compiler
 
-#91 + #93
- └─> #94 CLI/docs/package/conformance integration
+pre-public archive Issue #91 + pre-public archive Issue #93
+ └─> pre-public archive Issue #94 CLI/docs/package/conformance integration
 ```
 
 ## 16. Architecture acceptance checklist
@@ -425,5 +425,5 @@ Initial artifacts, schemas, commands, and diagnostics introduced by #87–#94 mu
 - [x] Host-owned transition/effect contract boundary is explicit.
 - [x] Admission, provenance, compatibility, and fingerprint ownership are assigned or explicitly deferred.
 - [x] Migration, parity, cutover, and rollback rules are defined.
-- [x] #47, #48, and #77 coordination points are recorded.
+- [x] pre-public archive Issue #47, pre-public archive Issue #48, and pre-public archive Issue #77 coordination points are recorded.
 - [x] Stable v1.0 candidate surface and release-train boundary are preserved.

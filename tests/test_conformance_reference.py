@@ -33,7 +33,10 @@ class ConformanceReferenceTests(unittest.TestCase):
             item for item in self.manifest["classes"] if item["class_id"] == "Runtime-1.0"
         )
         self.assertEqual("candidate", runtime["status"])
-        self.assertIn("Issue #55はPR #57で解決済み", self.reference)
+        self.assertIn(
+            "pre-public archive Issue #55はpre-public archive PR #57で解決済み",
+            self.reference,
+        )
 
     def test_runtime_candidate_owns_kernel_execution_obligations(self) -> None:
         runtime = next(
@@ -85,13 +88,13 @@ class ConformanceReferenceTests(unittest.TestCase):
             "magical-language-evaluator --source",
         ):
             self.assertIn(command, self.reference)
-        self.assertIn("Issue #60", self.reference)
+        self.assertIn("pre-public archive Issue #60", self.reference)
         self.assertIn("isolated wheel/sdist installed", self.reference)
         self.assertIn("historical v0.10 snapshotの限定保証は遡及変更しない", self.reference)
 
     def test_stabilization_release_does_not_imply_v1_rc_eligibility(self) -> None:
         self.assertIn("v0.12 landingだけを理由にv1.0 RC eligibilityを宣言しない", self.reference)
-        self.assertIn("全gateを#40がcertify", self.reference)
+        self.assertIn("全gateをpre-public archive Issue #40がcertify", self.reference)
 
 
 if __name__ == "__main__":

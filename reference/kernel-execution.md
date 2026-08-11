@@ -4,7 +4,7 @@
 
 ## Purpose
 
-This reference defines the semantic boundary between the six portable MKI operations and authoritative world evolution. It resolves the remaining Issue #55 ownership questions without exposing scheduler microsteps, numerical integration steps, storage layout, or a new public intermediate representation as part of the stable language surface.
+This reference defines the semantic boundary between the six portable MKI operations and authoritative world evolution. It resolves the remaining pre-public archive Issue #55 ownership questions without exposing scheduler microsteps, numerical integration steps, storage layout, or a new public intermediate representation as part of the stable language surface.
 
 The lower boundary exists so that persistent semantic effects, atomic state changes, measurement, and service queries can be described independently of one implementation's runtime bookkeeping.
 

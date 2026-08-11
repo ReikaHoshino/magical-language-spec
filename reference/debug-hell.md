@@ -1,12 +1,12 @@
 # DEBUG-HELL adversarial execution contracts
 
-**Status:** experimental normative owner for the Issue #46 adversarial fixture series and Issue #90 MagicalProgram migration. These cases do not alter the four stable conformance classes, 65 stable cases, six MKI primitives, or five lower World Kernel interaction classes.
+**Status:** experimental normative owner for the pre-public archive Issue #46 adversarial fixture series and pre-public archive Issue #90 MagicalProgram migration. These cases do not alter the four stable conformance classes, 65 stable cases, six MKI primitives, or five lower World Kernel interaction classes.
 
 ## Ownership and non-goals
 
-Issue #46 owns the three scenario meanings. `spell-instance-bundles.md` owns generic ingress and admission; `planning-inference.md` owns Unknown and PlanningAssumption; `kernel-execution.md` and `security-sandbox.md` own PREPARE, COMMIT, rollback, scheduler, and emergency-stop boundaries. `magical-program-shadow-migration.md` owns the common differential rules and external frozen-oracle role.
+pre-public archive Issue #46 owns the three scenario meanings. `spell-instance-bundles.md` owns generic ingress and admission; `planning-inference.md` owns Unknown and PlanningAssumption; `kernel-execution.md` and `security-sandbox.md` own PREPARE, COMMIT, rollback, scheduler, and emergency-stop boundaries. `magical-program-shadow-migration.md` owns the common differential rules and external frozen-oracle role.
 
-This document does not authorize direct intermediate-stage ingress (Issue #48), invent authority from WorldIndex/Relation metadata, turn a deterministic failure into a successful world effect, copy adversarial host events into portable syntax, or dispatch by DEBUG fixture names.
+This document does not authorize direct intermediate-stage ingress (pre-public archive Issue #48), invent authority from WorldIndex/Relation metadata, turn a deterministic failure into a successful world effect, copy adversarial host events into portable syntax, or dispatch by DEBUG fixture names.
 
 ## Common migration boundary
 
@@ -64,7 +64,7 @@ The portable program contains typed host-validated Hydra model and policy record
 
 ## Complete migration matrix
 
-The current Issue #90 suite contains exactly 12 contract pairs:
+The current pre-public archive Issue #90 suite contains exactly 12 contract pairs:
 
 ```text
 5 implemented                 GENERIC-001 + SA-001..004
@@ -78,4 +78,4 @@ The current Issue #90 suite contains exactly 12 contract pairs:
 
 DEBUG semantics are admitted only by explicit versioned semantic/runtime pairs and closed parameter schemas. Bundle `registry_extensions` are bounded declarative compatibility records: they must exactly match host registrations, may be inspected by an already registered trusted handler, and never import modules, register host code, grant Capability/Lease, or select an executor. Unknown namespaces and unsupported pairs fail closed before PREPARE.
 
-The complete migration source audit rejects fixture/suite/name dispatch, embedded legacy payloads, base64 tunneling, and direct legacy executor calls. The legacy handlers/executors remain available only to the external frozen oracle until Issue #91 cutover.
+The complete migration source audit rejects fixture/suite/name dispatch, embedded legacy payloads, base64 tunneling, and direct legacy executor calls. The legacy handlers/executors remain available only to the external frozen oracle until pre-public archive Issue #91 cutover.

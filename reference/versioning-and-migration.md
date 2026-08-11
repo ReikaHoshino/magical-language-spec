@@ -184,5 +184,5 @@ non-authorizing boundaryをCore-1.0 stable case IDとreverse rule coverageへ昇
 required reference-path artifact/profile coverageは`conformance/compatibility-coverage.json`が列挙する。
 このinventoryもdomain algorithmを定義せず、missing owner/profileをrelease gateで検出するためのevidenceである。
 
-historical v0.10 suite/snapshotは変更しない。Issue #66完了はCompatibility Guaranteeをversioned evidenceへ
-進めるが、Issue #40の他gate、最終release rehearsal、Issue #38のRC eligibilityを自動的に完了させない。
+historical v0.10 suite/snapshotは変更しない。pre-public archive Issue #66完了はCompatibility Guaranteeをversioned evidenceへ
+進めるが、pre-public archive Issue #40の他gate、最終release rehearsal、pre-public archive Issue #38のRC eligibilityを自動的に完了させない。

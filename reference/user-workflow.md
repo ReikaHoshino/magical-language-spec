@@ -1,6 +1,6 @@
 # Experimental Unified User Workflow
 
-**Status:** experimental normative integration owner for Issue #94. This
+**Status:** experimental normative integration owner for pre-public archive Issue #94. This
 contract adds a compatibility-safe command over already owned MGLS,
 MagicalProgram, and SpellInstanceBundle paths. It does not change the stable
 v0.8 evaluator ingress, the stable conformance manifest, or package version
@@ -408,7 +408,7 @@ Machine-readable evidence is in:
 conformance/experimental-user-workflow.json
 ```
 
-It is not part of `conformance/manifest.json`, does not satisfy an Issue #38
+It is not part of `conformance/manifest.json`, does not satisfy a pre-public archive Issue #38
 stable requirement claim by itself, and cannot change the four-class/65-case
 stable count.
 

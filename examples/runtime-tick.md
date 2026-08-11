@@ -132,7 +132,7 @@ ReplayManifest {
     external_input_stream = "session-17"
 }
 
-TickRecord#41 {
+TickRecord[index=41] {
     interval = [10.080 s, 10.125 s]
     world_revision_before = 2204
     world_revision_after  = 2205

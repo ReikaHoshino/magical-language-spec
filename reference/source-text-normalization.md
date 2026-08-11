@@ -190,7 +190,7 @@ SourceTextNormalizationResult {
 ```
 
 このserializationのproperty order、generic artifact hashing、content hashは本Issueの
-scope外であり、Issue #13が所有する。
+scope外であり、pre-public archive Issue #13が所有する。
 
 ## 8. Failure policy
 
