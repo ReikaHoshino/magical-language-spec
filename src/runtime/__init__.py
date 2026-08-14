@@ -7,6 +7,11 @@ package-root cycle.
 
 from .engine import ReferenceRuntimeEngine, SandboxProfile
 from .integrator import SyntheticReferenceIntegrator
+from .execution_admission import (
+    AdmissionWorld,
+    ExecutionAdmissionError,
+    ExecutionAdmissionRuntime,
+)
 from .sandbox import (
     PreparedPlan,
     RuntimeExecutionError,
@@ -16,6 +21,9 @@ from .sandbox import (
 )
 
 __all__ = [
+    "AdmissionWorld",
+    "ExecutionAdmissionError",
+    "ExecutionAdmissionRuntime",
     "PreparedPlan",
     "ReferenceRuntimeEngine",
     "RuntimeExecutionError",

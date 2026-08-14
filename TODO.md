@@ -13,8 +13,8 @@
 - latest completed pre-public implementation: **pre-public archive Issue #94 / pre-public archive PR #135 / merge `d5ed0fae5570c8c5ada40533689246d82e2d1d09`**。
 - completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
-- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`; public PR #20 merge `01902409b7a844ac6b4d321411823a8525a96f0a`; public PR #21 merge `776395dbcde6a820b96a358d1085552331cd497c`**。
-- active concrete work: **NEXT — public Issue #23 v1.0 execution-admission semantics; public Issue #3 final `v1.0.0` is blocked until public Issue #23 lands and the release gate is rerun**。
+- public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`; public PR #20 merge `01902409b7a844ac6b4d321411823a8525a96f0a`; public PR #21 merge `776395dbcde6a820b96a358d1085552331cd497c`; public PR #24 merge `018c678b3c611681e208a843cd44ebec271ab15d`**。
+- active concrete work: **IN PROGRESS — public Issue #23 v1.0 execution-admission semantics on `agent/public-issue-23-execution-admission`; public Issue #3 final `v1.0.0` is blocked until landing plus renewed release gate/new RC decision**。
 - release judgment: **v1.0.0-rc.1 finalized without waiver; final `v1.0.0` remains NOT AUTHORIZED; public Issue #23 intentionally reopens the pre-final semantic surface**。
 - release/version state: **RC prerelease `v1.0.0-rc.1` / package `1.0.0rc1` published at merge `776395dbcde6a820b96a358d1085552331cd497c`; finalization `2026-08-12 00:16:14 +09:00` Asia/Tokyo; RC evidence cannot authorize final after public Issue #23 semantic changes**。
 - final outcome order: **public Issue #15 → public Issue #16 → public Issue #1 audit → public Issue #2 RC → public Issue #23 execution-admission semantics → renewed exact-main release audit / new RC decision as required → public Issue #3 final → public Issue #4 umbrella**。
@@ -118,7 +118,7 @@ stable surface                counts/version/historical snapshots unchanged
 public migration baseline     46f366ddb221a1517c6545784b4614154423e1da
 last released RC              public Issue #2 / public PR #21 / merge 776395dbcde6a820b96a358d1085552331cd497c / v1.0.0-rc.1
 new v1 blocker                public Issue #23 — explicit whole-plan preflight vs incremental execution semantics
-current next                  design and implement public Issue #23 from exact current main
+current next                  validate and land public Issue #23 from exact current branch
 final release                 public Issue #3 remains blocked / NOT AUTHORIZED
 release gate                  after public Issue #23 lands, rerun exact-main readiness audit and determine whether a new RC is required
 ```
@@ -131,7 +131,7 @@ The renewed audit that authorized `v1.0.0-rc.1`, public PR #21, exact-head gate,
 public stabilization / release / umbrella
   public Issue #1   renewed exact-main no-waiver release-readiness audit — GO / historical checkpoint for rc.1
   public Issue #2   v1.0.0-rc.1 — DONE / released
-  public Issue #23  v1.0 execution-admission semantics — OPEN / NEXT / blocks final
+  public Issue #23  v1.0 execution-admission semantics — OPEN / IN PROGRESS / blocks final
   public Issue #3   v1.0 final release — BLOCKED until public Issue #23 + renewed release gate
   public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3
 ```
@@ -143,7 +143,7 @@ public Issue #15 tracker-reference qualification — DONE
 public Issue #16 temporal/causal authority reconciliation — DONE
 public Issue #1 renewed no-waiver audit for rc.1 — GO / historical checkpoint
 public Issue #2 v1.0.0-rc.1 — DONE
-public Issue #23 execution-admission semantics — NEXT
+public Issue #23 execution-admission semantics — IN PROGRESS
 renewed exact-main release-readiness audit — REQUIRED after public Issue #23
 new RC decision — REQUIRED after audit if material change demands it
 public Issue #3 final release — BLOCKED / NOT AUTHORIZED
@@ -255,7 +255,7 @@ current user instruction
 PRE-PUBLIC DONE: pre-public archive Issue #46 pre-public archive Issue #77 pre-public archive Issue #84 pre-public archive Issue #86 pre-public archive Issue #87 pre-public archive Issue #88 pre-public archive Issue #89 pre-public archive Issue #90 pre-public archive Issue #91 pre-public archive Issue #92 pre-public archive Issue #93 pre-public archive Issue #94 pre-public archive Issue #110 pre-public archive Issue #114 pre-public archive Issue #118
 PUBLIC DONE:     public Issue #15 / public PR #17; public Issue #16 / public PR #18
 RC1 DONE:        public Issue #2 / public PR #21 / v1.0.0-rc.1 prerelease
-V1 BLOCKER:      public Issue #23 execution-admission semantics — NEXT
+V1 BLOCKER:      public Issue #23 execution-admission semantics — IN PROGRESS
 FINAL BLOCKED:   public Issue #3 requires public Issue #23 + renewed exact-main release gate + explicit authorization
 FINAL UMBRELLA:  public Issue #4 closes after v1.0 and handoff
 ```
@@ -351,17 +351,17 @@ This GO remains evidence for `v1.0.0-rc.1`; it MUST be rerun after public Issue 
 
 Historical RC rule: the `v1.0.0-rc.1` artifact itself remains frozen and immutable. The 2026-08-13 user direction permits new v1.0-targeted semantic work on `main`; such work means rc.1 can no longer serve as the sole final-release candidate evidence.
 
-## 2.10 public Issue #23 explicit whole-plan preflight vs incremental execution semantics — NEXT / V1 BLOCKER
+## 2.10 public Issue #23 explicit whole-plan preflight vs incremental execution semantics — IN PROGRESS / V1 BLOCKER
 
-- [ ] re-read `reference/architecture.md`, `reference/feasibility.md`, `reference/kernel-execution.md`, `reference/planning-inference.md`, `reference/canonical-water-ball.md`, relevant schemas/tests, and exact current main;
-- [ ] define local admission/commit safety separately from optional whole-plan completion preflight;
-- [ ] preserve mandatory type / identity / authority / Capability / Lease / conservation / accounting / runtime safety checks;
-- [ ] define incremental partial-commit semantics without fake rollback of authoritative world effects;
-- [ ] define active `CONSTRAIN` termination so already-transferred matter remains and ordinary world dynamics resume;
-- [ ] define representation/ownership of execution-admission policy and whether `Incremental`, `Preflight`, `Atomic` names/defaults are appropriate;
-- [ ] add paired water-ball regression fixtures for partial-progress failure vs explicit preflight rejection;
-- [ ] synchronize reference/schema/examples/traceability/tests/diagnostics;
-- [ ] run focused + repository regression + package/runtime smoke + consistency checks;
+- [x] re-read `reference/architecture.md`, `reference/feasibility.md`, `reference/kernel-execution.md`, `reference/planning-inference.md`, `reference/canonical-water-ball.md`, relevant schemas/tests, and exact post-public PR #24 main `018c678b3c611681e208a843cd44ebec271ab15d`;
+- [x] define mandatory `LocalAdmission` separately from optional explicit `WholePlanPreflight`;
+- [x] preserve mandatory type / identity / authority / Capability / Lease / conservation / accounting / runtime safety checks;
+- [x] define incremental partial-commit semantics without fake rollback of authoritative world effects;
+- [x] define active `CONSTRAIN` termination so already-transferred matter remains and ordinary world dynamics resume;
+- [x] define `ExecutionAdmissionPolicy` ownership/precedence and settle `Incremental` / `WholePlanPreflight` names without a language-independent implicit default;
+- [x] add paired water-transfer regression fixtures for partial-progress failure vs explicit preflight rejection;
+- [x] synchronize current reference/schema/examples/traceability/tests/stable diagnostics without changing historical `spec/`;
+- [x] run focused tests (10/10), schema validation (34 schemas), repository regression (431 tests / 3 environment skips), stable conformance (65/65), experimental suites, checkout-external editable evaluator/runtime/12-bundle smoke, and `git diff --check`;
 - [ ] land through dedicated branch/PR with exact-head gates;
 - [ ] reconcile this TODO and public Issue #23 after landing;
 - [ ] rerun release-readiness audit on exact `main` after public Issue #23 and explicitly decide whether to cut a new RC before public Issue #3.

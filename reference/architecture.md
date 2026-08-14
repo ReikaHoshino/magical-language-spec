@@ -41,6 +41,7 @@ Physical time != runtime tick
 Replay != Rewind
 Registry metadata != Capability
 PlannerPrediction != RuntimeSafetyGuarantee
+WholePlanPreflight != Reservation != Authority grant != RuntimeSafetyGuarantee
 magic effect request != physical-law definition
 ordinary magic != physical-law mutation
 World Kernel != DefinitionSource
@@ -391,6 +392,13 @@ Unknown/underspecified fieldをplanning valueへ採用する場合は
 `planning-inference.md`の`InferenceRecord` / `PlanningAssumption`境界を使用する。
 source/NSRのUnknownを採用値で置換しない。候補選択はsource fidelity、mandatory obligations、
 feasibilityを通過した後にのみoptimization objectiveを適用する。
+
+Execution admissionは[`execution-admission.md`](execution-admission.md)が所有する。
+各`KernelAtomicGroup`の`LocalAdmission`はmandatoryであり、`Incremental` modeでも
+type / identity / Capability / Lease / conservation / accounting / runtime safetyを省略しない。
+明示的`WholePlanPreflight`は全currently-modeled groupのcompletion assessmentだが、
+reservation、authority grant、future completion guaranteeではない。later group failureは
+既commit groupをrollbackせず、authoritative WorldState/Historyを保持する。
 
 ## 14. Runtime time
 

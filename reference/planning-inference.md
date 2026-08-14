@@ -228,6 +228,11 @@ late world changeに反応するのは次の場合に限る。
 default executionは善意のcollision avoidanceを暗黙に追加しない。この規則はtype、identity、
 authority、Lease、conservation/accounting、sandbox/emergency-stop等のmandatory guardを弱めない。
 
+planning predictionはexecution-admission policyではない。`Incremental`と明示的
+`WholePlanPreflight`のowner/precedence/diagnosticsは`execution-admission.md`が所有する。
+preflightはsource/NSRのUnknown、Estimate、PlanningAssumption、PrepareBound/runtime-resolved
+valueを相互変換せず、predictionをreservationやruntime safety guaranteeへ昇格しない。
+
 ## 9. Continuous control and cost
 
 `horizontal`等のtrajectory constraintは、gravityをworld modelから削除する指定ではない。

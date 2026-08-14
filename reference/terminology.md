@@ -120,6 +120,9 @@ CompatibilityAdmission != Lease
 | DEACTIVATE | interaction class | admitted persistent effectをsettle/terminateするinteraction。rollbackではない。 | v0.10.0 |
 | active-effect semantic projection | world semantics | future authoritative evolutionをcausally決めるTransit/Channel/Controller/Dynamics等のportable semantic state。 | v0.10.0 |
 | KernelAtomicGroup | semantic commit group | invariant-sensitive loweringsをall-or-noneでcommitするsemantic group。 | v0.10.0 |
+| ExecutionAdmissionPolicy | control/runtime policy | `Incremental`または明示的`WholePlanPreflight`を選択するsource/profile-owned policy。local mandatory guardを弱めない。formal ownerは[`execution-admission.md`](execution-admission.md)。 | current v1 |
+| LocalAdmission | mandatory commit guard | 各KernelAtomicGroup / later actuation直前にcurrent type、identity、Capability、Lease、conservation、accounting、runtime safetyを再検証する境界。 | current v1 |
+| WholePlanPreflight | snapshot-scoped assessment | first effect前にcurrently-modeled groupsのcompletionを評価する明示的policy。reservation、authority、Lease、runtime guaranteeではない。 | current v1 |
 | Transit | active effect | non-zero TRANSFERのin-flight matter/resource/accounting semanticsを保持するauthoritative projection。 | v0.10.0 |
 | DynamicsProcess | active effect | continuous RECONFIGURE等のadmitted model semantics。integrator substepそのものではない。 | v0.10.0 |
 | Controller | active effect | bounded CONSTRAIN contract。future actuationはscope/Capability/Lease/resource/timing/current-stateを再検証する。 | v0.9.0/v0.10.0 |
@@ -137,6 +140,8 @@ Kernel interaction class != MKI primitive
 runtime bookkeeping != semantic active-effect ownership
 control-plane COMMIT != all future consequences already occurred
 DEACTIVATE != rollback
+later group failure != rollback of prior commit
+WholePlanPreflight != Reservation != Authority grant != RuntimeSafetyGuarantee
 Physical time != runtime tick
 Integrator approximation != physical law
 DeterministicReplay != Rewind

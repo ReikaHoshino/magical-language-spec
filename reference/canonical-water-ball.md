@@ -180,8 +180,11 @@ PreparedPlan
 `effective_at`と`committed_at`は別fieldであり、TickStampはexecution ordering metadataである。
 TickIDをphysical durationへ変換しない。
 
-failure pathではRevalidateまたはCOMMITがabortし、successful WorldRevision/History effectを
-発行しない。
+このcanonical pathは一つのadmitted `KernelAtomicGroup`である。そのgroupのfailure pathでは
+RevalidateまたはCOMMITがabortし、successful WorldRevision/History effectを発行しない。
+これは一般のmulti-group planにwhole-plan completion guaranteeを与えない。
+`execution-admission.md`のpaired fixtureは、別groupのlater failure時にprior commitを保持する
+`Incremental` modeと、明示的`WholePlanPreflight`によるfirst-effect前のrejectionを区別する。
 
 ## 8. Failure catalog
 

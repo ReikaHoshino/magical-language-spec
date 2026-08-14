@@ -4,7 +4,7 @@
 
 このリポジトリは **魔術言語仕様 v0.1〜v1.0.0-rc.1**、current `reference/`、machine-readable contracts、reference implementation、versioned conformance suiteを追跡します。
 
-このrepositoryは2026-08-09に、公開用のclean historyへ移行しました。current workはこのpublic repositoryのIssueとPRで追跡します。current document内のtracker参照は`public Issue/PR #N`または`pre-public archive Issue/PR #N`としてnamespaceを明示します。active release trainは [public Issue #1 audit](https://github.com/ReikaHoshino/magical-language-spec/issues/1) → [public Issue #2 RC](https://github.com/ReikaHoshino/magical-language-spec/issues/2) → [public Issue #3 final](https://github.com/ReikaHoshino/magical-language-spec/issues/3) → [public Issue #4 umbrella](https://github.com/ReikaHoshino/magical-language-spec/issues/4) です。
+このrepositoryは2026-08-09に、公開用のclean historyへ移行しました。current workはこのpublic repositoryのIssueとPRで追跡します。current document内のtracker参照は`public Issue/PR #N`または`pre-public archive Issue/PR #N`としてnamespaceを明示します。active release trainは [public Issue #1 audit](https://github.com/ReikaHoshino/magical-language-spec/issues/1) → [public Issue #2 RC](https://github.com/ReikaHoshino/magical-language-spec/issues/2) → [public Issue #23 execution admission](https://github.com/ReikaHoshino/magical-language-spec/issues/23) → renewed exact-main audit / new RC decision → [public Issue #3 final](https://github.com/ReikaHoshino/magical-language-spec/issues/3) → [public Issue #4 umbrella](https://github.com/ReikaHoshino/magical-language-spec/issues/4) です。
 
 ## 現行版
 
@@ -59,9 +59,11 @@ release version != compatibility oracle
 migration success != admission
 control-plane COMMIT != all future consequences already occurred
 DEACTIVATE != rollback
+later group failure != rollback of prior commit
+WholePlanPreflight != Reservation != Authority grant != RuntimeSafetyGuarantee
 ```
 
-v1.0.0-rc.1はfinal v1.0.0ではありません。RCではcore breaking changeを計画せず、blocker fix、conformance/compatibility/migration correction、documentation、release engineeringだけを原則とします。final releaseはpublic Issue #3が所有し、RCでmaterial semantic redesignが必要と判明した場合は新しいv0.x stabilizationへ戻ります。
+v1.0.0-rc.1はfinal v1.0.0ではありません。public Issue #23はfinal前のmaterial execution-admission blockerとしてcurrent `main`を進めます。landing後はrc.1 evidenceをfinal authorizationへ再利用せず、exact current `main`でrelease gateをやり直してnew RCの要否を判断します。final releaseはpublic Issue #3が所有します。
 
 ## Reference implementation / conformanceを使う
 
@@ -205,12 +207,13 @@ v0.10 release時点のpackaging guaranteeは**clean checkout + declared dependen
 17. [`reference/evaluator-implementation.md`](reference/evaluator-implementation.md) — v0.8 reference evaluator profile。
 18. [`reference/runtime-implementation.md`](reference/runtime-implementation.md) — v0.9 sandbox runtime profile。
 19. [`reference/kernel-execution.md`](reference/kernel-execution.md) — World Kernel lower semantic execution boundary。
-20. [`reference/conformance.md`](reference/conformance.md) — v0.12 conformance class / stable case / lifecycle contract。
-21. [`reference/canonical-water-ball.md`](reference/canonical-water-ball.md) — 全pipeline conformance path。
-22. [`reference/terminology.md`](reference/terminology.md) — 術語索引。
-23. [`reference/user-workflow.md`](reference/user-workflow.md) — experimental MGLS / MagicalProgram / bundle user workflow。
-23. [`CHANGELOG.md`](CHANGELOG.md) — release差分。
-24. [`SECURITY.md`](SECURITY.md) — vulnerability reportingとpublic disclosure policy。
+20. [`reference/execution-admission.md`](reference/execution-admission.md) — local admission / whole-plan preflight / partial commit boundary。
+21. [`reference/conformance.md`](reference/conformance.md) — v0.12 conformance class / stable case / lifecycle contract。
+22. [`reference/canonical-water-ball.md`](reference/canonical-water-ball.md) — 全pipeline conformance path。
+23. [`reference/terminology.md`](reference/terminology.md) — 術語索引。
+24. [`reference/user-workflow.md`](reference/user-workflow.md) — experimental MGLS / MagicalProgram / bundle user workflow。
+25. [`CHANGELOG.md`](CHANGELOG.md) — release差分。
+26. [`SECURITY.md`](SECURITY.md) — vulnerability reportingとpublic disclosure policy。
 
 > `spec/` はimmutable historical snapshot、`reference/` はcurrent live referenceです。
 
@@ -348,6 +351,12 @@ causally relevant persistent Transit / Channel / Controller / Dynamics semantics
 
 `KernelAtomicGroup`はmandatory guard failure時にpartial authoritative transition/activationを残しません。
 
+各groupの`LocalAdmission`はmandatoryです。`Incremental` modeではlater group failure後も既commit
+WorldState/Historyを保持し、active constraintをlifecycle Eventとしてdeactivateしてordinary dynamicsを
+継続します。明示的`WholePlanPreflight`は同じplanをfirst effect前にrejectできますが、reservation、
+Capability/Lease、runtime completion guaranteeを生成しません。ownerは
+[`reference/execution-admission.md`](reference/execution-admission.md)です。
+
 ## Scheduler / Integrator / Replay
 
 canonical logical scheduler phases:
@@ -423,6 +432,8 @@ Core schemas/tools:
 - [`schemas/nsr.schema.json`](schemas/nsr.schema.json)
 - [`schemas/feasibility-report.schema.json`](schemas/feasibility-report.schema.json)
 - [`schemas/runtime-execution.schema.json`](schemas/runtime-execution.schema.json)
+- [`schemas/execution-admission.schema.json`](schemas/execution-admission.schema.json)
+- [`schemas/execution-admission-traceability.schema.json`](schemas/execution-admission-traceability.schema.json)
 - [`schemas/conformance-manifest.schema.json`](schemas/conformance-manifest.schema.json)
 - [`schemas/conformance-coverage.schema.json`](schemas/conformance-coverage.schema.json)
 - [`schemas/artifact-metadata.schema.json`](schemas/artifact-metadata.schema.json)
@@ -465,6 +476,7 @@ Reference implementation:
 - [`conformance/spell-instance-experimental.json`](conformance/spell-instance-experimental.json) — success/adversarial/non-suite bundle inventory; stable required claimではない。
 - [`examples/kernel-execution/`](examples/kernel-execution/) — pre-public archive Issue #55 lower-boundary semantic cases。
 - [`examples/sandbox-runtime/`](examples/sandbox-runtime/) — runtime examples。
+- [`examples/execution-admission/`](examples/execution-admission/) — paired incremental/preflight cases and rule traceability。
 
 Conformance fixtures:
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — current v1 execution-admission blocker
+
+- public Issue #23 defines mandatory `LocalAdmission` separately from explicit `WholePlanPreflight`.
+- `WholePlanPreflight` is snapshot/model/profile-scoped assessment, not reservation, Capability/Lease grant, or runtime completion guarantee.
+- paired water-transfer fixtures distinguish first-effect preflight rejection from incremental partial commit plus later continuation failure; prior commits remain authoritative and constraint termination is not rollback.
+- stable diagnostics, schema, traceability, fail-closed reference behavior, deterministic replay, and current-reference synchronization are added without a seventh MKI primitive or public serialized ECIR.
+- WB-CANON-001, the stable 4 class / 65 case / 14 claim RC surface, package identity, and immutable historical snapshots remain unchanged pending renewed exact-main release audit and new RC decision.
+
 ## Unreleased experimental
 
 - pre-public archive Issue #91 / pre-public archive PR #129: public `SpellInstanceBundle` executionをcomplete current `MagicalProgram-0` pathへcutoverし、専用executorをlegacy oracleへ隔離。

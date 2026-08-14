@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/execution-admission-traceability.schema.json",
+  "title": "Execution Admission Rule Traceability",
+  "type": "object",
+  "required": ["document_kind", "schema_version", "owner", "rules"],
+  "properties": {
+    "document_kind": {"const": "ExecutionAdmissionTraceability"},
+    "schema_version": {"const": "1"},
+    "owner": {"const": "reference/execution-admission.md"},
+    "rules": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "heading", "fixture_paths", "test_locators"],
+        "properties": {
+          "rule_id": {"type": "string", "pattern": "^EXEC-ADM-RULE-[0-9]{3}$"},
+          "heading": {"type": "string", "minLength": 1},
+          "fixture_paths": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "pattern": "^examples/execution-admission/.+\\.json$"},
+            "uniqueItems": true
+          },
+          "test_locators": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "pattern": "^tests/test_execution_admission\\.py::.+$"},
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
