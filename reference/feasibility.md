@@ -33,6 +33,7 @@
 Evaluation != Execution
 Estimate != Reservation
 Feasibility != Authority grant
+Feasibility dry-run != WholePlanPreflight completion guarantee
 AI proposal != semantic truth
 Unknown != zero
 Unknown != Estimate != PlanningAssumption
@@ -444,6 +445,11 @@ NSR-layer adapter equivalence fixtureのみを提供する。
 - `../examples/cross-language-normalization.md`
 - `canonical-water-ball.md`
 - `../examples/canonical-water-ball/pipeline.json`
+
+Execution-admission evidenceは[`execution-admission.md`](execution-admission.md)が所有する。
+FeasibilityReportはwhole-plan completionの可能性をdry-run evidenceとして評価できるが、
+policy選択、resource reservation、Capability/Lease grant、runtime completion guaranteeを生成しない。
+runtimeの`WholePlanPreflight`はrecorded snapshot/current authoritative evidenceを使用する別境界である。
 
 ## 21. Definition ownership
 

@@ -1,0 +1,46 @@
+{
+  "document_kind": "ExecutionAdmissionTraceability",
+  "schema_version": "1",
+  "owner": "reference/execution-admission.md",
+  "rules": [
+    {
+      "rule_id": "EXEC-ADM-RULE-001",
+      "heading": "Local admission is mandatory",
+      "fixture_paths": ["examples/execution-admission/incremental-partial-commit.json"],
+      "test_locators": ["tests/test_execution_admission.py::ExecutionAdmissionTests.test_mandatory_local_authority_guard_cannot_be_bypassed"]
+    },
+    {
+      "rule_id": "EXEC-ADM-RULE-002",
+      "heading": "Whole-plan preflight",
+      "fixture_paths": ["examples/execution-admission/whole-plan-preflight-rejection.json"],
+      "test_locators": ["tests/test_execution_admission.py::ExecutionAdmissionTests.test_whole_plan_preflight_rejects_before_first_effect"]
+    },
+    {
+      "rule_id": "EXEC-ADM-RULE-003",
+      "heading": "Incremental execution",
+      "fixture_paths": ["examples/execution-admission/incremental-partial-commit.json"],
+      "test_locators": ["tests/test_execution_admission.py::ExecutionAdmissionTests.test_incremental_failure_preserves_prior_commit"]
+    },
+    {
+      "rule_id": "EXEC-ADM-RULE-004",
+      "heading": "CONSTRAIN termination after partial progress",
+      "fixture_paths": ["examples/execution-admission/incremental-partial-commit.json"],
+      "test_locators": ["tests/test_execution_admission.py::ExecutionAdmissionTests.test_incremental_failure_preserves_prior_commit"]
+    },
+    {
+      "rule_id": "EXEC-ADM-RULE-005",
+      "heading": "Terms and ownership",
+      "fixture_paths": ["examples/execution-admission/incremental-partial-commit.json"],
+      "test_locators": ["tests/test_execution_admission.py::ExecutionAdmissionTests.test_unsupported_policy_fails_closed"]
+    },
+    {
+      "rule_id": "EXEC-ADM-RULE-006",
+      "heading": "Replay",
+      "fixture_paths": [
+        "examples/execution-admission/incremental-partial-commit.json",
+        "examples/execution-admission/whole-plan-preflight-rejection.json"
+      ],
+      "test_locators": ["tests/test_execution_admission.py::ExecutionAdmissionTests.test_replay_is_deterministic_and_not_rewind"]
+    }
+  ]
+}

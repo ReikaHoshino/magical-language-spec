@@ -1,0 +1,243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/magical-language-spec/schemas/execution-admission.schema.json",
+  "title": "Execution Admission Semantic Case",
+  "type": "object",
+  "required": [
+    "document_kind",
+    "schema_version",
+    "case_id",
+    "policy",
+    "plan",
+    "initial_world",
+    "expected_trace"
+  ],
+  "properties": {
+    "document_kind": {"const": "ExecutionAdmissionSemanticCase"},
+    "schema_version": {"const": "1"},
+    "case_id": {"type": "string", "pattern": "^EXEC-ADMISSION-[A-Z0-9-]+$"},
+    "description": {"type": "string", "minLength": 1},
+    "policy": {"$ref": "#/$defs/policy"},
+    "plan": {"$ref": "#/$defs/plan"},
+    "initial_world": {"$ref": "#/$defs/world"},
+    "expected_trace": {"$ref": "#/$defs/trace"}
+  },
+  "$defs": {
+    "policy": {
+      "type": "object",
+      "required": [
+        "policy_id",
+        "revision",
+        "mode",
+        "definition_source",
+        "source_explicit",
+        "provenance"
+      ],
+      "properties": {
+        "policy_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "mode": {"enum": ["Incremental", "WholePlanPreflight"]},
+        "definition_source": {"enum": ["SourceContract", "RuntimeProfile"]},
+        "source_explicit": {"type": "boolean"},
+        "assessment_scope": {
+          "type": "object",
+          "required": [
+            "source_world_revision",
+            "runtime_profile",
+            "model_evidence_ids",
+            "completion_assessed",
+            "creates_reservation",
+            "grants_authority",
+            "guarantees_runtime_completion"
+          ],
+          "properties": {
+            "source_world_revision": {"type": "string", "minLength": 1},
+            "runtime_profile": {"$ref": "#/$defs/artifactRef"},
+            "model_evidence_ids": {
+              "type": "array",
+              "items": {"type": "string", "minLength": 1},
+              "uniqueItems": true
+            },
+            "completion_assessed": {"const": true},
+            "creates_reservation": {"const": false},
+            "grants_authority": {"const": false},
+            "guarantees_runtime_completion": {"const": false}
+          },
+          "additionalProperties": false
+        },
+        "provenance": {
+          "type": "object",
+          "required": ["owner", "evidence_ids"],
+          "properties": {
+            "owner": {"enum": ["SourceContract", "RuntimeProfile"]},
+            "evidence_ids": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "minLength": 1},
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"mode": {"const": "WholePlanPreflight"}}},
+          "then": {"required": ["assessment_scope"]},
+          "else": {"not": {"required": ["assessment_scope"]}}
+        },
+        {
+          "if": {"properties": {"source_explicit": {"const": true}}},
+          "then": {"properties": {"definition_source": {"const": "SourceContract"}}}
+        },
+        {
+          "if": {"properties": {"definition_source": {"const": "SourceContract"}}},
+          "then": {
+            "properties": {
+              "provenance": {"properties": {"owner": {"const": "SourceContract"}}}
+            }
+          },
+          "else": {
+            "properties": {
+              "provenance": {"properties": {"owner": {"const": "RuntimeProfile"}}}
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "artifactRef": {
+      "type": "object",
+      "required": ["artifact_id", "revision"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "plan": {
+      "type": "object",
+      "required": ["plan_id", "atomic_groups"],
+      "properties": {
+        "plan_id": {"type": "string", "minLength": 1},
+        "atomic_groups": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/atomicGroup"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "atomicGroup": {
+      "type": "object",
+      "required": [
+        "group_id",
+        "mki_operations",
+        "local_guards",
+        "transfer_mass_kg",
+        "constraint_action"
+      ],
+      "properties": {
+        "group_id": {"type": "string", "minLength": 1},
+        "mki_operations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]
+          }
+        },
+        "local_guards": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "enum": ["Type", "Identity", "Capability", "Lease", "Conservation", "Accounting", "RuntimeSafety"]
+          },
+          "uniqueItems": true
+        },
+        "transfer_mass_kg": {"type": "number", "exclusiveMinimum": 0},
+        "constraint_action": {"enum": ["Activate", "Maintain", "Deactivate"]}
+      },
+      "additionalProperties": false
+    },
+    "world": {
+      "type": "object",
+      "required": [
+        "world_revision",
+        "source_mass_kg",
+        "destination_mass_kg",
+        "constraint_active",
+        "gravity_applies",
+        "type_valid",
+        "identity_valid",
+        "capability_active",
+        "lease_active",
+        "runtime_safety_active",
+        "accounted_total_mass_kg"
+      ],
+      "properties": {
+        "world_revision": {"type": "string", "minLength": 1},
+        "source_mass_kg": {"type": "number", "minimum": 0},
+        "destination_mass_kg": {"type": "number", "minimum": 0},
+        "constraint_active": {"type": "boolean"},
+        "gravity_applies": {"type": "boolean"},
+        "type_valid": {"type": "boolean"},
+        "identity_valid": {"type": "boolean"},
+        "capability_active": {"type": "boolean"},
+        "lease_active": {"type": "boolean"},
+        "runtime_safety_active": {"type": "boolean"},
+        "accounted_total_mass_kg": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "diagnostic": {
+      "type": "object",
+      "required": ["code", "phase", "failed_group_id", "failed_guard", "committed_group_count"],
+      "properties": {
+        "code": {"enum": ["WholePlanPreflightRejected", "ContinuationInfeasibleAfterPartialCommit", "LocalAdmissionRejected"]},
+        "phase": {"enum": ["BeforeFirstEffect", "AfterPartialCommit"]},
+        "failed_group_id": {"type": "string", "minLength": 1},
+        "failed_guard": {"enum": ["Type", "Identity", "Capability", "Lease", "Conservation", "Accounting", "RuntimeSafety"]},
+        "committed_group_count": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "trace": {
+      "type": "object",
+      "required": [
+        "status",
+        "diagnostic",
+        "committed_group_ids",
+        "history_event_ids",
+        "final_world",
+        "prior_commits_rolled_back",
+        "preflight_created_reservation",
+        "preflight_granted_authority",
+        "replay_expected"
+      ],
+      "properties": {
+        "status": {"enum": ["Rejected", "PartialCommitTerminated"]},
+        "diagnostic": {"$ref": "#/$defs/diagnostic"},
+        "committed_group_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "history_event_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "final_world": {"$ref": "#/$defs/world"},
+        "prior_commits_rolled_back": {"const": false},
+        "preflight_created_reservation": {"const": false},
+        "preflight_granted_authority": {"const": false},
+        "replay_expected": {"const": "Match"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

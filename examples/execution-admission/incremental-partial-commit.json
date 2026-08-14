@@ -1,0 +1,78 @@
+{
+  "document_kind": "ExecutionAdmissionSemanticCase",
+  "schema_version": "1",
+  "case_id": "EXEC-ADMISSION-INCREMENTAL-001",
+  "description": "The first bounded transfer/controller group commits; later local admission fails without rolling it back.",
+  "policy": {
+    "policy_id": "execution-admission:incremental-reference",
+    "revision": "1",
+    "mode": "Incremental",
+    "definition_source": "RuntimeProfile",
+    "source_explicit": false,
+    "provenance": {
+      "owner": "RuntimeProfile",
+      "evidence_ids": ["runtime-profile:execution-admission-fixture@1"]
+    }
+  },
+  "plan": {
+    "plan_id": "water-ball:two-stage-transfer",
+    "atomic_groups": [
+      {
+        "group_id": "group:transfer-and-constrain",
+        "mki_operations": ["TRANSFER", "CONSTRAIN"],
+        "local_guards": ["Type", "Identity", "Capability", "Lease", "Conservation", "Accounting", "RuntimeSafety"],
+        "transfer_mass_kg": 40.0,
+        "constraint_action": "Activate"
+      },
+      {
+        "group_id": "group:continuation",
+        "mki_operations": ["TRANSFER", "CONSTRAIN"],
+        "local_guards": ["Type", "Identity", "Capability", "Lease", "Conservation", "Accounting", "RuntimeSafety"],
+        "transfer_mass_kg": 20.0,
+        "constraint_action": "Maintain"
+      }
+    ]
+  },
+  "initial_world": {
+    "world_revision": "world:admission:100",
+    "source_mass_kg": 50.0,
+    "destination_mass_kg": 0.0,
+    "constraint_active": false,
+    "gravity_applies": true,
+    "type_valid": true,
+    "identity_valid": true,
+    "capability_active": true,
+    "lease_active": true,
+    "runtime_safety_active": true,
+    "accounted_total_mass_kg": 50.0
+  },
+  "expected_trace": {
+    "status": "PartialCommitTerminated",
+    "diagnostic": {
+      "code": "ContinuationInfeasibleAfterPartialCommit",
+      "phase": "AfterPartialCommit",
+      "failed_group_id": "group:continuation",
+      "failed_guard": "Conservation",
+      "committed_group_count": 1
+    },
+    "committed_group_ids": ["group:transfer-and-constrain"],
+    "history_event_ids": ["event:admission:group:transfer-and-constrain", "event:admission:constraint-terminated"],
+    "final_world": {
+      "world_revision": "world:admission:102",
+      "source_mass_kg": 10.0,
+      "destination_mass_kg": 40.0,
+      "constraint_active": false,
+      "gravity_applies": true,
+      "type_valid": true,
+      "identity_valid": true,
+      "capability_active": true,
+      "lease_active": true,
+      "runtime_safety_active": true,
+      "accounted_total_mass_kg": 50.0
+    },
+    "prior_commits_rolled_back": false,
+    "preflight_created_reservation": false,
+    "preflight_granted_authority": false,
+    "replay_expected": "Match"
+  }
+}

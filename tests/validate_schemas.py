@@ -30,6 +30,8 @@ ESTIMATOR_PROFILE_FIXTURES = ROOT / "examples" / "estimator-profiles"
 CANONICAL_WATER_BALL_FIXTURES = ROOT / "examples" / "canonical-water-ball"
 SUCCESS_ARCANA_FIXTURES = ROOT / "examples" / "success-arcana"
 SPELL_INSTANCE_FIXTURES = ROOT / "examples" / "spell-instances"
+EXECUTION_ADMISSION_FIXTURES = ROOT / "examples" / "execution-admission"
+EXECUTION_ADMISSION_TRACEABILITY = EXECUTION_ADMISSION_FIXTURES / "traceability.json"
 COMPATIBILITY_COVERAGE = ROOT / "conformance" / "compatibility-coverage.json"
 V1_REQUIRED_SURFACE = ROOT / "conformance" / "v1-required-surface.json"
 EXPERIMENTAL_ARCANA_MANIFEST = ROOT / "conformance" / "experimental-arcana.json"
@@ -641,6 +643,49 @@ def main() -> None:
     }:
         raise AssertionError("Experimental-Arcana manifest does not own every canonical success bundle")
 
+    execution_admission_paths = sorted(
+        path
+        for path in EXECUTION_ADMISSION_FIXTURES.glob("*.json")
+        if path.name != "traceability.json"
+    )
+    execution_admission_validator = validator("execution-admission.schema.json")
+    for path in execution_admission_paths:
+        execution_admission_validator.validate(load(path))
+    if {path.name for path in execution_admission_paths} != {
+        "incremental-partial-commit.json",
+        "whole-plan-preflight-rejection.json",
+    }:
+        raise AssertionError("execution-admission paired fixture inventory drifted")
+    execution_admission_traceability = load(EXECUTION_ADMISSION_TRACEABILITY)
+    validator("execution-admission-traceability.schema.json").validate(
+        execution_admission_traceability
+    )
+    execution_admission_reference = (
+        ROOT / execution_admission_traceability["owner"]
+    ).read_text(encoding="utf-8")
+    execution_admission_test_source = (
+        ROOT / "tests" / "test_execution_admission.py"
+    ).read_text(encoding="utf-8")
+    rule_ids = [rule["rule_id"] for rule in execution_admission_traceability["rules"]]
+    if len(rule_ids) != len(set(rule_ids)):
+        raise AssertionError("execution-admission traceability rule IDs are not unique")
+    for rule in execution_admission_traceability["rules"]:
+        if rule["heading"] not in execution_admission_reference:
+            raise AssertionError(
+                f"execution-admission traceability heading is missing: {rule['heading']}"
+            )
+        for fixture_path in rule["fixture_paths"]:
+            if not (ROOT / fixture_path).is_file():
+                raise AssertionError(
+                    f"execution-admission traceability references missing fixture {fixture_path}"
+                )
+        for locator in rule["test_locators"]:
+            method_name = locator.rsplit(".", 1)[-1]
+            if f"def {method_name}(" not in execution_admission_test_source:
+                raise AssertionError(
+                    f"execution-admission traceability test locator is missing: {locator}"
+                )
+
     validate_release_consistency()
 
     print(
@@ -656,6 +701,7 @@ def main() -> None:
         f"{len(canonical_water_ball_paths)} canonical water-ball fixtures, "
         f"{len(success_arcana_paths)} Experimental-Arcana fixture documents, "
         f"{len(spell_instance_paths)} SpellInstanceBundle documents, "
+        f"{len(execution_admission_paths)} execution-admission semantic cases and 1 traceability map, "
         "2 Latin adapter fixtures, 1 SemanticFingerprintV1 fixture, "
         "and the FeasibilityReport fixture"
     )

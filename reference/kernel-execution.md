@@ -196,6 +196,11 @@ This forbids partial source debit, orphan transit activation, partial identity r
 
 An implementation may internally use transactions, journaling, copy-on-write, or another mechanism. That mechanism is not the specification.
 
+Atomicity is scoped to one admitted group. It does not silently promise that every later
+group in a multi-group plan can complete. `execution-admission.md` defines mandatory
+`LocalAdmission`, optional explicit `WholePlanPreflight`, and the rule that a later failure
+does not roll back earlier separately committed groups.
+
 ## 7. TRANSFER lowering
 
 ### Zero-propagation supported case

@@ -1,0 +1,90 @@
+{
+  "document_kind": "ExecutionAdmissionSemanticCase",
+  "schema_version": "1",
+  "case_id": "EXEC-ADMISSION-PREFLIGHT-001",
+  "description": "Explicit whole-plan preflight detects the same insufficient source before the first authoritative effect.",
+  "policy": {
+    "policy_id": "execution-admission:whole-plan-reference",
+    "revision": "1",
+    "mode": "WholePlanPreflight",
+    "definition_source": "SourceContract",
+    "source_explicit": true,
+    "assessment_scope": {
+      "source_world_revision": "world:admission:100",
+      "runtime_profile": {
+        "artifact_id": "runtime-profile:execution-admission-fixture",
+        "revision": "1"
+      },
+      "model_evidence_ids": ["model:transfer-accounting@1"],
+      "completion_assessed": true,
+      "creates_reservation": false,
+      "grants_authority": false,
+      "guarantees_runtime_completion": false
+    },
+    "provenance": {
+      "owner": "SourceContract",
+      "evidence_ids": ["source-contract:whole-plan-required@1"]
+    }
+  },
+  "plan": {
+    "plan_id": "water-ball:two-stage-transfer",
+    "atomic_groups": [
+      {
+        "group_id": "group:transfer-and-constrain",
+        "mki_operations": ["TRANSFER", "CONSTRAIN"],
+        "local_guards": ["Type", "Identity", "Capability", "Lease", "Conservation", "Accounting", "RuntimeSafety"],
+        "transfer_mass_kg": 40.0,
+        "constraint_action": "Activate"
+      },
+      {
+        "group_id": "group:continuation",
+        "mki_operations": ["TRANSFER", "CONSTRAIN"],
+        "local_guards": ["Type", "Identity", "Capability", "Lease", "Conservation", "Accounting", "RuntimeSafety"],
+        "transfer_mass_kg": 20.0,
+        "constraint_action": "Maintain"
+      }
+    ]
+  },
+  "initial_world": {
+    "world_revision": "world:admission:100",
+    "source_mass_kg": 50.0,
+    "destination_mass_kg": 0.0,
+    "constraint_active": false,
+    "gravity_applies": true,
+    "type_valid": true,
+    "identity_valid": true,
+    "capability_active": true,
+    "lease_active": true,
+    "runtime_safety_active": true,
+    "accounted_total_mass_kg": 50.0
+  },
+  "expected_trace": {
+    "status": "Rejected",
+    "diagnostic": {
+      "code": "WholePlanPreflightRejected",
+      "phase": "BeforeFirstEffect",
+      "failed_group_id": "group:continuation",
+      "failed_guard": "Conservation",
+      "committed_group_count": 0
+    },
+    "committed_group_ids": [],
+    "history_event_ids": [],
+    "final_world": {
+      "world_revision": "world:admission:100",
+      "source_mass_kg": 50.0,
+      "destination_mass_kg": 0.0,
+      "constraint_active": false,
+      "gravity_applies": true,
+      "type_valid": true,
+      "identity_valid": true,
+      "capability_active": true,
+      "lease_active": true,
+      "runtime_safety_active": true,
+      "accounted_total_mass_kg": 50.0
+    },
+    "prior_commits_rolled_back": false,
+    "preflight_created_reservation": false,
+    "preflight_granted_authority": false,
+    "replay_expected": "Match"
+  }
+}

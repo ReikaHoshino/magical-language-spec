@@ -1,6 +1,8 @@
-# 整合性チェック報告 — v1.0.0-rc.1 release candidate
+# 整合性チェック報告 — v1.0.0-rc.1 historical release + current pre-final work
 
-**Status:** **v1.0.0-rc.1 FINALIZED / NO WAIVERS** / public Issue #2 release and post-merge certification complete; final `v1.0.0` remains unauthorized.
+**Status:** **v1.0.0-rc.1 FINALIZED / NO WAIVERS as historical release evidence**; public Issue #23 current execution-admission work is unreleased; final `v1.0.0` remains unauthorized pending landing plus renewed exact-main release gate/new RC decision.
+
+**Current unreleased implementation baseline:** post-public PR #24 `main` `018c678b3c611681e208a843cd44ebec271ab15d`.
 
 **Renewed public audit baseline:** `0df7c42dfd741086cb0dcace040f69419f99acbb`
 
@@ -8,7 +10,7 @@
 
 **Historical pre-public preflight merge:** `e9c83c48afc374772af45310a1d141f218b4f262`
 
-**Release target:** `v1.0.0-rc.1` / Python package `1.0.0rc1`.
+**Historical release target:** `v1.0.0-rc.1` / Python package `1.0.0rc1`.
 
 **RC finalization timestamp:** `2026-08-12 00:16:14 +09:00` Asia/Tokyo.
 
@@ -460,3 +462,52 @@ RC finalization                    2026-08-12 00:16:14 +09:00 Asia/Tokyo
 
 Next RESUME POINT: close public Issue #2 through this reconciliation, then stop before public Issue #3 until the user
 explicitly authorizes final `v1.0.0`. public Issue #4 remains the final umbrella after the final release and handoff.
+
+---
+
+## public Issue #23 execution-admission implementation checkpoint — Unreleased
+
+This current-reference checkpoint supersedes the old next-step wording above; it does not rewrite the historical
+`v1.0.0-rc.1` verdict or any `spec/` snapshot.
+
+```text
+implementation baseline              post-public PR #24 main 018c678b3c611681e208a843cd44ebec271ab15d
+implementation PR                    draft public PR #27 / agent/public-issue-23-execution-admission
+policy modes                         Incremental / WholePlanPreflight
+mandatory boundary                   LocalAdmission for every KernelAtomicGroup / later actuation
+whole-plan preflight                  explicit, snapshot/model/profile-scoped assessment
+preflight non-guarantees              no reservation / no authority grant / no runtime completion guarantee
+incremental later failure             preserves prior WorldState/History commits
+CONSTRAIN termination                 new lifecycle Event; not rollback; ordinary gravity applies
+stable diagnostics                    WholePlanPreflightRejected / LocalAdmissionRejected / ContinuationInfeasibleAfterPartialCommit
+MKI / World Kernel classes            6 / 5 unchanged
+public serialized ECIR                none added
+WB-CANON-001                           existing one-group behavior unchanged
+stable RC surface                     4 classes / 65 cases / 14 claims unchanged pending renewed audit
+historical snapshots                  unchanged
+```
+
+Normative ownership is centralized in `reference/execution-admission.md`. Architecture, feasibility,
+planning-inference, kernel-execution, runtime-implementation, canonical-water-ball, and terminology link to that owner
+without duplicating a conflicting policy. Machine-readable evidence consists of two paired semantic cases, a strict
+execution-admission schema, rule traceability, additive fail-closed reference behavior, and focused positive/negative/replay tests.
+
+This checkpoint is not a release authorization. After public Issue #23 lands, exact current `main` must rerun the full
+no-waiver release gate and explicitly decide whether a new RC is required before public Issue #3.
+
+Pre-publication local evidence on the dedicated branch:
+
+```text
+execution-admission focused tests     PASS / 12 of 12
+schema validation                     PASS / 34 schemas / paired cases + traceability
+repository regression                 PASS / 433 tests / 3 environment-dependent skips
+stable conformance                    PASS / 4 released classes / 65 of 65 required cases
+Experimental-Arcana                   PASS / 8 cases
+SpellInstanceBundle                   PASS / 12 cases
+checkout-external editable evaluator  PASS
+checkout-external editable runtime    PASS / commit, abort, replay
+checkout-external 12-bundle cutover   PASS
+git diff --check                      PASS
+```
+
+Wheel/sdist installed-entry-point evidence remains an exact-head protected-PR gate and must be green before landing.

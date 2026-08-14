@@ -89,12 +89,20 @@ For the supported subset COMMIT is atomic: an exception during mutation restores
 
 This atomic supported subset is compatible with the current `KernelAtomicGroup` rule. It does not imply that a general ACTIVATEd Transit, Controller, Channel, or DynamicsProcess has all future consequences committed at activation time.
 
+The current WB-CANON-001 handler remains one atomic group. The additive
+`src/runtime/execution_admission.py` public Issue #23 fixture handler demonstrates
+multi-group `Incremental` versus explicit `WholePlanPreflight` semantics without
+changing that canonical behavior. Its dictionaries are implementation-owned
+fixture input, not a public ECIR. Unsupported admission modes and missing local
+guards fail closed.
+
 ```text
 PREPARE success != permission to skip COMMIT revalidation
 Visibility != Authority
 Registry metadata != Capability
 Estimate != Reservation
 control-plane COMMIT != all future consequences already occurred
+WholePlanPreflight != Reservation != Authority grant != RuntimeSafetyGuarantee
 ```
 
 ## MKI data plane

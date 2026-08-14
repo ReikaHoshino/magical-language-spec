@@ -215,6 +215,8 @@ Unexpected result != undefined behavior
 SemanticFingerprint != artifact content_hash
 Evaluation != Execution
 PREPARE success != COMMIT permission
+WholePlanPreflight != Reservation != Authority grant != RuntimeSafetyGuarantee
+later group failure != rollback of prior commit
 Registry metadata != Capability
 Visibility != Authority
 Physical time != runtime tick
