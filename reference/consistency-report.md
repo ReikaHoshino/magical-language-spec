@@ -472,6 +472,7 @@ This current-reference checkpoint supersedes the old next-step wording above; it
 
 ```text
 implementation baseline              post-public PR #24 main 018c678b3c611681e208a843cd44ebec271ab15d
+implementation PR                    draft public PR #27 / agent/public-issue-23-execution-admission
 policy modes                         Incremental / WholePlanPreflight
 mandatory boundary                   LocalAdmission for every KernelAtomicGroup / later actuation
 whole-plan preflight                  explicit, snapshot/model/profile-scoped assessment
