@@ -364,7 +364,7 @@ Historical RC rule: the `v1.0.0-rc.1` artifact itself remains frozen and immutab
 - [ ] run focused + repository regression + package/runtime smoke + consistency checks;
 - [ ] land through dedicated branch/PR with exact-head gates;
 - [ ] reconcile this TODO and public Issue #23 after landing;
-- [ ] rerun release-readiness audit on exact `main` after public Issue #23 and explicitly decide whether to cut a new RC before Issue #3.
+- [ ] rerun release-readiness audit on exact `main` after public Issue #23 and explicitly decide whether to cut a new RC before public Issue #3.
 
 public Issue #23 is a planning/control-plane semantic refinement and MUST NOT add a seventh MKI data-plane primitive or weaken existing mandatory safety/authority boundaries.
 
