@@ -14,9 +14,9 @@
 - completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
 - public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`; public PR #20 merge `01902409b7a844ac6b4d321411823a8525a96f0a`; public PR #21 merge `776395dbcde6a820b96a358d1085552331cd497c`**。
-- active concrete work: **NEXT — public Issue #23 v1.0 execution-admission semantics; public Issue #3 final `v1.0.0` is blocked until Issue #23 lands and the release gate is rerun**。
-- release judgment: **v1.0.0-rc.1 finalized without waiver; final `v1.0.0` remains NOT AUTHORIZED; Issue #23 intentionally reopens the pre-final semantic surface**。
-- release/version state: **RC prerelease `v1.0.0-rc.1` / package `1.0.0rc1` published at merge `776395dbcde6a820b96a358d1085552331cd497c`; finalization `2026-08-12 00:16:14 +09:00` Asia/Tokyo; RC evidence cannot authorize final after Issue #23 semantic changes**。
+- active concrete work: **NEXT — public Issue #23 v1.0 execution-admission semantics; public Issue #3 final `v1.0.0` is blocked until public Issue #23 lands and the release gate is rerun**。
+- release judgment: **v1.0.0-rc.1 finalized without waiver; final `v1.0.0` remains NOT AUTHORIZED; public Issue #23 intentionally reopens the pre-final semantic surface**。
+- release/version state: **RC prerelease `v1.0.0-rc.1` / package `1.0.0rc1` published at merge `776395dbcde6a820b96a358d1085552331cd497c`; finalization `2026-08-12 00:16:14 +09:00` Asia/Tokyo; RC evidence cannot authorize final after public Issue #23 semantic changes**。
 - final outcome order: **public Issue #15 → public Issue #16 → public Issue #1 audit → public Issue #2 RC → public Issue #23 execution-admission semantics → renewed exact-main release audit / new RC decision as required → public Issue #3 final → public Issue #4 umbrella**。
 
 > 会話とrepositoryが食い違う場合はcurrent `reference/`、current `main`、このTODO、relevant Issue/PR evidenceを照合してreconcileする。
@@ -41,7 +41,7 @@ The issue numbers in this historical block belong to the pre-public archive. Cur
 
 ユーザーは2026-08-04に、本来の設計思想・過去要求・current `reference/`・current implementationを再監査し、不足Issueを新設したうえで**全Issueを依存順にautonomousに解決**するよう指示した。
 
-2026-08-13、ユーザーは「v1.0までには殆どの仕様を詰め込みたい」と明示し、public Issue #23（whole-plan preflight vs incremental execution semantics）をpost-v1.0へ延期せず、**final v1.0.0前の仕様・実装blockerとして扱う**方針へ変更した。既存`v1.0.0-rc.1`はimmutableなrelease evidenceとして保持するが、そのRCのsurface freezeは今後の`main`を拘束するものではない。Issue #23のmaterial semantic change後は、既存RC evidenceをfinal authorizationへ再利用せず、exact current `main`でrelease gateをやり直し、新RCが必要かを明示判断する。
+2026-08-13、ユーザーは「v1.0までには殆どの仕様を詰め込みたい」と明示し、public Issue #23（whole-plan preflight vs incremental execution semantics）をpost-v1.0へ延期せず、**final v1.0.0前の仕様・実装blockerとして扱う**方針へ変更した。既存`v1.0.0-rc.1`はimmutableなrelease evidenceとして保持するが、そのRCのsurface freezeは今後の`main`を拘束するものではない。public Issue #23のmaterial semantic change後は、既存RC evidenceをfinal authorizationへ再利用せず、exact current `main`でrelease gateをやり直し、新RCが必要かを明示判断する。
 
 pre-public archive Issue #82 / pre-public archive PR #75 / pre-public archive Issue #72の旧preflight/rehearsal evidenceはhistorical evidenceとして保持するが、MagicalProgram/MGLS実装拡張後のrelease判断には再利用しない。
 
@@ -120,10 +120,10 @@ last released RC              public Issue #2 / public PR #21 / merge 776395dbcd
 new v1 blocker                public Issue #23 — explicit whole-plan preflight vs incremental execution semantics
 current next                  design and implement public Issue #23 from exact current main
 final release                 public Issue #3 remains blocked / NOT AUTHORIZED
-release gate                  after Issue #23 lands, rerun exact-main readiness audit and determine whether a new RC is required
+release gate                  after public Issue #23 lands, rerun exact-main readiness audit and determine whether a new RC is required
 ```
 
-The renewed audit that authorized `v1.0.0-rc.1`, public PR #21, exact-head gate, post-merge certification, and prerelease remain valid historical evidence for that RC. The 2026-08-13 user direction intentionally supersedes the prior "do not broaden frozen surface" instruction for work required by public Issue #23. Do not begin public Issue #3 from the old RC evidence. Resolve Issue #23 first, then rerun the release gate on the resulting exact current `main`.
+The renewed audit that authorized `v1.0.0-rc.1`, public PR #21, exact-head gate, post-merge certification, and prerelease remain valid historical evidence for that RC. The 2026-08-13 user direction intentionally supersedes the prior "do not broaden frozen surface" instruction for work required by public Issue #23. Do not begin public Issue #3 from the old RC evidence. Resolve public Issue #23 first, then rerun the release gate on the resulting exact current `main`.
 
 ## Audit-start / post-merge public Issue inventory
 
@@ -132,7 +132,7 @@ public stabilization / release / umbrella
   public Issue #1   renewed exact-main no-waiver release-readiness audit — GO / historical checkpoint for rc.1
   public Issue #2   v1.0.0-rc.1 — DONE / released
   public Issue #23  v1.0 execution-admission semantics — OPEN / NEXT / blocks final
-  public Issue #3   v1.0 final release — BLOCKED until #23 + renewed release gate
+  public Issue #3   v1.0 final release — BLOCKED until public Issue #23 + renewed release gate
   public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3
 ```
 
@@ -144,7 +144,7 @@ public Issue #16 temporal/causal authority reconciliation — DONE
 public Issue #1 renewed no-waiver audit for rc.1 — GO / historical checkpoint
 public Issue #2 v1.0.0-rc.1 — DONE
 public Issue #23 execution-admission semantics — NEXT
-renewed exact-main release-readiness audit — REQUIRED after #23
+renewed exact-main release-readiness audit — REQUIRED after public Issue #23
 new RC decision — REQUIRED after audit if material change demands it
 public Issue #3 final release — BLOCKED / NOT AUTHORIZED
 public Issue #4 umbrella closure — after v1.0
@@ -182,7 +182,7 @@ MKI data-plane operations          6
 World Kernel interaction classes  5
 ```
 
-Issue #23 MUST preserve the six MKI data-plane primitives, mandatory authority / Lease / conservation / identity / safety boundaries, and immutable historical snapshots. Any v1.0 stable-surface count change introduced by Issue #23 must be explicit, evidence-backed, synchronized across conformance/reference/tests, and re-audited before a new RC/final release.
+public Issue #23 MUST preserve the six MKI data-plane primitives, mandatory authority / Lease / conservation / identity / safety boundaries, and immutable historical snapshots. Any v1.0 stable-surface count change introduced by public Issue #23 must be explicit, evidence-backed, synchronized across conformance/reference/tests, and re-audited before a new RC/final release.
 
 ---
 
@@ -256,7 +256,7 @@ PRE-PUBLIC DONE: pre-public archive Issue #46 pre-public archive Issue #77 pre-p
 PUBLIC DONE:     public Issue #15 / public PR #17; public Issue #16 / public PR #18
 RC1 DONE:        public Issue #2 / public PR #21 / v1.0.0-rc.1 prerelease
 V1 BLOCKER:      public Issue #23 execution-admission semantics — NEXT
-FINAL BLOCKED:   public Issue #3 requires #23 + renewed exact-main release gate + explicit authorization
+FINAL BLOCKED:   public Issue #3 requires public Issue #23 + renewed exact-main release gate + explicit authorization
 FINAL UMBRELLA:  public Issue #4 closes after v1.0 and handoff
 ```
 
@@ -333,7 +333,7 @@ FINAL UMBRELLA:  public Issue #4 closes after v1.0 and handoff
 - [x] publish an exact-main GO report with no waivers in the consistency report and public Issue #1;
 - [x] keep version, snapshot, tag, and release state unchanged at the public Issue #1 audit checkpoint.
 
-This GO remains evidence for `v1.0.0-rc.1`; it MUST be rerun after Issue #23 before final release.
+This GO remains evidence for `v1.0.0-rc.1`; it MUST be rerun after public Issue #23 before final release.
 
 ## 2.9 public Issue #2 v1.0.0-rc.1 — DONE
 
@@ -363,10 +363,10 @@ Historical RC rule: the `v1.0.0-rc.1` artifact itself remains frozen and immutab
 - [ ] synchronize reference/schema/examples/traceability/tests/diagnostics;
 - [ ] run focused + repository regression + package/runtime smoke + consistency checks;
 - [ ] land through dedicated branch/PR with exact-head gates;
-- [ ] reconcile this TODO and Issue #23 after landing;
-- [ ] rerun release-readiness audit on exact post-#23 main and explicitly decide whether to cut a new RC before Issue #3.
+- [ ] reconcile this TODO and public Issue #23 after landing;
+- [ ] rerun release-readiness audit on exact `main` after public Issue #23 and explicitly decide whether to cut a new RC before Issue #3.
 
-Issue #23 is a planning/control-plane semantic refinement and MUST NOT add a seventh MKI data-plane primitive or weaken existing mandatory safety/authority boundaries.
+public Issue #23 is a planning/control-plane semantic refinement and MUST NOT add a seventh MKI data-plane primitive or weaken existing mandatory safety/authority boundaries.
 
 ---
 
@@ -441,7 +441,7 @@ Historical `spec/` snapshots remain immutable. The retained checkpoint timestamp
 - Literary Chinese technical register;
 - historical legacy spell profiles.
 
-These remain **post-v1.0またはexperimental** unless separately promoted by evidence-backed scope decision. Public Issue #23 has been explicitly promoted to the v1.0 blocking surface by the 2026-08-13 user direction.
+These remain **post-v1.0またはexperimental** unless separately promoted by evidence-backed scope decision. public Issue #23 has been explicitly promoted to the v1.0 blocking surface by the 2026-08-13 user direction.
 
 ---
 
