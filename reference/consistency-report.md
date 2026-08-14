@@ -498,9 +498,9 @@ no-waiver release gate and explicitly decide whether a new RC is required before
 Pre-publication local evidence on the dedicated branch:
 
 ```text
-execution-admission focused tests     PASS / 10 of 10
+execution-admission focused tests     PASS / 12 of 12
 schema validation                     PASS / 34 schemas / paired cases + traceability
-repository regression                 PASS / 431 tests / 3 environment-dependent skips
+repository regression                 PASS / 433 tests / 3 environment-dependent skips
 stable conformance                    PASS / 4 released classes / 65 of 65 required cases
 Experimental-Arcana                   PASS / 8 cases
 SpellInstanceBundle                   PASS / 12 cases

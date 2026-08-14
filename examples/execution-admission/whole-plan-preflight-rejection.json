@@ -51,8 +51,11 @@
     "destination_mass_kg": 0.0,
     "constraint_active": false,
     "gravity_applies": true,
+    "type_valid": true,
+    "identity_valid": true,
     "capability_active": true,
     "lease_active": true,
+    "runtime_safety_active": true,
     "accounted_total_mass_kg": 50.0
   },
   "expected_trace": {
@@ -72,8 +75,11 @@
       "destination_mass_kg": 0.0,
       "constraint_active": false,
       "gravity_applies": true,
+      "type_valid": true,
+      "identity_valid": true,
       "capability_active": true,
       "lease_active": true,
+      "runtime_safety_active": true,
       "accounted_total_mass_kg": 50.0
     },
     "prior_commits_rolled_back": false,

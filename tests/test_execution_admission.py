@@ -69,6 +69,24 @@ class ExecutionAdmissionTests(unittest.TestCase):
         self.assertEqual(trace["committed_group_ids"], [])
         self.assertEqual(trace["final_world"], case["initial_world"])
 
+    def test_every_state_backed_local_guard_rejects_before_first_effect(self) -> None:
+        fields = {
+            "type_valid": "Type",
+            "identity_valid": "Identity",
+            "capability_active": "Capability",
+            "lease_active": "Lease",
+            "runtime_safety_active": "RuntimeSafety",
+        }
+        for field, guard in fields.items():
+            case = copy.deepcopy(self.incremental)
+            case["initial_world"][field] = False
+            with self.subTest(field=field):
+                trace = self.runtime.execute(case)
+                self.assertEqual(trace["diagnostic"]["code"], "LocalAdmissionRejected")
+                self.assertEqual(trace["diagnostic"]["failed_guard"], guard)
+                self.assertEqual(trace["committed_group_ids"], [])
+                self.assertEqual(trace["final_world"], case["initial_world"])
+
     def test_unsupported_policy_fails_closed(self) -> None:
         case = copy.deepcopy(self.incremental)
         case["policy"]["mode"] = "BestEffort"
@@ -77,12 +95,22 @@ class ExecutionAdmissionTests(unittest.TestCase):
             self.runtime.execute(case)
         self.assertTrue(list(self.validator.iter_errors(case)))
 
+    def test_duplicate_atomic_group_identity_fails_closed(self) -> None:
+        case = copy.deepcopy(self.incremental)
+        case["plan"]["atomic_groups"][1]["group_id"] = case["plan"][
+            "atomic_groups"
+        ][0]["group_id"]
+
+        with self.assertRaises(ExecutionAdmissionError):
+            self.runtime.execute(case)
+
     def test_missing_local_guard_fails_closed(self) -> None:
         case = copy.deepcopy(self.incremental)
         case["plan"]["atomic_groups"][0]["local_guards"].remove("Lease")
 
         with self.assertRaises(ExecutionAdmissionError):
             self.runtime.execute(case)
+        self.assertTrue(list(self.validator.iter_errors(case)))
 
     def test_preflight_cannot_claim_reservation_or_authority(self) -> None:
         for field in (

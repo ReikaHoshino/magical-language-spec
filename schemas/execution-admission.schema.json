@@ -142,13 +142,16 @@
         "mki_operations": {
           "type": "array",
           "minItems": 1,
+          "maxItems": 6,
+          "uniqueItems": true,
           "items": {
             "enum": ["RESOLVE", "OBSERVE", "CHANNEL", "TRANSFER", "RECONFIGURE", "CONSTRAIN"]
           }
         },
         "local_guards": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 7,
+          "maxItems": 7,
           "items": {
             "enum": ["Type", "Identity", "Capability", "Lease", "Conservation", "Accounting", "RuntimeSafety"]
           },
@@ -167,8 +170,11 @@
         "destination_mass_kg",
         "constraint_active",
         "gravity_applies",
+        "type_valid",
+        "identity_valid",
         "capability_active",
         "lease_active",
+        "runtime_safety_active",
         "accounted_total_mass_kg"
       ],
       "properties": {
@@ -177,8 +183,11 @@
         "destination_mass_kg": {"type": "number", "minimum": 0},
         "constraint_active": {"type": "boolean"},
         "gravity_applies": {"type": "boolean"},
+        "type_valid": {"type": "boolean"},
+        "identity_valid": {"type": "boolean"},
         "capability_active": {"type": "boolean"},
         "lease_active": {"type": "boolean"},
+        "runtime_safety_active": {"type": "boolean"},
         "accounted_total_mass_kg": {"type": "number", "minimum": 0}
       },
       "additionalProperties": false

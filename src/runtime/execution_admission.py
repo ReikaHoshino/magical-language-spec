@@ -43,8 +43,11 @@ class AdmissionWorld:
     destination_mass_kg: float
     constraint_active: bool
     gravity_applies: bool
+    type_valid: bool
+    identity_valid: bool
     capability_active: bool
     lease_active: bool
+    runtime_safety_active: bool
     accounted_total_mass_kg: float
     history_event_ids: list[str]
 
@@ -56,8 +59,11 @@ class AdmissionWorld:
             destination_mass_kg=float(record["destination_mass_kg"]),
             constraint_active=bool(record["constraint_active"]),
             gravity_applies=bool(record["gravity_applies"]),
+            type_valid=bool(record["type_valid"]),
+            identity_valid=bool(record["identity_valid"]),
             capability_active=bool(record["capability_active"]),
             lease_active=bool(record["lease_active"]),
+            runtime_safety_active=bool(record["runtime_safety_active"]),
             accounted_total_mass_kg=float(record["accounted_total_mass_kg"]),
             history_event_ids=[],
         )
@@ -72,8 +78,11 @@ class AdmissionWorld:
             "destination_mass_kg": self.destination_mass_kg,
             "constraint_active": self.constraint_active,
             "gravity_applies": self.gravity_applies,
+            "type_valid": self.type_valid,
+            "identity_valid": self.identity_valid,
             "capability_active": self.capability_active,
             "lease_active": self.lease_active,
+            "runtime_safety_active": self.runtime_safety_active,
             "accounted_total_mass_kg": self.accounted_total_mass_kg,
         }
 
@@ -185,6 +194,9 @@ class ExecutionAdmissionRuntime:
         groups = case.get("plan", {}).get("atomic_groups")
         if not isinstance(groups, list) or not groups:
             raise ExecutionAdmissionError("Execution plan has no atomic groups.")
+        group_ids = [group.get("group_id") for group in groups]
+        if len(group_ids) != len(set(group_ids)):
+            raise ExecutionAdmissionError("Execution plan group IDs must be unique.")
         for group in groups:
             operations = set(group.get("mki_operations", []))
             if not operations or not operations <= SUPPORTED_MKI:
@@ -220,10 +232,16 @@ class ExecutionAdmissionRuntime:
     def _local_admission_failure(
         group: dict[str, Any], world: AdmissionWorld
     ) -> str | None:
+        if not world.type_valid:
+            return "Type"
+        if not world.identity_valid:
+            return "Identity"
         if not world.capability_active:
             return "Capability"
         if not world.lease_active:
             return "Lease"
+        if not world.runtime_safety_active:
+            return "RuntimeSafety"
         amount = group.get("transfer_mass_kg")
         if not isinstance(amount, (int, float)) or amount <= 0:
             return "Type"

@@ -361,7 +361,7 @@ Historical RC rule: the `v1.0.0-rc.1` artifact itself remains frozen and immutab
 - [x] define `ExecutionAdmissionPolicy` ownership/precedence and settle `Incremental` / `WholePlanPreflight` names without a language-independent implicit default;
 - [x] add paired water-transfer regression fixtures for partial-progress failure vs explicit preflight rejection;
 - [x] synchronize current reference/schema/examples/traceability/tests/stable diagnostics without changing historical `spec/`;
-- [x] run focused tests (10/10), schema validation (34 schemas), repository regression (431 tests / 3 environment skips), stable conformance (65/65), experimental suites, checkout-external editable evaluator/runtime/12-bundle smoke, and `git diff --check`;
+- [x] run focused tests (12/12), schema validation (34 schemas), repository regression (433 tests / 3 environment skips), stable conformance (65/65), experimental suites, checkout-external editable evaluator/runtime/12-bundle smoke, and `git diff --check`;
 - [ ] land through dedicated branch/PR with exact-head gates;
 - [ ] reconcile this TODO and public Issue #23 after landing;
 - [ ] rerun release-readiness audit on exact `main` after public Issue #23 and explicitly decide whether to cut a new RC before public Issue #3.
