@@ -14,10 +14,10 @@
 - completed pre-public architecture roadmap: **pre-public archive Issue #84 — MagicalProgram / MGLS common user workflow**。
 - public migration baseline: **public `main` `46f366ddb221a1517c6545784b4614154423e1da`**。
 - public hardening checkpoints: **public PR #5 merge `de9341aa288159067b2a6cf598d28ff850164815`; public PR #8 merge `b707ed3fa865f2b4aa190bc4975c37a391eb503b`; public PR #9 merge `2865e2513f1d3ca81f57832520638994a7a24724`; public PR #10 merge `dbdd51c8947487fdb7c2a2c104cc250b8c773eb4`; public PR #17 merge `82c3a42d169fe8e88cdc141eab23af24a44fe11c`; public PR #18 merge `0df7c42dfd741086cb0dcace040f69419f99acbb`; public PR #19 merge `105946c1315799cbfbf6c2a8b59df0bd7e67a4c3`; public PR #20 merge `01902409b7a844ac6b4d321411823a8525a96f0a`; public PR #21 merge `776395dbcde6a820b96a358d1085552331cd497c`**。
-- active concrete work: **NEXT — public Issue #23 v1.0 execution-admission semantics; public Issue #3 final `v1.0.0` is blocked until public Issue #23 lands and the release gate is rerun**。
+- active concrete work: **IN PROGRESS — public Issue #25 semantic completion umbrella, including public Issue #23 execution admission / open public PR #27 and public Issue #26 semantic genericity**。
 - release judgment: **v1.0.0-rc.1 finalized without waiver; final `v1.0.0` remains NOT AUTHORIZED; public Issue #23 intentionally reopens the pre-final semantic surface**。
 - release/version state: **RC prerelease `v1.0.0-rc.1` / package `1.0.0rc1` published at merge `776395dbcde6a820b96a358d1085552331cd497c`; finalization `2026-08-12 00:16:14 +09:00` Asia/Tokyo; RC evidence cannot authorize final after public Issue #23 semantic changes**。
-- final outcome order: **public Issue #15 → public Issue #16 → public Issue #1 audit → public Issue #2 RC → public Issue #23 execution-admission semantics → renewed exact-main release audit / new RC decision as required → public Issue #3 final → public Issue #4 umbrella**。
+- final outcome order: **public Issue #25 umbrella: public Issue #23 + public Issue #26 + remaining umbrella criteria → renewed exact-main release audit → new RC decision → separately authorized public Issue #3 final → public Issue #4 umbrella**。Earlier public Issue #1 / public Issue #2 evidence remains historical RC evidence only.
 
 > 会話とrepositoryが食い違う場合はcurrent `reference/`、current `main`、このTODO、relevant Issue/PR evidenceを照合してreconcileする。
 
@@ -38,6 +38,19 @@ pre-public archive Issue #39 v1.0.0 final
 The issue numbers in this historical block belong to the pre-public archive. Current public tracking is public Issue #15 → public Issue #16 → public Issue #1 → public Issue #2 → public Issue #23 → renewed release gate → public Issue #3 → public Issue #4 below。
 
 ## Current checkpoint
+
+### 2026-09-19 semantic-completion restart / audit interruption
+
+- Verified public `main`: `018c678b3c611681e208a843cd44ebec271ab15d`.
+- Open public Issues: public Issue #3, public Issue #4, public Issue #23, public Issue #25, public Issue #26.
+- Open public PR #27: `agent/public-issue-23-execution-admission`, head `c0b87e32e16b61f80ad5aa56d220f6269a4d0e05`, not merged. CI success is not semantic acceptance.
+- public Issue #25 comment `5277442908` requires public Issue #26 completion before umbrella closure; public Issue #23 comment `5277406714` requires integration with public Issue #25 rather than an isolated admission patch.
+- Active checkpoint branch: `agent/v1-semantic-completion-checkpoint`. This checkpoint changes planning only; it does not adopt public PR #27 semantics.
+- The preceding 54-document reference audit was interrupted by the explicit semantic-completion request. Inventory and baseline checks completed, but whole-reference findings/coverage are **not certified complete**. Carry-over evidence and the phased acceptance plan are in [`planning/v1-semantic-completion-program.md`](planning/v1-semantic-completion-program.md).
+- Architecture review: public PR #27 is not merge-ready; its separate mass/constraint runtime does not satisfy public Issue #26. See the planning checkpoint for exact evidence.
+- Accepted decision D-01 (2026-09-19): source/program explicitly declares atomic-group boundaries; existing ungrouped inputs retain one atomic group; the existing runtime executes each group. Never infer group partitions from node order or fixture identity.
+- Next action: publish this planning-only checkpoint, then implement D-01 through the existing evaluator/PREPARE/registered executor/COMMIT/replay machinery and rework public PR #27.
+- Stop boundary: no version bump, new RC/tag, final publication, historical snapshot change, or public Issue #3 closure. After all semantic blockers close, record a renewed exact-main GO/NO-GO audit and new-RC recommendation, then stop for separate release authorization.
 
 ユーザーは2026-08-04に、本来の設計思想・過去要求・current `reference/`・current implementationを再監査し、不足Issueを新設したうえで**全Issueを依存順にautonomousに解決**するよう指示した。
 
@@ -117,13 +130,15 @@ stable surface                counts/version/historical snapshots unchanged
 ```text
 public migration baseline     46f366ddb221a1517c6545784b4614154423e1da
 last released RC              public Issue #2 / public PR #21 / merge 776395dbcde6a820b96a358d1085552331cd497c / v1.0.0-rc.1
-new v1 blocker                public Issue #23 — explicit whole-plan preflight vs incremental execution semantics
-current next                  design and implement public Issue #23 from exact current main
+semantic umbrella             public Issue #25 — OPEN; public Issue #23 + public Issue #26 + remaining umbrella criteria
+execution admission           public Issue #23 / public PR #27 — OPEN; architecture review/rework before landing
+genericity child               public Issue #26 — OPEN; must close before public Issue #25
+current next                  checkpoint reconciliation, then integrated public PR #27 architecture review
 final release                 public Issue #3 remains blocked / NOT AUTHORIZED
-release gate                  after public Issue #23 lands, rerun exact-main readiness audit and determine whether a new RC is required
+release gate                  after public Issue #25 and all children close, renewed exact-main audit and new-RC decision
 ```
 
-The renewed audit that authorized `v1.0.0-rc.1`, public PR #21, exact-head gate, post-merge certification, and prerelease remain valid historical evidence for that RC. The 2026-08-13 user direction intentionally supersedes the prior "do not broaden frozen surface" instruction for work required by public Issue #23. Do not begin public Issue #3 from the old RC evidence. Resolve public Issue #23 first, then rerun the release gate on the resulting exact current `main`.
+The renewed audit that authorized `v1.0.0-rc.1`, public PR #21, exact-head gate, post-merge certification, and prerelease remain valid historical evidence for that RC. The 2026-08-13 user direction intentionally supersedes the prior "do not broaden frozen surface" instruction for work required by public Issue #23. Do not begin public Issue #3 from the old RC evidence. Complete public Issue #25, including public Issue #23, public Issue #26, and any evidence-backed child work, then rerun the release gate on exact current `main`.
 
 ## Audit-start / post-merge public Issue inventory
 
@@ -131,8 +146,10 @@ The renewed audit that authorized `v1.0.0-rc.1`, public PR #21, exact-head gate,
 public stabilization / release / umbrella
   public Issue #1   renewed exact-main no-waiver release-readiness audit — GO / historical checkpoint for rc.1
   public Issue #2   v1.0.0-rc.1 — DONE / released
-  public Issue #23  v1.0 execution-admission semantics — OPEN / NEXT / blocks final
-  public Issue #3   v1.0 final release — BLOCKED until public Issue #23 + renewed release gate
+  public Issue #25  semantic completion umbrella — OPEN / IN PROGRESS / blocks final
+  public Issue #23  execution-admission child / public PR #27 — OPEN / architecture review required
+  public Issue #26  hard-coding resistance / genericity child — OPEN / required before umbrella closure
+  public Issue #3   v1.0 final release — BLOCKED until public Issue #25 + all children + renewed release gate
   public Issue #4   v0.8 → v1.0 umbrella roadmap — closes after public Issue #3
 ```
 
@@ -143,8 +160,11 @@ public Issue #15 tracker-reference qualification — DONE
 public Issue #16 temporal/causal authority reconciliation — DONE
 public Issue #1 renewed no-waiver audit for rc.1 — GO / historical checkpoint
 public Issue #2 v1.0.0-rc.1 — DONE
-public Issue #23 execution-admission semantics — NEXT
-renewed exact-main release-readiness audit — REQUIRED after public Issue #23
+public Issue #25 semantic completion umbrella — IN PROGRESS
+  public Issue #23 execution admission — review/rework public PR #27
+  public Issue #26 semantic genericity — proof required for admission and defaults
+  remaining public Issue #25 ownership/defaults/ordering/lifecycle/failure/diagnostic criteria
+renewed exact-main release-readiness audit — REQUIRED after public Issue #25 and all children
 new RC decision — REQUIRED after audit if material change demands it
 public Issue #3 final release — BLOCKED / NOT AUTHORIZED
 public Issue #4 umbrella closure — after v1.0
@@ -255,8 +275,9 @@ current user instruction
 PRE-PUBLIC DONE: pre-public archive Issue #46 pre-public archive Issue #77 pre-public archive Issue #84 pre-public archive Issue #86 pre-public archive Issue #87 pre-public archive Issue #88 pre-public archive Issue #89 pre-public archive Issue #90 pre-public archive Issue #91 pre-public archive Issue #92 pre-public archive Issue #93 pre-public archive Issue #94 pre-public archive Issue #110 pre-public archive Issue #114 pre-public archive Issue #118
 PUBLIC DONE:     public Issue #15 / public PR #17; public Issue #16 / public PR #18
 RC1 DONE:        public Issue #2 / public PR #21 / v1.0.0-rc.1 prerelease
-V1 BLOCKER:      public Issue #23 execution-admission semantics — NEXT
-FINAL BLOCKED:   public Issue #3 requires public Issue #23 + renewed exact-main release gate + explicit authorization
+V1 UMBRELLA:     public Issue #25 semantic completion — IN PROGRESS
+V1 CHILDREN:     public Issue #23 / public PR #27 execution admission; public Issue #26 semantic genericity — OPEN
+FINAL BLOCKED:   public Issue #3 requires public Issue #25 + all children + renewed exact-main release gate + explicit authorization
 FINAL UMBRELLA:  public Issue #4 closes after v1.0 and handoff
 ```
 
@@ -351,7 +372,9 @@ This GO remains evidence for `v1.0.0-rc.1`; it MUST be rerun after public Issue 
 
 Historical RC rule: the `v1.0.0-rc.1` artifact itself remains frozen and immutable. The 2026-08-13 user direction permits new v1.0-targeted semantic work on `main`; such work means rc.1 can no longer serve as the sole final-release candidate evidence.
 
-## 2.10 public Issue #23 explicit whole-plan preflight vs incremental execution semantics — NEXT / V1 BLOCKER
+## 2.10 public Issue #23 explicit whole-plan preflight vs incremental execution semantics — OPEN / V1 BLOCKER
+
+public PR #27 is an unmerged candidate, not completed main evidence. Review/rework it against public Issue #25 and public Issue #26; retain the unchecked landing/acceptance items below until corroborated. Water-specific fixture execution alone cannot close this child.
 
 - [ ] re-read `reference/architecture.md`, `reference/feasibility.md`, `reference/kernel-execution.md`, `reference/planning-inference.md`, `reference/canonical-water-ball.md`, relevant schemas/tests, and exact current main;
 - [ ] define local admission/commit safety separately from optional whole-plan completion preflight;
@@ -367,6 +390,22 @@ Historical RC rule: the `v1.0.0-rc.1` artifact itself remains frozen and immutab
 - [ ] rerun release-readiness audit on exact `main` after public Issue #23 and explicitly decide whether to cut a new RC before public Issue #3.
 
 public Issue #23 is a planning/control-plane semantic refinement and MUST NOT add a seventh MKI data-plane primitive or weaken existing mandatory safety/authority boundaries.
+
+## 2.11 public Issue #25 umbrella / public Issue #26 genericity — IN PROGRESS
+
+- [x] re-fetch exact public main and enumerate open public Issues/PRs;
+- [x] verify umbrella/child requirements against public Issue bodies and comments;
+- [ ] review/rework public PR #27 against the existing runtime rather than add a parallel engine;
+- [ ] prove domain-independent execution admission using matter and structurally different non-water programs;
+- [ ] inventory dispatch discriminators and semantic constant ownership;
+- [ ] prove contextual/default binding on a different field and type;
+- [ ] add metamorphic/perturbation cases and a bounded static hard-coding guard;
+- [ ] reconcile source-to-WorldState ownership, ordering, lifecycle, failure, atomicity, and diagnostics;
+- [ ] resolve independently owned gaps through focused child public Issues where needed;
+- [ ] synchronize reference/schema/fixtures/conformance/tests and justify current vs released conformance scope;
+- [ ] close public Issue #23 and public Issue #26 only with exact landed evidence;
+- [ ] close public Issue #25 only after all children and umbrella acceptance criteria pass;
+- [ ] run renewed exact-main no-waiver audit and record GO/NO-GO plus new-RC recommendation; do not perform the release task.
 
 ---
 
