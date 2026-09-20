@@ -36,6 +36,14 @@ The root is a closed JSON object containing:
 
 Unknown fields and unknown instruction names fail closed.
 
+The unreleased v1 candidate additionally admits an optional
+`execution_admission` record owned by [execution-admission.md](execution-admission.md).
+It explicitly names the policy and an exhaustive, disjoint, ordered atomic-group
+partition. Structural admission/compiler support does not imply execution:
+the current evaluator/PREPARE rejects it with `UnsupportedExecutionAdmission`.
+Its absence preserves the existing single-COMMIT behavior. This extension is
+not yet evidence for closing the v1 semantic blockers.
+
 ## 3. Values and resolution
 
 Revision 0 admits top-level bindings of these kinds:

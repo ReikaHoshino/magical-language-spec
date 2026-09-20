@@ -1,0 +1,27 @@
+{
+  "contract_id": "execution-admission-structure-evidence",
+  "revision": "1",
+  "status": "unreleased-v1-foundation-only",
+  "owner": "reference/execution-admission.md",
+  "execution_implemented": false,
+  "released_surface_changed": false,
+  "completion_owners": ["public Issue #23", "public Issue #25", "public Issue #26"],
+  "test_file": "tests/test_execution_admission_structure.py",
+  "test_class": "ExecutionAdmissionStructureTests",
+  "rules": [
+    {"id": "EA-STRUCT-001", "tests": ["test_explicit_policies_compile_and_re_admit", "test_closed_execution_record_rejects_unknown_or_missing_fields"]},
+    {"id": "EA-STRUCT-002", "tests": ["test_group_partition_rejects_duplicate_missing_unknown_and_overlapping_nodes"]},
+    {"id": "EA-STRUCT-003", "tests": ["test_group_metadata_does_not_replace_data_edges_or_host_limits", "test_irrelevant_presentation_and_names_do_not_select_execution"]},
+    {"id": "EA-STRUCT-004", "tests": ["test_group_metadata_does_not_replace_data_edges_or_host_limits"]},
+    {"id": "EA-STRUCT-005", "tests": ["test_source_map_preserves_explicit_policy_and_group_spans", "test_source_rejects_implicit_mixed_nested_or_empty_groups", "test_source_filename_is_not_a_group_discriminator"]},
+    {"id": "EA-STRUCT-006", "tests": ["test_evaluate_and_execute_fail_closed_for_both_policies", "test_prepare_cannot_bypass_denial_with_a_forged_report", "test_one_explicit_group_is_not_silently_downgraded", "test_public_source_and_emitted_program_check_but_never_run"]},
+    {"id": "EA-STRUCT-007", "tests": ["test_unchanged_inputs_do_not_gain_groups_and_still_commit"]}
+  ],
+  "installed_smoke": "tools/package_program_runtime_smoke.py",
+  "outstanding": [
+    "existing-runtime group execution and frozen cross-group bindings",
+    "whole-plan preflight and post-preflight drift",
+    "matter and non-water success/partial-failure/replay proof",
+    "lifecycle settlement, defaults, genericity and required v1 coverage"
+  ]
+}

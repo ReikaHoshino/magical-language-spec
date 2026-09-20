@@ -206,6 +206,14 @@ class MagicalProgramEvaluator:
                     "Program registry/profile binding does not match the evaluator.",
                     path="/compatibility",
                 )
+            if "execution_admission" in document:
+                raise ProgramSemanticError(
+                    "UnsupportedExecutionAdmission",
+                    "Explicit atomic groups are structurally admitted, but this "
+                    "evaluator/runtime does not yet execute grouped programs.",
+                    path="/execution_admission",
+                    details={"path": "/execution_admission"},
+                )
             report = self._evaluate(document, admission)
         except MagicalProgramAdmissionError as error:
             report = _fatal(

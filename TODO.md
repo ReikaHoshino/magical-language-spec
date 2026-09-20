@@ -35,21 +35,23 @@ pre-public archive Issue #38 v1.0.0-rc.N
 pre-public archive Issue #39 v1.0.0 final
 ```
 
-The issue numbers in this historical block belong to the pre-public archive. Current public tracking is public Issue #15 → public Issue #16 → public Issue #1 → public Issue #2 → public Issue #23 → renewed release gate → public Issue #3 → public Issue #4 below。
+The issue numbers in this historical block belong to the pre-public archive. Current public tracking is public Issue #25 (public Issue #23 + public Issue #26 + remaining umbrella criteria) → renewed release gate → new-RC decision → public Issue #3 → public Issue #4 below。
 
 ## Current checkpoint
 
 ### 2026-09-19 semantic-completion restart / audit interruption
 
-- Verified public `main`: `018c678b3c611681e208a843cd44ebec271ab15d`.
+- Restart-baseline public `main`: `018c678b3c611681e208a843cd44ebec271ab15d`.
 - Open public Issues: public Issue #3, public Issue #4, public Issue #23, public Issue #25, public Issue #26.
 - Open public PR #27: `agent/public-issue-23-execution-admission`, head `c0b87e32e16b61f80ad5aa56d220f6269a4d0e05`, not merged. CI success is not semantic acceptance.
 - public Issue #25 comment `5277442908` requires public Issue #26 completion before umbrella closure; public Issue #23 comment `5277406714` requires integration with public Issue #25 rather than an isolated admission patch.
-- Active checkpoint branch: `agent/v1-semantic-completion-checkpoint`. This checkpoint changes planning only; it does not adopt public PR #27 semantics.
+- Landed planning-checkpoint branch: `agent/v1-semantic-completion-checkpoint`. That checkpoint changed planning only; it did not adopt public PR #27 semantics.
 - The preceding 54-document reference audit was interrupted by the explicit semantic-completion request. Inventory and baseline checks completed, but whole-reference findings/coverage are **not certified complete**. Carry-over evidence and the phased acceptance plan are in [`planning/v1-semantic-completion-program.md`](planning/v1-semantic-completion-program.md).
 - Architecture review: public PR #27 is not merge-ready; its separate mass/constraint runtime does not satisfy public Issue #26. See the planning checkpoint for exact evidence.
 - Accepted decision D-01 (2026-09-19): source/program explicitly declares atomic-group boundaries; existing ungrouped inputs retain one atomic group; the existing runtime executes each group. Never infer group partitions from node order or fixture identity.
-- Next action: publish this planning-only checkpoint, then implement D-01 through the existing evaluator/PREPARE/registered executor/COMMIT/replay machinery and rework public PR #27.
+- Planning checkpoint landed: public PR #28, merge `05b32bc78b1c9607603006951bc4408ed1829c46`; post-merge package/runtime smoke passed.
+- Current implementation branch: `agent/v1-explicit-atomic-groups`, based on that exact main. Phase 2a implements explicit source/program partition representation, structural checks and source maps. Evaluation/PREPARE deliberately reject grouped execution until phase 2b connects the existing runtime; no new engine is added.
+- Next action: validate/publish phase 2a, then implement same-runtime group execution, frozen cross-group bindings, WholePlanPreflight, lifecycle settlement and matter/non-water proof. The existing public PR #27 remains unmerged and is not closed as superseded by this incomplete foundation.
 - Stop boundary: no version bump, new RC/tag, final publication, historical snapshot change, or public Issue #3 closure. After all semantic blockers close, record a renewed exact-main GO/NO-GO audit and new-RC recommendation, then stop for separate release authorization.
 
 ユーザーは2026-08-04に、本来の設計思想・過去要求・current `reference/`・current implementationを再監査し、不足Issueを新設したうえで**全Issueを依存順にautonomousに解決**するよう指示した。
@@ -133,7 +135,7 @@ last released RC              public Issue #2 / public PR #21 / merge 776395dbcd
 semantic umbrella             public Issue #25 — OPEN; public Issue #23 + public Issue #26 + remaining umbrella criteria
 execution admission           public Issue #23 / public PR #27 — OPEN; architecture review/rework before landing
 genericity child               public Issue #26 — OPEN; must close before public Issue #25
-current next                  checkpoint reconciliation, then integrated public PR #27 architecture review
+current next                  phase 2a explicit-group representation/denial foundation; then phase 2b existing-runtime integration
 final release                 public Issue #3 remains blocked / NOT AUTHORIZED
 release gate                  after public Issue #25 and all children close, renewed exact-main audit and new-RC decision
 ```
@@ -399,6 +401,8 @@ public Issue #23 is a planning/control-plane semantic refinement and MUST NOT ad
 - [ ] prove domain-independent execution admission using matter and structurally different non-water programs;
 - [ ] inventory dispatch discriminators and semantic constant ownership;
 - [ ] prove contextual/default binding on a different field and type;
+- [ ] land phase 2a explicit-group representation/compiler/structural-admission foundation (implementation in progress; grouped execution remains rejected);
+- [ ] implement phase 2b same-runtime group execution/preflight and cross-group bindings; phase 2a is not public Issue #23 completion;
 - [ ] add metamorphic/perturbation cases and a bounded static hard-coding guard;
 - [ ] reconcile source-to-WorldState ownership, ordering, lifecycle, failure, atomicity, and diagnostics;
 - [ ] resolve independently owned gaps through focused child public Issues where needed;
@@ -516,4 +520,4 @@ pre-public archive Issue #93 MGLS compiler pre-public archive PR #133 merge 4f61
 pre-public archive Issue #94 unified workflow pre-public archive PR #135 merge d5ed0fae5570c8c5ada40533689246d82e2d1d09
 ```
 
-Historical ledger entries do not authorize a release. public Issue #2 remains authoritative evidence for the immutable `v1.0.0-rc.1` artifact only. Final `v1.0.0` remains unauthorized and owned by public Issue #3, which is now blocked by public Issue #23 and a renewed exact-main release gate.
+Historical ledger entries do not authorize a release. public Issue #2 remains authoritative evidence for the immutable `v1.0.0-rc.1` artifact only. Final `v1.0.0` remains unauthorized and owned by public Issue #3, blocked by public Issue #25, its public Issue #23/public Issue #26 children, and a renewed exact-main release gate/new-RC decision.

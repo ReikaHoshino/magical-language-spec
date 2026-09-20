@@ -11,6 +11,7 @@ from src.evaluator.magical_program import (
     ProgramContractRegistry,
 )
 from src.resources import reference_root, resource_path
+from src.mgls import compile_source
 from src.runtime.magical_program import (
     MagicalProgramRuntime,
     ProgramRuntimeContractRegistry,
@@ -89,6 +90,17 @@ def structured_runtime() -> MagicalProgramRuntime:
 
 def main() -> int:
     runtime = MagicalProgramRuntime()
+    grouped = compile_source(resource_path(
+        "examples/execution-admission/explicit-groups.mgls"
+    ).read_bytes())["program"]
+    grouped_world = program_sandbox_world()
+    grouped_before = complete_runtime_state(grouped_world)
+    grouped_trace = runtime.execute(grouped, grouped_world)
+    if (
+        grouped_trace.get("abort", {}).get("code") != "UnsupportedExecutionAdmission"
+        or complete_runtime_state(grouped_world) != grouped_before
+    ):
+        raise RuntimeError("installed runtime silently flattened explicit atomic groups")
     transition = load("examples/magical-program/MP-001.json")
     observation = load("examples/magical-program/MP-OBSERVE-001.json")
     pure = load("examples/magical-program/MP-PURE-001.json")
@@ -214,6 +226,7 @@ def main() -> int:
                 "abort": abort_trace["status"],
                 "abort_replay": abort_replay["status"],
                 "host_ceiling_abort": strict_trace["abort"]["code"],
+                "explicit_group_guard": grouped_trace["abort"]["code"],
             },
             sort_keys=True,
         )

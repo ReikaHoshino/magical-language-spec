@@ -38,6 +38,12 @@ structural admission
 
 Failures are deterministic `Infeasible` reports with stable program locations.
 
+At the current unreleased group-representation checkpoint, a valid explicit
+`execution_admission` record is recognized but rejected before pure evaluation
+with `UnsupportedExecutionAdmission`. It cannot be flattened into the legacy
+path. The [extension owner](execution-admission.md) distinguishes compilation /
+structural admission from the still-unimplemented grouped execution contract.
+
 ## 3. Typed bindings
 
 Initial values retain literal, quantity, record, sequence, selector, or untrusted-hint type. Produced bindings are immutable and have one producer.

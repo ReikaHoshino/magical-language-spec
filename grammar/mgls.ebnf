@@ -4,9 +4,18 @@
 (* normative in reference/mgls-source-language.md.                       *)
 
 source                  = header,
+                          [ admission-declaration ],
                           { value-declaration },
-                          { node-declaration },
+                          ( { node-declaration } | atomic-group, { atomic-group } ),
                           { output-declaration } ;
+
+(* With admission every node MUST belong to an atomic-group; without it    *)
+(* atomic-group is prohibited. Static admission enforces this dependency.  *)
+admission-declaration   = "admission", admission-policy, ";" ;
+admission-policy        = "Incremental" | "WholePlanPreflight" ;
+atomic-group            = "atomic", group-name, "{",
+                          node-declaration, { node-declaration }, "}" ;
+group-name              = identifier ;
 
 header                  = version-declaration,
                           source-id-declaration,

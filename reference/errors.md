@@ -402,6 +402,16 @@ register/styleだけの変化でSemanticFingerprint対象外ならdriftにしな
 
 ## 11. Fail policy
 
+Explicit-group representation diagnostics are owned by
+[execution-admission.md](execution-admission.md): `ProgramDuplicateAtomicGroup`,
+`ProgramAtomicGroupUnknownNode`, `ProgramAtomicGroupOverlap`,
+`ProgramAtomicGroupIncomplete` and `ProgramAtomicGroupOrderViolation` are
+structural admission failures. `UnsupportedExecutionAdmission` means a
+recognized policy/partition has no admitted evaluator/runtime implementation
+yet, not that guards may be skipped or the partition flattened. Source
+target-admission failures retain these codes in `StructuredInputInvalid`
+details. No authoritative effect is produced.
+
 原則fail closed:
 
 - type/dimension/payload不整合。
