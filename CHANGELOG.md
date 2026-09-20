@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — v1 semantic completion foundation
+
+- public Issue #23/public Issue #25 D-01: optional explicit execution-admission policy and atomic-group partition, MGLS lowering/source maps, closed schema and structural checks.
+- This checkpoint is compile/check-only. Evaluation and PREPARE reject grouped inputs with `UnsupportedExecutionAdmission`, including forged reports and single explicit groups; old ungrouped inputs retain their single-COMMIT behavior.
+- Same-runtime incremental/preflight execution, matter/non-water proof, lifecycle settlement, genericity and required v1 conformance integration remain blockers. Released counts and package version are unchanged; this is not a release or umbrella completion.
+
 ## Unreleased experimental
 
 - pre-public archive Issue #91 / pre-public archive PR #129: public `SpellInstanceBundle` executionをcomplete current `MagicalProgram-0` pathへcutoverし、専用executorをlegacy oracleへ隔離。

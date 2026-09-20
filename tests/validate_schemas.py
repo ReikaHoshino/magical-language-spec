@@ -642,6 +642,10 @@ def main() -> None:
         raise AssertionError("Experimental-Arcana manifest does not own every canonical success bundle")
 
     validate_release_consistency()
+    from src.mgls import compile_file
+    grouped = compile_file(ROOT / "examples/execution-admission/explicit-groups.mgls")
+    validator("magical-program.schema.json").validate(grouped["program"])
+    validator("mgls-source-map.schema.json").validate(grouped["source_map"])
 
     print(
         f"validated {len(list(SCHEMAS.glob('*.schema.json')))} schemas, "
@@ -657,7 +661,7 @@ def main() -> None:
         f"{len(success_arcana_paths)} Experimental-Arcana fixture documents, "
         f"{len(spell_instance_paths)} SpellInstanceBundle documents, "
         "2 Latin adapter fixtures, 1 SemanticFingerprintV1 fixture, "
-        "and the FeasibilityReport fixture"
+        "the FeasibilityReport fixture, and 1 explicit atomic-group compilation"
     )
 
 

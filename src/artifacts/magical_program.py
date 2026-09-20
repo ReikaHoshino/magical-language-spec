@@ -492,6 +492,56 @@ def _check_graph(program: _JSON, limits: MagicalProgramHostLimits) -> None:
             )
 
 
+def _check_atomic_groups(program: _JSON) -> None:
+    """Validate a source-owned partition; never infer one from node order."""
+    execution = program.get("execution_admission")
+    if execution is None:
+        return
+    path = "/execution_admission/atomic_groups"
+    groups = execution["atomic_groups"]
+    _unique(
+        (group["group_id"] for group in groups),
+        code="ProgramDuplicateAtomicGroup",
+        label="atomic group ID",
+        path=path,
+    )
+    node_ids = {node["node_id"] for node in program["nodes"]}
+    membership: dict[str, int] = {}
+    for index, group in enumerate(groups):
+        for member in group["node_ids"]:
+            if member not in node_ids:
+                raise MagicalProgramAdmissionError(
+                    "ProgramAtomicGroupUnknownNode",
+                    f"Atomic group references unknown node {member!r}.",
+                    path=f"{path}/{index}/node_ids",
+                )
+            if member in membership:
+                raise MagicalProgramAdmissionError(
+                    "ProgramAtomicGroupOverlap",
+                    f"Node {member!r} belongs to more than one atomic group.",
+                    path=f"{path}/{index}/node_ids",
+                )
+            membership[member] = index
+    if set(membership) != node_ids:
+        raise MagicalProgramAdmissionError(
+            "ProgramAtomicGroupIncomplete",
+            "Explicit atomic groups must own every node exactly once.",
+            path=path,
+        )
+    # Membership-list presentation does not reorder nodes. Explicit group order
+    # must agree with the existing deterministic order and all forward edges.
+    owners = [
+        membership[node["node_id"]]
+        for node in sorted(program["nodes"], key=lambda item: item["order"])
+    ]
+    if owners != sorted(owners):
+        raise MagicalProgramAdmissionError(
+            "ProgramAtomicGroupOrderViolation",
+            "Atomic groups cannot reverse or interleave deterministic node order.",
+            path=path,
+        )
+
+
 def admit_program(
     program: Mapping[str, Any],
     *,
@@ -513,6 +563,7 @@ def admit_program(
     _check_structured_values(document, limits)
     _check_contracts(document, set(registered_contracts))
     _check_graph(document, limits)
+    _check_atomic_groups(document)
     ordered_nodes = [
         node["node_id"]
         for node in sorted(

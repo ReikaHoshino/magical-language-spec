@@ -211,6 +211,15 @@ def prepare_program(
     report: Mapping[str, Any],
     world: SandboxWorld,
 ) -> PreparedProgramPlan:
+    # Structural admission/compiler support is not permission to silently
+    # flatten explicit source boundaries into the legacy single COMMIT.
+    # Check independently of an externally supplied (possibly forged) report.
+    if "execution_admission" in program:
+        raise ProgramRuntimeError(
+            "UnsupportedExecutionAdmission",
+            "Grouped execution is not supported by this runtime yet.",
+            stage="PREPARE",
+        )
     if world.commit_fenced or world.stop_state != "Running":
         raise ProgramRuntimeError(
             "ProgramEmergencyStopFence",

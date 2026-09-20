@@ -996,9 +996,22 @@ class Parser:
 
     def parse(self) -> _JSON:
         header, header_span = self._header()
+        admission = None
+        if self.current.value == "admission":
+            start = self._keyword("admission").start
+            policy = self._identifier()
+            if policy.value not in {"Incremental", "WholePlanPreflight"}:
+                raise MglsCompileError(
+                    "UnsupportedSemanticExtension",
+                    "Unknown execution-admission policy.",
+                    start=policy.start, end=policy.end, stage="PARSE",
+                )
+            end = self._expect(";").end
+            admission = {"policy": policy.value, "span": Span(start, end)}
         values: list[ParsedValue] = []
         nodes: list[ParsedNode] = []
         outputs: list[ParsedOutput] = []
+        groups: list[_JSON] = []
         phase = "values"
         while self.current.kind != "EOF":
             if self.current.kind != "IDENT":
@@ -1014,10 +1027,37 @@ class Parser:
                     raise self._error("MGLS values must precede nodes and outputs.")
                 values.append(self._value())
             elif keyword == "node":
+                if admission is not None:
+                    raise self._error(
+                        "An admission declaration requires every node inside "
+                        "an explicit atomic group."
+                    )
                 if phase == "outputs":
                     raise self._error("MGLS nodes must precede outputs.")
                 phase = "nodes"
                 nodes.append(self._node())
+            elif keyword == "atomic":
+                if admission is None or phase == "outputs":
+                    raise self._error(
+                        "Atomic groups require an admission declaration and "
+                        "must precede outputs."
+                    )
+                phase = "nodes"
+                start = self._keyword("atomic").start
+                group_id = self._identifier().value
+                self._expect("{")
+                members: list[ParsedNode] = []
+                while self.current.value == "node":
+                    members.append(self._node())
+                end = self._expect("}").end
+                if not members:
+                    raise self._error("Atomic groups must contain at least one node.")
+                groups.append({
+                    "group_id": group_id,
+                    "node_ids": [node.name for node in members],
+                    "span": Span(start, end),
+                })
+                nodes.extend(members)
             elif keyword == "output":
                 phase = "outputs"
                 outputs.append(self._output())
@@ -1037,6 +1077,8 @@ class Parser:
             "values": values,
             "nodes": nodes,
             "outputs": outputs,
+            "admission": admission,
+            "atomic_groups": groups,
         }
 
 
@@ -1447,6 +1489,31 @@ class Compiler:
             "edges": edges,
             "outputs": outputs,
         }
+        admission = self.parsed["admission"]
+        if admission is not None:
+            program["execution_admission"] = {
+                "contract_id": "execution-admission",
+                "revision": "1",
+                "policy": admission["policy"],
+                "atomic_groups": [
+                    {"group_id": group["group_id"], "node_ids": group["node_ids"]}
+                    for group in self.parsed["atomic_groups"]
+                ],
+            }
+            self._map(
+                "map:admission:policy", admission["span"], "exact", "root",
+                header["program_id"], field="execution_admission.policy",
+            )
+            self._map(
+                "map:admission:contract", admission["span"], "synthesized", "root",
+                header["program_id"], field="execution_admission.contract_id",
+            )
+            for index, group in enumerate(self.parsed["atomic_groups"]):
+                self._map(
+                    f"map:atomic-group:{index}", group["span"], "exact", "root",
+                    header["program_id"],
+                    field=f"execution_admission.atomic_groups.{index}",
+                )
         self._map(
             "map:header:program",
             header_span,

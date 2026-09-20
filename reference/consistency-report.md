@@ -2,6 +2,20 @@
 
 **Status:** **v1.0.0-rc.1 FINALIZED / NO WAIVERS** / public Issue #2 release and post-merge certification complete; final `v1.0.0` remains unauthorized.
 
+**Current unreleased status:** public Issue #25 (including public Issue #23 and
+public Issue #26) reopens the pre-final semantic surface. The RC verdict below
+is historical, not current final authorization. The explicit-group phase 2a
+foundation adds source/program representation, validation and source mappings;
+evaluation/PREPARE remain fail-closed with `UnsupportedExecutionAdmission`.
+There is no new group executor, lifecycle implementation or whole-plan proof.
+The legacy single-COMMIT path, six MKI operations, five lower classes, released
+4/65/14 surface and historical `spec/` are preserved.
+
+DefinitionSource: [execution-admission.md](execution-admission.md).
+Rule/test mapping: [structure evidence](../conformance/execution-admission-structure.json).
+Root TODO owns the implementation checkpoint and remaining phase 2b work.
+Public release blockers remain open; no version bump/new RC is authorized.
+
 **Renewed public audit baseline:** `0df7c42dfd741086cb0dcace040f69419f99acbb`
 
 **Historical pre-public preflight baseline:** `b1bfd46899ce063d1c9985c213a01163618958ef`

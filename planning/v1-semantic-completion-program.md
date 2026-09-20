@@ -245,8 +245,16 @@ not a substitute for that completed normative matrix.
 
 ## 7. Immediate next work and non-goals
 
-1. Publish this planning-only reconciliation separately from semantic code.
-2. Record the blocking architecture review on public PR #27/public Issue #25.
+2026-09-20 implementation checkpoint: phase 0 landed as public PR #28, exact
+main `05b32bc78b1c9607603006951bc4408ed1829c46`. Phase 2 is split for review:
+2a owns explicit source/program representation, structural checks/source maps
+and execution denial; 2b must implement the actual grouped runtime/preflight
+and representative proofs. The 2a branch is `agent/v1-explicit-atomic-groups`.
+Neither 2a nor its legacy green gates closes public Issue #23/public Issue #26.
+public PR #27 remains open until a complete replacement is reviewable.
+
+1. DONE: planning-only reconciliation landed separately in public PR #28.
+2. DONE: blocking architecture review recorded on public PR #27/public Issue #25.
 3. Implement accepted D-01 explicit group ownership, then rework public PR #27 within the existing
    runtime; do not land the candidate merely because its CI is green.
 4. Build the second program family and adversarial guard/replay cases alongside

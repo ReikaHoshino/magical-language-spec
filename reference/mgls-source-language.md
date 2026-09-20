@@ -145,6 +145,23 @@ available.
 
 ## 2. Encoding, normalization, whitespace, and comments
 
+### Unreleased explicit-group opt-in
+
+The optional `admission Incremental;` or `admission WholePlanPreflight;`
+declaration appears immediately after the existing header. When present, all
+nodes must be in nonempty `atomic <group-name> { ... }` blocks after values
+and before outputs. Blocks do not create local binding scopes. Group names have
+a separate namespace; group spelling is not an execution discriminator.
+Policy identifiers are case-sensitive enum values (unlike lowercase keywords).
+
+The compiler emits the closed `execution_admission` field, exact policy/block
+source mappings and unchanged node/edge lowering. With the declaration absent,
+it emits no group field and permits only ordinary node declarations.
+The authoritative partition/compatibility rules and the **current execution
+denial** are in [execution-admission.md](execution-admission.md).
+This is unfinished required v1 work, not a claim that the old released counts
+prove new admission semantics.
+
 Input MUST pass `SourceTextNormalizerV1` before tokenization:
 
 1. strict UTF-8 decoding;
@@ -185,7 +202,9 @@ is validated after decoding.
 
 ## 3. Namespaces, scopes, and ordering
 
-MGLS-0 has one source-file scope and four disjoint namespaces:
+MGLS-0 has one source-file scope and four legacy disjoint namespaces below.
+The explicit-group extension adds a separate group-name namespace, without
+introducing local value scopes:
 
 1. value/binding names;
 2. node names;

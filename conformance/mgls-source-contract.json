@@ -18,6 +18,19 @@
   "grammar": "grammar/mgls.ebnf",
   "reference": "reference/mgls-source-language.md",
   "source_map_schema": "schemas/mgls-source-map.schema.json",
+  "execution_admission_extension": {
+    "contract_id": "execution-admission",
+    "revision": "1",
+    "reference": "reference/execution-admission.md",
+    "source_policy": "admission Incremental | WholePlanPreflight;",
+    "source_group": "atomic <group-name> { <node-declarations> }",
+    "target": "execution_admission",
+    "group_membership": "explicit exhaustive disjoint ordered partition",
+    "absent": "unchanged single atomic COMMIT",
+    "implementation_status": "compile-and-structural-admission-only",
+    "execution_diagnostic": "UnsupportedExecutionAdmission",
+    "v1_completion": "blocked until runtime and required conformance proof land"
+  },
   "header_lowering": [
     {"source": "mgls", "target": "source contract validation", "required_value": "0"},
     {"source": "source", "target": "provenance.source.artifact_id"},

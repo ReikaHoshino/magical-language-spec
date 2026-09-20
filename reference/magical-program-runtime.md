@@ -12,6 +12,13 @@ Former pre-public archive Issue #89 module names are compatibility re-exports on
 
 ## 1. Common path
 
+The path below remains unchanged for programs **without**
+`execution_admission`. The current explicit-group foundation is compile /
+structural-admission-only; PREPARE rejects even a single explicit group with
+`UnsupportedExecutionAdmission`, independently of caller-supplied feasibility
+evidence. No partial group execution is claimed. See the
+[execution-admission owner](execution-admission.md) and outstanding v1 blockers.
+
 ```text
 MagicalProgram-0
   -> generic evaluator

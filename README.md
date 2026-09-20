@@ -61,7 +61,9 @@ control-plane COMMIT != all future consequences already occurred
 DEACTIVATE != rollback
 ```
 
-v1.0.0-rc.1はfinal v1.0.0ではありません。RCではcore breaking changeを計画せず、blocker fix、conformance/compatibility/migration correction、documentation、release engineeringだけを原則とします。final releaseはpublic Issue #3が所有し、RCでmaterial semantic redesignが必要と判明した場合は新しいv0.x stabilizationへ戻ります。
+v1.0.0-rc.1はfinal v1.0.0ではありません。released RCのsnapshotは不変ですが、current mainはpublic Issue #25（public Issue #23/public Issue #26を含む）のsemantic completionを進めています。final releaseはpublic Issue #3が所有し、全blocker解消後にexact-main auditとnew-RC判断が必要です。旧RC evidenceをfinal承認へ再利用しません。
+
+Unreleased: [明示的atomic-group形式](reference/execution-admission.md)のsource/program入力、compiler、構造検証を追加しています。現段階ではgroup付き入力の実行は `UnsupportedExecutionAdmission` として拒否します。既存のgroupなし入力は一括COMMITのままです。このfoundationだけではpublic Issue #23は完了しません。
 
 ## Reference implementation / conformanceを使う
 
